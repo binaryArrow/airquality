@@ -17,15 +17,18 @@ export class InfluxConnection{
 
     writePoint(point: Point){
         this.writeApi.writePoint(point)
-        this.writeApi.close().then(()=>{
-            console.log('WRITE DONE')
+        // with close() the connection closes and timed writes don't resolve
+        // TODO: maybe close connection on fullfillmend
+        this.writeApi.flush().then(() => {
+            console.log('WRITE of one point DONE')
         })
     }
     writePoints(points: Point[]){
         this.writeApi.writePoints(points)
         this.writeApi.close().then(()=>{
-            console.log('WRITE DONE')
+            console.log(`WRITE of ${points.length} points DONE`)
         })
     }
+
 
 }
