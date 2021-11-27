@@ -28,5 +28,17 @@
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
   \endentry
+
+  \entry{javascript_tut}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{Learn JavaScript - Full Course for Beginners}
+    \verb{url}
+    \verb https://www.youtube.com/watch?v=PkZNo7MFNFg
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
 \enddatalist
 \endinput
