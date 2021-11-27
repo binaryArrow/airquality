@@ -43,10 +43,19 @@ export default defineComponent({
     },
     drawPoint(event: any){
       this.canvas.beginPath()
-      this.canvas.arc(this.mousePosX, this.mousePosY, 10, 0, 2 * Math.PI)
+      this.canvas.arc(this.mousePosX, this.mousePosY, 7, 0, 2 * Math.PI)
       this.canvas.fillStyle = 'black'
       this.canvas.fill()
       this.tempPoints.push(new Point(this.mousePosX, this.mousePosY))
+      if(this.tempPoints.length > 1)
+        this.drawLineBetweenPoints(this.tempPoints[this.tempPoints.length - 1], this.tempPoints[this.tempPoints.length - 2] )
+    },
+    drawLineBetweenPoints(currentPoint: Point, lastPoint: Point){
+      this.canvas.beginPath()
+      this.canvas.moveTo(lastPoint.positionX, lastPoint.positionY)
+      this.canvas.lineTo(currentPoint.positionX, currentPoint.positionY)
+      this.canvas.lineWidth = 7
+      this.canvas.stroke()
     }
   }
 });
@@ -60,5 +69,6 @@ export default defineComponent({
 
 canvas{
   border: 3px solid black;
+  background-color: #c7b99f;
 }
 </style>
