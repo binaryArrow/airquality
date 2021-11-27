@@ -16,5 +16,17 @@
   {}
 \endgroup
 
-\datalist[entry]{nty/global//global/global}\enddatalist
+\datalist[entry]{nty/global//global/global}
+  \entry{influxdb_sql_db}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Compare InfluxDB to SQL databases}
+    \verb{url}
+    \verb https://docs.influxdata.com/influxdb/v1.8/concepts/crosswalk/
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+\enddatalist
 \endinput
