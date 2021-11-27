@@ -79,6 +79,18 @@
   'date'}
   \endentry
 
+  \entry{javascript_doc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{title}{JavaScript Tutorials}
+    \verb{url}
+    \verb https://developer.mozilla.org/en-US/docs/Web/Tutorials
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
   \entry{javascript_tut}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
