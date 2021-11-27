@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  27 NOV 2021 10:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  27 NOV 2021 10:45
 entering extended mode
-**./report_30_11_2021.tex
-(report_30_11_2021.tex
+**./template.tex
+(template.tex
 LaTeX2e <2021-06-01> patch level 1
 L3 programming layer <2021-08-27>
 (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -729,8 +729,8 @@ tex.def
 File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count416
 \l__pdf_internal_box=\box65
-) (report_30_11_2021.aux)
-\openout1 = `report_30_11_2021.aux'.
+) (template.aux)
+\openout1 = `template.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
 LaTeX Font Info:    ... okay on input line 37.
@@ -801,12 +801,11 @@ Package: xparse 2021-08-27 L3 Experimental document command parser
 )
 Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 )
-\openout3 = `report_30_11_2021-blx.bib'.
+\openout3 = `template-blx.bib'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'report_30_11_2021.bbl' not found.
-
-No file report_30_11_2021.bbl.
+Package biblatex Info: ... file 'template.bbl' found.
+ (template.bbl)
 Package biblatex Info: Reference section=0 on input line 37.
 Package biblatex Info: Reference segment=0 on input line 37.
 \c@lstlisting=\count423
@@ -817,110 +816,45 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 39.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 43.
+(Font)              <7> on input line 45.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 43.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 47.
+(Font)              <5> on input line 45.
 
-! LaTeX Error: File `images/logo' not found.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.69 		\includegraphics[scale=0.40]{images/logo}
-                                                
-I could not locate the file with any of these extensions:
-.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+LaTeX Warning: Reference `img:fra_logo' on page 1 undefined on input line 59.
 
 [1
 
 {C:/Users/lucas/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 99--100
 
- []
+LaTeX Warning: Empty bibliography on input line 90.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 111--112
-
- []
-
-[2]
-(C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-)
-(C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
-File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-)
-
-LaTeX Warning: Citation 'zigbee' on page 3 undefined on input line 151.
-
-
-LaTeX Warning: Citation 'sharelatex' on page 3 undefined on input line 151.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 151--152
-
- []
-
-
-LaTeX Warning: Citation 'tables' on page 3 undefined on input line 155.
-
-
-LaTeX Warning: Citation 'tables' on page 3 undefined on input line 155.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 155--156
-
- []
-
-[3]
-
-LaTeX Warning: Empty bibliography on input line 166.
-
-[4] (report_30_11_2021.aux)
+[2] (template.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
-(biblatex)                report_30_11_2021
-(biblatex)                and rerun LaTeX afterwards.
-
-Package logreq Info: Writing requests to 'report_30_11_2021.run.xml'.
-\openout1 = `report_30_11_2021.run.xml'.
+Package logreq Info: Writing requests to 'template.run.xml'.
+\openout1 = `template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 22327 strings out of 478927
- 438522 string characters out of 2852534
- 1125069 words of memory out of 3000000
- 39848 multiletter control sequences out of 15000+600000
- 409922 words of font info for 49 fonts, out of 8000000 for 9000
+ 21694 strings out of 478927
+ 430131 string characters out of 2852534
+ 930607 words of memory out of 3000000
+ 39242 multiletter control sequences out of 15000+600000
+ 407685 words of font info for 41 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 84i,8n,89p,1854b,1644s stack positions out of 5000i,500n,10000p,200000b,80000s
- <C:\Users\lucas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1000.pk><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmbx12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmbx9.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/lucas/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/lucas/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/luca
-s/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Use
-rs/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb>
-<C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
-r8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmr9.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmti10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmtt8.pfb>
-Output written on report_30_11_2021.pdf (4 pages, 179153 bytes).
+ 84i,8n,89p,1845b,1644s stack positions out of 5000i,500n,10000p,200000b,80000s
+<C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmr10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/lucas/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb>
+Output written on template.pdf (2 pages, 88560 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
+ 42 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
