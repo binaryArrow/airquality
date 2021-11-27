@@ -17,9 +17,6 @@
   color: #2c3e50;
 }
 */
-h1{
-  text-align: center;
-}
 #nav {
   text-align: center;
   padding: 30px;
