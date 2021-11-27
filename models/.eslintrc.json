@@ -12,6 +12,5 @@
         "allowImportExportEverywhere": true
     },
     "rules": {
-        "semi": ["error", "always"]
     }
 }

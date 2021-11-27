@@ -1,6 +1,6 @@
 import {Sensor} from "./Sensor";
 
-export class Room {
+export default class Room {
     roomName: string
     sensor: Sensor
     constructor(name: string, sensor: Sensor) {
