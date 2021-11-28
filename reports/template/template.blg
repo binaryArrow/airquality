@@ -22,47 +22,49 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: template-blx.bib
 Database file #2: bibliography.bib
+Warning--I didn't find a database entry for "scrum"
 Biblatex version: 3.16
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 7 entries,
+You've used 8 entries,
             6393 wiz_defined-function locations,
-            1223 strings with 9741 characters,
-and the built_in function-call counts, 17163 in all, are:
-= -- 675
-> -- 256
-< -- 161
-+ -- 113
-- -- 66
-* -- 889
-:= -- 1156
+            1229 strings with 9823 characters,
+and the built_in function-call counts, 19452 in all, are:
+= -- 752
+> -- 274
+< -- 186
++ -- 114
+- -- 68
+* -- 1007
+:= -- 1243
 add.period$ -- 0
-call.type$ -- 7
-change.case$ -- 28
-chr.to.int$ -- 78
-cite$ -- 12
-duplicate$ -- 2108
-empty$ -- 2229
+call.type$ -- 8
+change.case$ -- 32
+chr.to.int$ -- 84
+cite$ -- 14
+duplicate$ -- 2424
+empty$ -- 2567
 format.name$ -- 47
-if$ -- 3733
+if$ -- 4239
 int.to.chr$ -- 0
-int.to.str$ -- 7
+int.to.str$ -- 8
 missing$ -- 0
-newline$ -- 98
+newline$ -- 109
 num.names$ -- 41
-pop$ -- 2144
+pop$ -- 2492
 preamble$ -- 1
-purify$ -- 25
+purify$ -- 28
 quote$ -- 0
-skip$ -- 697
+skip$ -- 785
 stack$ -- 0
-substring$ -- 1276
-swap$ -- 644
-text.length$ -- 163
-text.prefix$ -- 6
+substring$ -- 1432
+swap$ -- 745
+text.length$ -- 185
+text.prefix$ -- 7
 top$ -- 1
-type$ -- 226
+type$ -- 260
 warning$ -- 0
-while$ -- 184
+while$ -- 197
 width$ -- 0
-write$ -- 92
+write$ -- 102
+(There was 1 warning)

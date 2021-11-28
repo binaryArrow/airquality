@@ -102,5 +102,17 @@
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
   \endentry
+
+  \entry{JS_docu}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{title}{The Modern Javascript Tutorial}
+    \verb{url}
+    \verb https://javascript.info
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
 \enddatalist
 \endinput
