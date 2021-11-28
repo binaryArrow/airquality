@@ -5,13 +5,14 @@
       <canvas ref="drawingCanvas" :width="width" :height="height" @mousemove="getMouseCoordinatesInCanvas"
               @click="drawPoint"></canvas>
     </div>
-<!--    <h1 v-for="point in tempPoints" :key="point">{{ point }}</h1>-->
+    <!--    <h1 v-for="point in tempPoints" :key="point">{{ point }}</h1>-->
   </div>
   <div class="modal-container">
     <add-modal @close="toggleModal" :is-active="modalActive">
       <div class="modal-content">
-        <h1>ADD ROOM</h1>
-        <p> add here name input and save button </p>
+        <p><b>{{ addInformation }}</b></p>
+        <input type="text" v-model="newRoomName" placeholder="Rooom name">
+        <button class="button is-success is-small" @click="addNewRoom">ADD</button>
       </div>
     </add-modal>
     <button class="button is-primary" @click="toggleModal" v-show="!modalActive" type="button">ADD ROOM</button>
@@ -21,7 +22,7 @@
 <script lang="ts">
 import {defineComponent, onMounted, ref, toRefs} from 'vue';
 import Room from "@/../../models/Room";
-import {Sensor} from "@/../../models/Sensor";
+import Sensor from "@/../../models/Sensor";
 import Point from "@/../../models/Point";
 import AddModal from '@/components/AddModal.vue'
 
@@ -34,19 +35,21 @@ export default defineComponent({
   data() {
     return {
       canvas: {} as CanvasRenderingContext2D,
+      canvasFromView:{} as HTMLCanvasElement,
       mousePosX: 0,
       mousePosY: 0,
       width: 0,
       height: 0,
       rooms: [] as Room[],
       tempPoints: [] as Point[],
-      modalActive: ref(false)
+      modalActive: ref(false),
+      newRoomName: '',
+      addInformation: 'add a name for the room'
     }
   },
   mounted() {
-    const canvasFromView = this.$refs['drawingCanvas'] as HTMLCanvasElement
-    this.canvas = canvasFromView.getContext('2d') as CanvasRenderingContext2D
-    this.rooms.push(new Room("can", new Sensor(12)))
+    this.canvasFromView = this.$refs['drawingCanvas'] as HTMLCanvasElement
+    this.canvas = this.canvasFromView.getContext('2d') as CanvasRenderingContext2D
     this.width = window.innerWidth / 1.5
     this.height = window.innerHeight / 1.5
   },
@@ -66,16 +69,61 @@ export default defineComponent({
       if (this.tempPoints.length > 1)
         this.drawLineBetweenPoints(this.tempPoints[this.tempPoints.length - 1], this.tempPoints[this.tempPoints.length - 2])
     },
-    drawLineBetweenPoints(currentPoint: Point, lastPoint: Point) {
+    drawExistingPoint(point: Point) {
       this.canvas.beginPath()
-      this.canvas.moveTo(lastPoint.positionX, lastPoint.positionY)
-      this.canvas.lineTo(currentPoint.positionX, currentPoint.positionY)
-      this.canvas.lineWidth = 7
-      this.canvas.strokeStyle = 'red'
-      this.canvas.stroke()
+      this.canvas.arc(
+          point.positionX ,
+          point.positionY,
+          7,
+          0,
+          2 * Math.PI
+      )
+      this.canvas.fillStyle = 'green'
+      this.canvas.fill()
+    },
+    drawLineBetweenPoints(currentPoint: Point, lastPoint: Point, points?: Point[]) {
+      if(!points) {
+        this.canvas.beginPath()
+        this.canvas.moveTo(lastPoint.positionX, lastPoint.positionY)
+        this.canvas.lineTo(currentPoint.positionX, currentPoint.positionY)
+        this.canvas.lineWidth = 7
+        this.canvas.strokeStyle = 'red'
+        this.canvas.stroke()
+      } else {
+        for(let i = 1; i < points?.length; i++){
+          this.canvas.beginPath()
+          this.canvas.moveTo(points[i - 1].positionX, points[i - 1].positionY)
+          this.canvas.lineTo(points[i].positionX, points[i].positionY)
+          this.canvas.lineWidth = 7
+          this.canvas.strokeStyle = 'green'
+          this.canvas.stroke()
+        }
+      }
     },
     toggleModal() {
-      this.modalActive = !this.modalActive
+      if (this.tempPoints.length > 1)
+        this.modalActive = !this.modalActive
+    },
+    addNewRoom() {
+      if (this.newRoomName.length < 1) {
+        this.addInformation = 'Enter a Room name first!!!'
+      } else {
+        let newRoom = new Room(this.newRoomName, this.tempPoints)
+        this.rooms.push(newRoom)
+        this.newRoomName = ''
+        this.tempPoints = []
+        this.modalActive = false
+        this.redrawCavas(this.rooms)
+      }
+    },
+    redrawCavas(existingRooms: Room[]){
+      this.canvas.clearRect(0, 0, this.canvasFromView.width , this.canvasFromView.height)
+      existingRooms.forEach((room)=>{
+        room.points.forEach((point)=>{
+          this.drawExistingPoint(point)
+        })
+        this.drawLineBetweenPoints(new Point(0,0), new Point(0,0), room.points)
+      })
     }
   }
 });
@@ -83,15 +131,12 @@ export default defineComponent({
 
 <style lang="scss">
 
-.sketching-board{
+.sketching-board {
 
 }
-.modal-container{
+
+.modal-container {
   text-align: center;
-  .modal-content{
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 .board {

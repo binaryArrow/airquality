@@ -6,7 +6,7 @@
           <fa @click="closeModal" icon="times-circle"></fa>
           <!-- modal content -->
           <slot />
-          <button class="button" @click="closeModal" type="button">Close</button>
+<!--          <button class="button" @click="closeModal" type="button">Close</button>-->
         </div>
       </transition>
     </div>

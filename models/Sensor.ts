@@ -1,4 +1,4 @@
-export class Sensor{
+export default class Sensor{
     sensorId: number
 
     constructor(id: number) {
