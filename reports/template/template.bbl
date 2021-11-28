@@ -53,6 +53,32 @@
   'date'}
   \endentry
 
+  \entry{datasheetcss811}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Datasheet CCS811}
+    \verb{url}
+    \verb https://learn.adafruit.com/adafruit-ccs811-air-quality-sensor?view=al
+    \verb l#documents
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{datasheetscd41}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Datasheet SCD41}
+    \verb{url}
+    \verb https://www.sensirion.com/en/environmental-sensors/evaluation-kit-sek
+    \verb -environmental-sensing/evaluation-kit-sek-scd41/#c50745
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
   \entry{datasheetsht21}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{D}
