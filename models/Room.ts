@@ -7,6 +7,7 @@ export default class Room {
     roomName: string
     points: Point[]
     sensor?: Sensor
+    volume?: number
     constructor(name: string, points: Point[], sensor?: Sensor) {
         this.uuid = uuidv4()
         this.roomName = name

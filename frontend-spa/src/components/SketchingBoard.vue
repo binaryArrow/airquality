@@ -5,7 +5,6 @@
       <canvas ref="drawingCanvas" :width="width" :height="height" @mousemove="getMouseCoordinatesInCanvas"
               @click="drawPoint"></canvas>
     </div>
-    <!--    <h1 v-for="point in tempPoints" :key="point">{{ point }}</h1>-->
   </div>
   <div class="modal-container">
     <add-modal @close="toggleModal" :is-active="modalActive">
@@ -60,7 +59,7 @@ export default defineComponent({
       this.mousePosX = event.clientX - rect.left
       this.mousePosY = event.clientY - rect.top
     },
-    drawPoint(event: any) {
+    drawPoint() {
       this.canvas.beginPath()
       this.canvas.arc(this.mousePosX, this.mousePosY, 7, 0, 2 * Math.PI)
       this.canvas.fillStyle = 'red'
