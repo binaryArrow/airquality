@@ -129,6 +129,18 @@
   'date'}
   \endentry
 
+  \entry{realtiveluftfeuchtigkeit}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{Relative Luftfeuchtigkeit}
+    \verb{url}
+    \verb https://www.ratgeber-luftfeuchtigkeit.de/relative-luftfeuchtigkeit/
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
   \entry{JS_docu}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{T}
@@ -136,6 +148,32 @@
     \field{title}{The Modern Javascript Tutorial}
     \verb{url}
     \verb https://javascript.info
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{eco2}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{title}{TVOC and ECO2 Sensors}
+    \verb{url}
+    \verb https://wolles-elektronikkiste.de/en/tvoc-and-eco2-sensors
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{tvoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{title}{Understanding TVOC: What You Need To Know About Volatile
+  Oragnic Compounds}
+    \verb{url}
+    \verb https://learn.kaiterra.com/en/air-academy/understanding-tvoc-volatile
+    \verb -organic-compounds
     \endverb
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
