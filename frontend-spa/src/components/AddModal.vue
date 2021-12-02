@@ -3,7 +3,6 @@
     <div v-show="isActive" class="add-modal">
       <transition name="modal-inner-animation">
         <div v-show="isActive" class="inner-modal">
-          <fa class="modal-close" @click="closeModal" icon="times-circle"></fa>
           <!-- modal content -->
          <slot />
 <!--          <button class="button" @click="closeModal" type="button">Close</button>-->
@@ -18,12 +17,6 @@ export default {
   name: "AddModal",
   props:{
     isActive: Boolean
-  },
-  emits:['close'],
-  methods: {
-    closeModal(){
-      this.$emit('close')
-    }
   }
 }
 </script>
@@ -47,12 +40,6 @@ export default {
 .modal-inner-animation-enter-from,
 .modal-inner-animation-leave-to {
   opacity: 0;
-}
-
-.modal-close {
-  left: 1130px;
-  top: 174px;
-  z-index: 2;
 }
 
 </style>
