@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  4 DEC 2021 10:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  4 DEC 2021 12:21
 entering extended mode
 **./template.tex
 (template.tex
@@ -961,7 +961,13 @@ ben be-ar-bei-tet. Zun[]achst
  []
 
 [3 <./images/sht21_commandset.jpg> <./images/sht21_tempformula.jpg> <./images/s
-ht21_rhformula.jpg>] [4]
+ht21_rhformula.jpg>]
+Overfull \hbox (0.22269pt too wide) in paragraph at lines 127--128
+\OT1/cmr/m/n/10 schen dem Brow-ser und ei-nem Ser-ver. Da-durch wer-den Be-nut-
+zerein-ga-ben schnel-
+ []
+
+[4]
 Overfull \hbox (9.51521pt too wide) in paragraph at lines 136--136
 []\OT1/cmr/m/it/10 Datasheet SCD41\OT1/cmr/m/n/10 . \OT1/cmr/m/sc/10 url\OT1/cm
 r/m/n/10 : $\OT1/cmtt/m/n/10 https : / / www . sensirion . com / en / environme
@@ -1005,7 +1011,7 @@ Package logreq Info: Writing requests to 'template.run.xml'.
 Here is how much of TeX's memory you used:
  21999 strings out of 478927
  438312 string characters out of 2851550
- 935269 words of memory out of 3000000
+ 935239 words of memory out of 3000000
  39536 multiletter control sequences out of 15000+600000
  408500 words of font info for 44 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
@@ -1021,7 +1027,7 @@ ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Max
 Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti
 10.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/cm/cmtt10.pfb>
-Output written on template.pdf (5 pages, 376555 bytes).
+Output written on template.pdf (5 pages, 376993 bytes).
 PDF statistics:
  74 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
