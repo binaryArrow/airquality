@@ -25,10 +25,9 @@
 import {defineComponent, ref} from 'vue';
 import Room from "@/../../models/Room";
 import Sensor from "@/../../models/Sensor";
-import Point from "@/../../models/Point";
 import AddModal from '@/components/AddModal.vue'
 import {fabric} from "fabric";
-import {Circle, Line, Object} from "fabric/fabric-impl";
+import {Circle, Line} from "fabric/fabric-impl";
 
 interface CircleWithLine extends fabric.Object, fabric.Circle {
   line1?: fabric.Line,
@@ -160,18 +159,6 @@ export default defineComponent({
       return new fabric.Circle(opt)
 
     },
-    // drawExistingPoint(point: Point) {
-    //   this.canvas.beginPath()
-    //   this.canvas.arc(
-    //       point.positionX,
-    //       point.positionY,
-    //       7,
-    //       0,
-    //       2 * Math.PI
-    //   )
-    //   this.canvas.fillStyle = 'green'
-    //   this.canvas.fill()
-    // },
     toggleModal() {
       let circle1
       let circle2
@@ -208,13 +195,12 @@ export default defineComponent({
         this.lengthOfLinesInRooms = 0
         console.log(`in canvas: ${this.canvas.getObjects().length}`)
         this.canvas.clear()
-        let pointsFromRooms: fabric.Object[] = []
         this.rooms.forEach(it => {
-          it.points.forEach(it => {
-            this.canvas.add(it)
+          it.points.forEach(room => {
+            this.canvas.add(room)
           })
-          it.lines.forEach(it => {
-            this.canvas.add(it)
+          it.lines.forEach(room => {
+            this.canvas.add(room)
           })
           this.lengthOfCirclesInRooms += it.points.length
           this.lengthOfLinesInRooms += it.lines.length
@@ -225,15 +211,6 @@ export default defineComponent({
       console.log(`length of rooms: ${this.lengthOfObjectsInRooms}`)
       }
     },
-    // redrawCavas(existingRooms: Room[]) {
-    //   this.canvas.clearRect(0, 0, this.canvasFromView.width, this.canvasFromView.height)
-    //   existingRooms.forEach((room) => {
-    //     room.points.forEach((point) => {
-    //       this.drawExistingPoint(point)
-    //     })
-    //     this.drawLineBetweenPoints(new Point(0, 0), new Point(0, 0), room.points)
-    //   })
-    // }
   }
 });
 </script>
@@ -255,6 +232,9 @@ export default defineComponent({
     width: 400px;
     border-radius: 10px;
   }
+}
+.button{
+  margin: 5px;
 }
 
 .board {
