@@ -32,7 +32,7 @@ import {Circle, Line, Object} from "fabric/fabric-impl";
 
 interface CircleWithLine extends fabric.Object, fabric.Circle {
   line1?: fabric.Line,
-  line2?: fabric.Line
+  line2?: fabric.Line,
 }
 
 export default defineComponent({
@@ -54,7 +54,10 @@ export default defineComponent({
       modalActive: ref(false),
       newRoomName: '',
       addInformation: 'add a name for the room',
-      addInputClassName: 'input is-rounded'
+      addInputClassName: 'input is-rounded',
+      lengthOfObjectsInRooms: 0,
+      lengthOfCirclesInRooms: 0,
+      lengthOfLinesInRooms: 0
     }
   },
   mounted() {
@@ -107,7 +110,8 @@ export default defineComponent({
       let newPoint = this.makeCircle(this.mousePosX, this.mousePosY)
       let newLine
       this.canvas.add(newPoint)
-      if (this.canvas.getObjects('circle').length >= 2) {
+      console.log(`in rooms: ${this.lengthOfCirclesInRooms} < ${(this.canvas.getObjects('circle').length - 1)}`)
+      if (this.canvas.getObjects('circle').length >= 2 && (this.lengthOfCirclesInRooms < this.canvas.getObjects('circle').length - 1)) {
         newLine = this.makeLine([
           this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 2].getCenterPoint().x,
           this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 2].getCenterPoint().y,
@@ -123,6 +127,7 @@ export default defineComponent({
         let secondLine = this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 2] as CircleWithLine
         secondLine.set("line2", newLine)
       }
+      console.log("Circles in canvas: ")
       console.log(this.canvas.getObjects('circle'))
     },
     makeLine(coords: number[]) {
@@ -149,7 +154,7 @@ export default defineComponent({
         line1: line1,
         line2: line2,
         hasControls: false,
-        hasBorders: false
+        hasBorders: false,
       } as CircleWithLine
 
       return new fabric.Circle(opt)
@@ -173,8 +178,10 @@ export default defineComponent({
       this.addInputClassName = 'input is-rounded'
       this.addInformation = 'add a name for the room'
       // if statement prüft ob der Raum geschlossen wurde
-      if (this.canvas.getObjects('circle')[0] && this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 1]) {
-        circle1 = this.canvas.getObjects('circle')[0] as fabric.Circle
+      console.log(this.canvas.getObjects('circle')[this.lengthOfCirclesInRooms])
+      console.log(this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 1])
+      if (this.canvas.getObjects('circle')[this.lengthOfCirclesInRooms] && this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 1]) {
+        circle1 = this.canvas.getObjects('circle')[this.lengthOfCirclesInRooms] as fabric.Circle
         circle2 = this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 1] as fabric.Circle
         if (circle1.top === circle2.top && circle1.left === circle2.left)
           this.modalActive = !this.modalActive
@@ -185,12 +192,37 @@ export default defineComponent({
         this.addInformation = 'Enter a Room name first!!!'
         this.addInputClassName = 'input is-rounded is-danger'
       } else {
-        let linesWithoutGrid = this.canvas.getObjects('line').slice(120, this.canvas.getObjects('line').length) as Line[]
-        let newRoom = new Room(this.newRoomName, this.canvas.getObjects('circle') as Circle[], linesWithoutGrid)
+        this.canvas.getObjects().slice(120, this.canvas.getObjects().length).forEach(it=>it.set('fill', '#30880d'))
+        this.canvas.getObjects().forEach(it=>it.set("selectable", false))
+        this.canvas.getObjects('line').splice(120, this.canvas.getObjects('line').length).forEach((it)=>{
+          it.stroke = '#30880d'
+        })
+        let linesWithoutGrid = this.canvas.getObjects('line').slice(120 + this.lengthOfLinesInRooms, this.canvas.getObjects('line').length) as Line[]
+        let newRoom = new Room(this.newRoomName, this.canvas.getObjects('circle')
+            .slice(this.lengthOfCirclesInRooms, this.canvas.getObjects('circle').length) as Circle[], linesWithoutGrid)
+
         this.rooms.push(newRoom)
         this.newRoomName = ''
         this.modalActive = false
+        this.lengthOfCirclesInRooms = 0
+        this.lengthOfLinesInRooms = 0
+        console.log(`in canvas: ${this.canvas.getObjects().length}`)
+        this.canvas.clear()
+        let pointsFromRooms: fabric.Object[] = []
+        this.rooms.forEach(it => {
+          it.points.forEach(it => {
+            this.canvas.add(it)
+          })
+          it.lines.forEach(it => {
+            this.canvas.add(it)
+          })
+          this.lengthOfCirclesInRooms += it.points.length
+          this.lengthOfLinesInRooms += it.lines.length
+          this.lengthOfObjectsInRooms += (it.points.length + it.lines.length)
+        })
+        this.drawGrid()
         // this.redrawCavas(this.rooms)
+      console.log(`length of rooms: ${this.lengthOfObjectsInRooms}`)
       }
     },
     // redrawCavas(existingRooms: Room[]) {
