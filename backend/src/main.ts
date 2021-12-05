@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 
 app.listen(8000, () => console.log('Server running'))
 
+
 function timedDataCreation(iterations: number) {
     setTimeout(() => {
         let temperaturePoint: Point = new Point('temperature')

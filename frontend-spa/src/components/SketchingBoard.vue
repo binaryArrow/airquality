@@ -7,7 +7,7 @@
       <add-modal :is-active="modalActive">
         <div class="modal-content">
           <p><b>{{ addInformation }}</b></p>
-          <input v-bind:class="addInputClassName" type="text" v-model="newRoomName" placeholder="Rooom name">
+          <input v-bind:class="addInputClassName" type="text" v-model="newRoomName" placeholder="Room name">
           <button class="button is-success" @click="addNewRoom">ADD</button>
           <button class="button is-danger" @click="toggleModal">CANCEL</button>
         </div>
