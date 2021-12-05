@@ -92,7 +92,7 @@ Neben dem ausbessern vorhandenem Inhalts haben wir uns Gedanken über unsere Vor
 Des Weiteren spielte wie zuvor erwähnt auch das Schaffen einer geeigneten Programmierumgebung samt der Einarbeitung in Javascript diese Woche für mich eine große Rolle. Zuerst habe ich die beiden IDEs Webstorm und IntelliJ IDEA Ultimate eingerichtet. Dabei soll Webstorm der Entwicklung in Javascript und IntelliJ der Entwicklung in Java dienen. Weil ich in Javascript noch nicht allzu viel Programmiererfahrung gesammelt habe, habe ich mich in die Sprache eingearbeitet. Hilfreich waren dabei eine Javascript Dokumentation~\cite{JS_docu} sowie Lerninhalte in Videoform~\cite{javascript_tut}. Außerdem habe ich noch die GitHub Desktop Anwendung auf meinem Rechner eingerichtet und mich mit LaTex auseinandergesetzt und die dazugehörigen Anwendungen installiert.
 
 \subsection{Lucas Merkert}
-Einarbeitung SHT21: Der SHT21 Sensor wird über den I2C-Bus angesprochen {Abbildung \ref{img:sht21_commandset}} um die Temperatur und relative Luftfeuchtigkeit zu messen. Der Sensor gibt die Temperatur in einer 14 Bit Auflösung und die Relative Luftfeuchtigkeit in einer 12 Bit Auflösung zurück. Die Werte können dann mit den Formel aus {Abbildung \ref{img:sht21_tempformula}} und {Abbildung \ref{img:sht21_rhformula}} berechnet werden. Dabei ist das Problem aufgetreten wie genau man den Sensor über HAL\_WriteI2cPacket() anspricht.
+Einarbeitung SHT21: Der SHT21 Sensor wird über den I$^2$C-Bus angesprochen {Abbildung \ref{img:sht21_commandset}} um die Temperatur und relative Luftfeuchtigkeit zu messen. Der Sensor gibt die Temperatur in einer 14 Bit Auflösung und die Relative Luftfeuchtigkeit in einer 12 Bit Auflösung zurück. Die Werte können dann mit den Formel aus {Abbildung \ref{img:sht21_tempformula}} und {Abbildung \ref{img:sht21_rhformula}} berechnet werden. Dabei ist das Problem aufgetreten wie genau man den Sensor über HAL\_WriteI2cPacket() anspricht. Mit der Lösung aus dem Forumpost sollte sich dies geklärt haben.
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.60]{images/sht21_commandset}
@@ -111,6 +111,33 @@ Einarbeitung SHT21: Der SHT21 Sensor wird über den I2C-Bus angesprochen {Abbild
 	\caption{Formel zur Berechnung der relativen Luftfeuchtigkeit~\cite{datasheetsht21}}
 	\label{img:sht21_rhformula}
 \end{figure}
+
+\textbf{Luftqualitäts Faktoren}~\cite{faktoren_luftquali}
+\begin{itemize}
+	\item Luftfeuchte
+	\begin{enumerate}
+		\item $>23$\% =$>$ Feuchtigkeitsverlust beim Atmen nur noch bedingt kompensierbar, Bauschäden, höhere Chance auf Elektroschocks
+		\item $>40$\% =$>$ austrocknen der Haut, Schleimhaut und Augen
+		\item $<60$\% =$>$ Schimmelbildung =$>$ Asthma, Allergien
+		\item $<80$\% =$>$ optimale Feuchtigkeit für Milben, Parasiten, Pilzen
+	\end{enumerate}
+	\item VOC
+	\begin{enumerate}
+		\item Emissionsquellen: Bauprodukte, Möbel, Lack, Lösungsmittel verdunsten, Tabakrauch, Menschen, Tiere, Mikroorganismen höheres Risiko bei Neubau/Renovierung
+		\item Schäden. Geruchsbelästigung, Atemwegs-/Augenreiz, Schädigung des Nervensystems, Allergien, Krebs, Erbgutschädigung, Fortpflanzungsschädigen
+		\item RW 1: lebenslange Aussetzung führt zu keine Auswirkung (>0,3mg/m$^3$)
+		\item RW 2: Schäden bei anfälligen Leuten sind zu erwarten
+		\item RW gilt für alle Räume in denen keine Gefahrenstoffe verwendet werden
+		\item VOC misst die gesamt Anzahl der Partikel in der Luft, einzelne Partikel könne daraus nicht abgelesen werden
+	\end{enumerate}
+	\item Feinstaub
+	\begin{enumerate}
+		\item Arten von Feinstaub: PM10, PM2.5, PM0.1 (Mikrometer)
+		\item Je kleiner die Partikel desto weiter können diese in den Körper, vor allem die Lunge eindringen und diese beschädigen
+		\item Emissionsquellen: Tabakrauch, Kerzenruß, Kochen, Computer, Drucker, Heizen ohne lüften
+		\item Maßnahmen: saugen, wischen(nass!), lüften, nicht mehr als 22C heizen, Dunstabzugshaube in der Küche, Luftreiniger
+	\end{enumerate}
+\end{itemize}
 
 \subsection{Achim Glaesmann}
 In der vergangenen Woche wurden von mir folgende Aufgaben bearbeitet. Zunächst wurde das Pflichtenheft ausgebessert, wobei von mir die Projektbeschreibung angefertigt wurde.
@@ -134,5 +161,4 @@ Eine geeignete Ticketumgebung um die Übersicht für die Entwickler zu erhalten 
 %----------------------------------------------------------------------------
 % Bibliography
 %----------------------------------------------------------------------------	
-
 \end{document}
