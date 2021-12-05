@@ -68,8 +68,12 @@
 
 \subsection{Friedrich Just}
 In dieser Woche habe ich mich mit dem Pflichtenheft befasst, mir angesehen, welche Sensoren wir haben und was diese können. Ich habe mir die passenden Datenblätter~\cite{datasheetcss811}~\cite{datasheetscd41}~\cite{datasheetsht21} zusammengesucht. In diesen sind mir einige Begriffe unklar gewesen, wie VOC bzw. TVOC~\cite{tvoc}, eCO2~\cite{eco2} und relative Luftfeuchtigkeit~\cite{realtiveluftfeuchtigkeit}. Dazu habe ich recherchiert. Danach habe ich diese durchgearbeitet, um die Sensoren und deren Funktionsweise genauer zu verstehen. Außerdem habe ich mich mit den Funkmodulen auseinandergesetzt und wollte den Temperatursensor aus dem ZigBee-Set(LM73) und das ZigBee-Netzwerk miteinander verbinden, so dass die Sensordaten an den Koordinator weitergeleitet werden. Während dieser Zeit habe ich mich erneut mit dem I$^2$C-Bus und der Übertragung von Daten beschäftigt.
-{Abbildung \ref{img:scd41_commandset}}
+lesen 3 Bytes jeder Messwert lang 2 Byte Messauflösung und ein Byte CRC Checksum für die Fehlererkennung {Abbildung \ref{img:scd41_commandset}}
 i2c Adresse 0x62 ~\cite{datasheetscd41}Seite 7
+grünes Kabel SDA 
+Rotes Kabel VDD
+Gelbes Kabel SCL
+Schwarzes Kabel GND~\cite{sht21cabelconf}
 
 \begin{figure}[!h]
 	\centering

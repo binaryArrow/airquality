@@ -22,13 +22,14 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: template-blx.bib
 Database file #2: bibliography.bib
+Warning--I didn't find a database entry for "sht21cabelconf"
 Warning--I didn't find a database entry for "scrum"
 Biblatex version: 3.16
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 You've used 11 entries,
             6393 wiz_defined-function locations,
-            1238 strings with 10215 characters,
+            1239 strings with 10229 characters,
 and the built_in function-call counts, 24467 in all, are:
 = -- 842
 > -- 250
@@ -67,4 +68,4 @@ warning$ -- 0
 while$ -- 194
 width$ -- 0
 write$ -- 124
-(There was 1 warning)
+(There were 2 warnings)
