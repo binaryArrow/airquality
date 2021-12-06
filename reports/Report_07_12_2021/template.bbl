@@ -61,6 +61,11 @@
     \field{sortinit}{E}
     \field{sortinithash}{E}
     \field{title}{Einführung zu Websockets: Sockets im Web}
+    \verb{url}
+    \verb https://www.html5rocks.com/de/tutorials/websockets/basics/
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
   \endentry
 
   \entry{faktoren_luftquali}{online}{}
@@ -105,6 +110,11 @@
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \field{title}{Socket IO Documentation}
+    \verb{url}
+    \verb https://socket.io/docs/v4/
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
   \endentry
 
   \entry{eco2}{online}{}
@@ -162,6 +172,11 @@
     \field{sortinit}{W}
     \field{sortinithash}{W}
     \field{title}{Wikipedia - Socket.IO}
+    \verb{url}
+    \verb https://de.wikipedia.org/wiki/Socket.IO
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
   \endentry
 
   \entry{webSocket1}{online}{}
@@ -169,6 +184,11 @@
     \field{sortinit}{W}
     \field{sortinithash}{W}
     \field{title}{Wikipedia - WebSocket}
+    \verb{url}
+    \verb https://de.wikipedia.org/wiki/WebSocket
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
   \endentry
 \enddatalist
 \endinput

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  6 DEC 2021 17:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  6 DEC 2021 17:24
 entering extended mode
 **./template.tex
 (template.tex
@@ -840,6 +840,12 @@ Package biblatex Warning: BibTeX reported the following issues
 
 
 Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'webSocket2':
+(biblatex)                - Invalid format of field 'date' 
+(biblatex)                - Invalid format of field 'date'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'faktoren_luftquali':
 (biblatex)                - Invalid format of field 'date' 
 (biblatex)                - Invalid format of field 'date'.
@@ -853,6 +859,12 @@ Package biblatex Warning: BibTeX reported the following issues
 
 Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'realtiveluftfeuchtigkeit':
+(biblatex)                - Invalid format of field 'date' 
+(biblatex)                - Invalid format of field 'date'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'socketIO2':
 (biblatex)                - Invalid format of field 'date' 
 (biblatex)                - Invalid format of field 'date'.
 
@@ -877,6 +889,18 @@ Package biblatex Warning: BibTeX reported the following issues
 
 Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'Node.js':
+(biblatex)                - Invalid format of field 'date' 
+(biblatex)                - Invalid format of field 'date'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'socketIO1':
+(biblatex)                - Invalid format of field 'date' 
+(biblatex)                - Invalid format of field 'date'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'webSocket1':
 (biblatex)                - Invalid format of field 'date' 
 (biblatex)                - Invalid format of field 'date'.
 
@@ -986,6 +1010,13 @@ soren /
  []
 
 
+Overfull \hbox (13.68718pt too wide) in paragraph at lines 170--170
+[]\OT1/cmr/m/it/10 Einf[]uhrung zu Web-sockets: Sockets im Web\OT1/cmr/m/n/10 .
+ \OT1/cmr/m/sc/10 url\OT1/cmr/m/n/10 : $\OT1/cmtt/m/n/10 https : / / www . html
+5rocks .
+ []
+
+
 Overfull \hbox (18.55983pt too wide) in paragraph at lines 170--170
 []\OT1/cmr/m/it/10 How to ge-ne-ra-te dum-my da-ta in Py-thon\OT1/cmr/m/n/10 . 
 \OT1/cmr/m/sc/10 url\OT1/cmr/m/n/10 : $\OT1/cmtt/m/n/10 https : / / towardsdata
@@ -1004,6 +1035,13 @@ Overfull \hbox (1.98201pt too wide) in paragraph at lines 170--170
 []\OT1/cmr/m/it/10 Wikipedia - Ex-press.js\OT1/cmr/m/n/10 . \OT1/cmr/m/sc/10 ur
 l\OT1/cmr/m/n/10 : $\OT1/cmtt/m/n/10 https : / / de . wikipedia . org / wiki / 
 Express .
+ []
+
+
+Overfull \hbox (13.30411pt too wide) in paragraph at lines 170--170
+[]\OT1/cmr/m/it/10 Wikipedia - Web-Socket\OT1/cmr/m/n/10 . \OT1/cmr/m/sc/10 url
+\OT1/cmr/m/n/10 : $\OT1/cmtt/m/n/10 https : / / de . wikipedia . org / wiki / W
+ebSocket$\OT1/cmr/m/n/10 . 
  []
 
 [6] (template.aux)
@@ -1040,7 +1078,7 @@ Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
 ts/cm/cmr7.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/publ
 ic/amsfonts/cm/cmti10.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts
 /type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on template.pdf (6 pages, 388694 bytes).
+Output written on template.pdf (6 pages, 389529 bytes).
 PDF statistics:
  87 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
