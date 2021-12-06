@@ -68,6 +68,19 @@
   'date'}
   \endentry
 
+  \entry{sht21cableconf}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{title}{Evaluation Kit SEK-SCD41}
+    \verb{url}
+    \verb https://www.sensirion.com/en/environmental-sensors/evaluation-kit-sek
+    \verb -environmental-sensing/evaluation-kit-sek-scd41/
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
   \entry{faktoren_luftquali}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{F}
@@ -93,18 +106,6 @@
   'date'}
   \endentry
 
-  \entry{realtiveluftfeuchtigkeit}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
-    \field{title}{Relative Luftfeuchtigkeit}
-    \verb{url}
-    \verb https://www.ratgeber-luftfeuchtigkeit.de/relative-luftfeuchtigkeit/
-    \endverb
-    \warn{\item Invalid format of field 'date' \item Invalid format of field
-  'date'}
-  \endentry
-
   \entry{socketIO2}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{S}
@@ -112,32 +113,6 @@
     \field{title}{Socket IO Documentation}
     \verb{url}
     \verb https://socket.io/docs/v4/
-    \endverb
-    \warn{\item Invalid format of field 'date' \item Invalid format of field
-  'date'}
-  \endentry
-
-  \entry{eco2}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{T}
-    \field{sortinithash}{T}
-    \field{title}{TVOC and ECO2 Sensors}
-    \verb{url}
-    \verb https://wolles-elektronikkiste.de/en/tvoc-and-eco2-sensors
-    \endverb
-    \warn{\item Invalid format of field 'date' \item Invalid format of field
-  'date'}
-  \endentry
-
-  \entry{tvoc}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{U}
-    \field{sortinithash}{U}
-    \field{title}{Understanding TVOC: What You Need To Know About Volatile
-  Oragnic Compounds}
-    \verb{url}
-    \verb https://learn.kaiterra.com/en/air-academy/understanding-tvoc-volatile
-    \verb -organic-compounds
     \endverb
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}

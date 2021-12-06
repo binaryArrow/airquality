@@ -22,49 +22,47 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: template-blx.bib
 Database file #2: bibliography.bib
-Warning--I didn't find a database entry for "sht21cabelconf"
 Biblatex version: 3.16
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 15 entries,
+You've used 13 entries,
             6393 wiz_defined-function locations,
-            1257 strings with 10548 characters,
-and the built_in function-call counts, 33548 in all, are:
-= -- 1146
-> -- 318
-< -- 344
-+ -- 63
-- -- 66
-* -- 1684
-:= -- 1587
+            1250 strings with 10324 characters,
+and the built_in function-call counts, 28910 in all, are:
+= -- 988
+> -- 278
+< -- 294
++ -- 61
+- -- 62
+* -- 1446
+:= -- 1409
 add.period$ -- 0
-call.type$ -- 15
-change.case$ -- 56
-chr.to.int$ -- 124
-cite$ -- 28
-duplicate$ -- 4425
-empty$ -- 4839
+call.type$ -- 13
+change.case$ -- 48
+chr.to.int$ -- 110
+cite$ -- 24
+duplicate$ -- 3785
+empty$ -- 4157
 format.name$ -- 0
-if$ -- 7402
+if$ -- 6376
 int.to.chr$ -- 0
-int.to.str$ -- 14
+int.to.str$ -- 12
 missing$ -- 0
-newline$ -- 179
+newline$ -- 157
 num.names$ -- 0
-pop$ -- 4919
+pop$ -- 4223
 preamble$ -- 1
-purify$ -- 42
+purify$ -- 36
 quote$ -- 0
-skip$ -- 1307
+skip$ -- 1129
 stack$ -- 0
-substring$ -- 2329
-swap$ -- 1413
-text.length$ -- 323
-text.prefix$ -- 14
+substring$ -- 2001
+swap$ -- 1211
+text.length$ -- 281
+text.prefix$ -- 12
 top$ -- 1
-type$ -- 498
+type$ -- 430
 warning$ -- 0
-while$ -- 246
+while$ -- 220
 width$ -- 0
-write$ -- 165
-(There was 1 warning)
+write$ -- 145
