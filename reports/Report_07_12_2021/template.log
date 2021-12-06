@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  6 DEC 2021 18:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  6 DEC 2021 18:54
 entering extended mode
 **./template.tex
 (template.tex
@@ -850,6 +850,12 @@ Package biblatex Warning: BibTeX reported the following issues
 
 
 Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'scd41github':
+(biblatex)                - Invalid format of field 'date' 
+(biblatex)                - Invalid format of field 'date'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'socketIO2':
 (biblatex)                - Invalid format of field 'date' 
 (biblatex)                - Invalid format of field 'date'.
@@ -1010,10 +1016,10 @@ Package logreq Info: Writing requests to 'template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 22000 strings out of 478927
- 437591 string characters out of 2852534
- 938309 words of memory out of 3000000
- 39536 multiletter control sequences out of 15000+600000
+ 22003 strings out of 478927
+ 437715 string characters out of 2852534
+ 938362 words of memory out of 3000000
+ 39539 multiletter control sequences out of 15000+600000
  408835 words of font info for 45 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  84i,8n,89p,1845b,1640s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1030,7 +1036,7 @@ fried/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:
 /Users/fried/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti1
 0.pfb><C:/Users/fried/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
 /cm/cmtt10.pfb>
-Output written on template.pdf (6 pages, 387687 bytes).
+Output written on template.pdf (6 pages, 387873 bytes).
 PDF statistics:
  87 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

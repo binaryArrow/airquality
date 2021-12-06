@@ -106,6 +106,18 @@
   'date'}
   \endentry
 
+  \entry{scd41github}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{Sensirion / arduino-i2c-scd4x}
+    \verb{url}
+    \verb https://github.com/Sensirion/arduino-i2c-scd4x
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
   \entry{socketIO2}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{S}
