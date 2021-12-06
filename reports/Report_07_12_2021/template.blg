@@ -43,34 +43,33 @@ I was expecting a `,' or a `}'---line 124 of file bibliography.bib
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "sht21cabelconf"
-Warning--I didn't find a database entry for "scrum"
 Biblatex version: 3.16
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 You've used 15 entries,
             6393 wiz_defined-function locations,
-            1251 strings with 10411 characters,
-and the built_in function-call counts, 30451 in all, are:
+            1251 strings with 10367 characters,
+and the built_in function-call counts, 30466 in all, are:
 = -- 982
 > -- 250
 < -- 306
 + -- 63
-- -- 56
-* -- 1442
-:= -- 1342
+- -- 58
+* -- 1444
+:= -- 1343
 add.period$ -- 0
 call.type$ -- 15
 change.case$ -- 56
 chr.to.int$ -- 102
 cite$ -- 28
-duplicate$ -- 4034
-empty$ -- 4507
+duplicate$ -- 4035
+empty$ -- 4509
 format.name$ -- 0
-if$ -- 6822
+if$ -- 6824
 int.to.chr$ -- 0
 int.to.str$ -- 14
 missing$ -- 0
-newline$ -- 162
+newline$ -- 163
 num.names$ -- 0
 pop$ -- 4831
 preamble$ -- 1
@@ -78,8 +77,8 @@ purify$ -- 42
 quote$ -- 0
 skip$ -- 1221
 stack$ -- 0
-substring$ -- 1751
-swap$ -- 1270
+substring$ -- 1753
+swap$ -- 1271
 text.length$ -- 291
 text.prefix$ -- 14
 top$ -- 1
@@ -87,5 +86,5 @@ type$ -- 498
 warning$ -- 0
 while$ -- 202
 width$ -- 0
-write$ -- 148
+write$ -- 149
 (There were 4 error messages)
