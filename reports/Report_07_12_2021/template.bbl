@@ -56,6 +56,13 @@
   'date'}
   \endentry
 
+  \entry{webSocket2}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{title}{Einführung zu Websockets: Sockets im Web}
+  \endentry
+
   \entry{co2letter}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{E}
@@ -105,6 +112,13 @@
   'date'}
   \endentry
 
+  \entry{socketIO2}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{Socket IO Documentation}
+  \endentry
+
   \entry{JS_docu}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{T}
@@ -141,6 +155,20 @@
     \endverb
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
+  \endentry
+
+  \entry{socketIO1}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Wikipedia - Socket.IO}
+  \endentry
+
+  \entry{webSocket1}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Wikipedia - WebSocket}
   \endentry
 \enddatalist
 \endinput
