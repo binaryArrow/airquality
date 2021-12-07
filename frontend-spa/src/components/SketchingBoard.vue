@@ -88,7 +88,6 @@ export default defineComponent({
         }
       }
     })
-
   },
   methods: {
     drawGrid(){
@@ -179,15 +178,17 @@ export default defineComponent({
         this.addInformation = 'Enter a Room name first!!!'
         this.addInputClassName = 'input is-rounded is-danger'
       } else {
-        this.canvas.getObjects().slice(120, this.canvas.getObjects().length).forEach(it=>it.set('fill', '#30880d'))
+        this.canvas.getObjects().slice((this.width/this.grid) * 2, this.canvas.getObjects().length).forEach(it=>it.set('fill', '#30880d'))
         this.canvas.getObjects().forEach(it=>it.set("selectable", false))
-        this.canvas.getObjects('line').splice(120, this.canvas.getObjects('line').length).forEach((it)=>{
+        this.canvas.getObjects('line').splice((this.width/this.grid) * 2, this.canvas.getObjects('line').length).forEach((it)=>{
           it.stroke = '#30880d'
         })
-        let linesWithoutGrid = this.canvas.getObjects('line').slice(120 + this.lengthOfLinesInRooms, this.canvas.getObjects('line').length) as Line[]
-        let newRoom = new Room(this.newRoomName, this.canvas.getObjects('circle')
-            .slice(this.lengthOfCirclesInRooms, this.canvas.getObjects('circle').length) as Circle[], linesWithoutGrid)
-
+        let linesWithoutGrid = this.canvas.getObjects('line').slice((this.width/this.grid) * 2 + this.lengthOfLinesInRooms, this.canvas.getObjects('line').length) as Line[]
+        let newRoom = new Room(
+            this.newRoomName,
+            this.canvas.getObjects('circle').slice(this.lengthOfCirclesInRooms,this.canvas.getObjects('circle').length) as Circle[],
+            linesWithoutGrid
+        )
         this.rooms.push(newRoom)
         this.newRoomName = ''
         this.modalActive = false
@@ -196,11 +197,11 @@ export default defineComponent({
         console.log(`in canvas: ${this.canvas.getObjects().length}`)
         this.canvas.clear()
         this.rooms.forEach(it => {
-          it.points.forEach(room => {
-            this.canvas.add(room)
+          it.points.forEach(point => {
+            this.canvas.add(point)
           })
-          it.lines.forEach(room => {
-            this.canvas.add(room)
+          it.lines.forEach(line => {
+            this.canvas.add(line)
           })
           this.lengthOfCirclesInRooms += it.points.length
           this.lengthOfLinesInRooms += it.lines.length
@@ -231,6 +232,7 @@ export default defineComponent({
     background: #ffffff;
     width: 400px;
     border-radius: 10px;
+    border: 2px solid black;
   }
 }
 .button{
