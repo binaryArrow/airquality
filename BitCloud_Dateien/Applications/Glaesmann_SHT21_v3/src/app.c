@@ -33,14 +33,31 @@ static AppState_t appstate = APP_INIT_STATE;
 static void initTimer(void);
 static void sendeTimerFired(void);
 static void measureTimerFired(void);
-static HAL_I2cDescriptor_t i2cdescriptorcmd;
-static HAL_I2cDescriptor_t i2cdescriptorrd;
+static HAL_I2cDescriptor_t SHT21cmd;
+static HAL_I2cDescriptor_t SHT21rd;
+static HAL_I2cDescriptor_t SCD41cmd;
+static HAL_I2cDescriptor_t SCD41rd;
+static HAL_I2cDescriptor_t CCS811cmd;
+static HAL_I2cDescriptor_t CCS811rd;
+
 
 bool result;
 bool tempNegativ;
-uint8_t sht21cmd;
-uint8_t sht21data[2];
+bool initialized;
+uint8_t cmdSHT21;
+uint8_t dataSHT21[2];
 uint16_t sht21_rd;
+
+uint8_t cmdSCD41[2];
+uint8_t dataSCD41[9];
+uint16_t SCD41_rd_co2;
+uint16_t SCD41_rd_temp;
+uint16_t SCD41_rd_rh;
+
+uint8_t cmdCCS811[2];
+uint8_t dataCCS811[9];
+uint16_t CCS811_rd_eco2;
+uint16_t CCS811_rd_tvoc;
 
 
 int32_t vorkomma;
@@ -60,12 +77,12 @@ static void callbackcmd(bool result){
 		appWriteDataToUsart((uint8_t*)"callbackcmd called with 0\r\n", sizeof("callbackcmd called with 1\r\n")-1);
 		
 	}
-	HAL_CloseI2cPacket(&i2cdescriptorcmd);
+	HAL_CloseI2cPacket(&SHT21cmd);
 	HAL_StartAppTimer(&mesTimer);
 	SYS_PostTask(APL_TASK_ID);
 }
 
-static void callbackrd(bool result){
+static void SHT21callbackrd(bool result){
 	appstate=APP_AUSGABE_STATE;
 	if(result){
 		appWriteDataToUsart((uint8_t*)"callbackrd called with 1\r\n", sizeof("callbackrd called with 1\r\n")-1);
@@ -73,32 +90,73 @@ static void callbackrd(bool result){
 	else{
 		appWriteDataToUsart((uint8_t*)"callbackrd called with 0\r\n", sizeof("callbackrd called with 1\r\n")-1);
 	}
-	HAL_CloseI2cPacket(&i2cdescriptorrd);
+	HAL_CloseI2cPacket(&SHT21rd);
 	SYS_PostTask(APL_TASK_ID);
 }
 
 
 
 
-static HAL_I2cDescriptor_t i2cdescriptorcmd={						
+static HAL_I2cDescriptor_t SHT21cmd={						
 	.tty = TWI_CHANNEL_0,
 	.clockRate = I2C_CLOCK_RATE_62,
-	.f = callbackcmd,															
-	.id = 0x40,
-	.data = &sht21cmd,
+	.f = SHT21callbackcmd,															
+	.id = SHT_21_ADD,
+	.data = &cmdSHT21,
 	.length = 1,
 	.lengthAddr = HAL_NO_INTERNAL_ADDRESS
 };
 
-static HAL_I2cDescriptor_t i2cdescriptorrd={
+static HAL_I2cDescriptor_t SHT21rd={
 	.tty = TWI_CHANNEL_0,
 	.clockRate = I2C_CLOCK_RATE_62,
-	.f = callbackrd,
-	.id = 0x40,
-	.data = sht21data,
+	.f = SHT21callbackrd,
+	.id = SHT_21_ADD,
+	.data = dataSHT21,
 	.length = 2,
 	.lengthAddr = HAL_NO_INTERNAL_ADDRESS
 };
+
+static HAL_I2cDescriptor_t SCD41cmd={
+	.tty = TWI_CHANNEL_0,
+	.clockRate = I2C_CLOCK_RATE_62,
+	.f = SCD41callbackcmd,
+	.id = SCD41_ADD,
+	.data = cmdSCD41,
+	.length = 2,
+	.lengthAddr = HAL_NO_INTERNAL_ADDRESS
+};
+
+static HAL_I2cDescriptor_t SHT21rd={
+	.tty = TWI_CHANNEL_0,
+	.clockRate = I2C_CLOCK_RATE_62,
+	.f = SCD41callbackrd,
+	.id = SCD41_ADD,
+	.data = dataSCD41,
+	.length = 9,
+	.lengthAddr = HAL_NO_INTERNAL_ADDRESS
+};
+
+static HAL_I2cDescriptor_t CCS811cmd={
+	.tty = TWI_CHANNEL_0,
+	.clockRate = I2C_CLOCK_RATE_62,
+	.f = CCS811callbackcmd,
+	.id = CCS811_ADD,
+	.data = cmdSHT21,
+	.length = 2,
+	.lengthAddr = HAL_NO_INTERNAL_ADDRESS
+};
+
+static HAL_I2cDescriptor_t CCS811rd={
+	.tty = TWI_CHANNEL_0,
+	.clockRate = I2C_CLOCK_RATE_62,
+	.f = CCS811callbackrd,
+	.id = CCS811_ADD,
+	.data = dataSHT21,
+	.length = 2,
+	.lengthAddr = HAL_NO_INTERNAL_ADDRESS
+};
+
 
 
 
@@ -120,9 +178,9 @@ void calculateOutput(){
 	}*/
 	uint64_t conversionfactor = 26812744140625; // Datasheetformula: -46.85 + 175.72 * sensordata/65536 :: conversionfactor is 175.72/65536 scaled by 10^16 to avoid floating numbers.
 	uint64_t correctionoffset = 468500000000000000; // -46.85 scaled by 10^16 and inverted new formula: conversionfactor*sensordata - correctionoffset
-	sht21_rd = sht21data[0];
+	sht21_rd = dataSHT21[0];
 	sht21_rd <<= 8;
-	sht21_rd |= sht21data[1]; 
+	sht21_rd |= dataSHT21[1]; 
 	
 	uint64_t temperature = conversionfactor * sht21_rd;
 	if(temperature < correctionoffset){
@@ -134,12 +192,14 @@ void calculateOutput(){
 	
 	uint32_t vorkomma = temperature/10000000000000000;
 	uint32_t nachkomma = temperature%10000000000000000;
+	
 	if (tempNegativ)
 	{
 		t_output_SHT21[0] = 0x2d;
 	}else{
 		t_output_SHT21[0] = 0x2b;
 	}
+	
 	uint32_to_str((uint8_t *) t_output_SHT21, sizeof(t_output_SHT21),vorkomma, 1, 3);
 	uint32_to_str((uint8_t *) t_output_SHT21, sizeof(t_output_SHT21),nachkomma, 5, 2);
 	uint16_to_hexstr((uint8_t *)t_output_SHT21_sensorbytes, sizeof(t_output_SHT21_sensorbytes), sht21_rd, 2);
@@ -171,26 +231,33 @@ switch(appstate){
 	case APP_INIT_STATE:
 		appInitUsartManager();
 		initTimer();
+		initialized = 0;
 		appstate=APP_NOTHING_STATE;
 	break;
 	
 	case APP_READ_STATE:
-	if (-1 == HAL_OpenI2cPacket(&i2cdescriptorrd)){
+	if (-1 == HAL_OpenI2cPacket(&SHT21rd)){
 		appWriteDataToUsart((uint8_t*)"open fail\r\n", sizeof("open fail\r\n")-1);
 	}
-	if (-1 == HAL_ReadI2cPacket(&i2cdescriptorrd)){
+	if (-1 == HAL_ReadI2cPacket(&SHT21rd)){
 		appWriteDataToUsart((uint8_t*)"read fail\r\n", sizeof("read fail\r\n")-1);
 	}
 		appstate=APP_AUSGABE_STATE;
 	break;
 	
 	case APP_WRITE_STATE:
-		sht21cmd = 0xf3;
-		if (-1 == HAL_OpenI2cPacket(&i2cdescriptorcmd)){
+	if(!initialized){
+	cmdCCS811 = 0x0110;
+	
+	initialized = 1;
+	}
+	
+		cmdSHT21 = 0xf3;
+		if (-1 == HAL_OpenI2cPacket(&SHT21cmd)){
 			appWriteDataToUsart((uint8_t*)"open fail\r\n", sizeof("open fail\r\n")-1);
 		}
 		
-		if (-1 == HAL_WriteI2cPacket(&i2cdescriptorcmd)){
+		if (-1 == HAL_WriteI2cPacket(&SHT21cmd)){
 			appWriteDataToUsart((uint8_t*)"write fail\r\n", sizeof("write fail\r\n")-1);
 		}else{
 			appWriteDataToUsart((uint8_t*)"write started\r\n", sizeof("write started\r\n")-1);
