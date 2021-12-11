@@ -1,0 +1,73 @@
+"""
+@testcase
+@description 4.3 TP-NWI-TC-03: Classical joining DUT ZR to non-ZLL network (secondary channels)
+
+@tags
+  POSITIVE
+
+@connection dummyPort = router
+"""
+#*****************************************************************************************
+# Import section
+#*****************************************************************************************
+import sys
+sys.path.append(scriptPath)
+from common import *
+from deviceScanner import *
+from onOffCluster import *
+from identifyCluster import *
+sys.path.remove(scriptPath)
+
+#*****************************************************************************************
+# Initialization
+#*****************************************************************************************\
+portList = []
+
+configureCommunication()
+  
+ZC = deviceScannerGetAssociatedPort(TEST_DEVICE_TYPE_NON_ZLL_COORDINATOR, portList)
+dutZR1 = deviceScannerGetAssociatedPort(TEST_DEVICE_TYPE_ROUTER, portList)
+
+#*****************************************************************************************
+# Test preparation
+#*****************************************************************************************\
+writeLog("Item P1: Power on ZC. (Reset device to FN)")
+haResetToFN([ZC], BC_SUCCESS_STATUS)
+
+writeLog("Item P2: By application specific means, ZC forms a non-ZLL network on a secondary ZLL channel.")
+haRestartNwk(ZC, getFirstChannel(zllSecondaryChannelMask), BC_SUCCESS_STATUS)
+
+#*****************************************************************************************
+# Test procedure
+#*****************************************************************************************\
+writeLog("Item 1: Power on DUT ZR1")
+resetRouterToFN([dutZR1])
+
+writeLog("Item 2a: By application specific means, DUT ZR1 performs a classical network \
+          scan on the primary channels but finds no networks with associate permit set to TRUE")
+sleep(1)
+writeLog("Item 2b: DUT ZR1 then performs a classical network scan on the secondary \
+          channels but finds no networks with associate permit set to TRUE")
+sleep(1)
+writeLog("Item 2c: DUT ZR1 may repeat the above scans or simply wait for further instructions")
+sleep(1)
+
+writeLog("Item 3: By application specific means, the associate permit of the ZLL network is set to TRUE")
+setPermitJoinReq(ZC, PERMIT_JOIN_DURATION_INFINITE)
+receiveSetPermitJoinResp(ZC, BC_SUCCESS_STATUS)
+
+writeLog("Item 4a: By application specific means, DUT ZR1 performs a classical network scan \
+         on the primary channels and finds the ZLL network with associate permit set to TRUE")
+sleep(1)
+writeLog("Item 4b: DUT ZR1 attempts to associate to the network through ZC")
+sleep(1)
+writeLog("Item 4c: ZC confirms the association request and allocates a random address to DUT ZR1")
+dutZR1NwkAddr = nwkAssociation(dutZR1, BC_SUCCESS_STATUS, BC_SUCCESS_STATUS)
+check(dutZR1NwkAddr != None)
+
+writeLog("Item 5: ZR1 transports the network key to DUT ZR2, encrypted with the \
+         certification pre-installed link key")
+sleep(1)
+
+writeLog("Item 6: DUT ZR1 announces itself on the network")
+idle([ZC, dutZR1])
