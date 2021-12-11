@@ -1,0 +1,50 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Atmega2564rfr2", "Atmega2564rfr2.cproj", "{28C7BC56-9AA6-440A-B027-3C31529F07FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR = All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR = Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		Router_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR = Router_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR = EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		All_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR = All_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		All_Sec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR = All_Sec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR = All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR = Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		Router_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR = Router_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR = EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		All_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR = All_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		All_Sec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR = All_Sec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		Description = Application WSNDemo
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.ActiveCfg = All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.Build.0 = All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.ActiveCfg = Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.Build.0 = Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.Router_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.ActiveCfg = Router_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.Router_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.Build.0 = Router_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.ActiveCfg = EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.Build.0 = EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.ActiveCfg = All_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.Build.0 = All_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_Sec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.ActiveCfg = All_Sec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_Sec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.Build.0 = All_Sec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.ActiveCfg = All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.Build.0 = All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.ActiveCfg = Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.Build.0 = Coordinator_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.Router_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.ActiveCfg = Router_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.Router_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.Build.0 = Router_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.ActiveCfg = EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.Build.0 = EndDevice_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.ActiveCfg = All_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.Build.0 = All_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_Sec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.ActiveCfg = All_Sec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{28C7BC56-9AA6-440A-B027-3C31529F07FA}.All_Sec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.Build.0 = All_Sec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
