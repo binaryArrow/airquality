@@ -1,0 +1,52 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "AS7_Atmega256rfr2_OTA", "AS7_Atmega256rfr2_OTA.cproj", "{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR = All_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR = Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		Router_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR = Router_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR = EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		All_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR = All_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		All_Sec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR = All_Sec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		All_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR = All_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR = Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		Router_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR = Router_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR = EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		All_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR = All_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		All_Sec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR = All_Sec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		Description = Application WSNDemo
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.ActiveCfg = All_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.Build.0 = All_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.ActiveCfg = Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.Build.0 = Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.Router_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.ActiveCfg = Router_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.Router_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.Build.0 = Router_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.ActiveCfg = EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.Build.0 = EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.ActiveCfg = All_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.Build.0 = All_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_Sec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.ActiveCfg = All_Sec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_Sec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR.Build.0 = All_Sec_MegaRf_Atmega256rfr2_8Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.ActiveCfg = All_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.Build.0 = All_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.ActiveCfg = Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.Build.0 = Coordinator_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.Router_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.ActiveCfg = Router_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.Router_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.Build.0 = Router_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.ActiveCfg = EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.Build.0 = EndDevice_StdlinkSec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.ActiveCfg = All_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.Build.0 = All_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_Sec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.ActiveCfg = All_Sec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+		{B518C264-BFF9-46F1-9DB5-F8CB68CB3774}.All_Sec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR.Build.0 = All_Sec_MegaRf_Atmega256rfr2_16Mhz_Gcc|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

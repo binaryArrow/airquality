@@ -1,0 +1,238 @@
+COMPONENTS_PATH = ../../../../BitCloud/Components
+APP_NAME = WSNDemo
+CONFIG_NAME = All_Sec_MegaRf_Atmega2564rfr2_16Mhz_Iar
+LIST_PATH = $(CONFIG_NAME)/List
+EXE_PATH = $(CONFIG_NAME)/Exe
+OBJ_PATH = $(CONFIG_NAME)/Obj
+
+include ../../../../BitCloud/lib/Makerules_Atmega2564rfr2_Iar
+
+DEFINES = \
+  -DBOARD_MEGARF \
+  -DATMEGA2564RFR2 \
+  -DHAL_16MHz \
+  -DSTANDARD_SECURITY_MODE \
+  -DSTACK_TYPE_ALL 
+
+INCLUDES = \
+  -I../.. \
+  -I../../include \
+  -I../../../../BitCloud/Components/BSP/MEGARF/include \
+  -I../../../../BitCloud/Components/SystemEnvironment/include \
+  -I../../../../BitCloud/lib \
+  -I../../../../BitCloud/Components/HAL/include \
+  -I../../../../BitCloud/Components/BSP \
+  -I../../../../BitCloud/Components/BSP/include \
+  -I../../../../BitCloud/Components/NWK/include \
+  -I../../../../BitCloud/Components/NWK/include/private \
+  -I../../../../BitCloud/Components/ZDO/include \
+  -I../../../../BitCloud/Components/ZDO/include/private \
+  -I../../../../BitCloud/Components/APS/include \
+  -I../../../../BitCloud/Components/APS/include/private \
+  -I../../../../BitCloud/Components/SystemEnvironment/include \
+  -I../../../../BitCloud/Components/ConfigServer/include \
+  -I../../../../BitCloud/Components/ConfigServer/include/private \
+  -I../../../../BitCloud/Components/PersistDataServer/include \
+  -I../../../../BitCloud/Components/PersistDataServer/std/include \
+  -I../../../../BitCloud/Components/PersistDataServer/wl/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/Infrastructure/N_Types/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/Infrastructure/N_Util/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/Infrastructure/N_Timer/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/Infrastructure/N_Task/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/Infrastructure/N_ErrH/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/Infrastructure/N_Log/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/Infrastructure/N_Memory/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/Infrastructure/N_Init/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/ZLL/S_Nv/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/ZLL/S_XNv/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/ZLL/D_Nv/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/ZLL/D_XNv/include \
+  -I../../../../BitCloud/Components/ZLLPlatform/ZLL/D_XNv/src \
+  -I../../../../BitCloud/Components/ZLLPlatform/ZLL/S_XNv/src \
+  -I../../../../BitCloud/Components/Security/TrustCentre/include \
+  -I../../../../BitCloud/Components/Security/ServiceProvider/include \
+  -I../../../../BitCloud/Components/HAL/drivers/include \
+  -I../../../../BitCloud/Components/HAL/drivers/USBFIFO/include \
+  -I../../../../BitCloud/Components/HAL/avr/atmega128rfa1/common/include \
+  -I../../../../BitCloud/Components/HAL/drivers/include \
+  -I../../../../BitCloud/Components/HAL/drivers/OFD/include \
+  -I../../../../BitCloud/Components/HAL/drivers/ISD/include \
+  -I../../../../BitCloud/Components/ZCL/include/private \
+  -I../../../../BitCloud/Components/ZCL/include \
+  -I../../../../BitCloud/Components/MAC_PHY/include \
+  -I../../../../BitCloud/Components/MAC_PHY/MAC_ENV/include \
+  -I../../../../BitCloud/Components/MAC_PHY/MAC_HWI/include \
+  -I../../../../BitCloud/Components/MAC_PHY/MAC_HWD_PHY/include \
+  -I../../../../BitCloud/Components/MAC_PHY/MAC_HWD_PHY/ATMEGA128RFA1/PHY/include \
+  -I../../../../BitCloud/Components/MAC_PHY/MAC_HWD_PHY/ATMEGA128RFA1/MAC_HWD/include 
+
+LIBS = \
+  ../../../../BitCloud/lib/libBc_All_Sec_Atmega2564rfr2_Atmega2564rfr2_Iar.a \
+  ../../../../BitCloud/lib/libHAL_MegaRf_Atmega2564rfr2_16Mhz_Iar.a \
+  ../../../../BitCloud/lib/WdtInitatmega2564rfr2_Iar.o 
+
+SRCS = \
+  ../../src/WSNCommandHandler.c \
+  ../../src/WSNSensorManager.c \
+  ../../src/WSNEndDevice.c \
+  ../../src/WSNZclManager.c \
+  ../../src/WSNCoord.c \
+  ../../src/WSNMessageSender.c \
+  ../../src/WSNVisualizer.c \
+  ../../src/WSNRouter.c \
+  ../../src/WSNDemoApp.c \
+  ../../src/WSNUARTManager.c \
+  ../../../../BitCloud/Components/PersistDataServer/std/src/stdPdsMemAccess.c \
+  ../../../../BitCloud/Components/PersistDataServer/std/src/stdPdsTimer.c \
+  ../../../../BitCloud/Components/PersistDataServer/std/src/stdPdsMem.c \
+  ../../../../BitCloud/Components/PersistDataServer/std/src/stdPdsWriteData.c \
+  ../../../../BitCloud/Components/PersistDataServer/std/src/stdPdsCrcService.c \
+  ../../../../BitCloud/Components/PersistDataServer/std/src/stdPdsInit.c \
+  ../../../../BitCloud/Components/PersistDataServer/std/src/stdPdsEvents.c \
+  ../../../../BitCloud/Components/PersistDataServer/std/src/stdPdsDataServer.c \
+  ../../../../BitCloud/Components/PersistDataServer/src/fakePds.c \
+  ../../../../BitCloud/Components/PersistDataServer/wl/src/wlPdsTypesConverter.c \
+  ../../../../BitCloud/Components/PersistDataServer/wl/src/wlPdsTaskManager.c \
+  ../../../../BitCloud/Components/PersistDataServer/wl/src/wlPdsSecurity.c \
+  ../../../../BitCloud/Components/PersistDataServer/wl/src/wlPdsInit.c \
+  ../../../../BitCloud/Components/PersistDataServer/wl/src/wlPdsDataServer.c \
+  ../../../../BitCloud/Components/ZLLPlatform/ZLL/S_Nv/src/S_Nv-SamR21.c \
+  ../../../../BitCloud/Components/ZLLPlatform/ZLL/S_XNv/src/S_XNv.c \
+  ../../../../BitCloud/Components/ZLLPlatform/ZLL/S_Nv/src/S_Nv-ATmega.c \
+  ../../../../BitCloud/Components/ZLLPlatform/ZLL/S_Nv/src/S_Nv-External.c \
+  ../../../../BitCloud/Components/ZLLPlatform/ZLL/D_Nv/src/D_Nv.c \
+  ../../../../BitCloud/Components/ZLLPlatform/ZLL/S_Nv/src/S_Nv_Stub.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysIdleHandler.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysSleep.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysStat.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysEventsHandler.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysQueue.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysUtils.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysAssert.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysDuplicateTable.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysInit.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysTaskManager.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/dbg.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysMutex.c \
+  ../../../../BitCloud/Components/SystemEnvironment/src/sysTimer.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdCommand.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdM25Driver.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdAt45dbDriver.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdMx25v4006eDriver.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdMx25l2006eDriver.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdSpiSerializer.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdFakeDriver.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdCrcService.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdAt25Driver.c \
+  ../../../../BitCloud/Components/ZCL/src/zclKeyEstablishmentCluster.c \
+  ../../../../BitCloud/Components/ZCL/src/zclOtauClientPdt.c \
+  ../../../../BitCloud/Components/ZCL/src/zclSecurityManager.c \
+  ../../../../BitCloud/Components/ZCL/src/zclParser.c \
+  ../../../../BitCloud/Components/ZCL/src/zclOtauClientDownload.c \
+  ../../../../BitCloud/Components/ZCL/src/zclOtauManager.c \
+  ../../../../BitCloud/Components/ZCL/src/zclOtauClientQuery.c \
+  ../../../../BitCloud/Components/ZCL/src/zclOtauClientDiscovery.c \
+  ../../../../BitCloud/Components/ZCL/src/zclCommandAnalyzer.c \
+  ../../../../BitCloud/Components/ZCL/src/zclOtauClientUpgrade.c \
+  ../../../../BitCloud/Components/ZCL/src/zclOtauClient.c \
+  ../../../../BitCloud/Components/ZCL/src/zclTaskManager.c \
+  ../../../../BitCloud/Components/ZCL/src/zclAttributes.c \
+  ../../../../BitCloud/Components/ZCL/src/zcl.c \
+  ../../../../BitCloud/Components/ZCL/src/zclMemoryManager.c \
+  ../../../../BitCloud/Components/ZCL/src/zclOtauServer.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/xyl2rgb.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/bspVoltageSensor.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/bspTaskManager.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/bspTempSensor.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/hs2xy.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/buttons.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/MaxL.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/lcd.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/bspUid.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/leds.c \
+  ../../../../BitCloud/Components/BSP/MEGARF/src/fakeBSP.c \
+  ../../../../BitCloud/Components/HAL/drivers/USBFIFO/src/usbFifoVirtualUsart.c \
+  ../../../../BitCloud/Components/HAL/drivers/USBFIFO/src/usbFifoFT245RL.c \
+  ../../../../BitCloud/Components/ConfigServer/src/csPersistentMem.c \
+  ../../../../BitCloud/Components/ConfigServer/src/csMem.c \
+  ../../../../BitCloud/Components/ConfigServer/src/configServer.c \
+  ../../../../BitCloud/Components/HAL/drivers/ISD/src/isdImageStorage.c \
+  ../../../../BitCloud/Components/HAL/drivers/ISD/src/isdConsoleTunneling.c \
+  ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdIntFlashRead.s90 
+
+PREINCLUDE = MakerulesBc_All_Sec_Atmega2564rfr2_Atmega2564rfr2_Iar.h
+
+CSRCS = $(filter %.c, $(SRCS))
+OBJS = $(addprefix $(OBJ_PATH)/, $(notdir %/$(subst .c,.o,$(CSRCS))))
+
+ASM_FILE_EXT = s90
+
+ifneq (, $(findstring .$(ASM_FILE_EXT), $(SRCS)))
+  ASRCS = $(filter %.$(ASM_FILE_EXT), $(SRCS))
+  OBJS += $(addprefix $(OBJ_PATH)/, $(notdir %$(subst .$(ASM_FILE_EXT),.o,$(ASRCS))))
+endif
+
+CFLAGS += $(DEFINES)
+CFLAGS += $(INCLUDES)
+CFLAGS += --preinclude $(PREINCLUDE)
+
+ASFLAGS = $(INCLUDES)
+ASFLAGS  = -s+ # Enables case sensitivity.
+ASFLAGS += -w+ # Enables warnings.
+ASFLAGS += -M'<>'# Change asm.macro argument quote chars.
+ASFLAGS += -t8 # Set tab spacing.
+ASFLAGS += -u_enhancedCore
+ASFLAGS += -D__HAS_ENHANCED_CORE__=1
+ASFLAGS += -D__HAS_MUL__=1
+ASFLAGS += -D__MEMORY_MODEL__=2
+ASFLAGS += -D__HAS_ELPM__=1
+ASFLAGS += -S
+
+TMP_CFLAGS:=$(patsubst --library_module,,$(CFLAGS))
+CFLAGS = $(TMP_CFLAGS)
+ASFLAGS += -v5
+
+
+LINKER_FLAGS += -Fintel-extended
+LINKER_FLAGS += -l $(LIST_PATH)/$(APP_NAME).map
+LINKER_FLAGS += -xms
+LINKER_FLAGS += -S
+LINKER_FLAGS += -f ../../linkerScr/lnkm256rfr2s.xcl
+LINKER_FLAGS += -e_PrintfSmall=_Printf
+LINKER_FLAGS_TAIL = -s __bitcloud_start $(IAR_PATH)/LIB/DLIB/dlAVR-5s-ec_mul-n.r90
+
+.PHONY: all directories clean size root_files images
+
+images: $(EXE_PATH)/$(APP_NAME).hex $(EXE_PATH)/$(APP_NAME).srec
+all: directories images root_files
+
+$(OBJ_PATH)/%.o: $(SRCS)
+	$(CC) $(CFLAGS) $(filter %/$(subst .o,.c,$(notdir $@)), $(SRCS)) -o $@
+
+$(OBJS): directories
+
+$(OBJ_PATH)/ofdIntFlashRead.o: ../../../../BitCloud/Components/HAL/drivers/OFD/src/ofdIntFlashRead.s90
+	$(AS) $(ASFLAGS) $< -o $@
+
+$(EXE_PATH)/$(APP_NAME).hex $(EXE_PATH)/$(APP_NAME).srec: $(OBJS)
+	$(LD) $(LINKER_FLAGS) $(OBJS) $(LIBS) -o $(EXE_PATH)/$(APP_NAME).hex -Omotorola-s28=$(EXE_PATH)/$(APP_NAME).srec $(LINKER_FLAGS_TAIL)
+
+
+root_files: images
+	cp -f $(EXE_PATH)/*.* ./../../
+
+clean:
+	rm -rf $(CONFIG_NAME) ../../$(APP_NAME).hex ../../$(APP_NAME).srec
+
+directories:
+	@"mkdir" -p $(LIST_PATH)
+	@"mkdir" -p $(EXE_PATH)
+	@"mkdir" -p $(OBJ_PATH)
+
+
+ifeq ($(MAKECMDGOALS), fresh)
+directories: clean
+endif
+fresh: all
+
+# eof Makefile
