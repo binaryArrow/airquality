@@ -22,70 +22,53 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: template-blx.bib
 Database file #2: bibliography.bib
-I was expecting a `,' or a `}'---line 109 of file bibliography.bib
- :  
- :  date = {2.12.2021}
+I was expecting a `,' or a `}'---line 146 of file bibliography.bib
+ : 
+ : @online{scd41github,
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 114 of file bibliography.bib
- :  
- :  date = {02.12.2021}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 119 of file bibliography.bib
- :  
- :  date = {02.12.2021}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 124 of file bibliography.bib
- :  
- :  date = {02.12.2021}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "sht21cabelconf"
-Warning--I didn't find a database entry for "scrum"
 Biblatex version: 3.16
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 15 entries,
+You've used 14 entries,
             6393 wiz_defined-function locations,
-            1251 strings with 10411 characters,
-and the built_in function-call counts, 30451 in all, are:
-= -- 982
-> -- 250
-< -- 306
-+ -- 63
-- -- 56
-* -- 1442
-:= -- 1342
+            1253 strings with 10410 characters,
+and the built_in function-call counts, 31124 in all, are:
+= -- 1061
+> -- 292
+< -- 316
++ -- 62
+- -- 64
+* -- 1559
+:= -- 1492
 add.period$ -- 0
-call.type$ -- 15
-change.case$ -- 56
-chr.to.int$ -- 102
-cite$ -- 28
-duplicate$ -- 4034
-empty$ -- 4507
+call.type$ -- 14
+change.case$ -- 52
+chr.to.int$ -- 114
+cite$ -- 26
+duplicate$ -- 4090
+empty$ -- 4489
 format.name$ -- 0
-if$ -- 6822
+if$ -- 6868
 int.to.chr$ -- 0
-int.to.str$ -- 14
+int.to.str$ -- 13
 missing$ -- 0
-newline$ -- 162
+newline$ -- 168
 num.names$ -- 0
-pop$ -- 4831
+pop$ -- 4571
 preamble$ -- 1
-purify$ -- 42
+purify$ -- 39
 quote$ -- 0
-skip$ -- 1221
+skip$ -- 1215
 stack$ -- 0
-substring$ -- 1751
-swap$ -- 1270
-text.length$ -- 291
-text.prefix$ -- 14
+substring$ -- 2141
+swap$ -- 1309
+text.length$ -- 302
+text.prefix$ -- 13
 top$ -- 1
-type$ -- 498
+type$ -- 464
 warning$ -- 0
-while$ -- 202
+while$ -- 233
 width$ -- 0
-write$ -- 148
-(There were 4 error messages)
+write$ -- 155
+(There was 1 error message)

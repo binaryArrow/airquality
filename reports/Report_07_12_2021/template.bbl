@@ -61,16 +61,21 @@
     \field{sortinit}{E}
     \field{sortinithash}{E}
     \field{title}{Einführung zu Websockets: Sockets im Web}
+    \verb{url}
+    \verb https://www.html5rocks.com/de/tutorials/websockets/basics/
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
   \endentry
 
-  \entry{co2letter}{online}{}
+  \entry{sht21cableconf}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{E}
     \field{sortinithash}{E}
-    \field{title}{Exhaled CO2 as a COVID-19 Infection Risk Proxy for Different
-  Indoor Environments and Activities}
+    \field{title}{Evaluation Kit SEK-SCD41}
     \verb{url}
-    \verb https://pubs.acs.org/doi/10.1021/acs.estlett.1c00183
+    \verb https://www.sensirion.com/en/environmental-sensors/evaluation-kit-sek
+    \verb -environmental-sensing/evaluation-kit-sek-scd41/
     \endverb
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
@@ -88,25 +93,26 @@
   'date'}
   \endentry
 
-  \entry{javascript_tut}{online}{}
+  \entry{mockdata}{online}{}
     \field{labeltitlesource}{title}
-    \field{sortinit}{L}
-    \field{sortinithash}{L}
-    \field{title}{Learn JavaScript - Full Course for Beginners}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{title}{How to generate dummy data in Python}
     \verb{url}
-    \verb https://www.youtube.com/watch?v=PkZNo7MFNFg
+    \verb https://towardsdatascience.com/how-to-generate-dummy-data-in-python-a
+    \verb 05bce24a6c6%7D
     \endverb
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
   \endentry
 
-  \entry{realtiveluftfeuchtigkeit}{online}{}
+  \entry{scd41github}{online}{}
     \field{labeltitlesource}{title}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
-    \field{title}{Relative Luftfeuchtigkeit}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{Sensirion / arduino-i2c-scd4x}
     \verb{url}
-    \verb https://www.ratgeber-luftfeuchtigkeit.de/relative-luftfeuchtigkeit/
+    \verb https://github.com/Sensirion/arduino-i2c-scd4x
     \endverb
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
@@ -117,41 +123,32 @@
     \field{sortinit}{S}
     \field{sortinithash}{S}
     \field{title}{Socket IO Documentation}
-  \endentry
-
-  \entry{JS_docu}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{T}
-    \field{sortinithash}{T}
-    \field{title}{The Modern Javascript Tutorial}
     \verb{url}
-    \verb https://javascript.info
+    \verb https://socket.io/docs/v4/
     \endverb
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
   \endentry
 
-  \entry{eco2}{online}{}
+  \entry{Express.js}{online}{}
     \field{labeltitlesource}{title}
-    \field{sortinit}{T}
-    \field{sortinithash}{T}
-    \field{title}{TVOC and ECO2 Sensors}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Wikipedia - Express.js}
     \verb{url}
-    \verb https://wolles-elektronikkiste.de/en/tvoc-and-eco2-sensors
+    \verb https://de.wikipedia.org/wiki/Express.js%7D
     \endverb
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
   \endentry
 
-  \entry{tvoc}{online}{}
+  \entry{Node.js}{online}{}
     \field{labeltitlesource}{title}
-    \field{sortinit}{U}
-    \field{sortinithash}{U}
-    \field{title}{Understanding TVOC: What You Need To Know About Volatile
-  Oragnic Compounds}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Wikipedia - Node.js}
     \verb{url}
-    \verb https://learn.kaiterra.com/en/air-academy/understanding-tvoc-volatile
-    \verb -organic-compounds
+    \verb https://de.wikipedia.org/wiki/Node.js%7D
     \endverb
     \warn{\item Invalid format of field 'date' \item Invalid format of field
   'date'}
@@ -162,6 +159,11 @@
     \field{sortinit}{W}
     \field{sortinithash}{W}
     \field{title}{Wikipedia - Socket.IO}
+    \verb{url}
+    \verb https://de.wikipedia.org/wiki/Socket.IO
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
   \endentry
 
   \entry{webSocket1}{online}{}
@@ -169,6 +171,11 @@
     \field{sortinit}{W}
     \field{sortinithash}{W}
     \field{title}{Wikipedia - WebSocket}
+    \verb{url}
+    \verb https://de.wikipedia.org/wiki/WebSocket
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
   \endentry
 \enddatalist
 \endinput

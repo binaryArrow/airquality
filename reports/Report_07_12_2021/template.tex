@@ -44,11 +44,11 @@
 		\hline
 		{\textbf{Name}}				&		{\textbf{Matrikel Nr.}} & {\textbf{Arbeitsaufwand (h)}} \\
 		\hline
-		Friedrich Just				&		1326699 				&	17,00	\\
+		Friedrich Just				&		1326699 				&	18,00	\\
 		\hline
 		Stipe Knez				&		1269206 				&	17,00	\\
 		\hline
-		Lucas Merkert				&		1326709					&	17,00	\\
+		Lucas Merkert				&		1326709					&	18,00	\\
 		\hline
 		Achim Glaesmann				&		1309221					&	19,00	\\
 		\hline
@@ -67,13 +67,7 @@
 
 
 \subsection{Friedrich Just}
-In dieser Woche habe ich mich mit dem Pflichtenheft befasst, mir angesehen, welche Sensoren wir haben und was diese können. Ich habe mir die passenden Datenblätter~\cite{datasheetcss811}~\cite{datasheetscd41}~\cite{datasheetsht21} zusammengesucht. In diesen sind mir einige Begriffe unklar gewesen, wie VOC bzw. TVOC~\cite{tvoc}, eCO2~\cite{eco2} und relative Luftfeuchtigkeit~\cite{realtiveluftfeuchtigkeit}. Dazu habe ich recherchiert. Danach habe ich diese durchgearbeitet, um die Sensoren und deren Funktionsweise genauer zu verstehen. Außerdem habe ich mich mit den Funkmodulen auseinandergesetzt und wollte den Temperatursensor aus dem ZigBee-Set(LM73) und das ZigBee-Netzwerk miteinander verbinden, so dass die Sensordaten an den Koordinator weitergeleitet werden. Während dieser Zeit habe ich mich erneut mit dem I$^2$C-Bus und der Übertragung von Daten beschäftigt.
-lesen 3 Bytes jeder Messwert lang 2 Byte Messauflösung und ein Byte CRC Checksum für die Fehlererkennung {Abbildung \ref{img:scd41_commandset}}
-i2c Adresse 0x62 ~\cite{datasheetscd41}Seite 7
-grünes Kabel SDA 
-Rotes Kabel VDD
-Gelbes Kabel SCL
-Schwarzes Kabel GND~\cite{sht21cabelconf}
+Der SCD41 Sensor hat die I$^2$C-Bus Adresse 0x62~\cite{datasheetscd41}Seite 7. An dem Sensor sind 4 Kabel. Das grüne Kabel geht an den SDA-port (Serial Data Line). Das gelbe Kabel geht an den SCL-port (Serial Clock). Das schwarze Kabel ist der GND-port (Ground). Das rote Kabel ist an den VDD-port (Power) angeschlossen~\cite{sht21cableconf}.\par Mit dem hexadezimal (von nun an hex.) Code 0x21b1 wird alle 5 Sekunden eine Messung durchgeführt, mit dem hex. Code 0xec05 wird die periodische Messung beendet. Wenn der Sensor den hex. Code 0xec05 sendet, bekommt er das Ergebnis der Messung zurück. Das sind die wichtigsten Kommandos für das Auslesen des Sensors die vollständige Liste siehe {Abbildung \ref{img:scd41_commandset}}.\par Für jeden Messwert werden 3 Byte eingelesen, davon sind 2 Byte Messauflösung und 1 Byte CRC (Cyclic Redundancy Check) checksum für die Fehlererkennung. Dies und die Umrechnung der Messwerte in eine lesbare Form werden in der Tabelle {Abbildung \ref{img:scd41_umrechnung}} dargestellt.\par Für ein besseres Verständnis der Programmierung des Sensors wurde dieser an einem Arduino Nano angeschlossen. Auf Github gibt es bereits einen funktionierenden Code~\cite{scd41github} zum Auslesen dieses Sensors und die Umrechnung der Messwerte. Damit ist verständlicher geworden, wie der Sensor über unseren Microcontroller angesteuert werden muss. Durch den Arduino kann man später die Messwerte mit denen des Microcontrollers vergleichen werden.
 
 \begin{figure}[!h]
 	\centering
@@ -84,16 +78,9 @@ Schwarzes Kabel GND~\cite{sht21cabelconf}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.40]{images/scd41_commandset}
-	\caption{Befehle zum Ansteuern des SCD41 Sensors~\cite{datasheetsht21}}
+	\caption{Befehle zum Ansteuern des SCD41 Sensors~\cite{datasheetscd41}}
 	\label{img:scd41_commandset}
 \end{figure}
-
-
-\subsection{Stipe Knez}
-In der ersten  Woche lag der Fokus auf zwei Bereichen: Dem Nachbessern des Pflichtenhefts nach einer internen Besprechnung und dem Schaffen einer geeigneten Programmierumgebung für den weiteren Verlauf des Projektes auf meinem Rechner samt der Einarbeitung in Javascript.
-Neben dem ausbessern vorhandenem Inhalts haben wir uns Gedanken über unsere Vorgehensweise gemacht woraufhin ich nach Vorgehensweisen recherchiert habe~\cite{scrum}, von denen wir uns für unser eigenes Projekt inspirieren lassen können. Anschließend habe ich unsere Vorgehensweise nach kurzer Absprache und Beratung mit der Gruppe ausformuliert und für das Pflichtenheft vorbereitet.
-
-Des Weiteren spielte wie zuvor erwähnt auch das Schaffen einer geeigneten Programmierumgebung samt der Einarbeitung in Javascript diese Woche für mich eine große Rolle. Zuerst habe ich die beiden IDEs Webstorm und IntelliJ IDEA Ultimate eingerichtet. Dabei soll Webstorm der Entwicklung in Javascript und IntelliJ der Entwicklung in Java dienen. Weil ich in Javascript noch nicht allzu viel Programmiererfahrung gesammelt habe, habe ich mich in die Sprache eingearbeitet. Hilfreich waren dabei eine Javascript Dokumentation~\cite{JS_docu} sowie Lerninhalte in Videoform~\cite{javascript_tut}. Außerdem habe ich noch die GitHub Desktop Anwendung auf meinem Rechner eingerichtet und mich mit LaTex auseinandergesetzt und die dazugehörigen Anwendungen installiert.
 
 \subsection{Lucas Merkert}
 \label{lucas}
@@ -145,12 +132,17 @@ Einarbeitung SHT21: Der SHT21 Sensor wird über den I$^2$C-Bus angesprochen {Abb
 	\end{enumerate}
 \end{itemize}
 
+\subsection{Stipe Knez}
+Diese Woche spielte das Einarbeiten in das Projekt und die Vorbereitung auf das Erstellen von Mock-Daten mit Python und eine Recherche was das Express.js-Framework angeht bei mir eine Rolle.
+Nach dem tieferen Einarbeiten in das Projekt (unter Anderem in die Programmiersprache) ging es an die Recherche bezüglich des Express-Frameworks, da dieses in unserem Projekt eine Rolle spielen soll und dementsprechend Wissen über die Funktionsweise und Nutzungsweise benötigt wird. Das Express.js-Framework ist dabei ein serverseitiges Web-Framework für die JavaScript-basierte Plattform Node.js. Durch dieses Framework werden in Node.js Werkzeuge zur Verfügung gestellt, durch die sich Webanwendungen leichter entwickeln lassen~\cite{Express.js}. Node.js ist dabei eine  plattformübergreifende JavaScript-Laufzeitumgebung, die in der Lage ist Javascript-Programme außerhalb des Webbrowsers ausführen zu lassen~\cite{Node.js}.
+Wie zuvor erwähnt, war die Vorbereitung auf das Erstellen von Mock-Daten mit Python auch ein Bestandteil der Arbeit in der letzten Woche. Wir möchten mit Hilfe von Python Mock-Daten zum Testen erstellen, die weiterverarbeitet werden sollen. Die damit einhergehende Recherche hat Aufschluss über die Herangehensweise beim Erstellen von Mock-Daten gegeben. Für die kommende Woche ist geplant, dieses Wissen umzusetzen und in Zusammenarbeit mit dem für die ZigBee-Daten verantwortlichen Team, das passende Format für die Daten zu wählen und diese schließlich zu erstellen~\cite{mockdata}.
+
 \subsection{Achim Glaesmann}
-Es wurde daran gearbeitet die Sensoren mit dem Mikrokontroller auszulesen. Das Auslesen bereitet jedoch unvorhergesene Probleme. Die Datenblätter wurden ausführlich studiert um eine
+Es wurde daran gearbeitet die Sensoren mit dem Mikrokontroller auszulesen. Das Auslesen bereitet jedoch unvorhergesehene Probleme. Die Datenblätter wurden ausführlich studiert um eine
 Kommunikation über I2C zu ermöglichen. ~\cite{datasheetcss811}~\cite{datasheetscd41}~\cite{datasheetsht21} Es wurden die Befehle recherchiert und die für die Berechnungen der Werte nötigen Umrechnungsformeln der Sensordaten. {[\ref{img:sht21_commandset}]}  {[\ref{img:sht21_tempformula}]} {[\ref{img:sht21_rhformula}]} Das I2C Protokoll wurde ausführlich studiert. Die in den Datenblättern vermerkten Adressen der Sensoren führen jedoch nicht zu dem Aufbau einer 
 Verbindung. Zur Fehleranalyse wurde ein Skript für den Arduino entwickelt um die Verbindung mit über I2C zu kontrollieren. Über den Arduino war es möglich eine Verbindung herzustellen.
 Es wurde ein Skript herangezogen, welches es ermöglicht die 7 bit I2C Adressen zu überprüfen um Abweichungen vom Datenblatt zu erkennen. Beim SHT21 Sensor wurde eine Abweichung festgestellt.
-Eine Verwendung der so herausgefundenen I2C Adresse führte allerdings ebenfalls zu einem OpenFail. Es wurde ein Übertragunsgsstandard für die von den Sensoren ermittelten Daten über
+Eine Verwendung der so herausgefundenen I2C Adresse führte allerdings ebenfalls zu einem OpenFail. Es wurde ein Übertragungsstandard für die von den Sensoren ermittelten Daten über
 die UART-Schnittstelle entwickelt. Es ist geplant die Daten durch ein Semikolon getrennt in einer vorher festgelegten Reihenfolge zu übertragen. Dabei erhält jeder Mikrokontroller eine
 ID, die gemeinsam mit den ermittelten Daten übertragen wird. Der Aufbau wäre vorraussichtlich wie folgt: (ID; DATASENSOR1; DATASENSOR2; DATASENSOR3) Bei Multisensoren erfolgt die Weitergabe
 der Daten in Reihenfolge der Sensoren durch ein Semikolon getrennt. DATASENSOR1 wäre im Falle des SHT21 dann wie folgt aufgeteilt: TEMPERATURCELSIUS; LUFTFEUCHTIGKEITRH;. Es wurde weiter
