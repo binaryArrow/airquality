@@ -7,7 +7,7 @@ export default class Room {
     roomName: string
     points: fabric.Circle[]
     lines: fabric.Line[]
-    sensor?: Sensor
+    sensor?: Sensor = new Sensor(0)
     volume?: number
     constructor(name: string, points: fabric.Circle[], lines: fabric.Line[], sensor?: Sensor) {
         this.uuid = uuidv4()
@@ -15,5 +15,6 @@ export default class Room {
         this.sensor = sensor
         this.points = points
         this.lines = lines
+        this.sensor = sensor
     }
 }
