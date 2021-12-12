@@ -13,7 +13,7 @@
         </div>
       </add-modal>
       <list-modal class="modal-content" :is-active="listModalActive" :rooms="this.rooms" @delete-room="deleteSelectedRoom">
-        <button class="button is-danger" @click="toggleModal('list')">CANCEL</button>
+        <button class="button is-danger" @click="toggleModal('list')">CLOSE</button>
       </list-modal>
     </div>
   </div>
@@ -221,7 +221,8 @@ export default defineComponent({
         let newRoom = new Room(
             this.newRoomName,
             this.canvas.getObjects('circle').slice(this.lengthOfCirclesInRooms, this.canvas.getObjects('circle').length) as Circle[],
-            linesWithoutGrid
+            linesWithoutGrid,
+            new Sensor(0)
         )
         this.rooms.push(newRoom)
         this.newRoomName = ''

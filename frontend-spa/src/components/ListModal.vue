@@ -4,14 +4,25 @@
       <transition name="modal-inner-animation">
         <div v-show="isActive" class="inner-modal">
           <!-- modal content -->
-          <div v-for="(room, index) in rooms" :key="index">
-            <p>{{ room.roomName }}</p>
-            <button class="button is-danger is-small is-rounded" @click="deleteRoom(index)">
+          <table class="table">
+            <tr>
+              <th>Name</th>
+              <th>Sensor</th>
+            </tr>
+            <tr v-for="(room, index) in rooms" :key="index">
+              <td>
+                {{room.roomName}}
+              </td>
+              <td>
+                {{room.sensor.sensorId}}
+              </td>
+              <button class="button is-danger is-small is-rounded" @click="deleteRoom(index)">
               <span class="icon is-large">
                 <fa icon="trash"></fa>
               </span>
-            </button>
-          </div>
+              </button>
+            </tr>
+          </table>
           <slot/>
           <!--          <button class="button" @click="closeModal" type="button">Close</button>-->
         </div>
