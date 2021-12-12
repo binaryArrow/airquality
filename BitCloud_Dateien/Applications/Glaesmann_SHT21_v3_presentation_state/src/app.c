@@ -25,6 +25,10 @@ Des Weiteren denken Sie auch beim I2C-Deskriptor daran diesen nach Auslesen des 
 #include <usartManager.h>
 #include <i2cPacket.h>
 
+#define Measure_T_SHT21 0xf3
+#define Measure_RH_SHT21 0xf5
+
+
 
 static HAL_AppTimer_t sendeTimer;
 static HAL_AppTimer_t mesTimer;
@@ -37,7 +41,8 @@ static HAL_I2cDescriptor_t i2cdescriptorcmd;
 static HAL_I2cDescriptor_t i2cdescriptorrd;
 
 bool result;
-bool tempNegativ;
+bool measurementSHT21neg;
+bool measuretempsht21;
 uint8_t sht21cmd;
 uint8_t sht21data[2];
 uint16_t sht21_rd;
@@ -47,18 +52,16 @@ int32_t vorkomma;
 int32_t nachkomma;
 
 uint8_t t_output_SHT21[] = "+xxx.xx degree Celsius \r\n";
+uint8_t rh_output_SHT21[] = "+xxx.xx percent  relative Humidity \r\n";
 uint8_t t_output_SHT21_sensorbytes[] = "0xXXXX sensor \r\n";
+
 
 
 
 static void callbackcmd(bool result){
 	appstate=APP_NOTHING_STATE;
-	if(result){
-		appWriteDataToUsart((uint8_t*)"callbackcmd called with 1\r\n", sizeof("callbackcmd called with 1\r\n")-1);
-	}
-	else{
-		appWriteDataToUsart((uint8_t*)"callbackcmd called with 0\r\n", sizeof("callbackcmd called with 1\r\n")-1);
-		
+	if(!result){
+		appWriteDataToUsart((uint8_t*)"Error: callbackcmd called with 0\r\n", sizeof("Error: callbackcmd called with 1\r\n")-1);
 	}
 	HAL_CloseI2cPacket(&i2cdescriptorcmd);
 	HAL_StartAppTimer(&mesTimer);
@@ -67,11 +70,8 @@ static void callbackcmd(bool result){
 
 static void callbackrd(bool result){
 	appstate=APP_AUSGABE_STATE;
-	if(result){
-		appWriteDataToUsart((uint8_t*)"callbackrd called with 1\r\n", sizeof("callbackrd called with 1\r\n")-1);
-	}
-	else{
-		appWriteDataToUsart((uint8_t*)"callbackrd called with 0\r\n", sizeof("callbackrd called with 1\r\n")-1);
+	if(!result){
+		appWriteDataToUsart((uint8_t*)"Error: callbackrd called with 0\r\n", sizeof("Error: callbackrd called with 1\r\n")-1);
 	}
 	HAL_CloseI2cPacket(&i2cdescriptorrd);
 	SYS_PostTask(APL_TASK_ID);
@@ -102,49 +102,52 @@ static HAL_I2cDescriptor_t i2cdescriptorrd={
 
 
 
-void calculateOutput(){
-	/*int16_t vorkomma;
-	vorkomma = sht21data[0];
-	vorkomma <<= 8;
-	vorkomma |= sht21data[1];
-	vorkomma >>= 7;
-
-	uint16_t nachkomma;
-	nachkomma = sht21data[1] & (0x7F);
-	nachkomma >>= 5;
-	//invertieren der nachkomma stelle, falls die Temperatur negativ ist
-	if(sht21data[0]>>7){
-		nachkomma = 100 - (nachkomma *25);
-		} else {
-		nachkomma = nachkomma * 25;
-	}*/
-	uint64_t conversionfactor = 26812744140625; // Datasheetformula: -46.85 + 175.72 * sensordata/65536 :: conversionfactor is 175.72/65536 scaled by 10^16 to avoid floating numbers.
-	uint64_t correctionoffset = 468500000000000000; // -46.85 scaled by 10^16 and inverted new formula: conversionfactor*sensordata - correctionoffset
+void calculateOutputSHT21(){
+	uint64_t conversionfactor;
+	uint64_t correctionoffset;
+	if(measuretempsht21){
+		conversionfactor = 26812744140625; // Datasheetformula: -46.85 + 175.72 * sensordata/65536 :: conversionfactor is 175.72/65536 scaled by 10^16 to avoid floating numbers.
+		correctionoffset = 468500000000000000; // -46.85 scaled by 10^16 and inverted new formula: conversionfactor*sensordata - correctionoffset
+	}else{
+		conversionfactor = 19073486328125; //Datasheetformula: -6 + 125 * sensordata/65536 :: conversionfactor is 125/65536 scaled by 10^16 to avoid floating numbers.
+		correctionoffset = 60000000000000000; // -6 scaled by 10^16 and inverted new formula: conversionfactor*sensordata - correctionoffset
+	}
 	sht21_rd = sht21data[0];
 	sht21_rd <<= 8;
 	sht21_rd |= sht21data[1]; 
 	
-	uint64_t temperature = conversionfactor * sht21_rd;
-	if(temperature < correctionoffset){
-		temperature = correctionoffset - temperature;
-		tempNegativ = true;
+	uint64_t measurementsht21 = conversionfactor * sht21_rd;
+	if(measurementsht21 < correctionoffset){
+		measurementsht21 = correctionoffset - measurementsht21;
+		measurementSHT21neg = true;
 	}else{
-		temperature = temperature - correctionoffset;
+		measurementsht21 = measurementsht21 - correctionoffset;
+		measurementSHT21neg = false;
 	}
-	
-	uint32_t vorkomma = temperature/10000000000000000;
-	uint32_t nachkomma = temperature%10000000000000000;
-	if (tempNegativ)
+		
+	uint32_t vorkomma = measurementsht21/10000000000000000;
+	uint32_t nachkomma = measurementsht21%10000000000000000;
+	if (measurementSHT21neg)
 	{
-		t_output_SHT21[0] = 0x2d;
+		if(measuretempsht21) t_output_SHT21[0] = 0x2d;
+		else rh_output_SHT21[0] = 0x2d;
 	}else{
-		t_output_SHT21[0] = 0x2b;
+		if(measuretempsht21) t_output_SHT21[0] = 0x2b;
+		else rh_output_SHT21[0] = 0x2b;
 	}
-	uint32_to_str((uint8_t *) t_output_SHT21, sizeof(t_output_SHT21),vorkomma, 1, 3);
-	uint32_to_str((uint8_t *) t_output_SHT21, sizeof(t_output_SHT21),nachkomma, 5, 2);
+	if(measuretempsht21){
+		uint32_to_str((uint8_t *) t_output_SHT21, sizeof(t_output_SHT21),vorkomma, 1, 3);
+		uint32_to_str((uint8_t *) t_output_SHT21, sizeof(t_output_SHT21),nachkomma, 5, 2);
+		
+	}else{
+		uint32_to_str((uint8_t *) rh_output_SHT21, sizeof(rh_output_SHT21),vorkomma, 1, 3);
+		uint32_to_str((uint8_t *) rh_output_SHT21, sizeof(rh_output_SHT21),nachkomma, 5, 2);
+	}
 	uint16_to_hexstr((uint8_t *)t_output_SHT21_sensorbytes, sizeof(t_output_SHT21_sensorbytes), sht21_rd, 2);
-	
-}
+	}
+		
+		
+
 
 static void initTimer(){
 	mesTimer.interval	= APP_MES_INTERVAL;
@@ -185,23 +188,33 @@ switch(appstate){
 	break;
 	
 	case APP_WRITE_STATE:
-		sht21cmd = 0xf3;
+	if(measuretempsht21){
+		sht21cmd = Measure_T_SHT21;
+	}else{
+		sht21cmd = Measure_RH_SHT21;
+	}
+		
 		if (-1 == HAL_OpenI2cPacket(&i2cdescriptorcmd)){
 			appWriteDataToUsart((uint8_t*)"open fail\r\n", sizeof("open fail\r\n")-1);
 		}
 		
 		if (-1 == HAL_WriteI2cPacket(&i2cdescriptorcmd)){
 			appWriteDataToUsart((uint8_t*)"write fail\r\n", sizeof("write fail\r\n")-1);
-		}else{
-			appWriteDataToUsart((uint8_t*)"write started\r\n", sizeof("write started\r\n")-1);
 		}
 		appstate=APP_NOTHING_STATE;
 	break;
 	
 	case APP_AUSGABE_STATE:
-		calculateOutput();
+		calculateOutputSHT21();
+		if(measuretempsht21){
 		appWriteDataToUsart((uint8_t*)t_output_SHT21, sizeof(t_output_SHT21));
+		measuretempsht21 = false;
+		}else{
+		appWriteDataToUsart((uint8_t*)rh_output_SHT21, sizeof(rh_output_SHT21));
+		measuretempsht21 = true;
+		}
 		appWriteDataToUsart((uint8_t*)t_output_SHT21_sensorbytes, sizeof(t_output_SHT21_sensorbytes));
+		
 		appstate=APP_NOTHING_STATE;
 	break;
 	

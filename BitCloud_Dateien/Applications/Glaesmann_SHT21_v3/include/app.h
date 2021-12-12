@@ -11,7 +11,7 @@
 #ifndef _APP_H
 #define _APP_H
 
-#define APP_SENDE_INTERVAL	2000
+#define APP_SENDE_INTERVAL	5500
 #define APP_MES_INTERVAL	85
 #define SHT_21_ADD			0x40
 #define CCS811_ADD			0x2D		//0101 1010 Datasheet Address 0x5A/0x5B for reading and writing

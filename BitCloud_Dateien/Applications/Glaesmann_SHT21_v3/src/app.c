@@ -43,7 +43,9 @@ static HAL_I2cDescriptor_t CCS811rd;
 
 bool result;
 bool tempNegativ;
-bool initialized;
+bool initialized = 0;
+bool tMessung;
+
 uint8_t cmdSHT21;
 uint8_t dataSHT21[2];
 uint16_t sht21_rd;
@@ -66,10 +68,15 @@ int32_t nachkomma;
 uint8_t t_output_SHT21[] = "+xxx.xx degree Celsius \r\n";
 uint8_t t_output_SHT21_sensorbytes[] = "0xXXXX sensor \r\n";
 
+/**************************************************************************************************************
+***************************************************************************************************************
+			Define I2C Descriptor Callback methods
+***************************************************************************************************************
+**************************************************************************************************************/
 
-
-static void callbackcmd(bool result){
+static void SHT21callbackcmd(bool result){
 	appstate=APP_NOTHING_STATE;
+
 	if(result){
 		appWriteDataToUsart((uint8_t*)"callbackcmd called with 1\r\n", sizeof("callbackcmd called with 1\r\n")-1);
 	}
@@ -94,7 +101,63 @@ static void SHT21callbackrd(bool result){
 	SYS_PostTask(APL_TASK_ID);
 }
 
+static void SCD41callbackcmd(bool result){
+	appstate=APP_NOTHING_STATE;
+	if(result){
+		appWriteDataToUsart((uint8_t*)"callbackcmd called with 1\r\n", sizeof("callbackcmd called with 1\r\n")-1);
+	}
+	else{
+		appWriteDataToUsart((uint8_t*)"callbackcmd called with 0\r\n", sizeof("callbackcmd called with 1\r\n")-1);
+		
+	}
+	HAL_CloseI2cPacket(&SCD41cmd);
+	HAL_StartAppTimer(&mesTimer);
+	SYS_PostTask(APL_TASK_ID);
+}
 
+static void SCD41callbackrd(bool result){
+	appstate=APP_AUSGABE_STATE;
+	if(result){
+		appWriteDataToUsart((uint8_t*)"callbackrd called with 1\r\n", sizeof("callbackrd called with 1\r\n")-1);
+	}
+	else{
+		appWriteDataToUsart((uint8_t*)"callbackrd called with 0\r\n", sizeof("callbackrd called with 1\r\n")-1);
+	}
+	HAL_CloseI2cPacket(&SCD41rd);
+	SYS_PostTask(APL_TASK_ID);
+}
+
+static void CCS811callbackcmd(bool result){
+	appstate=APP_NOTHING_STATE;
+	if(result){
+		appWriteDataToUsart((uint8_t*)"callbackcmd CCS called with 1\r\n", sizeof("callbackcmd CCS called with 1\r\n")-1);
+	}
+	else{
+		appWriteDataToUsart((uint8_t*)"callbackcmd CCS called with 0\r\n", sizeof("callbackcmd CCS called with 1\r\n")-1);
+		
+	}
+	HAL_CloseI2cPacket(&CCS811cmd);
+	HAL_StartAppTimer(&mesTimer);
+	SYS_PostTask(APL_TASK_ID);
+}
+
+static void CCS811callbackrd(bool result){
+	appstate=APP_AUSGABE_STATE;
+	if(result){
+		appWriteDataToUsart((uint8_t*)"callbackrd CCS called with 1\r\n", sizeof("callbackrd CCS called with 1\r\n")-1);
+	}
+	else{
+		appWriteDataToUsart((uint8_t*)"callbackrd CCS called with 0\r\n", sizeof("callbackrd CCS called with 1\r\n")-1);
+	}
+	HAL_CloseI2cPacket(&CCS811rd);
+	SYS_PostTask(APL_TASK_ID);
+}
+
+/**************************************************************************************************************
+***************************************************************************************************************
+			Define I2C communication Descriptor for Sensors
+***************************************************************************************************************
+**************************************************************************************************************/
 
 
 static HAL_I2cDescriptor_t SHT21cmd={						
@@ -127,7 +190,7 @@ static HAL_I2cDescriptor_t SCD41cmd={
 	.lengthAddr = HAL_NO_INTERNAL_ADDRESS
 };
 
-static HAL_I2cDescriptor_t SHT21rd={
+static HAL_I2cDescriptor_t SCD41rd={
 	.tty = TWI_CHANNEL_0,
 	.clockRate = I2C_CLOCK_RATE_62,
 	.f = SCD41callbackrd,
@@ -157,25 +220,14 @@ static HAL_I2cDescriptor_t CCS811rd={
 	.lengthAddr = HAL_NO_INTERNAL_ADDRESS
 };
 
-
+/**************************************************************************************************************
+***************************************************************************************************************
+			Calculate Output
+***************************************************************************************************************
+**************************************************************************************************************/
 
 
 void calculateOutput(){
-	/*int16_t vorkomma;
-	vorkomma = sht21data[0];
-	vorkomma <<= 8;
-	vorkomma |= sht21data[1];
-	vorkomma >>= 7;
-
-	uint16_t nachkomma;
-	nachkomma = sht21data[1] & (0x7F);
-	nachkomma >>= 5;
-	//invertieren der nachkomma stelle, falls die Temperatur negativ ist
-	if(sht21data[0]>>7){
-		nachkomma = 100 - (nachkomma *25);
-		} else {
-		nachkomma = nachkomma * 25;
-	}*/
 	uint64_t conversionfactor = 26812744140625; // Datasheetformula: -46.85 + 175.72 * sensordata/65536 :: conversionfactor is 175.72/65536 scaled by 10^16 to avoid floating numbers.
 	uint64_t correctionoffset = 468500000000000000; // -46.85 scaled by 10^16 and inverted new formula: conversionfactor*sensordata - correctionoffset
 	sht21_rd = dataSHT21[0];
@@ -206,6 +258,11 @@ void calculateOutput(){
 	
 }
 
+/**************************************************************************************************************
+***************************************************************************************************************
+			Timer
+***************************************************************************************************************
+**************************************************************************************************************/
 static void initTimer(){
 	mesTimer.interval	= APP_MES_INTERVAL;
 	mesTimer.mode		= TIMER_ONE_SHOT_MODE;
@@ -226,16 +283,70 @@ static void measureTimerFired(){
 	SYS_PostTask(APL_TASK_ID);
 }
 
+
+/**************************************************************************************************************
+***************************************************************************************************************
+			Zustandsautomat
+***************************************************************************************************************
+**************************************************************************************************************/
+
 void APL_TaskHandler(void){
 switch(appstate){
 	case APP_INIT_STATE:
 		appInitUsartManager();
 		initTimer();
-		initialized = 0;
+		if(!initialized){
+			cmdCCS811 = 0x0110; // Start periodic measurement
+			if (-1 == HAL_OpenI2cPacket(&CCS811cmd)){
+				appWriteDataToUsart((uint8_t*)"open fail\r\n", sizeof("open fail\r\n")-1);
+				}else if(-1 == HAL_WriteI2cPacket(&CCS811cmd)){
+				appWriteDataToUsart((uint8_t*)"write fail CCS\r\n", sizeof("write fail CCS\r\n")-1);
+				}else{
+				appWriteDataToUsart((uint8_t*)"write started CCS\r\n", sizeof("write started CCS\r\n")-1);
+				initialized = 1;
+			}
+			cmdSCD41 = 0x21ac; // start periodic measurement 5sec
+			if (-1 == HAL_OpenI2cPacket(&SCD41cmd)){
+				appWriteDataToUsart((uint8_t*)"open fail\r\n", sizeof("open fail\r\n")-1);
+				}else if(-1 == HAL_WriteI2cPacket(&SCD41cmd)){
+				appWriteDataToUsart((uint8_t*)"write fail SCD\r\n", sizeof("write fail SCD\r\n")-1);
+				}else{
+				appWriteDataToUsart((uint8_t*)"write started SCD\r\n", sizeof("write started SCD\r\n")-1);
+				initialized = 1;
+			}
 		appstate=APP_NOTHING_STATE;
 	break;
 	
+	case APP_WRITE_STATE:
+	if(!tMessung){
+		cmdSHT21 = 0xf3; //start measurement T
+		tMessung = true;
+		}else{
+		cmdSHT21 = 0xf5; //start measurement RH
+		tMessung = false;
+	}
+	cmdSCD41 = 0xec05; //read measurment
+	
+	if (-1 == HAL_OpenI2cPacket(&SHT21cmd)){
+		appWriteDataToUsart((uint8_t*)"open fail\r\n", sizeof("open fail\r\n")-1);
+	}
+	
+	if (-1 == HAL_WriteI2cPacket(&SHT21cmd)){
+		appWriteDataToUsart((uint8_t*)"write fail SHT\r\n", sizeof("write fail SHT\r\n")-1);
+		}else{
+		appWriteDataToUsart((uint8_t*)"write started SHT\r\n", sizeof("write started SHT\r\n")-1);
+	}
+	if (-1 == HAL_WriteI2cPacket(&SCD41cmd)){
+		appWriteDataToUsart((uint8_t*)"write fail SCD\r\n", sizeof("write fail SCD\r\n")-1);
+		}else{
+		appWriteDataToUsart((uint8_t*)"write started SCD\r\n", sizeof("write started SCD\r\n")-1);
+	}
+	
+	appstate=APP_NOTHING_STATE;
+	break;
+	
 	case APP_READ_STATE:
+	
 	if (-1 == HAL_OpenI2cPacket(&SHT21rd)){
 		appWriteDataToUsart((uint8_t*)"open fail\r\n", sizeof("open fail\r\n")-1);
 	}
@@ -245,25 +356,7 @@ switch(appstate){
 		appstate=APP_AUSGABE_STATE;
 	break;
 	
-	case APP_WRITE_STATE:
-	if(!initialized){
-	cmdCCS811 = 0x0110;
 	
-	initialized = 1;
-	}
-	
-		cmdSHT21 = 0xf3;
-		if (-1 == HAL_OpenI2cPacket(&SHT21cmd)){
-			appWriteDataToUsart((uint8_t*)"open fail\r\n", sizeof("open fail\r\n")-1);
-		}
-		
-		if (-1 == HAL_WriteI2cPacket(&SHT21cmd)){
-			appWriteDataToUsart((uint8_t*)"write fail\r\n", sizeof("write fail\r\n")-1);
-		}else{
-			appWriteDataToUsart((uint8_t*)"write started\r\n", sizeof("write started\r\n")-1);
-		}
-		appstate=APP_NOTHING_STATE;
-	break;
 	
 	case APP_AUSGABE_STATE:
 		calculateOutput();
