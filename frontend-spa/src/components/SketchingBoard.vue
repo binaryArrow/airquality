@@ -12,8 +12,9 @@
           <button class="button is-danger" @click="toggleModal('add')">CANCEL</button>
         </div>
       </add-modal>
-      <list-modal class="modal-content" :is-active="listModalActive" :rooms="this.rooms" @delete-room="deleteSelectedRoom">
-        <button class="button is-danger" @click="toggleModal('list')">CLOSE</button>
+      <list-modal class="modal-content" :is-active="listModalActive" :rooms="this.rooms"
+                  @delete-room="deleteSelectedRoom"
+      @close="toggleModal">
       </list-modal>
     </div>
   </div>

@@ -5,20 +5,32 @@
         <div v-show="isActive" class="inner-modal">
           <!-- modal content -->
           <table class="table">
+            <fa id="close-button" icon="times-circle" @click="closeModal"></fa>
             <tr>
               <th>Name</th>
               <th>Sensor</th>
+              <th></th>
             </tr>
             <tr v-for="(room, index) in rooms" :key="index">
               <td>
-                {{room.roomName}}
+                {{ room.roomName }}
               </td>
               <td>
-                {{room.sensor.sensorId}}
+                <select class="select" v-model="room.sensor.sensorId">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                </select>
               </td>
               <button class="button is-danger is-small is-rounded" @click="deleteRoom(index)">
               <span class="icon is-large">
                 <fa icon="trash"></fa>
+              </span>
+              </button>
+              <button class="button is-warning is-small is-rounded" @click="showInfo(index)">
+              <span class="icon is-large">
+                <fa icon="info"></fa>
               </span>
               </button>
             </tr>
@@ -40,17 +52,22 @@ export default defineComponent({
     rooms: Array,
     isActive: Boolean
   },
-  emits: ['deleteRoom'],
+  emits: ['deleteRoom', 'showInfo', 'close'],
   methods: {
-    //TODO: mit event arbeteiten der auf parent rooms löscht
     deleteRoom(index: number) {
       this.$emit('deleteRoom', index)
+    },
+    showInfo(index: number) {
+      this.$emit('showInfo', index)
+    },
+    closeModal() {
+      this.$emit('close', 'list')
     }
   }
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .list-modal-transition-enter-active,
 .list-modal-transition-leave-active {
@@ -70,6 +87,23 @@ export default defineComponent({
 .modal-inner-animation-enter-from,
 .modal-inner-animation-leave-to {
   opacity: 0;
+}
+
+.inner-modal {
+  height: 200px;
+  overflow: auto;
+}
+th{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #ffffff;
+}
+
+#close-button {
+  position: absolute;
+  right: 20px;
+  top: 3px;
 }
 
 </style>
