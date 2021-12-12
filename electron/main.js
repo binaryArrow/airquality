@@ -1,8 +1,11 @@
 const {app, BrowserWindow} = require('electron')
 const path = require("path");
 
+let win
+
 function createWindow() {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
+        show: false,
         width: 1200,
         height: 900,
         webPreferences: {
@@ -14,7 +17,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
     createWindow()
-
+    win.maximize()
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0)
             createWindow()
@@ -22,6 +25,6 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', () => {
-    if(process.platform !== 'darwin')
+    if (process.platform !== 'darwin')
         app.quit()
 })

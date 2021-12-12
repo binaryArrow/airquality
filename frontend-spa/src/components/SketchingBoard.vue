@@ -23,7 +23,7 @@
             type="button">ADD
       ROOM
     </button>
-    <button id="list-button" class="button is-primary" @click="toggleModal('list')" v-show="!listModalActive"
+    <button id="list-button" class="button is-warning" @click="toggleModal('list')" v-show="!listModalActive"
             type="button">SHOW ROOMS
     </button>
   </div>
@@ -72,6 +72,7 @@ export default defineComponent({
   mounted() {
     this.canvasFromView = this.$refs['drawingCanvas'] as HTMLCanvasElement
     this.canvas = new fabric.Canvas(this.canvasFromView)
+    this.canvas.selection = false
     this.drawGrid()
     this.canvas.on('selection:created', (event) => {
       if (event.target)
@@ -160,7 +161,8 @@ export default defineComponent({
         stroke: 'red',
         strokeWidth: 3,
         lockScalingX: true,
-        lockScalingY: true
+        lockScalingY: true,
+        selectable: false
       })
     },
     makeCircle(left: number, top: number, line1?: fabric.Line, line2?: fabric.Line): Circle {
