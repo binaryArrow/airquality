@@ -16,11 +16,11 @@
                 {{ room.roomName }}
               </td>
               <td>
-                <select class="select" v-model="room.sensor.sensorId">
-                  <option>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
+                <select class="select" v-model="room.sensor">
+                  <option v-bind:value="{sensorId: 0}">0</option>
+                  <option v-bind:value="{sensorId: 1}">1</option>
+                  <option v-bind:value="{sensorId: 2}">2</option>
+                  <option v-bind:value="{sensorId: 3}">3</option>
                 </select>
               </td>
               <button class="button is-danger is-small is-rounded" @click="deleteRoom(index)">

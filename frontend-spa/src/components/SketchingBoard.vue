@@ -72,6 +72,7 @@ export default defineComponent({
   mounted() {
     this.canvasFromView = this.$refs['drawingCanvas'] as HTMLCanvasElement
     this.canvas = new fabric.Canvas(this.canvasFromView)
+    this.canvas.selection = false
     this.drawGrid()
     this.canvas.on('selection:created', (event) => {
       if (event.target)
