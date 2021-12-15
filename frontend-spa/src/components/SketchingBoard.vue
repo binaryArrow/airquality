@@ -14,7 +14,7 @@
       </add-modal>
       <list-modal class="modal-content" :is-active="listModalActive" :rooms="this.rooms"
                   @delete-room="deleteSelectedRoom"
-      @close="toggleModal">
+                  @close="toggleModal">
       </list-modal>
     </div>
   </div>
@@ -37,6 +37,9 @@ import AddModal from '@/components/AddModal.vue'
 import {fabric} from "fabric";
 import {Circle, Line} from "fabric/fabric-impl";
 import ListModal from "@/components/ListModal.vue";
+import {io} from "socket.io-client";
+
+const socket = io("http://localhost:3000")
 
 interface CircleWithLine extends fabric.Object, fabric.Circle {
   line1?: fabric.Line,
@@ -70,6 +73,13 @@ export default defineComponent({
     }
   },
   mounted() {
+    socket.on("data", (data: { lineCoords: number[]; circleLeft: number; circleTop: number }) => {
+      const newCircle: Circle[] = [this.makeCircle(data.circleLeft, data.circleTop)]
+      const newLine: Line[] = [this.makeLine(data.lineCoords)]
+      const newSensor = new Sensor(1312)
+      this.rooms.push(new Room("fromBackend", newCircle, newLine, newSensor))
+      this.redraw()
+    })
     this.canvasFromView = this.$refs['drawingCanvas'] as HTMLCanvasElement
     this.canvas = new fabric.Canvas(this.canvasFromView)
     this.canvas.selection = false
@@ -101,7 +111,7 @@ export default defineComponent({
     })
   },
   methods: {
-    redraw(){
+    redraw() {
       this.canvas.clear()
       this.lengthOfCirclesInRooms = 0
       this.lengthOfLinesInRooms = 0
@@ -232,7 +242,7 @@ export default defineComponent({
         this.redraw()
       }
     },
-    deleteSelectedRoom(index: number){
+    deleteSelectedRoom(index: number) {
       this.rooms.splice(index, 1)
       this.redraw()
     },

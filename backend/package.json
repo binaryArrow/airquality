@@ -12,7 +12,8 @@
   "author": "Can Cihan Nazlier",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "socket.io": "^4.4.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

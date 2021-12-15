@@ -14,7 +14,10 @@
     "@types/fabric": "^4.5.5",
     "bulma": "^0.9.3",
     "core-js": "^3.6.5",
+    "engine.io-client": "^6.1.1",
     "fabric": "^4.6.0",
+    "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.0",
     "uuid": "^8.3.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
