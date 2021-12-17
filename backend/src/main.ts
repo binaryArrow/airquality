@@ -1,21 +1,23 @@
 import express from 'express'
 import {createServer} from 'http'
 import {Server, Socket} from "socket.io";
+import {Connection} from "./db/connection";
 
-
+const connection = new Connection()
 const app = express()
-const httpServer = createServer()
+const httpServer = createServer(app)
 const io = new Server(httpServer, {
     cors: {
         origin: "*"
     }
 })
 
-// app.get('/', (req, res) => {
-//
-//     res.send('Hello World');
-//
-// })
+app.get('/', (req, res) => {
+
+    res.send('Hello World');
+    connection.testInsert()
+
+})
 
 
 let data = {

@@ -1,9 +1,9 @@
 const {app, BrowserWindow} = require('electron')
 const path = require("path");
-//const backend = require("../backend/dist/main")
-const fork = require("child_process").fork
-const child = fork('../backend/dist/main')
-
+const {fork} = require('child_process')
+fork(path.join(process.cwd(), '../backend/dist/main.js'), ['args'], {
+    stdio: 'pipe'
+})
 function createWindow() {
     win = new BrowserWindow({
         show: false,
