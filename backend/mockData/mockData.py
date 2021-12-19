@@ -37,21 +37,21 @@ for dataSet in data1:
     jsonStr = json.dumps(dataSet.__dict__)
     print(jsonStr)
     s.write(jsonStr.encode('utf-8'))
-    time.sleep(2)
+    time.sleep(10)
 
 print("Daten von Funkmodul 2: ")
 for dataSet in data2:
     jsonStr = json.dumps(dataSet.__dict__)
     print(jsonStr)
     s.write(jsonStr.encode('utf-8'))
-    time.sleep(2)
+    time.sleep(10)
 
 print("Daten von Funkmodul 3: ")
 for dataSet in data3:
     jsonStr = json.dumps(dataSet.__dict__)
     print(jsonStr)
     s.write(jsonStr.encode('utf-8'))
-    time.sleep(2)
+    time.sleep(10)
 
 # data=[
 #   {
