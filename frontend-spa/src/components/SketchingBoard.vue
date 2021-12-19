@@ -31,13 +31,14 @@
 
 <script lang="ts">
 import {defineComponent, ref} from 'vue';
-import Room from "@/../../models/Room";
-import Sensor from "@/../../models/Sensor";
+import Room from "@/../../backend/src/models/Room";
+import Sensor from "@/../../backend/src/models/Sensor";
 import AddModal from '@/components/AddModal.vue'
 import {fabric} from "fabric";
 import {Circle, Line} from "fabric/fabric-impl";
 import ListModal from "@/components/ListModal.vue";
 import {io} from "socket.io-client";
+import {Communicator} from "@/service/communicator";
 
 const socket = io("http://localhost:3000")
 
@@ -69,10 +70,12 @@ export default defineComponent({
       addInformation: 'add a name for the room',
       addInputClassName: 'input is-rounded',
       lengthOfCirclesInRooms: 0,
-      lengthOfLinesInRooms: 0
+      lengthOfLinesInRooms: 0,
+      communicator: new Communicator()
     }
   },
   mounted() {
+    this.communicator.getRooms().then(data => console.log(data))
     socket.on("data", (data: { lineCoords: number[]; circleLeft: number; circleTop: number }) => {
       const newCircle: Circle[] = [this.makeCircle(data.circleLeft, data.circleTop)]
       const newLine: Line[] = [this.makeLine(data.lineCoords)]
@@ -237,6 +240,7 @@ export default defineComponent({
             new Sensor(0)
         )
         this.rooms.push(newRoom)
+        this.communicator.postRoom(newRoom)
         this.newRoomName = ''
         this.addModalActive = false
         this.redraw()
