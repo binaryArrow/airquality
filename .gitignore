@@ -1,2 +1,5 @@
 node_modules
 .idea
+backend/package-lock.json
+frontend-spa/package.lock.json
+electron/package.lock.json

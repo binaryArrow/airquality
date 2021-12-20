@@ -18,17 +18,20 @@ const io = new Server(httpServer, {
     }
 })
 
-app.get('/rooms', async (req, res) => {
+app.get('/rooms', async (req:any, res:any) => {
 
     const rooms = await connection.getAllRooms()
     res.status(200).json(rooms)
 })
-app.post('/rooms', async (req, res) => {
-    const response = await connection.insertRoom(req.body as Room)
-    res.status(201).json(response)
+app.post('/rooms', async (req:any, res:any) => {
+    const response = await connection.insertRoom(req.body)
+    const idResponse = await connection.getLastRoom()
+    res.contentType('application/json')
+    res.status(201)
+    res.json(idResponse)
 })
-app.delete('/room/:uuid', async (req, res) => {
-    await connection.deleteRoom(req.params.uuid)
+app.delete('/room/:id', async (req:any, res:any) => {
+    await connection.deleteRoom(req.params.id)
     res.status(200).json({deleted: true})
 })
 

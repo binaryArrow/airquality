@@ -20,6 +20,7 @@ export class Connection {
                     table.string('roomName')
                     table.string('points')
                     table.string('lines')
+                    table.string('lineCoords')
                     table.string('sensor')
                     table.timestamp('created_at').defaultTo(this.dbConnection.fn.now())
                 })
@@ -35,6 +36,7 @@ export class Connection {
                 points: JSON.stringify(room.points),
                 lines: JSON.stringify(room.lines),
                 sensor: JSON.stringify(room.sensor),
+                lineCoords: JSON.stringify(room.lineCoords),
                 created_at: this.dbConnection.fn.now()
 
             }).then(() => {
@@ -55,8 +57,18 @@ export class Connection {
 
     deleteRoom(id: string) {
         try {
-            return this.dbConnection('rooms').where('uuid', id).del()
+            return this.dbConnection('rooms').where('id', id).del().then(() => {
+                    console.log("deleted from DB")
+                }
+            )
         } catch (e) {
+            console.log(`${e}`)
+        }
+    }
+    getLastRoom() {
+        try{
+            return this.dbConnection('rooms').max('id')
+        }catch (e) {
             console.log(`${e}`)
         }
     }

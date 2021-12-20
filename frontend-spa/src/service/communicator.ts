@@ -12,10 +12,22 @@ export class Communicator {
     }
 
     async postRoom(room: Room): Promise<any> {
+
         return fetch('http://localhost:3000/rooms', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(room)
-        }).then(() => console.log(room))
+        })
+            .then((res) => res.json())
+            .catch(e => console.log(e.message))
     }
+    async deleteRoom(id?: number): Promise<any> {
+        if(!id){
+            return new Error("no ID of room to delete")
+        }
+        return fetch(`http://localhost:3000/room/${id.toString()}`, {
+            method: 'DELETE'
+        })
+    }
+
 }

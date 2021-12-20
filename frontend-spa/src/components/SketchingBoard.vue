@@ -41,6 +41,7 @@ import {io} from "socket.io-client";
 import {Communicator} from "@/service/communicator";
 import {Drawing} from "@/service/drawing";
 import CircleWithLine from "@/../../backend/src/models/circleWithLine"
+import LineCoords from '../../../backend/src/models/lineCoords';
 
 const socket = io("http://localhost:3000")
 
@@ -80,11 +81,26 @@ export default defineComponent({
 
     this.communicator.getRooms().then(data => {
       console.log(data)
+      data.forEach(room => {
+        let newRoom = new Room(
+            room.roomName,
+            Drawing.mapCirclesFromDB(room.points.toString(), this.grid),
+            Drawing.mapLinesFromDB(room.lineCoords.toString()),
+            new Sensor(room.sensor.sensorId),
+            room.lineCoords,
+            room.id
+        )
+        this.rooms.push(newRoom)
+      })
+      console.log(this.rooms)
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects)
+      Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     })
     socket.on("data", (data: { lineCoords: number[]; circleLeft: number; circleTop: number }) => {
       console.log("got some data from socket")
     })
     Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
+
 
     // canvas methods
     this.canvas.on('selection:created', (event) => {
@@ -172,14 +188,27 @@ export default defineComponent({
           it.stroke = '#30880d'
         })
         let linesWithoutGrid = this.canvas.getObjects('line').slice((this.width / this.grid) * 2 + this.lengthsOfObjects.lengthOfLinesInRooms, this.canvas.getObjects('line').length) as Line[]
+        let lineCoordinates: LineCoords[] = []
+        linesWithoutGrid.forEach(line => {
+          lineCoordinates.push({
+            x1: line.x1 as number,
+            x2: line.x2 as number,
+            y1: line.y1 as number,
+            y2: line.y2 as number })
+        })
         let newRoom = new Room(
             this.newRoomName,
             this.canvas.getObjects('circle').slice(this.lengthsOfObjects.lengthOfCirclesInRooms, this.canvas.getObjects('circle').length) as Circle[],
             linesWithoutGrid,
-            new Sensor(0)
+            new Sensor(0),
+            lineCoordinates
         )
+        this.communicator.postRoom(newRoom).then((data: [{'max(`id`)': 27}]) => {
+          data.forEach(id => {
+            newRoom.id = id["max(`id`)"]
+          })
+        })
         this.rooms.push(newRoom)
-        this.communicator.postRoom(newRoom)
         this.newRoomName = ''
         this.addModalActive = false
         Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects)
@@ -187,6 +216,7 @@ export default defineComponent({
       }
     },
     deleteSelectedRoom(index: number) {
+      this.communicator.deleteRoom(this.rooms[index].id)
       this.rooms.splice(index, 1)
       Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects)
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)

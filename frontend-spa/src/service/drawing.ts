@@ -1,6 +1,6 @@
 import {fabric} from "fabric";
 import Room from "@/../../backend/src/models/Room";
-import {Circle} from "fabric/fabric-impl";
+import {Circle, Line} from "fabric/fabric-impl";
 import CircleWithLine from "@/../../backend/src/models/circleWithLine"
 
 export class Drawing {
@@ -71,6 +71,28 @@ export class Drawing {
             lockScalingX: true,
             lockScalingY: true,
         })
+    }
+    static mapCirclesFromDB(pointsFromDB: string, grid: number):Circle[] {
+        const circleArray: Circle[] = []
+        const test = JSON.parse(pointsFromDB)
+        for (const element of test){
+            const newCircle = this.makeCircle(element.left, element.top, grid)
+            newCircle.fill = '#30880DFF'
+            newCircle.selectable = false
+            circleArray.push(newCircle)
+        }
+        return circleArray
+    }
+    static mapLinesFromDB(lineCoordinatesFromDB: string): Line[]{
+        const linesArray: Line[] = []
+        const test = JSON.parse(lineCoordinatesFromDB)
+        for(const element of test) {
+            const newLine = this.makeLine([element.x1, element.y1, element.x2, element.y2])
+            newLine.stroke = '#30880DFF'
+            newLine.selectable = false
+            linesArray.push(newLine)
+        }
+        return linesArray
     }
 
 }
