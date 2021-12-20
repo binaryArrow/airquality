@@ -39,13 +39,10 @@ import {Circle, Line} from "fabric/fabric-impl";
 import ListModal from "@/components/ListModal.vue";
 import {io} from "socket.io-client";
 import {Communicator} from "@/service/communicator";
+import {Drawing} from "@/service/drawing";
+import CircleWithLine from "@/../../backend/src/models/circleWithLine"
 
 const socket = io("http://localhost:3000")
-
-interface CircleWithLine extends fabric.Object, fabric.Circle {
-  line1?: fabric.Line,
-  line2?: fabric.Line,
-}
 
 export default defineComponent({
   name: 'SketchingBoard',
@@ -69,24 +66,27 @@ export default defineComponent({
       newRoomName: '',
       addInformation: 'add a name for the room',
       addInputClassName: 'input is-rounded',
-      lengthOfCirclesInRooms: 0,
-      lengthOfLinesInRooms: 0,
+      lengthsOfObjects: {
+        lengthOfCirclesInRooms: 0,
+        lengthOfLinesInRooms: 0
+      },
       communicator: new Communicator()
     }
   },
   mounted() {
-    this.communicator.getRooms().then(data => console.log(data))
-    socket.on("data", (data: { lineCoords: number[]; circleLeft: number; circleTop: number }) => {
-      const newCircle: Circle[] = [this.makeCircle(data.circleLeft, data.circleTop)]
-      const newLine: Line[] = [this.makeLine(data.lineCoords)]
-      const newSensor = new Sensor(1312)
-      this.rooms.push(new Room("fromBackend", newCircle, newLine, newSensor))
-      this.redraw()
-    })
     this.canvasFromView = this.$refs['drawingCanvas'] as HTMLCanvasElement
     this.canvas = new fabric.Canvas(this.canvasFromView)
     this.canvas.selection = false
-    this.drawGrid()
+
+    this.communicator.getRooms().then(data => {
+      console.log(data)
+    })
+    socket.on("data", (data: { lineCoords: number[]; circleLeft: number; circleTop: number }) => {
+      console.log("got some data from socket")
+    })
+    Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
+
+    // canvas methods
     this.canvas.on('selection:created', (event) => {
       if (event.target)
         event.target.set({
@@ -114,44 +114,13 @@ export default defineComponent({
     })
   },
   methods: {
-    redraw() {
-      this.canvas.clear()
-      this.lengthOfCirclesInRooms = 0
-      this.lengthOfLinesInRooms = 0
-      console.log(`in canvas: ${this.canvas.getObjects().length}`)
-      this.rooms.forEach(it => {
-        it.points.forEach(point => {
-          this.canvas.add(point)
-        })
-        it.lines.forEach(line => {
-          this.canvas.add(line)
-        })
-        this.lengthOfCirclesInRooms += it.points.length
-        this.lengthOfLinesInRooms += it.lines.length
-      })
-      this.drawGrid()
-    },
-    drawGrid() {
-      for (let i = 0; i < (this.width / this.grid); i++) {
-        this.canvas.add(new fabric.Line([i * this.grid, 0, i * this.grid, this.height], {
-          stroke: '#ccc',
-          selectable: false,
-          hoverCursor: 'false'
-        }));
-        this.canvas.add(new fabric.Line([0, i * this.grid, this.width, i * this.grid], {
-          stroke: '#ccc',
-          selectable: false,
-          hoverCursor: 'false'
-        }))
-      }
-    },
     addPoint() {
-      let newPoint = this.makeCircle(this.mousePosX, this.mousePosY)
+      let newPoint = Drawing.makeCircle(this.mousePosX, this.mousePosY, this.grid)
       let newLine
       this.canvas.add(newPoint)
-      console.log(`in rooms: ${this.lengthOfCirclesInRooms} < ${(this.canvas.getObjects('circle').length - 1)}`)
-      if (this.canvas.getObjects('circle').length >= 2 && (this.lengthOfCirclesInRooms < this.canvas.getObjects('circle').length - 1)) {
-        newLine = this.makeLine([
+      console.log(`in rooms: ${this.lengthsOfObjects.lengthOfCirclesInRooms} < ${(this.canvas.getObjects('circle').length - 1)}`)
+      if (this.canvas.getObjects('circle').length >= 2 && (this.lengthsOfObjects.lengthOfCirclesInRooms < this.canvas.getObjects('circle').length - 1)) {
+        newLine = Drawing.makeLine([
           this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 2].getCenterPoint().x,
           this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 2].getCenterPoint().y,
           this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 1].getCenterPoint().x,
@@ -169,36 +138,6 @@ export default defineComponent({
       console.log("Circles in canvas: ")
       console.log(this.canvas.getObjects('circle'))
     },
-    makeLine(coords: number[]) {
-      return new fabric.Line(coords, {
-        stroke: 'red',
-        strokeWidth: 3,
-        lockScalingX: true,
-        lockScalingY: true,
-      })
-    },
-    makeCircle(left: number, top: number, line1?: fabric.Line, line2?: fabric.Line): Circle {
-      const opt = {
-        left: Math.round(left / this.grid) * this.grid,
-        top: Math.round(top / this.grid) * this.grid,
-        radius: 5,
-        fill: 'red',
-        originX: 'center',
-        originY: 'center',
-        centeredRotation: true,
-        strokeWidth: 2,
-        lockRotation: true,
-        lockScalingX: true,
-        lockScalingY: true,
-        line1: line1,
-        line2: line2,
-        hasControls: false,
-        hasBorders: false,
-      } as CircleWithLine
-
-      return new fabric.Circle(opt)
-
-    },
     toggleModal(type: string) {
       switch (type) {
         case "add": {
@@ -207,10 +146,10 @@ export default defineComponent({
           this.addInputClassName = 'input is-rounded'
           this.addInformation = 'add a name for the room'
           // if statement prüft ob der Raum geschlossen wurde
-          console.log(this.canvas.getObjects('circle')[this.lengthOfCirclesInRooms])
+          console.log(this.canvas.getObjects('circle')[this.lengthsOfObjects.lengthOfCirclesInRooms])
           console.log(this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 1])
-          if (this.canvas.getObjects('circle')[this.lengthOfCirclesInRooms] && this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 1]) {
-            circle1 = this.canvas.getObjects('circle')[this.lengthOfCirclesInRooms] as fabric.Circle
+          if (this.canvas.getObjects('circle')[this.lengthsOfObjects.lengthOfCirclesInRooms] && this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 1]) {
+            circle1 = this.canvas.getObjects('circle')[this.lengthsOfObjects.lengthOfCirclesInRooms] as fabric.Circle
             circle2 = this.canvas.getObjects('circle')[this.canvas.getObjects('circle').length - 1] as fabric.Circle
             if (circle1.top === circle2.top && circle1.left === circle2.left)
               this.addModalActive = !this.addModalActive
@@ -232,10 +171,10 @@ export default defineComponent({
         this.canvas.getObjects('line').splice((this.width / this.grid) * 2, this.canvas.getObjects('line').length).forEach((it) => {
           it.stroke = '#30880d'
         })
-        let linesWithoutGrid = this.canvas.getObjects('line').slice((this.width / this.grid) * 2 + this.lengthOfLinesInRooms, this.canvas.getObjects('line').length) as Line[]
+        let linesWithoutGrid = this.canvas.getObjects('line').slice((this.width / this.grid) * 2 + this.lengthsOfObjects.lengthOfLinesInRooms, this.canvas.getObjects('line').length) as Line[]
         let newRoom = new Room(
             this.newRoomName,
-            this.canvas.getObjects('circle').slice(this.lengthOfCirclesInRooms, this.canvas.getObjects('circle').length) as Circle[],
+            this.canvas.getObjects('circle').slice(this.lengthsOfObjects.lengthOfCirclesInRooms, this.canvas.getObjects('circle').length) as Circle[],
             linesWithoutGrid,
             new Sensor(0)
         )
@@ -243,12 +182,14 @@ export default defineComponent({
         this.communicator.postRoom(newRoom)
         this.newRoomName = ''
         this.addModalActive = false
-        this.redraw()
+        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects)
+        Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
       }
     },
     deleteSelectedRoom(index: number) {
       this.rooms.splice(index, 1)
-      this.redraw()
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects)
+      Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     },
   }
 });

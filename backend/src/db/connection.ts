@@ -18,9 +18,10 @@ export class Connection {
                     table.increments('id')
                     table.string('uuid')
                     table.string('roomName')
-                    table.specificType('points', 'object ARRAY')
-                    table.specificType('lines', 'object ARRAY')
-                    table.specificType('sensor', 'object')
+                    table.string('points')
+                    table.string('lines')
+                    table.string('sensor')
+                    table.timestamp('created_at').defaultTo(this.dbConnection.fn.now())
                 })
             }
         })
@@ -28,7 +29,15 @@ export class Connection {
 
     insertRoom(room: Room) {
         try {
-            return this.dbConnection('rooms').insert(room).then(() => {
+            return this.dbConnection('rooms').insert({
+                uuid: room.uuid,
+                roomName: room.roomName,
+                points: JSON.stringify(room.points),
+                lines: JSON.stringify(room.lines),
+                sensor: JSON.stringify(room.sensor),
+                created_at: this.dbConnection.fn.now()
+
+            }).then(() => {
                 console.log("wrote")
             })
         } catch (e) {

@@ -16,6 +16,6 @@ export class Communicator {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(room)
-        })
+        }).then(() => console.log(room))
     }
 }

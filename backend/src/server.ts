@@ -4,6 +4,7 @@ import cors from 'cors'
 import {createServer} from 'http'
 import {Server, Socket} from "socket.io";
 import {Connection} from "./db/connection";
+import Room from "./models/Room";
 
 const connection = new Connection()
 const app = express()
@@ -16,14 +17,14 @@ const io = new Server(httpServer, {
         origin: "*"
     }
 })
-// TODO: fetch frontend data
+
 app.get('/rooms', async (req, res) => {
 
     const rooms = await connection.getAllRooms()
     res.status(200).json(rooms)
 })
 app.post('/rooms', async (req, res) => {
-    const response = await connection.insertRoom(req.body)
+    const response = await connection.insertRoom(req.body as Room)
     res.status(201).json(response)
 })
 app.delete('/room/:uuid', async (req, res) => {
