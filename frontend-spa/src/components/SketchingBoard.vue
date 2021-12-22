@@ -40,8 +40,8 @@ import ListModal from "@/components/ListModal.vue";
 import {io} from "socket.io-client";
 import {Communicator} from "@/service/communicator";
 import {Drawing} from "@/service/drawing";
-import CircleWithLine from "@/../../backend/src/models/circleWithLine"
-import LineCoords from '../../../backend/src/models/lineCoords';
+import CircleWithLine from "@/../../../backend/src/models/CircleWithLine"
+import LineCoords from '../../../backend/src/models/LineCoords';
 
 const socket = io("http://localhost:3000")
 
@@ -86,7 +86,7 @@ export default defineComponent({
             room.roomName,
             Drawing.mapCirclesFromDB(room.points.toString(), this.grid),
             Drawing.mapLinesFromDB(room.lineCoords.toString()),
-            new Sensor(room.sensor.sensorId),
+            room.sensorId,
             room.lineCoords,
             room.id
         )
@@ -200,7 +200,7 @@ export default defineComponent({
             this.newRoomName,
             this.canvas.getObjects('circle').slice(this.lengthsOfObjects.lengthOfCirclesInRooms, this.canvas.getObjects('circle').length) as Circle[],
             linesWithoutGrid,
-            new Sensor(0),
+            1,
             lineCoordinates
         )
         this.communicator.postRoom(newRoom).then((data: [{'max(`id`)': 27}]) => {

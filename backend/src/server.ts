@@ -5,6 +5,7 @@ import {createServer} from 'http'
 import {Server, Socket} from "socket.io";
 import {Connection} from "./db/connection";
 import Room from "./models/Room";
+import {SensorData} from "./models/SensorData";
 
 const connection = new Connection()
 const app = express()
@@ -18,6 +19,9 @@ const io = new Server(httpServer, {
     }
 })
 
+const sensorData: SensorData = new SensorData(1)
+sensorData.sensorData1 = "uff zu heiß"
+
 app.get('/rooms', async (req:any, res:any) => {
 
     const rooms = await connection.getAllRooms()
@@ -26,6 +30,7 @@ app.get('/rooms', async (req:any, res:any) => {
 app.post('/rooms', async (req:any, res:any) => {
     const response = await connection.insertRoom(req.body)
     const idResponse = await connection.getLastRoom()
+    connection.insertSensorData(sensorData)
     res.contentType('application/json')
     res.status(201)
     res.json(idResponse)

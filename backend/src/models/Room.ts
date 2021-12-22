@@ -1,7 +1,8 @@
 import Sensor from "./Sensor";
 import {v4, v4 as uuidv4} from 'uuid'
 import {fabric} from "fabric";
-import LineCoords from "./lineCoords";
+import LineCoords from "./LineCoords";
+import {SensorData} from "./SensorData";
 
 export default class Room {
     id?: number
@@ -10,15 +11,16 @@ export default class Room {
     points: fabric.Circle[]
     lines: fabric.Line[]
     lineCoords: LineCoords[]
-    sensor: Sensor
-    constructor(name: string, points: fabric.Circle[], lines: fabric.Line[], sensor: Sensor, lineCoords: LineCoords[], id?: number) {
+    sensorId: number
+    sensorData?: SensorData[] = []
+    constructor(name: string, points: fabric.Circle[], lines: fabric.Line[], sensorId: number, lineCoords: LineCoords[], id?: number) {
         this.id = id
         this.uuid = uuidv4()
         this.roomName = name
-        this.sensor = sensor
+        this.sensorId = sensorId
         this.points = points
         this.lines = lines
-        this.sensor = sensor
+        this.sensorId = sensorId
         this.lineCoords = lineCoords
     }
 }

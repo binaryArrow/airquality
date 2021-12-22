@@ -1,7 +1,7 @@
 import {fabric} from "fabric";
 import Room from "@/../../backend/src/models/Room";
 import {Circle, Line} from "fabric/fabric-impl";
-import CircleWithLine from "@/../../backend/src/models/circleWithLine"
+import CircleWithLine from "@/../../../backend/src/models/CircleWithLine"
 
 export class Drawing {
 

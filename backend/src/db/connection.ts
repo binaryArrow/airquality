@@ -1,5 +1,7 @@
 import knex from 'knex'
 import Room from "../models/Room";
+import {SensorData} from "../models/SensorData";
+import {exists} from "fs";
 
 export class Connection {
     private dbConnection: any
@@ -21,7 +23,20 @@ export class Connection {
                     table.string('points')
                     table.string('lines')
                     table.string('lineCoords')
-                    table.string('sensor')
+                    table.integer('sensorId')
+                    table.timestamp('created_at').defaultTo(this.dbConnection.fn.now())
+                })
+            }
+        })
+        this.dbConnection.schema.hasTable('sensor-data').then((exists: boolean) => {
+            if (!exists) {
+                return this.dbConnection.schema.createTable('sensor-data', (table: any) => {
+                    table.increments('id')
+                    table.integer('sensorId')
+                    table.integer('roomId')
+                    table.string('sensorData1')
+                    table.string('sensorData2')
+                    table.string('sensorData3')
                     table.timestamp('created_at').defaultTo(this.dbConnection.fn.now())
                 })
             }
@@ -35,7 +50,7 @@ export class Connection {
                 roomName: room.roomName,
                 points: JSON.stringify(room.points),
                 lines: JSON.stringify(room.lines),
-                sensor: JSON.stringify(room.sensor),
+                sensorId: JSON.stringify(room.sensorId),
                 lineCoords: JSON.stringify(room.lineCoords),
                 created_at: this.dbConnection.fn.now()
 
@@ -65,10 +80,33 @@ export class Connection {
             console.log(`${e}`)
         }
     }
+
     getLastRoom() {
-        try{
+        try {
             return this.dbConnection('rooms').max('id')
-        }catch (e) {
+        } catch (e) {
+            console.log(`${e}`)
+        }
+    }
+
+    async insertSensorData(sensorData: SensorData) {
+        const roomIdWithSameSensorId = await this.dbConnection('rooms')
+            .where('sensorId', sensorData.sensorId)
+            .first()
+            .then((row: any)=>row)
+        console.log(roomIdWithSameSensorId.toString())
+        try {
+            return this.dbConnection('sensor-data').insert({
+                sensorId: sensorData.sensorId,
+                roomId: roomIdWithSameSensorId.id,
+                sensorData1: sensorData.sensorData1,
+                sensorData2: sensorData.sensorData2,
+                sensorData3: sensorData.sensorData3,
+                created_at: this.dbConnection.fn.now()
+            }).then(() => {
+                console.log(`wrote sensordata with roomId: ${roomIdWithSameSensorId.id}`)
+            })
+        } catch (e) {
             console.log(`${e}`)
         }
     }
