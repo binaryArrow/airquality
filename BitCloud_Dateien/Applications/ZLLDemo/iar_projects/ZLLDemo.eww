@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<workspace>
+  <batchBuild/>
+  <project>
+    <path>$WS_DIR$\ATmega2564RFR2.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\ATmega256RFR2.ewp</path>
+  </project>
+</workspace>

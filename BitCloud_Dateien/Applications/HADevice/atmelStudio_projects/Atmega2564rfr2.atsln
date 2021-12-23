@@ -1,0 +1,20 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Atmega2564rfr2", "Atmega2564rfr2.cproj", "{D3EBC255-AA20-4134-AE40-0511E15C032A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR = All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR = All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		Description = Application HADevice
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3EBC255-AA20-4134-AE40-0511E15C032A}.All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.ActiveCfg = All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{D3EBC255-AA20-4134-AE40-0511E15C032A}.All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR.Build.0 = All_StdlinkSec_MegaRf_Atmega2564rfr2_8Mhz_Gcc|AVR
+		{D3EBC255-AA20-4134-AE40-0511E15C032A}.All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.ActiveCfg = All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+		{D3EBC255-AA20-4134-AE40-0511E15C032A}.All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR.Build.0 = All_StdlinkSec_MegaRf_Atmega2564rfr2_16Mhz_Gcc|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
