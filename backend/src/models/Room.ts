@@ -20,7 +20,6 @@ export default class Room {
         this.sensorId = sensorId
         this.points = points
         this.lines = lines
-        this.sensorId = sensorId
         this.lineCoords = lineCoords
     }
 }

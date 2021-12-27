@@ -16,11 +16,11 @@
                 {{ room.roomName }}
               </td>
               <td>
-                <select class="select" v-model="room.sensor">
-                  <option v-bind:value="{sensorId: 0}">0</option>
-                  <option v-bind:value="{sensorId: 1}">1</option>
-                  <option v-bind:value="{sensorId: 2}">2</option>
-                  <option v-bind:value="{sensorId: 3}">3</option>
+                <select class="select" v-model="room.sensorId" @input="lookForDoubleEntries(room.sensorId, $event)">
+                  <option v-bind:value="0">0</option>
+                  <option v-bind:disabled="disabled1" v-bind:value="1">1</option>
+                  <option v-bind:disabled="disabled2" v-bind:value="2">2</option>
+                  <option v-bind:disabled="disabled3" v-bind:value="3">3</option>
                 </select>
               </td>
               <button class="button is-danger is-small is-rounded" @click="deleteRoom(index)">
@@ -45,6 +45,7 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
+import Room from "@/../../backend/src/models/Room";
 
 export default defineComponent({
   name: "ListModal",
@@ -52,8 +53,47 @@ export default defineComponent({
     rooms: Array,
     isActive: Boolean
   },
+  data() {
+    return {
+      disabled1: false,
+      disabled2: false,
+      disabled3: false,
+    }
+  },
   emits: ['deleteRoom', 'showInfo', 'close'],
   methods: {
+    lookForDoubleEntries(sensorId: number, e: any){
+      console.log(sensorId)
+      console.log(e.target.value)
+      switch (e.target.value){
+        case "1": {
+          this.disabled1 = true
+          break
+        }
+        case "2": {
+          this.disabled2 = true
+          break
+        }
+        case "3": {
+          this.disabled3 = true
+          break
+        }
+      }
+      switch (sensorId){
+        case 1: {
+          this.disabled1 = false
+          break
+        }
+        case 2: {
+          this.disabled2 = false
+          break
+        }
+        case 3: {
+          this.disabled3 = false
+          break
+        }
+      }
+    },
     deleteRoom(index: number) {
       this.$emit('deleteRoom', index)
     },
@@ -93,7 +133,8 @@ export default defineComponent({
   height: 200px;
   overflow: auto;
 }
-th{
+
+th {
   position: sticky;
   top: 0;
   z-index: 1;

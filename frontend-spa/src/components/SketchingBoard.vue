@@ -200,7 +200,7 @@ export default defineComponent({
             this.newRoomName,
             this.canvas.getObjects('circle').slice(this.lengthsOfObjects.lengthOfCirclesInRooms, this.canvas.getObjects('circle').length) as Circle[],
             linesWithoutGrid,
-            1,
+            0,
             lineCoordinates
         )
         this.communicator.postRoom(newRoom).then((data: [{'max(`id`)': 27}]) => {
