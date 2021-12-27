@@ -63,8 +63,7 @@ export default defineComponent({
   emits: ['deleteRoom', 'showInfo', 'close'],
   methods: {
     lookForDoubleEntries(sensorId: number, e: any){
-      console.log(sensorId)
-      console.log(e.target.value)
+      // new value for sensorID
       switch (e.target.value){
         case "1": {
           this.disabled1 = true
@@ -79,6 +78,7 @@ export default defineComponent({
           break
         }
       }
+      // old value of sensor Id
       switch (sensorId){
         case 1: {
           this.disabled1 = false
