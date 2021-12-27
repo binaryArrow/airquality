@@ -23,7 +23,7 @@
                   <option v-bind:disabled="disabled3" v-bind:value="3">3</option>
                 </select>
               </td>
-              <button class="button is-danger is-small is-rounded" @click="deleteRoom(index)">
+              <button class="button is-danger is-small is-rounded" @click="deleteRoom(room.sensorId, index)">
               <span class="icon is-large">
                 <fa icon="trash"></fa>
               </span>
@@ -94,7 +94,22 @@ export default defineComponent({
         }
       }
     },
-    deleteRoom(index: number) {
+    deleteRoom(sensorId: number, index: number) {
+      console.log(sensorId)
+      switch (sensorId){
+        case 1: {
+          this.disabled1 = false
+          break
+        }
+        case 2: {
+          this.disabled2 = false
+          break
+        }
+        case 3: {
+          this.disabled3 = false
+          break
+        }
+      }
       this.$emit('deleteRoom', index)
     },
     showInfo(index: number) {
