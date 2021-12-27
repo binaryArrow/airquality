@@ -14,7 +14,8 @@
       </add-modal>
       <list-modal class="modal-content" :is-active="listModalActive" :rooms="this.rooms"
                   @delete-room="deleteSelectedRoom"
-                  @close="toggleModal">
+                  @close="toggleModal"
+      @sensor-added="sensorAdded">
       </list-modal>
     </div>
   </div>
@@ -221,6 +222,9 @@ export default defineComponent({
       Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects)
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     },
+    sensorAdded(roomId: number, sensorId: number){
+      this.communicator.updateRoomSensorId(roomId, sensorId)
+    }
   }
 });
 </script>

@@ -16,7 +16,7 @@
                 {{ room.roomName }}
               </td>
               <td>
-                <select class="select" v-model="room.sensorId" @input="lookForDoubleEntries(room.sensorId, $event)">
+                <select class="select" v-model="room.sensorId" @input="lookForDoubleEntries(room.sensorId, room.id, $event)">
                   <option v-bind:value="0">0</option>
                   <option v-bind:disabled="disabled1" v-bind:value="1">1</option>
                   <option v-bind:disabled="disabled2" v-bind:value="2">2</option>
@@ -60,9 +60,9 @@ export default defineComponent({
       disabled3: false,
     }
   },
-  emits: ['deleteRoom', 'showInfo', 'close'],
+  emits: ['deleteRoom', 'showInfo', 'close', 'sensorAdded'],
   methods: {
-    lookForDoubleEntries(sensorId: number, e: any){
+    lookForDoubleEntries(sensorId: number, roomId: number, e: any){
       // new value for sensorID
       switch (e.target.value){
         case "1": {
@@ -93,6 +93,7 @@ export default defineComponent({
           break
         }
       }
+      this.$emit('sensorAdded', roomId, e.target.value)
     },
     deleteRoom(sensorId: number, index: number) {
       console.log(sensorId)

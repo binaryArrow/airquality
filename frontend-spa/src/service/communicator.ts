@@ -10,15 +10,19 @@ export class Communicator {
             .then(res => res.json())
             .catch(e => console.log(e.message))
     }
-
     async postRoom(room: Room): Promise<any> {
-
         return fetch('http://localhost:3000/rooms', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(room)
         })
             .then((res) => res.json())
+            .catch(e => console.log(e.message))
+    }
+    async updateRoomSensorId(roomId: number, sensorId: number){
+        return fetch(`http://localhost:3000/rooms/${roomId.toString()}/${sensorId.toString()}`, {
+            method:'PUT'
+        })
             .catch(e => console.log(e.message))
     }
     async deleteRoom(id?: number): Promise<any> {

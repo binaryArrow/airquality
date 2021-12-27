@@ -19,6 +19,7 @@ const io = new Server(httpServer, {
     }
 })
 
+// example of how to insert sensor Data in this case with sensor id 1
 const sensorData: SensorData = new SensorData(1)
 sensorData.sensorData1 = "uff zu heiß"
 
@@ -30,10 +31,14 @@ app.get('/rooms', async (req:any, res:any) => {
 app.post('/rooms', async (req:any, res:any) => {
     const response = await connection.insertRoom(req.body)
     const idResponse = await connection.getLastRoom()
-    connection.insertSensorData(sensorData)
+    //await connection.insertSensorData(sensorData)
     res.contentType('application/json')
     res.status(201)
     res.json(idResponse)
+})
+app.put('/rooms/:roomId/:sensorId', async (req: any, res:any)=>{
+    const update = await connection.updateRoomSensorid(req.params.roomId, req.params.sensorId)
+    res.status(200)
 })
 app.delete('/room/:id', async (req:any, res:any) => {
     await connection.deleteRoom(req.params.id)
