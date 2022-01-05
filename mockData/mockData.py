@@ -36,7 +36,7 @@ for i in range(1, 11):
     jsonStr1 = json.dumps(jsonData1)
     print(jsonStr1)
     s.write(jsonStr1.encode('utf-8'))
-    time.sleep(1)
+    time.sleep(10)
 
 for i in range(1, 11):
     Sensor1_2['temperature'] = i+11
