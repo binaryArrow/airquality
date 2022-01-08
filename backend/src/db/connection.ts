@@ -33,9 +33,13 @@ export class Connection {
                     table.increments('id')
                     table.integer('sensorId')
                     table.integer('roomId')
-                    table.string('sensorData1')
-                    table.string('sensorData2')
-                    table.string('sensorData3')
+                    table.string('tempSHT21')
+                    table.string('humSHT21')
+                    table.string('tvocCCS811')
+                    table.string('eco2CCS811')
+                    table.string('humSCD41')
+                    table.string('tempSCD41')
+                    table.string('co2SCD41')
                     table.timestamp('created_at').defaultTo(this.dbConnection.fn.now())
                 })
             }
@@ -99,26 +103,32 @@ export class Connection {
 
     async insertSensorData(sensorData: SensorData) {
         // sensordaten werden nur geschrieben, wenn auch eine verbindung zu einem raum besteht
-        const roomIdWithSameSensorId = await this.dbConnection('rooms')
+        let roomIdWithSameSensorId = await this.dbConnection('rooms')
             .where('sensorId', sensorData.sensorId)
             .first()
-            .then((row: any) => row)
-        if (roomIdWithSameSensorId) {
-            console.log(roomIdWithSameSensorId.toString())
-            try {
-                return this.dbConnection('sensor-data').insert({
-                    sensorId: sensorData.sensorId,
-                    roomId: roomIdWithSameSensorId.id,
-                    sensorData1: sensorData.sensorData1,
-                    sensorData2: sensorData.sensorData2,
-                    sensorData3: sensorData.sensorData3,
-                    created_at: this.dbConnection.fn.now()
-                }).then(() => {
-                    console.log(`wrote sensordata with roomId: ${roomIdWithSameSensorId.id}`)
-                })
-            } catch (e) {
-                console.log(`${e}`)
-            }
+            .then((row: any)=>row)
+        if (!roomIdWithSameSensorId){
+           roomIdWithSameSensorId = {id: 0}
+        }
+        else
+        console.log(roomIdWithSameSensorId.toString())
+        try {
+            return this.dbConnection('sensor-data').insert({
+                sensorId: sensorData.sensorId,
+                roomId: roomIdWithSameSensorId.id,
+                tempSHT21: sensorData.tempSHT21,
+                humSHT21: sensorData.humSHT21,
+                tvocCCS811: sensorData.tvocCCS811,
+                eco2CCS811: sensorData.eco2CCS811,
+                humSCD41: sensorData.humSCD41,
+                tempSCD41: sensorData.tempSCD41,
+                co2SCD41: sensorData.co2SCD41,
+                created_at: this.dbConnection.fn.now()
+            }).then(() => {
+                console.log(`wrote sensordata with roomId: ${roomIdWithSameSensorId.id}`)
+            })
+        } catch (e) {
+            console.log(`${e}`)
         }
     }
 }

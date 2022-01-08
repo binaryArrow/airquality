@@ -6,7 +6,9 @@ import {Server, Socket} from "socket.io";
 import {Connection} from "./db/connection";
 import Room from "./models/Room";
 import {SensorData} from "./models/SensorData";
+import {SeriP} from "./service/SeriP";
 
+const serial = new SeriP()
 const connection = new Connection()
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
@@ -19,9 +21,10 @@ const io = new Server(httpServer, {
     }
 })
 
-// example of how to insert sensor Data in this case with sensor id 1
-const sensorData: SensorData = new SensorData(1)
-sensorData.sensorData1 = "uff zu heiß"
+app.get("/", async (req:any, res:any) => {
+    serial.listen()
+
+})
 
 app.get('/rooms', async (req:any, res:any) => {
 
@@ -31,7 +34,6 @@ app.get('/rooms', async (req:any, res:any) => {
 app.post('/rooms', async (req:any, res:any) => {
     const response = await connection.insertRoom(req.body)
     const idResponse = await connection.getLastRoom()
-    //await connection.insertSensorData(sensorData)
     res.contentType('application/json')
     res.status(201)
     res.json(idResponse)
