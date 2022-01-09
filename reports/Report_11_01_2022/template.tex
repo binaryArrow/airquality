@@ -48,7 +48,7 @@
 		\hline
 		Stipe Knez				&		1269206 				&		\\
 		\hline
-		Lucas Merkert				&		1326709					&		\\
+		Lucas Merkert				&		1326709					&	20,00	\\
 		\hline
 		Achim Glaesmann				&		1309221					&		\\
 		\hline
@@ -71,6 +71,28 @@
 \subsection{Stipe Knez}
 
 \subsection{Lucas Merkert}
+Über die Weihnachtsferien: Einarbeitung in die Funktionalität des Sensors CCS811:
+\begin{itemize}
+	\item Schreiben auf den Sensor über die Adresse 0x5A
+	\begin{enumerate}
+		\item Schreiben des Befehls 0x40 in das Register 0x01
+		\item Bisher return 0 von HALWriteI2CPacket()
+	\end{enumerate}
+	\item Lesen des Sensor über die Adresse 0X5B
+		\begin{enumerate}
+			\item Lesen von 4 Bytes zum Lesen der CO2 und TVOC werte im Register 0x02
+			\item Bisher return 0 von HALReadI2CPacket()
+		\end{enumerate}
+	\end{itemize}
+
+Der Wake-Pin ist zurzeit an GND angeschlossen. Allerdings scheint noch etwas nicht zu funktionieren, diesen soll in der nächsten Woche geklärt werden. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.30]{images/i2c_ccs811}
+	\caption{Funktionsweise der I2C-Packet Übertragung\cite{datasheetcss811}}
+	\label{img:I2C_ccs811}
+\end{figure}
+
 
 \subsection{Achim Glaesmann}
 

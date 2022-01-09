@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  9 JAN 2022 14:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  9 JAN 2022 15:37
 entering extended mode
 **./template.tex
 (template.tex
@@ -808,73 +808,7 @@ Package biblatex Info: ... file 'template.bbl' found.
  (template.bbl
 
 Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'youtube_timeseriesdatabase':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'influxdb_sql_db':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'datasheetcss811':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'datasheetscd41':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'datasheetsht21':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'co2letter':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'javascript_doc':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'javascript_tut':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'realtiveluftfeuchtigkeit':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'JS_docu':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'eco2':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'tvoc':
 (biblatex)                - Invalid format of field 'date' 
 (biblatex)                - Invalid format of field 'date'.
 
@@ -893,68 +827,48 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 43.
 
-Overfull \hbox (9.51521pt too wide) in paragraph at lines 85--85
-[]\OT1/cmr/m/it/10 Datasheet SCD41\OT1/cmr/m/n/10 . \OT1/cmr/m/sc/10 url\OT1/cm
-r/m/n/10 : $\OT1/cmtt/m/n/10 https : / / www . sensirion . com / en / environme
-ntal -[]
+Overfull \hbox (11.44511pt too wide) in paragraph at lines 74--75
+[]\OT1/cmr/m/n/10 Uber die Weih-nachts-fe-ri-en: Ein-ar-bei-tung in die Funk-ti
+o-na-lit[]at des Sen-sors CCS811: 
  []
+
+<images/i2c_ccs811.jpg, id=4, 1108.64188pt x 621.32124pt>
+File: images/i2c_ccs811.jpg Graphic file (type jpg)
+<use images/i2c_ccs811.jpg>
+Package pdftex.def Info: images/i2c_ccs811.jpg  used on input line 91.
+(pdftex.def)             Requested size: 332.59512pt x 186.39781pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [1
 
-{C:/Users/lucas/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
-Overfull \hbox (14.14851pt too wide) in paragraph at lines 85--85
-[]\OT1/cmr/m/it/10 Datasheet SHT21\OT1/cmr/m/n/10 . \OT1/cmr/m/sc/10 url\OT1/cm
-r/m/n/10 : $\OT1/cmtt/m/n/10 https : / / www . sensirion . com / de / umweltsen
-soren /
- []
-
-
-Overfull \hbox (5.20433pt too wide) in paragraph at lines 85--85
-[]\OT1/cmr/m/it/10 Learn Ja-vaS-cript - Full Cour-se for Be-gin-ners\OT1/cmr/m/
-n/10 . \OT1/cmr/m/sc/10 url\OT1/cmr/m/n/10 : $\OT1/cmtt/m/n/10 https : / / www 
-. youtube .
- []
-
-
-Overfull \hbox (12.39853pt too wide) in paragraph at lines 85--85
-[]\OT1/cmr/m/it/10 Relative Luft-feuch-tig-keit\OT1/cmr/m/n/10 . \OT1/cmr/m/sc/
-10 url\OT1/cmr/m/n/10 : $\OT1/cmtt/m/n/10 https : / / www . ratgeber -[] luftfe
-uchtigkeit .
- []
-
-[2] (template.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
-(biblatex)                template
-(biblatex)                and rerun LaTeX afterwards.
-
+{C:/Users/lucas/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2 <./images/i2
+c_ccs811.jpg>] (template.aux)
 Package logreq Info: Writing requests to 'template.run.xml'.
 \openout1 = `template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21929 strings out of 478927
- 435646 string characters out of 2852534
- 934315 words of memory out of 3000000
- 39474 multiletter control sequences out of 15000+600000
- 408500 words of font info for 44 fonts, out of 8000000 for 9000
+ 21913 strings out of 478927
+ 434544 string characters out of 2852534
+ 933680 words of memory out of 3000000
+ 39453 multiletter control sequences out of 15000+600000
+ 408835 words of font info for 45 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 84i,8n,89p,1845b,1644s stack positions out of 5000i,500n,10000p,200000b,80000s
-<C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmbx10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmbx12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmcsc10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/lucas/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/lucas/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/lucas/
-AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on template.pdf (2 pages, 130185 bytes).
+ 84i,8n,89p,1845b,1640s stack positions out of 5000i,500n,10000p,200000b,80000s
+ <C:\Users\lucas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
+1000.pk><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmbx12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/lucas/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/lucas/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/lucas/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/
+lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on template.pdf (2 pages, 362278 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
+ 58 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 18 words of extra memory for PDF output out of 10000 (max. 10000000)
 
