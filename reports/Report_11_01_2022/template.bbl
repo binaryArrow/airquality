@@ -1,0 +1,182 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{youtube_timeseriesdatabase}{online}{}
+    \name{author}{1}{}{%
+      {{hash=AD}{%
+         family={Arts},
+         familyi={A\bibinitperiod},
+         given={DeKay},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AD1}
+    \strng{fullhash}{AD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{Timeseries Database: A gentle introduction to Influxdb in
+  Nodejs.}
+    \verb{url}
+    \verb https://www.youtube.com/watch?v=wwAsjs2XcBU&t=3s
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{influxdb_sql_db}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Compare InfluxDB to SQL databases}
+    \verb{url}
+    \verb https://docs.influxdata.com/influxdb/v1.8/concepts/crosswalk/
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{datasheetcss811}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Datasheet CCS811}
+    \verb{url}
+    \verb https://learn.adafruit.com/adafruit-ccs811-air-quality-sensor?view=al
+    \verb l#documents
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{datasheetscd41}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Datasheet SCD41}
+    \verb{url}
+    \verb https://www.sensirion.com/en/environmental-sensors/evaluation-kit-sek
+    \verb -environmental-sensing/evaluation-kit-sek-scd41/#c50745
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{datasheetsht21}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Datasheet SHT21}
+    \verb{url}
+    \verb https://www.sensirion.com/de/umweltsensoren/feuchtesensoren/feuchte-t
+    \verb emperatursensor-sht2x-digital-i2c-genauigkeit/
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{co2letter}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{title}{Exhaled CO2 as a COVID-19 Infection Risk Proxy for Different
+  Indoor Environments and Activities}
+    \verb{url}
+    \verb https://pubs.acs.org/doi/10.1021/acs.estlett.1c00183
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{javascript_doc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{title}{JavaScript Tutorials}
+    \verb{url}
+    \verb https://developer.mozilla.org/en-US/docs/Web/Tutorials
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{javascript_tut}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{Learn JavaScript - Full Course for Beginners}
+    \verb{url}
+    \verb https://www.youtube.com/watch?v=PkZNo7MFNFg
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{realtiveluftfeuchtigkeit}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{Relative Luftfeuchtigkeit}
+    \verb{url}
+    \verb https://www.ratgeber-luftfeuchtigkeit.de/relative-luftfeuchtigkeit/
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{JS_docu}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{title}{The Modern Javascript Tutorial}
+    \verb{url}
+    \verb https://javascript.info
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{eco2}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{title}{TVOC and ECO2 Sensors}
+    \verb{url}
+    \verb https://wolles-elektronikkiste.de/en/tvoc-and-eco2-sensors
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{tvoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{title}{Understanding TVOC: What You Need To Know About Volatile
+  Oragnic Compounds}
+    \verb{url}
+    \verb https://learn.kaiterra.com/en/air-academy/understanding-tvoc-volatile
+    \verb -organic-compounds
+    \endverb
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+\enddatalist
+\endinput

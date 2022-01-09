@@ -1,0 +1,70 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: template.aux
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: biblatex.bst
+Reallocating 'name_of_file' (item size: 1) to 13 items.
+Reallocating 'name_of_file' (item size: 1) to 13 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Database file #1: template-blx.bib
+Database file #2: bibliography.bib
+Warning--I didn't find a database entry for "scrum"
+Biblatex version: 3.16
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+You've used 13 entries,
+            6393 wiz_defined-function locations,
+            1245 strings with 10461 characters,
+and the built_in function-call counts, 30927 in all, are:
+= -- 1137
+> -- 364
+< -- 308
++ -- 119
+- -- 84
+* -- 1600
+:= -- 1681
+add.period$ -- 0
+call.type$ -- 13
+change.case$ -- 52
+chr.to.int$ -- 114
+cite$ -- 24
+duplicate$ -- 4004
+empty$ -- 4263
+format.name$ -- 47
+if$ -- 6775
+int.to.chr$ -- 0
+int.to.str$ -- 13
+missing$ -- 0
+newline$ -- 167
+num.names$ -- 41
+pop$ -- 4232
+preamble$ -- 1
+purify$ -- 43
+quote$ -- 0
+skip$ -- 1225
+stack$ -- 0
+substring$ -- 2218
+swap$ -- 1250
+text.length$ -- 292
+text.prefix$ -- 12
+top$ -- 1
+type$ -- 430
+warning$ -- 0
+while$ -- 262
+width$ -- 0
+write$ -- 155
+(There was 1 warning)
