@@ -54,7 +54,7 @@
 		\hline
 		Max-Rene Konieczka			&		1211092					&		\\
 		\hline
-		Can Cihan Nazlier			&		1179244					&		\\
+		Can Cihan Nazlier			&		1179244					&	20,00	\\
 		\hline
 	\end{tabular}
 	\caption{Arbeitsaufwand dieser Woche}
@@ -99,6 +99,10 @@ Der Wake-Pin ist zurzeit an GND angeschlossen. Allerdings scheint noch etwas nic
 \subsection{Max-Rene Konieczka}
 Während zurzeit noch daran gearbeitet wird die Daten der Sensoren auszulesen, wurde zunächst versucht die zuvor mit Python erstellten Mockdaten, in unsere Datenbank einzulesen. Dafür haben wir das Serialport Package von Node sowie ein Programm zur Erstellung von virtuellen Ports verwendet. Es hat sich die Frage gestellt, ob und wie die Mockdaten in der Datenbank angezeigt werden könnten. Dies ist in Zusammenarbeit mit Stipe Knez passiert.
 \subsection{Can Cihan Nazlier}
+Das abspeichern von Sensoren in den Räumen in Echtzeit, wurde nun in der Datenbank realisiert. Das heißt, sobald ein Sensor aus einem Raum entfernt wird und ein anderer hinzugefügt wird,
+dann bekommt das Backend das mit teilt es der Datenbank mit. Somit besteht nun eine Verbindung vom Raum und Sensor über deren id's. Zudem wurde Das Abspeichern und Abfangen der Mockdaten realisiert.
+Die Mockdaten werden momentan mit Python erstellt, dies gab einigen zu Bedenken dass es ohne zusätzliche Software evtl. nicht klappen könnte in den Entwicklungsumgebungen
+aller Entwickler, sodass der nächste Schritt ist, die Mockdaten via eines Zigbee Moduls zu senden. Im gleichen Schritt wird als nächstes das Dashboard erstellt.
 
 \printbibliography
 %----------------------------------------------------------------------------
