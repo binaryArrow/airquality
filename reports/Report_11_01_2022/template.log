@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  9 JAN 2022 21:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  10 JAN 2022 17:00
 entering extended mode
 **./template.tex
 (template.tex
@@ -841,49 +841,477 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 43.
 
-Overfull \hbox (11.44511pt too wide) in paragraph at lines 74--75
+Overfull \hbox (12.91727pt too wide) in paragraph at lines 76--77
+[]\OT1/cmr/m/n/10 F[]ur den wei-te-ren Ver-lauf sind Op-ti-mie-run-gen in Hin-b
+lick auf den Verarbeitungs-
+ []
+
+
+Overfull \hbox (11.44511pt too wide) in paragraph at lines 78--79
 []\OT1/cmr/m/n/10 Uber die Weih-nachts-fe-ri-en: Ein-ar-bei-tung in die Funk-ti
 o-na-lit[]at des Sen-sors CCS811: 
  []
 
-<images/i2c_ccs811.jpg, id=4, 1108.64188pt x 621.32124pt>
-File: images/i2c_ccs811.jpg Graphic file (type jpg)
-<use images/i2c_ccs811.jpg>
-Package pdftex.def Info: images/i2c_ccs811.jpg  used on input line 91.
-(pdftex.def)             Requested size: 332.59512pt x 186.39781pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 [1
 
-{C:/Users/Max Kon/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2 <./images/
-i2c_ccs811.jpg>] (template.aux)
+{C:/Users/Max Kon/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+<images/i2c_ccs811.jpg, id=14, 1108.64188pt x 621.32124pt>
+File: images/i2c_ccs811.jpg Graphic file (type jpg)
+<use images/i2c_ccs811.jpg>
+Package pdftex.def Info: images/i2c_ccs811.jpg  used on input line 95.
+(pdftex.def)             Requested size: 332.59512pt x 186.39781pt.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.102 ...e I2C Schnittstelle über den Befehl HAL_
+                                                  CloseI2cPacket(i2cdescript...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+LaTeX Warning: Command \ss invalid in math mode on input line 102.
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 102.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.102 ...er Callback Funktion des Descriptors, fü
+                                                  hrte zu einem Bug bei welc...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.102 ...er Callback Funktion des Descriptors, fü
+                                                  hrte zu einem Bug bei welc...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 102.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.102 ... führte zu einem Bug bei welchem in stä
+                                                  ndiger Wiederholung der Mi...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.102 ... führte zu einem Bug bei welchem in stä
+                                                  ndiger Wiederholung der Mi...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 102.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.102 ...on nur noch in der dem Descriptor zugehö
+                                                  rigen Callbackfunktion auf...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.102 ...on nur noch in der dem Descriptor zugehö
+                                                  rigen Callbackfunktion auf...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 102.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.102 ...eisung und Auftreten des Fehlers nicht ü
+                                                  bereinstimmten.
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.102 ...eisung und Auftreten des Fehlers nicht ü
+                                                  bereinstimmten.
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 103.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.103 Es war nö
+                tig eine Delay Funktion einzuführen, da die vom Hersteller ...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.103 Es war nö
+                tig eine Delay Funktion einzuführen, da die vom Hersteller ...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 103.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.103 Es war nötig eine Delay Funktion einzufü
+                                                hren, da die vom Hersteller ...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.103 Es war nötig eine Delay Funktion einzufü
+                                                hren, da die vom Hersteller ...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 103.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.103 ...grammablauf nicht unterbrach. Da eine lä
+                                                  ngere Programmunterbrechun...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.103 ...grammablauf nicht unterbrach. Da eine lä
+                                                  ngere Programmunterbrechun...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 103.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.103 ...ings ohnehin die vom Taskhandler regelmä
+                                                  ßig aufzurufenden Zigbee ...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.103 ...ings ohnehin die vom Taskhandler regelmä
+                                                  ßig aufzurufenden Zigbee ...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \ss invalid in math mode on input line 103.
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 103.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.103 ...nktionen des Bitcloud Stack behindern wü
+                                                  rde, wurde eine Funktion a...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.103 ...nktionen des Bitcloud Stack behindern wü
+                                                  rde, wurde eine Funktion a...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 103.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.103 ...f Basis eines Timers und einer Zustandsä
+                                                  nderung eingeführt. Die V...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.103 ...f Basis eines Timers und einer Zustandsä
+                                                  nderung eingeführt. Die V...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 103.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.103 ...mers und einer Zustandsänderung eingefü
+                                                  hrt. Die Variable appstate...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.103 ...mers und einer Zustandsänderung eingefü
+                                                  hrt. Die Variable appstate...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 103.
+
+! Please use \mathaccent for accents in math mode.
+<recently read> \accent 
+                        
+l.103 ...ementierung in der Delayfunktion zu ermö
+                                                  glichen.
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \fontdimen 
+l.103 ...ementierung in der Delayfunktion zu ermö
+                                                  glichen.
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.104 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.104 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (4539.08821pt too wide) in paragraph at lines 102--104
+\OT1/cmr/m/n/10 fehl HAL$[]\OML/cmm/m/it/10 loseI\OT1/cmr/m/n/10 2\OML/cmm/m/it
+/10 cPacket\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 i\OT1/cmr/m/n/10 2\OML/cmm/m/it/10
+ cdescriptor\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 aneinerStelleimCodeau\OT1/cmr/m/n
+/10 \OML/cmm/m/it/10 erhalbderCallbackFunktiondesDescriptors; f[]$ 
+ []
+
+
+(C:\Users\Max Kon\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+(C:\Users\Max Kon\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+) [2 <./images/i2c_ccs811.jpg>] [3] [4] (template.aux)
 Package logreq Info: Writing requests to 'template.run.xml'.
 \openout1 = `template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21913 strings out of 478927
- 435184 string characters out of 2851550
- 933680 words of memory out of 3000000
- 39453 multiletter control sequences out of 15000+600000
- 408835 words of font info for 45 fonts, out of 8000000 for 9000
+ 22320 strings out of 478927
+ 439611 string characters out of 2851550
+ 1160064 words of memory out of 3000000
+ 39853 multiletter control sequences out of 15000+600000
+ 409003 words of font info for 46 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 84i,8n,89p,1845b,1640s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 84i,15n,89p,1845b,1756s stack positions out of 5000i,500n,10000p,200000b,80000s
  <C:\Users\Max Kon\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
 rm1000.pk><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
 sfonts/cm/cmbx10.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX
 /fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/Max Kon/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Max Kon/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Max K
-on/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/U
-sers/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti1
-0.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmtt10.pfb>
-Output written on template.pdf (2 pages, 362909 bytes).
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Max Kon/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Max 
+Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/
+Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
+2.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmr17.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmr5.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Max Kon/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Max Kon/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on template.pdf (4 pages, 422032 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
+ 84 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

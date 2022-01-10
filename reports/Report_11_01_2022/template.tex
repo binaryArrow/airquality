@@ -52,7 +52,7 @@
 		\hline
 		Achim Glaesmann				&		1309221					&	23,50	\\
 		\hline
-		Max-Rene Konieczka			&		1211092					&		\\
+		Max-Rene Konieczka			&		1211092					&	23,00	\\
 		\hline
 		Can Cihan Nazlier			&		1179244					&	20,00	\\
 		\hline
@@ -99,7 +99,7 @@ Der Wake-Pin ist zurzeit an GND angeschlossen. Allerdings scheint noch etwas nic
 
 
 \subsection{Achim Glaesmann}
-Über die Vorlesungsfreie Zeit wurde entsprechend der Aufgabenverteilung das Auslesen des SCD41 realisiert, so wie eine Firmware entwickelt, welche in der Lage ist sowohl den SHT21 wie auch den SCD41 parallel auszulesen. Das auslesen des SCD41 bereitete zunächst enorme Schwierigkeiten. Verschiedene in der Firmware des Atmel Mikroprozessors eingebaute Funktionen verursachten schwer nachzuvollziehende Bugs. Den Versuch die I2C Schnittstelle über den Befehl HAL_CLoseI2cPacket(&i2cdescriptor) an einer Stelle im Code außerhalb der Callback Funktion des Descriptors, führte zu einem Bug bei welchem in ständiger Wiederholung der Mikroprozessor neu startete. Der Neustart trat allerdings nicht an der Stelle auf an dem die Funktion aufgerufen wurde. Das Problem konnte behoben werden, nachdem die HAL_CloseI2cPacket() Funktion nur noch in der dem Descriptor zugehörigen Callbackfunktion aufgerufen wurde. Die Identifizierung des Fehlers kostete allerdings sehr viel Zeit, da Zeitpunkt der Anweisung und Auftreten des Fehlers nicht übereinstimmten.
+Über die Vorlesungsfreie Zeit wurde entsprechend der Aufgabenverteilung das Auslesen des SCD41 realisiert, so wie eine Firmware entwickelt, welche in der Lage ist sowohl den SHT21 wie auch den SCD41 parallel auszulesen. Das auslesen des SCD41 bereitete zunächst enorme Schwierigkeiten. Verschiedene in der Firmware des Atmel Mikroprozessors eingebaute Funktionen verursachten schwer nachzuvollziehende Bugs. Den Versuch die I2C Schnittstelle über den Befehl HAL_CloseI2cPacket(i2cdescriptor) an einer Stelle im Code außerhalb der Callback Funktion des Descriptors, führte zu einem Bug bei welchem in ständiger Wiederholung der Mikroprozessor neu startete. Der Neustart trat allerdings nicht an der Stelle auf an dem die Funktion aufgerufen wurde. Das Problem konnte behoben werden, nachdem die HAL_CloseI2cPacket() Funktion nur noch in der dem Descriptor zugehörigen Callbackfunktion aufgerufen wurde. Die Identifizierung des Fehlers kostete allerdings sehr viel Zeit, da Zeitpunkt der Anweisung und Auftreten des Fehlers nicht übereinstimmten.
 Es war nötig eine Delay Funktion einzuführen, da die vom Hersteller gegebene Delayfunktion den Programmablauf nicht unterbrach. Da eine längere Programmunterbrechung allerdings ohnehin die vom Taskhandler regelmäßig aufzurufenden Zigbee Funktionen des Bitcloud Stack behindern würde, wurde eine Funktion auf Basis eines Timers und einer Zustandsänderung eingeführt. Die Variable appstate wurde von einem Enum zu einem Integer umdefiniert um eine einfachere Implementierung in der Delayfunktion zu ermöglichen. 
 
 \begin{lstlisting}[language=C,frame=single, caption = Delay Timer, label = delay_timer] 
@@ -139,12 +139,11 @@ Zuletzt war es jedoch möglich beide Sensoren auszulesen und in einer Firmware z
 
 
 \subsection{Max-Rene Konieczka}
-Während zurzeit noch daran gearbeitet wird die Daten der Sensoren auszulesen, wurde zunächst versucht die zuvor mit Python erstellten Mockdaten, in unsere Datenbank einzulesen. Dafür haben wir das Serialport Package von Node sowie ein Programm zur Erstellung von virtuellen Ports verwendet. Es hat sich die Frage gestellt, ob und wie die Mockdaten in der Datenbank angezeigt werden könnten. Dies ist in Zusammenarbeit mit Stipe Knez passiert.
+Während zurzeit noch daran gearbeitet wird die Daten der Sensoren auszulesen, wurde zunächst versucht die zuvor mit Python erstellten Mockdaten, in unsere Datenbank einzulesen. Dafür haben wir das Serialport Package von Node sowie ein Programm zur Erstellung von virtuellen Ports verwendet. Es hat sich die Frage gestellt, ob und wie die Mockdaten in der Datenbank angezeigt werden könnten. Das Abspeichern hat funktioniert, doch ist der Gedanke aufgekommen, dass wir die Daten direkt auf einem Modul, mit Atmel Studio erstellen sollten. Da nämlich zusätzliche Software benutzt wird, müsste diese von zukünftigen Benutzern ebenfalls heruntergeladen und installiert werden. Dies soll allerdings verhindert werden.
 \subsection{Can Cihan Nazlier}
-Das abspeichern von Sensoren in den Räumen in Echtzeit, wurde nun in der Datenbank realisiert. Das heißt, sobald ein Sensor aus einem Raum entfernt wird und ein anderer hinzugefügt wird,
-dann bekommt das Backend das mit teilt es der Datenbank mit. Somit besteht nun eine Verbindung vom Raum und Sensor über deren id's. Zudem wurde Das Abspeichern und Abfangen der Mockdaten realisiert.
+Das Abspeichern von Sensoren in den Räumen in Echtzeit, wurde nun in der Datenbank realisiert. Das heißt, sobald ein Sensor aus einem Raum entfernt wird und ein anderer hinzugefügt wird, dann bekommt das Backend dies mit und diese Information an die Datenbank weiter. Somit besteht nun eine Verbindung vom Raum und Sensor über deren ID's. Zudem wurde das Abspeichern und Abfangen der Mockdaten realisiert.
 Die Mockdaten werden momentan mit Python erstellt, dies gab einigen zu Bedenken dass es ohne zusätzliche Software evtl. nicht klappen könnte in den Entwicklungsumgebungen
-aller Entwickler, sodass der nächste Schritt ist, die Mockdaten via eines Zigbee Moduls zu senden. Im gleichen Schritt wird als nächstes das Dashboard erstellt.
+aller Entwickler, sodass der nächste Schritt ist, die Mockdaten via eines Zigbee Moduls zu senden. Im gleichen Schritt wird als Nächstes das Dashboard erstellt.
 
 \printbibliography
 %----------------------------------------------------------------------------
