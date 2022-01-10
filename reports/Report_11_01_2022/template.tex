@@ -44,7 +44,7 @@
 		\hline
 		{\textbf{Name}}				&		{\textbf{Matrikel Nr.}} & {\textbf{Arbeitsaufwand (h)}} \\
 		\hline
-		Friedrich Just				&		1326699 				&		\\
+		Friedrich Just				&		1326699 				&	20,00	\\
 		\hline
 		Stipe Knez				&		1269206 				&	23,00	\\
 		\hline
@@ -67,6 +67,15 @@
 
 
 \subsection{Friedrich Just}
+Es wurde sich entschieden, alle Daten im JSON-Format an den Koordinator zu schicken. Der Koordinator übernimmt das Array und gibt es über die UART-Bridge an die COM-Schnittstelle weiter. Dies hat die Vorteile, dass der Koordinator keine Formatierungen am Array durchführen muss und es am Endgerät liegt, die Daten im richtigem Format zu schicken. Dies hat den Nachteil, dass viele Bytes für das Format mitgeschickt werden. Dies ist aber kein Problem, da das Zigbee-Netzwerk eine Datenrate von 250 kbps besitzt. Das JSON-Format ist so aufgebaut, dass als erstes die ID des Endgerätes gesendet wird. Danach folgen die verschiedenen Sensornamen und danach folgen die verschiedenen Messwerte.
+Nach der Festlegung des JSON-Formats wurde dieses auch korrekt übertragen. Allerdings gibt es Probleme mit der Verbindung beider Programme zum Messen der Sensoren und zum Verschicken an den Koordinator. Es kommen keine Daten an bzw. es werden keine versendet.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.50]{images/JSON_format}
+	\caption{Beispiel der JSON Datei}
+	\label{img:JSON_format}
+\end{figure}
 
 \subsection{Stipe Knez}
 Nachdem zu Beginn der Weihnachtsferien die Struktur der Mockdaten an die der richtigen Daten nochmals angepasst wurde, ging es daran, die gesendeten Daten im Backend zu empfangen, zu parsen und schließlich in die Datenbank abzuspeichern.
@@ -99,7 +108,7 @@ Der Wake-Pin ist zurzeit an GND angeschlossen. Allerdings scheint noch etwas nic
 
 
 \subsection{Achim Glaesmann}
-Über die Vorlesungsfreie Zeit wurde entsprechend der Aufgabenverteilung das Auslesen des SCD41 realisiert, so wie eine Firmware entwickelt, welche in der Lage ist sowohl den SHT21 wie auch den SCD41 parallel auszulesen. Das auslesen des SCD41 bereitete zunächst enorme Schwierigkeiten. Verschiedene in der Firmware des Atmel Mikroprozessors eingebaute Funktionen verursachten schwer nachzuvollziehende Bugs. Den Versuch die I2C Schnittstelle über den Befehl HAL_CloseI2cPacket(&i2cdescriptor) an einer Stelle im Code außerhalb der Callback Funktion des Descriptors, führte zu einem Bug bei welchem in ständiger Wiederholung der Mikroprozessor neu startete. Der Neustart trat allerdings nicht an der Stelle auf an dem die Funktion aufgerufen wurde. Das Problem konnte behoben werden, nachdem die HAL_CloseI2cPacket() Funktion nur noch in der dem Descriptor zugehörigen Callbackfunktion aufgerufen wurde. Die Identifizierung des Fehlers kostete allerdings sehr viel Zeit, da Zeitpunkt der Anweisung und Auftreten des Fehlers nicht übereinstimmten.
+Über die Vorlesungsfreie Zeit wurde entsprechend der Aufgabenverteilung das Auslesen des SCD41 realisiert, so wie eine Firmware entwickelt, welche in der Lage ist sowohl den SHT21 wie auch den SCD41 parallel auszulesen. Das auslesen des SCD41 bereitete zunächst enorme Schwierigkeiten. Verschiedene in der Firmware des Atmel Mikroprozessors eingebaute Funktionen verursachten schwer nachzuvollziehende Bugs. Den Versuch die I2C Schnittstelle über den Befehl HAL\_CloseI2cPacket(\&i2cdescriptor) an einer Stelle im Code außerhalb der Callback Funktion des Descriptors, führte zu einem Bug bei welchem in ständiger Wiederholung der Mikroprozessor neu startete. Der Neustart trat allerdings nicht an der Stelle auf an dem die Funktion aufgerufen wurde. Das Problem konnte behoben werden, nachdem die HAL_CloseI2cPacket() Funktion nur noch in der dem Descriptor zugehörigen Callbackfunktion aufgerufen wurde. Die Identifizierung des Fehlers kostete allerdings sehr viel Zeit, da Zeitpunkt der Anweisung und Auftreten des Fehlers nicht übereinstimmten.
 Es war nötig eine Delay Funktion einzuführen, da die vom Hersteller gegebene Delayfunktion den Programmablauf nicht unterbrach. Da eine längere Programmunterbrechung allerdings ohnehin die vom Taskhandler regelmäßig aufzurufenden Zigbee Funktionen des Bitcloud Stack behindern würde, wurde eine Funktion auf Basis eines Timers und einer Zustandsänderung eingeführt. Die Variable appstate wurde von einem Enum zu einem Integer umdefiniert um eine einfachere Implementierung in der Delayfunktion zu ermöglichen. 
 
 \begin{lstlisting}[language=C,frame=single, caption = Delay Timer, label = delay_timer] 
