@@ -50,7 +50,7 @@
 		\hline
 		Lucas Merkert				&		1326709					&	20,00	\\
 		\hline
-		Achim Glaesmann				&		1309221					&		\\
+		Achim Glaesmann				&		1309221					&	23,50	\\
 		\hline
 		Max-Rene Konieczka			&		1211092					&		\\
 		\hline
@@ -95,6 +95,44 @@ Der Wake-Pin ist zurzeit an GND angeschlossen. Allerdings scheint noch etwas nic
 
 
 \subsection{Achim Glaesmann}
+Über die Vorlesungsfreie Zeit wurde entsprechend der Aufgabenverteilung das Auslesen des SCD41 realisiert, so wie eine Firmware entwickelt, welche in der Lage ist sowohl den SHT21 wie auch den SCD41 parallel auszulesen. Das auslesen des SCD41 bereitete zunächst enorme Schwierigkeiten. Verschiedene in der Firmware des Atmel Mikroprozessors eingebaute Funktionen verursachten schwer nachzuvollziehende Bugs. Den Versuch die I2C Schnittstelle über den Befehl HAL_CLoseI2cPacket(&i2cdescriptor) an einer Stelle im Code außerhalb der Callback Funktion des Descriptors, führte zu einem Bug bei welchem in ständiger Wiederholung der Mikroprozessor neu startete. Der Neustart trat allerdings nicht an der Stelle auf an dem die Funktion aufgerufen wurde. Das Problem konnte behoben werden, nachdem die HAL_CloseI2cPacket() Funktion nur noch in der dem Descriptor zugehörigen Callbackfunktion aufgerufen wurde. Die Identifizierung des Fehlers kostete allerdings sehr viel Zeit, da Zeitpunkt der Anweisung und Auftreten des Fehlers nicht übereinstimmten.
+Es war nötig eine Delay Funktion einzuführen, da die vom Hersteller gegebene Delayfunktion den Programmablauf nicht unterbrach. Da eine längere Programmunterbrechung allerdings ohnehin die vom Taskhandler regelmäßig aufzurufenden Zigbee Funktionen des Bitcloud Stack behindern würde, wurde eine Funktion auf Basis eines Timers und einer Zustandsänderung eingeführt. Die Variable appstate wurde von einem Enum zu einem Integer umdefiniert um eine einfachere Implementierung in der Delayfunktion zu ermöglichen. 
+
+\begin{lstlisting}[language=C,frame=single, caption = Delay Timer, label = delay_timer] 
+static void delaytimer(uint16_t time, uint8_t _next_appstate){
+	delayTimer.interval = time;
+	next_appstate = _next_appstate;
+	HAL_StartAppTimer(&delayTimer) //startet timer delayTimer welcher nach der angegebenen Zeit in ms die Funktion delayTimerComplete(); aufruft
+}
+
+static void delayTimerComplete(){
+appstate = next_appstate;
+SYS_PostTask(APL_TASK_ID); 
+}
+
+\end{lstlisting} 
+
+Es war daraufhin nötig Zustände, die eine Unterbrechung des Programmablaufs benötigten um die Rechenaufgaben der Sensoren zu ermöglichen, zu trennen. Es war möglich die Applikation in 10 Zustände zu unterteilen.
+
+\begin{lstlisting}[language=C,frame=single, caption = APPSTATE definitions , label = appstate_define] 
+#define APP_NOTHING_STATE				0
+#define APP_STARTUP_STATE 				1
+#define APP_RESET_SENSOR_STATE 			2
+#define APP_INIT_STATE 				3
+#define APP_CALL_FOR_READ_SCD_STATE 		4
+#define APP_CALL_FOR_READ_TEMP_SHT_STATE 	5
+#define APP_CALL_FOR_READ_RH_SHT_STATE 	6
+#define APP_READ_SCD_STATE 			7
+#define APP_READ_TEMP_SHT_STATE 		8
+#define APP_READ_RH_SHT_STATE 			9
+#define APP_AUSGABE_STATE 				10
+\end{lstlisting} 
+
+Die I2C Verbindung zu den einzelnen Sensoren konnte über den eingeführten Delay stabilisiert werden.
+Die Kommunikation zum SCD41 warf jedoch weiterhin Fehler auf, die zunächst nicht nachvollzogen werden konnten. Nach testen des Sensors auf dem Arduino und dem recherchieren der Funktionen der von Sensirion bereitgestellten Arduino-Library wurde erkannt, das zum erfolgreichen Starten der periodischen Messung zunächst ein Reset des Sensors durchgeführt werden muss. Das unterbrechen der Stromversorgung zum Sensor scheint hierbei nicht zwingend auszureichen. Ein erneutes übersenden des Befehls zur Periodischen Messung führt ohne den vorherigen Reset dann nicht zu der erwünschten Messung. Weiterhin ist es nötig den Sensor vor der ersten I2C-Kommunikation für eine Zeit mit Strom zu versorgen damit dieser die zur Funktion nötigen Anweisungen ausführen kann. Das der Befehl nach Neustart des Sensors dennoch zurückgesetzt werden muss, war leider nicht eindeutig im Datenblatt vermerkt, weswegen auch das finden des Fehlers in dieser Kommunikation beachtliche Zeit in Anspruch nahm.
+Zuletzt war es jedoch möglich beide Sensoren auszulesen und in einer Firmware zu verbinden. Nachdem meine Teamkollegen die 2.4Ghz Verbindung so wie den CCS881 erfolgreich implementiert haben ist es möglich die Firmware abschließend zu entwickeln, so dass die Sensoren in den jeweiligen Räumen platziert und mit der Applikation verbunden werden können. 
+
+
 
 \subsection{Max-Rene Konieczka}
 Während zurzeit noch daran gearbeitet wird die Daten der Sensoren auszulesen, wurde zunächst versucht die zuvor mit Python erstellten Mockdaten, in unsere Datenbank einzulesen. Dafür haben wir das Serialport Package von Node sowie ein Programm zur Erstellung von virtuellen Ports verwendet. Es hat sich die Frage gestellt, ob und wie die Mockdaten in der Datenbank angezeigt werden könnten. Dies ist in Zusammenarbeit mit Stipe Knez passiert.
