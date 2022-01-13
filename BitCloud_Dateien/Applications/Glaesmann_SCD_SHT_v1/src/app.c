@@ -245,9 +245,9 @@ I2C-Methods
 SCD-I2C
 ************/
 void resetSCD(){
-	uint16_t cmd = SCD41_STOP_PERIODIC_MES_CMD; //0x3F86
-	scdcmd[0] = ((cmd & 0xFF00) >> 8);
-	scdcmd[1] = cmd & 0x00FF;
+		uint16_t cmd = SCD41_STOP_PERIODIC_MES_CMD; //0x3F86
+		scdcmd[0] = ((cmd & 0xFF00) >> 8);
+		scdcmd[1] = cmd & 0x00FF;
 	
 		 if (-1 == HAL_OpenI2cPacket(&i2cdescriptorcmdSCD)){
 			 appWriteDataToUsart((uint8_t*)"open fail scd reset\r\n", sizeof("open fail scd reset\r\n")-1);

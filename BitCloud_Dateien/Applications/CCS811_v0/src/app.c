@@ -43,7 +43,7 @@ uint8_t tvoc_output_CCS[] = " XXXXX ppb TVOC \r\n";
 //I2C
 bool checkHWID = false;
 bool checkStatus = false;
-uint8_t ccs5Byte[5] = {0xFF,0x11, 0xE5, 0x72, 0x8A};
+uint8_t ccs5Byte[5];
 uint8_t ccsOneByte;
 uint8_t ccsTwoByte[2];
 uint8_t ccs4Byte[4];
@@ -161,10 +161,6 @@ void calculateCCS(){
 	uint32_to_str((uint8_t *) tvoc_output_CCS, sizeof(tvoc_output_CCS),ccs_tvoc, 1, 5);
 }
 
-/************
-SHT-CALCULATION
-************/
-
 /***********************************************
 I2C-Methods
 ***********************************************/
@@ -173,13 +169,12 @@ CCS-I2C
 ************/
 void resetCCS(){
 	
-	/*
-	ccs5Byte[0] = 0xFF;//(CCS_RESET_SW_CMD & 0xFF00000000) >> 32;
-	ccs5Byte[1] = 0x11;//(CCS_RESET_SW_CMD & 0x00FF000000) >> 24;
-	ccs5Byte[2] = 0xE5;//(CCS_RESET_SW_CMD & 0x0000FF0000) >> 16;
-	ccs5Byte[3] = 0x72;//(CCS_RESET_SW_CMD & 0x000000FF00) >> 8;
-	ccs5Byte[4] = 0x8a;//CCS_RESET_SW_CMD & 0x00000000FF;
-	*/
+	ccs5Byte[0] = (CCS_RESET_SW_CMD & 0xFF00000000) >> 32;
+	ccs5Byte[1] = (CCS_RESET_SW_CMD & 0x00FF000000) >> 24;
+	ccs5Byte[2] = (CCS_RESET_SW_CMD & 0x0000FF0000) >> 16;
+	ccs5Byte[3] = (CCS_RESET_SW_CMD & 0x000000FF00) >> 8;
+	ccs5Byte[4] = CCS_RESET_SW_CMD & 0x00000000FF;
+
 	if (-1 == HAL_OpenI2cPacket(&i2cdescriptorCCS5Byte)){
 		appWriteDataToUsart((uint8_t*)"open fail ccs reset\r\n", sizeof("open fail ccs reset\r\n")-1);
 	}
@@ -282,15 +277,15 @@ Timer
 ***********************************************/
 
 static void initTimer(){
-	periodicMeasurementTimer.interval	=	SCD_MES_INTERVAL;		 
+	periodicMeasurementTimer.interval	=	CCS_MES_INTERVAL;		 
 	periodicMeasurementTimer.mode		=	TIMER_REPEAT_MODE;       
 	periodicMeasurementTimer.callback	=	periodicMeasurementTimerComplete;         
 	
-	delayTimer.interval = SCD_READ_DELAY_TIME;
+	delayTimer.interval = CCS_STARTUP_TIME;
 	delayTimer.mode		= TIMER_ONE_SHOT_MODE;
 	delayTimer.callback = delayTimerComplete;  
 	
-	delaytimer(SCD_STARTUP_TIME, APP_RESET_CCS_SW_STATE);
+	delaytimer(CCS_STARTUP_TIME, APP_RESET_CCS_SW_STATE);
 }
 
 static void delaytimer(uint16_t time, uint8_t _next_appstate){
@@ -328,7 +323,7 @@ switch(appstate){
 	case APP_RESET_CCS_SW_STATE:
 		appstate=APP_NOTHING_STATE;
 		resetCCS();
-		delaytimer(SCD_STARTUP_TIME, APP_CCS_HW_ID_WRITE_REG_STATE);
+		delaytimer(CCS_MIN_DELAY, APP_CCS_HW_ID_WRITE_REG_STATE);
 	break;
 	case APP_CCS_HW_ID_WRITE_REG_STATE:
 		appstate=APP_NOTHING_STATE;
@@ -348,7 +343,7 @@ switch(appstate){
 	case APP_CCS_WRITE_MEAS_REG_STATE:		
 		appstate=APP_NOTHING_STATE;
 		writeMeasModeCCS();
-		delaytimer(CSS_DRIVE_STATUS_DELAY, APP_CCS_WRITE_STATUS_REG_STATE);
+		delaytimer(CCS_DRIVE_STATUS_DELAY, APP_CCS_WRITE_STATUS_REG_STATE);
 		break;
 	case APP_CCS_WRITE_STATUS_REG_STATE:		
 		appstate=APP_NOTHING_STATE;
