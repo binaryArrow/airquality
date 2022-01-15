@@ -93,7 +93,7 @@ uint8_t scddata[9];
 uint16_t scd_rd_co2;
 uint16_t scd_rd_temp;
 uint16_t scd_rd_rh;
-uint8_t co2_output_SCD[] = " XXXXX ppm CO2 \r\n";
+uint8_t co2_output_SCD[] = " XXXXXppmCO2scd\r\n";
 
 bool result;
 bool tempNegativ;
@@ -107,6 +107,11 @@ int32_t sht21_rhv;
 int32_t sht21_rhn;
 int32_t vorkomma;
 int32_t nachkomma;
+
+	uint32_t vorkommatmp;
+	uint32_t nachkommatmp;
+	uint32_t vorkommarh;
+	uint32_t nachkommarh;
 
 uint8_t t_output_SHT21[] = "+xxx.xx degree Celsius \r\n";
 uint8_t t_output_SHT21_sensorbytes[] = "0xXXXX sensor \r\n";
@@ -244,15 +249,8 @@ void calculateOutputSHT(){
 		tempNegativ = false;
 	}
 	
-	/*
-	uint32_t vorkommatmp
-	uint32_t nachkommatmp;
-	uint32_t vorkommarh
-	uint32_t nachkommarh
-	*/
-	
-	uint32_t vorkommatmp = temperature/10000000000000000;
-	uint32_t nachkommatmp = temperature%10000000000000000;
+	vorkommatmp = temperature/10000000000000000;
+	nachkommatmp = temperature%10000000000000000;
 	if (tempNegativ)
 	{
 		t_output_SHT21[0] = 0x2d;
@@ -267,8 +265,8 @@ void calculateOutputSHT(){
 		relativeHumidity = relativeHumidity - correctionoffsetrh;
 	}
 	
-	uint32_t vorkommarh = relativeHumidity/10000000000000000;
-	uint32_t nachkommarh = relativeHumidity%10000000000000000;
+	vorkommarh = relativeHumidity/10000000000000000;
+	nachkommarh = relativeHumidity%10000000000000000;
 	
 	
 	uint32_to_str((uint8_t *) t_output_SHT21, sizeof(t_output_SHT21),vorkommatmp, 1, 3);
@@ -490,6 +488,41 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	SYS_PostTask(APL_TASK_ID);
 }
 
+static void fill_transmit_data(void){
+	transmitData.data[0]='3';
+		uint8_t tmp[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXXX;XXXXX";
+		//					  5     11       20    26    32  
+		//bool tempNegativ;
+		
+		uint32_to_str(tmp, sizeof(tmp),vorkommatmp, 6, 2);
+		uint32_to_str(tmp, sizeof(tmp),nachkommatmp, 8, 2);
+		uint32_to_str(tmp, sizeof(tmp),vorkommarh, 11, 2);
+		uint32_to_str(tmp, sizeof(tmp),nachkommarh, 13, 2);
+		if (tempNegativ)
+		{
+			tmp[5] = 0x2d;
+			}else{
+			tmp[5] = 0x2b;
+		}
+		uint32_to_str(tmp, sizeof(tmp), scd_rd_temp, 21, 4);
+		uint16_to_hexstr(tmp, sizeof(tmp), scd_rd_rh, 26);
+		uint32_to_str(tmp, sizeof(tmp), scd_rd_co2, 32 ,4);	
+		/*
+		if (tempNegativ)
+		{
+			tmp[5] = 0x2d;
+			}else{
+			tmp[5] = 0x2b;
+		}
+		*/
+		
+	
+		int16_t size = sizeof(tmp)-1;
+		for(int16_t i = 0; i <= size; i++ ){
+			transmitData.data[i] = tmp[i];
+		}
+}
+
 
 /***********************************************
 Zustandsautomat
@@ -511,14 +544,12 @@ switch(appstate){
 		networkParams.ZDO_StartNetworkConf = ZDO_StartNetworkConf;
 		ZDO_StartNetworkReq(&networkParams);
 		appstate=APP_INIT_ENDPOINT;
-		appWriteDataToUsart((uint8_t*)"StartJoin Network\r\n", sizeof("StartJoin Network\r\n")-1);
 		SYS_PostTask(APL_TASK_ID);
 	break;
 	
 	case APP_INIT_ENDPOINT:
 		initEndpoint();
 		appstate=APP_INIT_TRANSMITDATA;
-		appWriteDataToUsart((uint8_t*)"INIT ENDPOINT\r\n", sizeof("INIT ENDPOINT\r\n")-1);
 		SYS_PostTask(APL_TASK_ID);
 	break;
 	
@@ -530,19 +561,7 @@ switch(appstate){
 	break;
 	
 	case APP_TRANSMIT:
-	appWriteDataToUsart((uint8_t*)"TRANSMIT\r\n", sizeof("TRANSMIT\r\n")-1);
-		transmitData.data[0]='3';
-		uint8_t tmp[] = "1SHT;XXXXX;XXXXX";
-		int32_to_str(tmp, sizeof(tmp),vorkommatmp, 5, 3);
-		int32_to_str(tmp, sizeof(tmp),nachkommatmp, 8, 2);
-		int32_to_str(tmp, sizeof(tmp),vorkommarh, 11, 3);
-		int32_to_str(tmp, sizeof(tmp),nachkommarh, 14, 2);
-		
-	
-		int16_t size = sizeof(tmp)-1;
-		for(int16_t i = 0; i <= size; i++ ){
-			transmitData.data[i] = tmp[i];
-		}
+		fill_transmit_data();
 		APS_DataReq(&dataReq);
 	break;
 		
