@@ -3,7 +3,7 @@
 
   \brief Basis-Anwendung.
 
-  \author Markus Krauße
+  \author Markus Krauï¿½e
 
 ******************************************************************************/
 
@@ -15,16 +15,46 @@
 #include <sysTaskManager.h>
 #include <usartManager.h>
 #include <i2cPacket.h>
+#include <bspLeds.h>
 
 uint8_t appstate = APP_STARTUP_STATE;
 uint8_t next_appstate = APP_NOTHING_STATE;
 
+BEGIN_PACK
+typedef struct _AppMessage_t{
+	uint8_t header[APS_ASDU_OFFSET]; //APS header
+	uint8_t data[55]; // muss noch angepasst werden
+	uint8_t footer[APS_AFFIX_LENGTH - APS_ASDU_OFFSET]; // Footer
+} PACK AppMessage_t;
+END_PACK
+
+static uint8_t deviceType;
+static void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo);
+static ZDO_StartNetworkReq_t networkParams;
+
+static SimpleDescriptor_t simpleDescriptor;
+static APS_RegisterEndpointReq_t endPoint;
+static void initEndpoint(void);
+void APS_DataInd(APS_DataInd_t *indData);
+
+static AppMessage_t transmitData;
+APS_DataReq_t dataReq;
+static void APS_DataConf(APS_DataConf_t *confInfo);
+static void initTransmitData(void);
 
 /************
 SCD-TIMER
 ************/
 static HAL_AppTimer_t periodicMeasurementTimer;
 static HAL_AppTimer_t delayTimer;
+
+static HAL_AppTimer_t receiveTimerLed;
+static HAL_AppTimer_t transmitTimerLed;
+static HAL_AppTimer_t transmitTimer;
+static void receiveTimerLedFired(void);
+static void transmitTimerLedFired(void);
+static void transmitTimerFired(void);
+
 
 static void delaytimer(uint16_t, uint8_t);
 
@@ -71,6 +101,10 @@ uint8_t sht21cmd;
 uint8_t sht21data[2];
 uint16_t sht21_rd_tmp;
 uint16_t sht21_rd_rh;
+int32_t sht21_tempv;
+int32_t sht21_tempn;
+int32_t sht21_rhv;
+int32_t sht21_rhn;
 int32_t vorkomma;
 int32_t nachkomma;
 
@@ -210,6 +244,13 @@ void calculateOutputSHT(){
 		tempNegativ = false;
 	}
 	
+	/*
+	uint32_t vorkommatmp
+	uint32_t nachkommatmp;
+	uint32_t vorkommarh
+	uint32_t nachkommarh
+	*/
+	
 	uint32_t vorkommatmp = temperature/10000000000000000;
 	uint32_t nachkommatmp = temperature%10000000000000000;
 	if (tempNegativ)
@@ -245,9 +286,9 @@ I2C-Methods
 SCD-I2C
 ************/
 void resetSCD(){
-		uint16_t cmd = SCD41_STOP_PERIODIC_MES_CMD; //0x3F86
-		scdcmd[0] = ((cmd & 0xFF00) >> 8);
-		scdcmd[1] = cmd & 0x00FF;
+	uint16_t cmd = SCD41_STOP_PERIODIC_MES_CMD; //0x3F86
+	scdcmd[0] = ((cmd & 0xFF00) >> 8);
+	scdcmd[1] = cmd & 0x00FF;
 	
 		 if (-1 == HAL_OpenI2cPacket(&i2cdescriptorcmdSCD)){
 			 appWriteDataToUsart((uint8_t*)"open fail scd reset\r\n", sizeof("open fail scd reset\r\n")-1);
@@ -349,7 +390,19 @@ static void initTimer(){
 	
 	delayTimer.interval = SCD_READ_DELAY_TIME;
 	delayTimer.mode		= TIMER_ONE_SHOT_MODE;
-	delayTimer.callback = delayTimerComplete;  
+	delayTimer.callback = delayTimerComplete;
+	
+	transmitTimer.interval= 3000;
+	transmitTimer.mode= TIMER_REPEAT_MODE;
+	transmitTimer.callback=transmitTimerFired;
+	
+	transmitTimerLed.interval= 500;
+	transmitTimerLed.mode= TIMER_ONE_SHOT_MODE;
+	transmitTimerLed.callback=transmitTimerLedFired;
+	
+	receiveTimerLed.interval= 500;
+	receiveTimerLed.mode= TIMER_ONE_SHOT_MODE;
+	receiveTimerLed.callback=receiveTimerLedFired;
 	
 	delaytimer(SCD_STARTUP_TIME, APP_RESET_SENSOR_STATE);
 }
@@ -371,6 +424,71 @@ static void delayTimerComplete(){
 	SYS_PostTask(APL_TASK_ID);
 }
 
+static void transmitTimerLedFired(void){
+	BSP_OffLed(LED_YELLOW);
+}
+static void receiveTimerLedFired(void){
+	BSP_OffLed(LED_RED);
+}
+static void transmitTimerFired(void){
+	appstate=APP_TRANSMIT;
+	SYS_PostTask(APL_TASK_ID);
+}
+
+/***********************************************
+Transmit
+***********************************************/
+static void initTransmitData(void){
+	dataReq.profileId=1;
+	dataReq.dstAddrMode =APS_SHORT_ADDRESS;
+	dataReq.dstAddress.shortAddress= CPU_TO_LE16(0);
+	dataReq.dstEndpoint =1;
+	dataReq.asdu=transmitData.data;
+	dataReq.asduLength=sizeof(transmitData.data);
+	dataReq.srcEndpoint = 1;
+	dataReq.APS_DataConf=APS_DataConf;
+}
+
+
+static void APS_DataConf(APS_DataConf_t *confInfo){
+	if (confInfo->status == APS_SUCCESS_STATUS){
+		BSP_OnLed(LED_YELLOW);
+		HAL_StartAppTimer(&transmitTimerLed);
+		appstate=APP_NOTHING_STATE;
+		SYS_PostTask(APL_TASK_ID);
+	}
+}
+
+static void initEndpoint(void){
+	simpleDescriptor.AppDeviceId = 1;
+	simpleDescriptor.AppProfileId = 1;
+	simpleDescriptor.endpoint = 1;
+	simpleDescriptor.AppDeviceVersion = 1;
+	endPoint.simpleDescriptor= &simpleDescriptor;
+	endPoint.APS_DataInd = APS_DataInd;
+	APS_RegisterEndpointReq(&endPoint);
+}
+
+void APS_DataInd(APS_DataInd_t *indData){
+	BSP_OnLed(LED_RED);
+	HAL_StartAppTimer(&receiveTimerLed);
+	appWriteDataToUsart(indData->asdu,indData->asduLength);
+	appWriteDataToUsart((uint8_t*)"\r\n",2);
+}
+
+void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
+	if (ZDO_SUCCESS_STATUS == confirmInfo->status){
+		CS_ReadParameter(CS_DEVICE_TYPE_ID,&deviceType);
+		if(deviceType==DEV_TYPE_COORDINATOR){
+			appWriteDataToUsart((uint8_t*)"Coordinator\r\n", sizeof("Coordinator\r\n")-1);
+		}
+		BSP_OnLed(LED_YELLOW);
+		
+		}else{
+		appWriteDataToUsart((uint8_t*)"Error\r\n",sizeof("Error\r\n")-1);
+	}
+	SYS_PostTask(APL_TASK_ID);
+}
 
 
 /***********************************************
@@ -382,7 +500,50 @@ switch(appstate){
 	case APP_STARTUP_STATE:
 		appstate=APP_NOTHING_STATE;
 		appInitUsartManager();
+		BSP_OpenLeds();
 		initTimer();
+		appstate = APP_STARTJOIN_NETWORK;
+		SYS_PostTask(APL_TASK_ID);
+	break;
+	
+	case APP_STARTJOIN_NETWORK:
+		BSP_OnLed(LED_GREEN);
+		networkParams.ZDO_StartNetworkConf = ZDO_StartNetworkConf;
+		ZDO_StartNetworkReq(&networkParams);
+		appstate=APP_INIT_ENDPOINT;
+		appWriteDataToUsart((uint8_t*)"StartJoin Network\r\n", sizeof("StartJoin Network\r\n")-1);
+		SYS_PostTask(APL_TASK_ID);
+	break;
+	
+	case APP_INIT_ENDPOINT:
+		initEndpoint();
+		appstate=APP_INIT_TRANSMITDATA;
+		appWriteDataToUsart((uint8_t*)"INIT ENDPOINT\r\n", sizeof("INIT ENDPOINT\r\n")-1);
+		SYS_PostTask(APL_TASK_ID);
+	break;
+	
+	case APP_INIT_TRANSMITDATA:
+		initTransmitData();
+		appstate=APP_NOTHING_STATE;
+		HAL_StartAppTimer(&transmitTimer);
+		SYS_PostTask(APL_TASK_ID);
+	break;
+	
+	case APP_TRANSMIT:
+	appWriteDataToUsart((uint8_t*)"TRANSMIT\r\n", sizeof("TRANSMIT\r\n")-1);
+		transmitData.data[0]='3';
+		uint8_t tmp[] = "1SHT;XXXXX;XXXXX";
+		int32_to_str(tmp, sizeof(tmp),vorkommatmp, 5, 3);
+		int32_to_str(tmp, sizeof(tmp),nachkommatmp, 8, 2);
+		int32_to_str(tmp, sizeof(tmp),vorkommarh, 11, 3);
+		int32_to_str(tmp, sizeof(tmp),nachkommarh, 14, 2);
+		
+	
+		int16_t size = sizeof(tmp)-1;
+		for(int16_t i = 0; i <= size; i++ ){
+			transmitData.data[i] = tmp[i];
+		}
+		APS_DataReq(&dataReq);
 	break;
 		
 	case APP_RESET_SENSOR_STATE:
