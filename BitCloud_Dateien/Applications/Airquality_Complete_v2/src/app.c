@@ -56,6 +56,7 @@ static HAL_AppTimer_t receiveTimerLed;
 static HAL_AppTimer_t transmitTimerLed;
 static void receiveTimerLedFired(void);
 static void transmitTimerLedFired(void);
+static void fill_transmit_data(void);
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
@@ -139,11 +140,11 @@ static HAL_I2cDescriptor_t i2cdescriptorrdSHT;
 uint8_t scdcmd[2];
 uint8_t scddata[9];
 uint16_t scd_rd_co2;
-//uint16_t scd_rd_temp;		//>> uint16_t
-//uint16_t scd_rd_rh;		//>> uint16_t
+//uint16_t scd_rd_temp;		
+//uint16_t scd_rd_rh;
 //neu
-int32_t scd_rd_temp;		//>> uint16_t 
-uint32_t scd_rd_rh;			//>> uint16_t
+int32_t scd_rd_temp;		 
+uint32_t scd_rd_rh;			
 int32_t scd_temp;
 uint32_t scd_rh;
 
@@ -155,6 +156,8 @@ uint16_t sht21_rd_tmp;
 uint16_t sht21_rd_rh;
 
 //OUTPUT
+uint8_t msg[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXX;XXXX;CCS;XXXX;XXXX";
+
 uint8_t t_output_SHT21[] = "+xxx.xx degree Celsius SHT \r\n";
 uint8_t t_output_SHT21_sensorbytes[] = "0xXXXX sensor SHT Temp \r\n";
 uint8_t rh_output_SHT21[] = "+xx.xx percent relative Humidity SHT \r\n";
@@ -209,45 +212,7 @@ void APL_TaskHandler(void){
 		
 		case APP_TRANSMIT:
 		appWriteDataToUsart((uint8_t*)"TRANSMIT\r\n", sizeof("TRANSMIT\r\n")-1);
-		
-		
-		transmitData.data[0]='3';
-		uint8_t tmp[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXX;XXXX;CCS;XXXX;XXXX";
-		//					  5	    11       20    26   31       40   45
-		uint32_to_str(tmp, sizeof(tmp),SHT_tmp_vorkomma, 6, 2);
-		uint32_to_str(tmp, sizeof(tmp),SHT_tmp_nachkomma, 8, 2);
-		uint32_to_str(tmp, sizeof(tmp),SHT_rh_vorkomma, 11, 2);
-		uint32_to_str(tmp, sizeof(tmp),SHT_rh_nachkomma, 13, 2);
-		if (tempNegativ)
-		{
-			tmp[5] = 0x2d;
-			}else{
-			tmp[5] = 0x2b;
-		}
-		/*
-		uint16_t scd_rd_co2;
-		uint16_t scd_rd_temp;
-		uint16_t scd_rd_rh;
-		int32_t scd_temp;
-		uint32_t scd_rh;
-		*/
-		int32_to_str(tmp, sizeof(tmp),scd_temp, 20, 5);
-		uint32_to_str(tmp, sizeof(tmp),scd_rh, 26, 4);
-		uint32_to_str(tmp, sizeof(tmp),scd_rd_co2, 31, 4);
-		
-		/*
-		uint16_t CCS_co2;
-		uint16_t CCS_tvoc;
-		*/
-		uint32_to_str(tmp, sizeof(tmp),CCS_co2, 40, 4);
-		uint32_to_str(tmp, sizeof(tmp),CCS_tvoc, 45, 4);
-		
-		
-		int16_t size = sizeof(tmp)-1;
-		for(int16_t i = 0; i <= size; i++ ){
-			transmitData.data[i] = tmp[i];
-		}
-		APS_DataReq(&dataReq);
+		fill_transmit_data();
 		break;
 		/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -816,11 +781,11 @@ Calculation-Methods
 CCS-CALCULATION
 ************/
 static void calculateCCS(){
-	CCS_co2 = (ccs4Byte[0] << 8) | ccs4Byte[1];
+	CCS_co2 = ((uint16_t)ccs4Byte[0] << 8) | (uint16_t)ccs4Byte[1];
 	
 	uint32_to_str((uint8_t *) co2_output_CCS, sizeof(co2_output_CCS),CCS_co2, 1, 5);
 	
-	CCS_tvoc = (ccs4Byte[2] << 8) | ccs4Byte[3];
+	CCS_tvoc = ((uint16_t)ccs4Byte[2] << 8) | (uint16_t)ccs4Byte[3];
 	
 	uint32_to_str((uint8_t *) tvoc_output_CCS, sizeof(tvoc_output_CCS),CCS_tvoc, 1, 5);
 }
@@ -948,6 +913,35 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 		appWriteDataToUsart((uint8_t*)"Error\r\n",sizeof("Error\r\n")-1);
 	}
 	SYS_PostTask(APL_TASK_ID);
+}
+
+void fill_transmit_data(void){
+	//uint8_t msg[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXX;XXXX;CCS;XXXX;XXXX";
+	//					  5	    11       20    26   31       40   45
+	uint32_to_str(msg, sizeof(msg),SHT_tmp_vorkomma, 6, 2);
+	uint32_to_str(msg, sizeof(msg),SHT_tmp_nachkomma, 8, 2);
+	uint32_to_str(msg, sizeof(msg),SHT_rh_vorkomma, 11, 2);
+	uint32_to_str(msg, sizeof(msg),SHT_rh_nachkomma, 13, 2);
+	if (tempNegativ)
+	{
+		msg[5] = 0x2d;
+		}else{
+		msg[5] = 0x2b;
+	}
+	
+	int32_to_str(msg, sizeof(msg),scd_temp, 20, 5);
+	uint32_to_str(msg, sizeof(msg),scd_rh, 26, 4);
+	uint32_to_str(msg, sizeof(msg),scd_rd_co2, 31, 4);
+	
+	uint32_to_str(msg, sizeof(msg),CCS_co2, 40, 4);
+	uint32_to_str(msg, sizeof(msg),CCS_tvoc, 45, 4);
+	
+	
+	int16_t size = sizeof(msg)-1;
+	for(int16_t i = 0; i <= size; i++ ){
+		transmitData.data[i] = msg[i];
+	}
+	APS_DataReq(&dataReq);
 }
 
 /*******************************************************************************
