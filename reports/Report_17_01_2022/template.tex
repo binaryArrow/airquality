@@ -54,7 +54,7 @@
 		\hline
 		Max-Rene Konieczka			&		1211092					&	18,00	\\
 		\hline
-		Can Cihan Nazlier			&		1179244					&		\\
+		Can Cihan Nazlier			&		1179244					&	14,00	\\
 		\hline
 	\end{tabular}
 	\caption{Arbeitsaufwand dieser Woche}
@@ -89,6 +89,9 @@ Diese Woche wurde der CCS811 Sensor zum laufen gebracht. Hierbei haben wir uns m
 Im Verlauf der letzten Woche wurde daran gearbeitet, Strings über Atmel Studio zu versenden und diese anschließend in unserer Datenbank anzeigen zu lassen. Nachdem dies gelungen ist, wurde angefangen sich mit dem Dashboard auseinanderzusetzen. Es wurde überlegt, die D3.js Library von Javascript~\cite{D3JS} zu verwenden. Mit D3.js ist es möglich einfache Formen bis hin zu detaillierten Diagrammen zu erstellen.
 Die Daten der Sensoren sollen nun mithilfe der Axis API von D3 in einem Koordinatensystem dargestellt werden. 
 \subsection{Can Cihan Nazlier}
+Durchgehen der Dokumentation von d3js. Websockets vorbereiten, sodass server side events gesendet werden können. Warum Websockets?
+Antwort: das frontend und das backend laufen als zwei seperate anwendungen und müssen sich untereinander austauschen. Das geschieht eigentlich über http. Das Problem jedoch ist,
+für http muss der Client dem Server request schicken um Daten zu empfangen. Da die Sensordaten im Backend ankommen und wenn die Kommunikation nur mittels http geschieht, so müsste der client alle 10 minuten eine Anfrage an den Server senden und es könnte durchaus dazu kommen , dass wir einzelne Messungen verpassen. Deshalb ist es wichtig, dass der server dem Client Daten sendet sobald welche da sind. Dazu wurde nun die Grundlage gelegt. 
 
 
 \printbibliography
