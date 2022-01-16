@@ -1,8 +1,10 @@
 frontend-spa/package-lock.json
 electron/package-lock.json
 backend/package-lock.json
+backend/src/models/package-lock.json
 node_modules
 .idea
 backend/package-lock.json
 frontend-spa/package.lock.json
 electron/package.lock.json
+backend/src/models/package-lock.json
