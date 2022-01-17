@@ -50,7 +50,7 @@
 		\hline
 		Lucas Merkert				&		1326709					&	20,00	\\
 		\hline
-		Achim Glaesmann				&		1309221					&		\\
+		Achim Glaesmann				&		1309221					&	17,50	\\
 		\hline
 		Max-Rene Konieczka			&		1211092					&	18,00	\\
 		\hline
@@ -83,7 +83,7 @@ Diese Woche wurde der CCS811 Sensor zum laufen gebracht. Hierbei haben wir uns m
 \end{figure}
 
 \subsection{Achim Glaesmann}
-
+Diese Woche wurde dazu verwendet die von den Verschiedenen Teammitgliedern übernommenen Aufgaben bezüglich der Auslesung des Sensors und der Übertragung der Daten über das Zigbee Protokoll zusammenzuführen. Zunächst wurde sich persönlich getroffen, um in der Gruppe Probleme beim Auslesen des CCS811 und dem Aufbau des Funknetzes zu lösen. Nach testen des Sensors am Arduino und dem Übertragen der Programmlogik der anderen Sensoren auf den AVR-Chip, war es trotz mehrfachen Prüfen des Codes nicht möglich eine I2C-Kommunikation zum CCS aufzubauen. Selbst nach ausführlichem Testen und mehrmaligen umschreiben einzelner Softwarekomponenten, konnte das Problem nicht behoben werden. Es stellte sich heraus, das es kein softwareseitiges Problem war. Nach austauschen des Funkmoduls war es möglich eine Kommunikation zwischen Sensor und Mikrokontroller zu etablieren. Der Mikrokontroller wurde markiert und wird nochmal überprüft. Nachdem sowohl das Auslesen des CSS811, als auch Aufbau des Funknetzwerkes realisiert wurden, war es nötig die einzelnen Softwarelösungen für die Sensoren und das Netzwerk zu kombinieren. Dies wurde erfolgreich erledigt. Als nächste Aufgabe ist es nun nötig, die Übermittelten Daten an das Backend der Desktop-Applikation zu übermitteln.
 
 \subsection{Max-Rene Konieczka}
 Im Verlauf der letzten Woche wurde daran gearbeitet, Strings über Atmel Studio zu versenden und diese anschließend in unserer Datenbank anzeigen zu lassen. Nachdem dies gelungen ist, wurde angefangen sich mit dem Dashboard auseinanderzusetzen. Es wurde überlegt, die D3.js Library von Javascript~\cite{D3JS} zu verwenden. Mit D3.js ist es möglich einfache Formen bis hin zu detaillierten Diagrammen zu erstellen.
