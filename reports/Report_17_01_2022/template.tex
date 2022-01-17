@@ -67,6 +67,25 @@
 
 
 \subsection{Friedrich Just}
+Diese Woche wurden der Code für alle Sensoren  in ein Programm zusammengeführt. Danach wurde dieser Mikrocontroller in unser Zigbee-Netzwerk integriert. Nun werden die aktuellen Sensordaten an den Koordinator gesendet wie in Abbildung \ref{img:Messdaten} zu sehen ist. Eine Zeile steht für ein Paket mit Messungen aller 3 Sensoren.
+An erster Stelle steht die Nummer des Endgerätes. Es folgen der Sensor SHT21 mit den Messwerten der Temperatur und der relativen Luftfeuchtigkeit. Danach stehen die Werte des SCD41 mit der Temperatur, der relativen Luftfeuchtigkeit und dem CO2-Wert. Als Letztes kommt der CSS811 mit dem eCO2 und dem TVOC. Alle Temperatur- und Luftfeuchtigkeitswerte müssen durch 100 geteilt werden, damit der richtige Wert als Gleitkommazahl heraus kommt.
+\\\\
+Bei dem CSS811 werden aus bisher noch nicht nachvollziehbaren Gründen falsche Werte an den Koordinator übertragen. Allerdings werden plausible Werte ausgegeben, wenn der Mikrocontroller direkt angeschlossen wird. (Siehe Abbildung \ref{img:CCS811_data}) Außerdem ist bei der Berechnung des SHT21 etwas falsch, da dies zu hohe Werte sind. Der SCD41 gibt hingegen plausible Werte aus, denn ähnliche Werte habe ich mit einem separaten Sensor gemessen. Die Messdaten wurden erhoben, während Frischluft durch das geöffnete Fenster eindringen konnte.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.60]{images/Messdaten}
+	\caption{Messdaten}
+	\label{img:Messdaten}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.60]{images/CCS811_data}
+	\caption{Messdaten CCS811}
+	\label{img:CCS811_data}
+\end{figure}
+
+
 
 
 
