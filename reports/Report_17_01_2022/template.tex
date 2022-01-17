@@ -46,7 +46,7 @@
 		\hline
 		Friedrich Just				&		1326699 				&		\\
 		\hline
-		Stipe Knez				&		1269206 				&	\\
+		Stipe Knez					&		1269206 				&	19,00	\\
 		\hline
 		Lucas Merkert				&		1326709					&	20,00	\\
 		\hline
@@ -71,7 +71,7 @@
 
 
 \subsection{Stipe Knez}
-
+Vergangene Woche wurde sich dazu entschieden, das Format, in dem die Daten der ZigBee Module an das Backend geschickt werden, zu überarbeiten. Anstatt die Daten in Form von JSON Strings an das Backend zu schicken, sollten diese nun in Form von regulären Strings, bei denen die Werte mit einem Semikolon getrennt werden, geschickt werden. Diese Funktionalität konnten wir im Verlauf der Woche mit Hilfe eines entsprechenden Parsers erfolgreich im Backend implementieren. Als nächstes wurde begonnen sich dem Übertragen der Daten vom Back- in das Frontend und der Erstellung eines Dashboards mit Hilfe der D3.js Library zuzuwenden.
 \subsection{Lucas Merkert}
 Diese Woche wurde der CCS811 Sensor zum laufen gebracht. Hierbei haben wir uns mithilfe der Informationen von Dienstag einen geeigneten Zustandsautomaten wie in Abbildung \ref{img:Zustandsautomat} überlegt und diesen dann umgesetzt. Hierbei wurde der Sensor über die Adresse 0x5A angesprochen angesprochen. Im ersten Zustand wechselt der Sensor in den BOOT Modus damit ein Software-Reset durchgeführt werden kann und die Hardware ID überprüft werden kann. Danach wechselt der Sensor wieder in den APP Modus. In das MEAS\_MODE Register wird dann der Befehl geschrieben, dass der Sensor jede Sekunde misst. Zuletzt wird noch im Status Register überprüft ob Daten bereit liegen und diese werden dann ausgelesen. Dies geschieht in einem Zyklus von einer Sekunde.
 
