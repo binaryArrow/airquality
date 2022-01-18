@@ -1,5 +1,4 @@
 import Sensor from "./Sensor";
-import {v4, v4 as uuidv4} from 'uuid'
 import {fabric} from "fabric";
 import LineCoords from "./LineCoords";
 import {SensorData} from "./SensorData";

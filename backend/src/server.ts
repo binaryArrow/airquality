@@ -21,28 +21,23 @@ const io = new Server(httpServer, {
     }
 })
 
-app.get("/", async (req:any, res:any) => {
-    serial.listen()
-
-})
-
-app.get('/rooms', async (req:any, res:any) => {
+app.get('/rooms', async (req: any, res: any) => {
 
     const rooms = await connection.getAllRooms()
     res.status(200).json(rooms)
 })
-app.post('/rooms', async (req:any, res:any) => {
+app.post('/rooms', async (req: any, res: any) => {
     const response = await connection.insertRoom(req.body)
     const idResponse = await connection.getLastRoom()
     res.contentType('application/json')
     res.status(201)
     res.json(idResponse)
 })
-app.put('/rooms/:roomId/:sensorId', async (req: any, res:any)=>{
+app.put('/rooms/:roomId/:sensorId', async (req: any, res: any) => {
     const update = await connection.updateRoomSensorid(req.params.roomId, req.params.sensorId)
     res.status(200)
 })
-app.delete('/room/:id', async (req:any, res:any) => {
+app.delete('/room/:id', async (req: any, res: any) => {
     await connection.deleteRoom(req.params.id)
     res.status(200).json({deleted: true})
 })
@@ -59,6 +54,9 @@ io.on("connection", socket => {
     socket.emit("data", data)
 })
 
-httpServer.listen(3000, () => console.log('Server running'))
+httpServer.listen(3000, () => {
+    serial.listen()
+    console.log('Server running')
+})
 
 
