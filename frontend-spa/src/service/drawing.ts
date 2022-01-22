@@ -1,7 +1,9 @@
 import {fabric} from "fabric";
 import Room from "@/../../backend/src/models/Room";
+import Sensor from "@/../../backend/src/models/Sensor";
 import {Circle, Line} from "fabric/fabric-impl";
 import CircleWithLine from "@/../../../backend/src/models/CircleWithLine"
+import RectWithId from "@/../../../backend/src/models/RectWithId"
 
 export class Drawing {
 
@@ -10,7 +12,8 @@ export class Drawing {
                   lengthsOfObjects: {
                       lengthOfCirclesInRooms: number,
                       lengthOfLinesInRooms: number
-                  }) {
+                  },
+                  sensors: Sensor[]) {
         canvas.clear()
         lengthsOfObjects.lengthOfCirclesInRooms = 0
         lengthsOfObjects.lengthOfLinesInRooms = 0
@@ -24,6 +27,21 @@ export class Drawing {
             })
             lengthsOfObjects.lengthOfCirclesInRooms += it.points.length
             lengthsOfObjects.lengthOfLinesInRooms += it.lines.length
+        })
+        sensors.forEach(sensor => {
+            if (sensor.active) {
+                const rectangleOptions = {
+                    sensorId: sensor.sensorId,
+                    width: sensor.width,
+                    height: sensor.width,
+                    left: sensor.left,
+                    top: sensor.top,
+                    fill: 'green',
+                    stroke: 'black',
+                    strokeWidth: 3
+                } as RectWithId
+                canvas.add(new fabric.Rect(rectangleOptions))
+            }
         })
     }
 
@@ -72,10 +90,11 @@ export class Drawing {
             lockScalingY: true,
         })
     }
-    static mapCirclesFromDB(pointsFromDB: string, grid: number):Circle[] {
+
+    static mapCirclesFromDB(pointsFromDB: string, grid: number): Circle[] {
         const circleArray: Circle[] = []
         const test = JSON.parse(pointsFromDB)
-        for (const element of test){
+        for (const element of test) {
             const newCircle = this.makeCircle(element.left, element.top, grid)
             newCircle.fill = '#30880DFF'
             newCircle.selectable = false
@@ -83,10 +102,11 @@ export class Drawing {
         }
         return circleArray
     }
-    static mapLinesFromDB(lineCoordinatesFromDB: string): Line[]{
+
+    static mapLinesFromDB(lineCoordinatesFromDB: string): Line[] {
         const linesArray: Line[] = []
         const test = JSON.parse(lineCoordinatesFromDB)
-        for(const element of test) {
+        for (const element of test) {
             const newLine = this.makeLine([element.x1, element.y1, element.x2, element.y2])
             newLine.stroke = '#30880DFF'
             newLine.selectable = false

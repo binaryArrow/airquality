@@ -1,7 +1,7 @@
 import knex from 'knex'
 import Room from "../models/Room";
 import {SensorData} from "../models/SensorData";
-import {exists} from "fs";
+import Sensor from "../models/Sensor";
 
 export class Connection {
     private dbConnection: any
@@ -44,6 +44,65 @@ export class Connection {
                 })
             }
         })
+        this.dbConnection.schema.hasTable('sensors').then((exists: boolean) => {
+            if (!exists) {
+                return this.dbConnection.schema.createTable('sensors', (table: any) => {
+                    table.increments('id')
+                    table.integer('sensorId')
+                    table.integer('left')
+                    table.integer('top')
+                    table.integer('width')
+                    table.boolean('active')
+                }).then(() => {
+                    this.insertSensors(1)
+                    this.insertSensors(2)
+                    this.insertSensors(3)
+                })
+            }
+        })
+    }
+
+    insertSensors(sensorId: number) {
+        try {
+            return this.dbConnection('sensors').insert({
+                sensorId: sensorId,
+                left: 0,
+                top: 0,
+                width: 20,
+                active: false
+            }).then(() => {
+                console.log('added sensors in Database')
+            })
+        } catch (e) {
+            console.log(`${e}`)
+        }
+    }
+
+    updateSensors(sensors: Sensor[]) {
+        try {
+            sensors.forEach(sensor => {
+                this.dbConnection('sensors').where('sensorId', sensor.sensorId)
+                    .update({
+                        left: sensor.left,
+                        top: sensor.top,
+                        width: sensor.width,
+                        active: sensor.active
+                    }).then(() => {
+                    console.log("sensors updated")
+                })
+            })
+            return this.dbConnection('sensors')
+        } catch (e) {
+            console.log(`${e}`)
+        }
+    }
+
+    getSensors() {
+        try {
+            return this.dbConnection('sensors').select('*')
+        } catch (e) {
+            console.log(`${e}`)
+        }
     }
 
     insertRoom(room: Room) {
@@ -63,13 +122,14 @@ export class Connection {
             console.log(`${e}`)
         }
     }
-    updateRoomSensorid(roomId: number, sensorId: number){
-        try{
+
+    updateRoomSensorid(roomId: number, sensorId: number) {
+        try {
             return this.dbConnection('rooms').where('id', roomId).update('sensorId', sensorId)
-                .then(()=>{
+                .then(() => {
                     console.log("updated room with new Sensor")
                 })
-        }catch (e) {
+        } catch (e) {
             console.log(`${e}`)
         }
     }
@@ -106,12 +166,11 @@ export class Connection {
         let roomIdWithSameSensorId = await this.dbConnection('rooms')
             .where('sensorId', sensorData.sensorId)
             .first()
-            .then((row: any)=>row)
-        if (!roomIdWithSameSensorId){
-           roomIdWithSameSensorId = {id: 0}
-        }
-        else
-        console.log(roomIdWithSameSensorId.toString())
+            .then((row: any) => row)
+        if (!roomIdWithSameSensorId) {
+            roomIdWithSameSensorId = {id: 0}
+        } else
+            console.log(roomIdWithSameSensorId.toString())
         try {
             return this.dbConnection('sensor-data').insert({
                 sensorId: sensorData.sensorId,

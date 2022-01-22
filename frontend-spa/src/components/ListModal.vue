@@ -93,7 +93,7 @@ export default defineComponent({
           break
         }
       }
-      this.$emit('sensorAdded', roomId, e.target.value)
+      this.$emit('sensorAdded', roomId, e.target.value, sensorId)
     },
     deleteRoom(sensorId: number, index: number) {
       console.log(sensorId)

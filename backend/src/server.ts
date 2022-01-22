@@ -7,9 +7,10 @@ import {Connection} from "./db/connection";
 import Room from "./models/Room";
 import {SensorData} from "./models/SensorData";
 import {SeriP} from "./service/SeriP";
+import Sensor from "./models/Sensor";
 
-const serial = new SeriP()
 const connection = new Connection()
+const serial = new SeriP(connection)
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -22,7 +23,6 @@ const io = new Server(httpServer, {
 })
 
 app.get('/rooms', async (req: any, res: any) => {
-
     const rooms = await connection.getAllRooms()
     res.status(200).json(rooms)
 })
@@ -36,10 +36,21 @@ app.post('/rooms', async (req: any, res: any) => {
 app.put('/rooms/:roomId/:sensorId', async (req: any, res: any) => {
     const update = await connection.updateRoomSensorid(req.params.roomId, req.params.sensorId)
     res.status(200)
+    res.json(update)
 })
 app.delete('/room/:id', async (req: any, res: any) => {
     await connection.deleteRoom(req.params.id)
     res.status(200).json({deleted: true})
+})
+app.get('/sensors', async (req: any, res: any) => {
+    const sensors = await connection.getSensors()
+    res.status(200).json(sensors)
+})
+app.put('/sensors', async (req: any, res: any) => {
+    const sensors = req.body as Sensor[]
+    connection.updateSensors(sensors)
+    res.status(200)
+    res.json(sensors)
 })
 
 let data = {

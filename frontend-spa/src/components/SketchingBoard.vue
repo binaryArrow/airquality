@@ -15,7 +15,7 @@
       <list-modal class="modal-content" :is-active="listModalActive" :rooms="this.rooms"
                   @delete-room="deleteSelectedRoom"
                   @close="toggleModal"
-      @sensor-added="sensorAdded">
+                  @sensor-added="sensorAdded">
       </list-modal>
     </div>
   </div>
@@ -27,6 +27,10 @@
     <button id="list-button" class="button is-warning" @click="toggleModal('list')" v-show="!listModalActive"
             type="button">SHOW ROOMS
     </button>
+    <button id="list-button" class="button is-primary" @click="updateSensors"
+            type="button"> Save Sensors
+    </button>
+
   </div>
 </template>
 
@@ -42,6 +46,7 @@ import {io} from "socket.io-client";
 import {Communicator} from "@/service/communicator";
 import {Drawing} from "@/service/drawing";
 import CircleWithLine from "@/../../../backend/src/models/CircleWithLine"
+import RectWithId from "@/../../../backend/src/models/RectWithId"
 import LineCoords from '../../../backend/src/models/LineCoords';
 
 const socket = io("http://localhost:3000")
@@ -63,6 +68,7 @@ export default defineComponent({
       width: 1200,
       grid: 20,
       rooms: [] as Room[],
+      sensors: [] as Sensor[],
       addModalActive: ref(false),
       listModalActive: ref(false),
       newRoomName: '',
@@ -94,9 +100,23 @@ export default defineComponent({
         this.rooms.push(newRoom)
       })
       console.log(this.rooms)
-      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects)
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     })
+
+    this.communicator.getSenors().then(data => {
+      data.forEach(sensor => {
+        let newSensor = new Sensor(sensor.sensorId)
+        newSensor.left = sensor.left
+        newSensor.top = sensor.top
+        newSensor.active = sensor.active
+        this.sensors.push(newSensor)
+      })
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
+      Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
+    })
+    //TODO: get all sensor position data from backend via get request and push to array
+
     socket.on("data", (data: { lineCoords: number[]; circleLeft: number; circleTop: number }) => {
       console.log("got some data from socket")
     })
@@ -126,6 +146,15 @@ export default defineComponent({
             target.line1 && target.line1.set({x2: target.left, y2: target.top})
           if (target.line2)
             target.line2 && target.line2.set({x1: target.left, y1: target.top})
+        }
+      }
+      if (options.target) {
+        let target = options.target as RectWithId
+        for (let sensor of this.sensors) {
+          if (sensor.sensorId == target.sensorId && target.left && target.top) {
+            sensor.left = target.left
+            sensor.top = target.top
+          }
         }
       }
     })
@@ -195,7 +224,8 @@ export default defineComponent({
             x1: line.x1 as number,
             x2: line.x2 as number,
             y1: line.y1 as number,
-            y2: line.y2 as number })
+            y2: line.y2 as number
+          })
         })
         let newRoom = new Room(
             this.newRoomName,
@@ -204,7 +234,7 @@ export default defineComponent({
             0,
             lineCoordinates
         )
-        this.communicator.postRoom(newRoom).then((data: [{'max(`id`)': 27}]) => {
+        this.communicator.postRoom(newRoom).then((data: [{ 'max(`id`)': 27 }]) => {
           data.forEach(id => {
             newRoom.id = id["max(`id`)"]
           })
@@ -212,18 +242,44 @@ export default defineComponent({
         this.rooms.push(newRoom)
         this.newRoomName = ''
         this.addModalActive = false
-        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects)
+        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
         Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
       }
     },
     deleteSelectedRoom(index: number) {
       this.communicator.deleteRoom(this.rooms[index].id)
       this.rooms.splice(index, 1)
-      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects)
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     },
-    sensorAdded(roomId: number, sensorId: number){
-      this.communicator.updateRoomSensorId(roomId, sensorId)
+    sensorAdded(roomId: number, newSensorId: number, oldSensorId: number) {
+      this.communicator.updateRoomSensorId(roomId, newSensorId)
+      this.rooms[this.rooms.findIndex(room=>room.id === roomId)].sensorId = newSensorId
+      // set sensor to rooms start point position
+      // set active or not if sensor changed
+      for (let sensor of this.sensors) {
+        if (sensor.sensorId == oldSensorId) {
+          sensor.active = false
+          sensor.left = 0
+          sensor.top = 0
+        }
+        if (sensor.sensorId == newSensorId){
+          sensor.active = true
+          this.rooms.forEach(room=>{
+            if(room.sensorId == newSensorId && room.points[0].top && room.points[0].left){
+              sensor.top = room.points[0].top
+              sensor.left = room.points[0].left
+            }
+
+          })
+
+        }
+      }
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
+      Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
+    },
+    updateSensors(){
+      this.communicator.updateSensorsInBackend(this.sensors)
     }
   }
 });
