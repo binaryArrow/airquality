@@ -82,6 +82,7 @@ export class Drawing {
         return new fabric.Circle(opt)
 
     }
+
     static makeLine(coords: number[]) {
         return new fabric.Line(coords, {
             stroke: 'red',

@@ -115,7 +115,6 @@ export default defineComponent({
       Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     })
-    //TODO: get all sensor position data from backend via get request and push to array
 
     socket.on("data", (data: { lineCoords: number[]; circleLeft: number; circleTop: number }) => {
       console.log("got some data from socket")
