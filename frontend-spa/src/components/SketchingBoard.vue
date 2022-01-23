@@ -15,8 +15,13 @@
       <list-modal class="modal-content" :is-active="listModalActive" :rooms="this.rooms"
                   @delete-room="deleteSelectedRoom"
                   @close="toggleModal"
-                  @sensor-added="sensorAdded">
+                  @sensor-added="sensorAdded"
+                  @show-info="toggleInfoModal"
+                  @close-info-modal="toggleModal('info')">
       </list-modal>
+      <info-modal :is-active="infoModalActive" :sensor-data="this.infoModalData" class="modal-content">
+          <button class="button is-danger" @click="toggleModal('info')">BACK</button>
+      </info-modal>
     </div>
   </div>
   <div class="add-button-wrapper">
@@ -27,7 +32,7 @@
     <button id="list-button" class="button is-warning" @click="toggleModal('list')" v-show="!listModalActive"
             type="button">SHOW ROOMS
     </button>
-    <button id="list-button" class="button is-primary" @click="updateSensors"
+    <button id="info-button" class="button is-primary" @click="updateSensors"
             type="button"> Save Sensors
     </button>
 
@@ -38,6 +43,7 @@
 import {defineComponent, ref} from 'vue';
 import Room from "@/../../backend/src/models/Room";
 import Sensor from "@/../../backend/src/models/Sensor";
+import {SensorData} from "@/../../backend/src/models/SensorData"
 import AddModal from '@/components/AddModal.vue'
 import {fabric} from "fabric";
 import {Circle, Line} from "fabric/fabric-impl";
@@ -48,6 +54,7 @@ import {Drawing} from "@/service/drawing";
 import CircleWithLine from "@/../../../backend/src/models/CircleWithLine"
 import RectWithId from "@/../../../backend/src/models/RectWithId"
 import LineCoords from '../../../backend/src/models/LineCoords';
+import InfoModal from "@/components/InfoModal.vue";
 
 const socket = io("http://localhost:3000")
 
@@ -55,6 +62,7 @@ export default defineComponent({
   name: 'SketchingBoard',
 
   components: {
+    InfoModal,
     ListModal,
     AddModal
   },
@@ -69,8 +77,13 @@ export default defineComponent({
       grid: 20,
       rooms: [] as Room[],
       sensors: [] as Sensor[],
+      sensorData1: [] as SensorData[],
+      sensorData2: [] as SensorData[],
+      sensorData3: [] as SensorData[],
+      infoModalData: {} as SensorData,
       addModalActive: ref(false),
       listModalActive: ref(false),
+      infoModalActive: ref(false),
       newRoomName: '',
       addInformation: 'add a name for the room',
       addInputClassName: 'input is-rounded',
@@ -80,6 +93,9 @@ export default defineComponent({
       },
       communicator: new Communicator()
     }
+  },
+  beforeMount(){
+    this.sensorData1.push(new SensorData(0, "","","","","","", ""))
   },
   mounted() {
     this.canvasFromView = this.$refs['drawingCanvas'] as HTMLCanvasElement
@@ -116,8 +132,25 @@ export default defineComponent({
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     })
 
-    socket.on("data", (data: { lineCoords: number[]; circleLeft: number; circleTop: number }) => {
-      console.log("got some data from socket")
+    socket.on("data", (data: SensorData) => {
+        console.log(`got some data from socket for sensor ${data.sensorId}`)
+        const tempSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim())
+      switch (tempSensorData.sensorId){
+          case 1:{
+            this.sensorData1.push(tempSensorData)
+            break;
+          }
+          case 2:{
+            this.sensorData2.push(tempSensorData)
+            break;
+          }
+          case 3:{
+            this.sensorData3.push(tempSensorData)
+            break;
+          }
+      }
+      if(this.infoModalData.sensorId == tempSensorData.sensorId)
+        this.infoModalData = tempSensorData
     })
     Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
 
@@ -203,6 +236,11 @@ export default defineComponent({
         }
         case "list": {
           this.listModalActive = !this.listModalActive
+          this.infoModalActive = false
+          break;
+        }
+        case "info": {
+          this.infoModalActive = false
         }
       }
     },
@@ -279,6 +317,33 @@ export default defineComponent({
     },
     updateSensors(){
       this.communicator.updateSensorsInBackend(this.sensors)
+    },
+    toggleInfoModal(sensorId: number){
+      switch (sensorId){
+        case 0: {
+          this.infoModalData = new SensorData(0, "", "","","","","","")
+          break;
+        }
+        case 1: {
+          if(this.sensorData1.length == 0)
+            this.sensorData1.push(new SensorData(0, "", "","","","","",""))
+          this.infoModalData = this.sensorData1[this.sensorData1.length - 1]
+          break;
+        }
+        case 2: {
+          if(this.sensorData2.length == 0)
+            this.sensorData2.push(new SensorData(0, "", "","","","","",""))
+          this.infoModalData = this.sensorData2[this.sensorData2.length - 1]
+          break;
+        }
+        case 3: {
+          if(this.sensorData3.length == 0)
+            this.sensorData3.push(new SensorData(0, "", "","","","","",""))
+          this.infoModalData = this.sensorData3[this.sensorData3.length - 1]
+          break;
+        }
+      }
+      this.infoModalActive = !this.infoModalActive
     }
   }
 });
@@ -324,6 +389,11 @@ export default defineComponent({
   }
 
   #list-button {
+    width: 120px;
+    height: 35px;
+  }
+
+  #info-button {
     width: 120px;
     height: 35px;
   }

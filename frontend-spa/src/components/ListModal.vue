@@ -28,7 +28,7 @@
                 <fa icon="trash"></fa>
               </span>
               </button>
-              <button class="button is-warning is-small is-rounded" @click="showInfo(index)">
+              <button class="button is-warning is-small is-rounded" @click="showInfo(room.sensorId)">
               <span class="icon is-large">
                 <fa icon="info"></fa>
               </span>
@@ -60,7 +60,7 @@ export default defineComponent({
       disabled3: false,
     }
   },
-  emits: ['deleteRoom', 'showInfo', 'close', 'sensorAdded'],
+  emits: ['deleteRoom', 'showInfo', 'close', 'sensorAdded', 'closeInfoModal'],
   methods: {
     lookForDoubleEntries(sensorId: number, roomId: number, e: any){
       // new value for sensorID
@@ -94,6 +94,7 @@ export default defineComponent({
         }
       }
       this.$emit('sensorAdded', roomId, e.target.value, sensorId)
+      this.$emit('closeInfoModal')
     },
     deleteRoom(sensorId: number, index: number) {
       console.log(sensorId)
@@ -113,8 +114,8 @@ export default defineComponent({
       }
       this.$emit('deleteRoom', index)
     },
-    showInfo(index: number) {
-      this.$emit('showInfo', index)
+    showInfo(sensorId: number) {
+      this.$emit('showInfo', sensorId)
     },
     closeModal() {
       this.$emit('close', 'list')

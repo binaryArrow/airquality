@@ -35,11 +35,11 @@ export class Connection {
                     table.integer('roomId')
                     table.string('tempSHT21')
                     table.string('humSHT21')
-                    table.string('tvocCCS811')
-                    table.string('eco2CCS811')
-                    table.string('humSCD41')
                     table.string('tempSCD41')
+                    table.string('humSCD41')
                     table.string('co2SCD41')
+                    table.string('eco2CCS811')
+                    table.string('tvocCCS811')
                     table.timestamp('created_at').defaultTo(this.dbConnection.fn.now())
                 })
             }
@@ -169,8 +169,7 @@ export class Connection {
             .then((row: any) => row)
         if (!roomIdWithSameSensorId) {
             roomIdWithSameSensorId = {id: 0}
-        } else
-            console.log(roomIdWithSameSensorId.toString())
+        }
         try {
             return this.dbConnection('sensor-data').insert({
                 sensorId: sensorData.sensorId,

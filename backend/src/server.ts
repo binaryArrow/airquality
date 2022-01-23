@@ -53,20 +53,8 @@ app.put('/sensors', async (req: any, res: any) => {
     res.json(sensors)
 })
 
-let data = {
-    lineCoords: [10, 10, 20, 20],
-    circleLeft: 50,
-    circleTop: 50
-}
-
-
-io.on("connection", socket => {
-    console.log('new connection!')
-    socket.emit("data", data)
-})
-
 httpServer.listen(3000, () => {
-    serial.listen()
+    serial.listen(io)
     console.log('Server running')
 })
 
