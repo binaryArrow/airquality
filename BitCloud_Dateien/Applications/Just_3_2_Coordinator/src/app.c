@@ -82,21 +82,7 @@ void APL_TaskHandler(void){
 		break;
 		
 		case APP_TRANSMIT:
-			#if CS_DEVICE_TYPE == DEV_TYPE_ROUTER
-				transmitData.data[0]='H';
-				transmitData.data[1]='a';
-				transmitData.data[2]='l';
-				transmitData.data[3]='l';
-				transmitData.data[4]='o';
-				transmitData.data[5]=' ';
-			#else
-				transmitData.data[0]='Z';
-				transmitData.data[1]='i';
-				transmitData.data[2]='g';
-				transmitData.data[3]='B';
-				transmitData.data[4]='e';
-				transmitData.data[5]='e';
-			#endif
+			
 			APS_DataReq(&dataReq);
 		break;
 		

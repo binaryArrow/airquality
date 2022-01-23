@@ -156,7 +156,8 @@ uint16_t sht21_rd_tmp;
 uint16_t sht21_rd_rh;
 
 //OUTPUT
-uint8_t msg[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXX;XXXX;CCS;XXXX;XXXX";
+//uint8_t msg[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXX;XXXX;CCS;XXXX;XXXX";
+uint8_t msg[] = "1;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX;";
 
 uint8_t t_output_SHT21[] = "+xxx.xx degree Celsius SHT \r\n";
 uint8_t t_output_SHT21_sensorbytes[] = "0xXXXX sensor SHT Temp \r\n";
@@ -193,14 +194,14 @@ void APL_TaskHandler(void){
 		networkParams.ZDO_StartNetworkConf = ZDO_StartNetworkConf;
 		ZDO_StartNetworkReq(&networkParams);
 		appstate=APP_INIT_ENDPOINT;
-		appWriteDataToUsart((uint8_t*)"StartJoin Network\r\n", sizeof("StartJoin Network\r\n")-1);
+		//appWriteDataToUsart((uint8_t*)"StartJoin Network\r\n", sizeof("StartJoin Network\r\n")-1);
 		SYS_PostTask(APL_TASK_ID);
 		break;
 		
 		case APP_INIT_ENDPOINT:
 		initEndpoint();
 		appstate=APP_INIT_TRANSMITDATA;
-		appWriteDataToUsart((uint8_t*)"INIT ENDPOINT\r\n", sizeof("INIT ENDPOINT\r\n")-1);
+		//appWriteDataToUsart((uint8_t*)"INIT ENDPOINT\r\n", sizeof("INIT ENDPOINT\r\n")-1);
 		SYS_PostTask(APL_TASK_ID);
 		break;
 		
@@ -211,8 +212,10 @@ void APL_TaskHandler(void){
 		break;
 		
 		case APP_TRANSMIT:
-		appWriteDataToUsart((uint8_t*)"TRANSMIT\r\n", sizeof("TRANSMIT\r\n")-1);
+		
 		fill_transmit_data();
+		appWriteDataToUsart((uint8_t*)msg, sizeof(msg)-1);
+		//appWriteDataToUsart((uint8_t*)"\n\r", sizeof("\n\r"));
 		break;
 		/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -327,6 +330,7 @@ void APL_TaskHandler(void){
 		calculateOutputSCD();
 		calculateOutputSHT();
 		calculateCCS();
+		/*
 		appWriteDataToUsart((uint8_t*)co2_output_CCS, sizeof(co2_output_CCS));
 		appWriteDataToUsart((uint8_t*)tvoc_output_CCS, sizeof(tvoc_output_CCS));
 		
@@ -338,6 +342,7 @@ void APL_TaskHandler(void){
 		appWriteDataToUsart((uint8_t*)rh_output_SHT21, sizeof(rh_output_SHT21));
 		//appWriteDataToUsart((uint8_t*)t_output_SHT21_sensorbytes, sizeof(t_output_SHT21_sensorbytes));
 		//appWriteDataToUsart((uint8_t*)rh_output_SHT21_sensorbytes, sizeof(rh_output_SHT21_sensorbytes));
+		*/
 		delaytimer(CCS_MIN_DELAY, APP_TRANSMIT);
 		break;
 		
@@ -379,7 +384,7 @@ static void delaytimer(uint16_t time, uint8_t _next_appstate){
 }
 
 static void periodicMeasurementTimerComplete(){
-	appWriteDataToUsart((uint8_t*)"mesTImer fired\r\n", sizeof("mesTimer fired\r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"mesTImer fired\r\n", sizeof("mesTimer fired\r\n")-1);
 	appstate = APP_CALL_FOR_READ_SCD_STATE;
 	SYS_PostTask(APL_TASK_ID);
 }
@@ -511,15 +516,15 @@ static void callbackCCSOneByte(bool result){
 	}
 	HAL_CloseI2cPacket(&i2cdescriptorCCSOneByte);
 	if(checkHWID && (ccsOneByte != CCS_HWID)){
-		appWriteDataToUsart((uint8_t*)"HWID not 0x81\r\n", sizeof("HWID not 0x81\r\n")-1);
+		//appWriteDataToUsart((uint8_t*)"HWID not 0x81\r\n", sizeof("HWID not 0x81\r\n")-1);
 		checkHWID = false;
 	}
 	
 	if(checkStatus && ((ccsOneByte & 0x04) != CCS_DATA_RDY)){
-		appWriteDataToUsart((uint8_t*)"Status not rdy\r\n", sizeof("Status not rdy\r\n")-1);
-		checkStatus = false;
+		//appWriteDataToUsart((uint8_t*)"Status not rdy\r\n", sizeof("Status not rdy\r\n")-1);
+		checkStatus = false	;
 		} else {
-		appWriteDataToUsart((uint8_t*)"Status rdy\r\n", sizeof("Status rdy\r\n")-1);
+		//appWriteDataToUsart((uint8_t*)"Status rdy\r\n", sizeof("Status rdy\r\n")-1);
 		checkStatus = false;
 	}
 }
@@ -592,7 +597,7 @@ static void resetCCS(){
 	if (-1 == HAL_WriteI2cPacket(&i2cdescriptorCCS5Byte)){
 		appWriteDataToUsart((uint8_t*)"write fail ccs reset\r\n", sizeof("write fail ccs reset\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"CCS Reset \r\n", sizeof("CCS Reset \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"CCS Reset \r\n", sizeof("CCS Reset \r\n")-1);
 
 };
 
@@ -604,7 +609,7 @@ static void writeCCSHWIDReg(){
 	if (-1 == HAL_WriteI2cPacket(&i2cdescriptorCCSOneByte)){
 		appWriteDataToUsart((uint8_t*)"write fail ccs hwid\r\n", sizeof("write fail ccs hwid\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"CCS hwid \r\n", sizeof("CCS hwid \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"CCS hwid \r\n", sizeof("CCS hwid \r\n")-1);
 }
 
 static void readCCSHWIDReg(){
@@ -615,7 +620,7 @@ static void readCCSHWIDReg(){
 	if (-1 == HAL_ReadI2cPacket(&i2cdescriptorCCSOneByte)){
 		appWriteDataToUsart((uint8_t*)"read fail ccs hwid\r\n", sizeof("write fail ccs hwid\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"CCS hwid read \r\n", sizeof("CCS hwid read\r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"CCS hwid read \r\n", sizeof("CCS hwid read\r\n")-1);
 }
 
 static void changeCCSAppstate(){
@@ -626,7 +631,7 @@ static void changeCCSAppstate(){
 	if (-1 == HAL_WriteI2cPacket(&i2cdescriptorCCSOneByte)){
 		appWriteDataToUsart((uint8_t*)"write fail ccs bootloader\r\n", sizeof("write fail ccs bootloader\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"CCS bootloader \r\n", sizeof("CCS bootloader \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"CCS bootloader \r\n", sizeof("CCS bootloader \r\n")-1);
 }
 static void writeMeasModeCCS(){
 	ccsTwoByte[0] = CCS_MEAS_MODE_REG;
@@ -637,7 +642,7 @@ static void writeMeasModeCCS(){
 	if (-1 == HAL_WriteI2cPacket(&i2cdescriptorCCSTwoByte)){
 		appWriteDataToUsart((uint8_t*)"write fail ccs measmode\r\n", sizeof("write fail ccs measmode\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"CCS measmode \r\n", sizeof("CCS measmode \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"CCS measmode \r\n", sizeof("CCS measmode \r\n")-1);
 }
 
 static void writeccsStatusReg(){
@@ -648,7 +653,7 @@ static void writeccsStatusReg(){
 	if (-1 == HAL_WriteI2cPacket(&i2cdescriptorCCSOneByte)){
 		appWriteDataToUsart((uint8_t*)"write fail ccs status reg\r\n", sizeof("write fail ccs status reg\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"CCS status reg \r\n", sizeof("CCS status reg \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"CCS status reg \r\n", sizeof("CCS status reg \r\n")-1);
 }
 static void readccsStatusReg(){
 	checkStatus = true;
@@ -658,7 +663,7 @@ static void readccsStatusReg(){
 	if (-1 == HAL_ReadI2cPacket(&i2cdescriptorCCSOneByte)){
 		appWriteDataToUsart((uint8_t*)"write fail ccs status reg\r\n", sizeof("write fail ccs status reg\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"CCS status reg \r\n", sizeof("CCS status reg \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"CCS status reg \r\n", sizeof("CCS status reg \r\n")-1);
 }
 
 static void writeccsResultReg(){
@@ -669,7 +674,7 @@ static void writeccsResultReg(){
 	if (-1 == HAL_WriteI2cPacket(&i2cdescriptorCCSOneByte)){
 		appWriteDataToUsart((uint8_t*)"write fail ccs result reg\r\n", sizeof("write fail ccs result reg\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"CCS result reg \r\n", sizeof("CCS result reg \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"CCS result reg \r\n", sizeof("CCS result reg \r\n")-1);
 }
 
 static void readccsResultReg(){
@@ -679,7 +684,7 @@ static void readccsResultReg(){
 	if (-1 == HAL_ReadI2cPacket(&i2cdescriptorCCS4Byte)){
 		appWriteDataToUsart((uint8_t*)"write fail ccs read data\r\n", sizeof("write fail ccs sread data\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"CCS read data \r\n", sizeof("CCS read data \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"CCS read data \r\n", sizeof("CCS read data \r\n")-1);
 }
 
 /************
@@ -696,7 +701,7 @@ void resetSCD(){
 	if (-1 == HAL_WriteI2cPacket(&i2cdescriptorcmdSCD)){
 		appWriteDataToUsart((uint8_t*)"write fail scd reset\r\n", sizeof("write fail scd reset\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"SCD Reset \r\n", sizeof("SCD Reset \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"SCD Reset \r\n", sizeof("SCD Reset \r\n")-1);
 	
 }
 
@@ -712,7 +717,7 @@ void initializeSCD(){ //YELLOW = CLOCK (SCL) GREEN = DATA (SCD)
 	if (-1 == HAL_WriteI2cPacket(&i2cdescriptorcmdSCD)){
 		appWriteDataToUsart((uint8_t*)"write fail scd init\r\n", sizeof("write fail scd init\r\n")-1);
 	}
-	appWriteDataToUsart((uint8_t*)"SCD Initialized \r\n", sizeof("SCD Initialized \r\n")-1);
+	//appWriteDataToUsart((uint8_t*)"SCD Initialized \r\n", sizeof("SCD Initialized \r\n")-1);
 }
 
 void callReadSCD(){
@@ -817,11 +822,12 @@ static void calculateOutputSCD(){
 SHT-CALCULATION
 ************/
 static void calculateOutputSHT(){
+	
 	uint64_t conversionfactortmp = 26812744140625; // Datasheetformula: -46.85 + 175.72 * sensordata/65536 :: conversionfactor is 175.72/65536 scaled by 10^16 to avoid floating numbers.
 	uint64_t correctionoffsettmp = 468500000000000000; // -46.85 scaled by 10^16 and inverted new formula: conversionfactor*sensordata - correctionoffset 
 	uint64_t conversionfactorrh = 19073486328125; // Datasheetformula: -6 + 125 * sensordata/65536 :: conversionfactor is 125/65536 scaled by 10^16 to avoid floating numbers.
 	uint64_t correctionoffsetrh = 60000000000000000; // -6 scaled by 10^16 and inverted. new formula conversionfactor*sensordata - correctionoffset 
-	
+	/*
 	uint64_t temperature = conversionfactortmp * sht21_rd_tmp;
 	if(temperature < correctionoffsettmp){
 		temperature = correctionoffsettmp - temperature;
@@ -831,7 +837,7 @@ static void calculateOutputSHT(){
 		tempNegativ = false;
 	}
 	
-	SHT_tmp_vorkomma = temperature/10000000000000000;
+	SHT_tmp_vorkomma =  temperature/10000000000000000;
 	SHT_tmp_nachkomma = temperature%10000000000000000;
 	if (tempNegativ)
 	{
@@ -839,7 +845,7 @@ static void calculateOutputSHT(){
 	}else{
 		t_output_SHT21[0] = 0x2b;
 	}
-	
+	*/
 	uint64_t relativeHumidity = conversionfactorrh * sht21_rd_rh;
 	if(relativeHumidity < correctionoffsetrh){
 		relativeHumidity = 0;
@@ -849,6 +855,11 @@ static void calculateOutputSHT(){
 	
 	SHT_rh_vorkomma = relativeHumidity/10000000000000000;
 	SHT_rh_nachkomma = relativeHumidity%10000000000000000;
+	
+	int32_t temp = (-5085. + ((17572. / 65536.) * sht21_rd_tmp));
+	
+	SHT_tmp_vorkomma = temp/100;
+	SHT_tmp_nachkomma = temp%100;
 	
 	
 	uint32_to_str((uint8_t *) t_output_SHT21, sizeof(t_output_SHT21),SHT_tmp_vorkomma, 1, 3);
@@ -905,7 +916,7 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	if (ZDO_SUCCESS_STATUS == confirmInfo->status){
 		CS_ReadParameter(CS_DEVICE_TYPE_ID,&deviceType);
 		if(deviceType==DEV_TYPE_COORDINATOR){
-			appWriteDataToUsart((uint8_t*)"Coordinator\r\n", sizeof("Coordinator\r\n")-1);
+			//appWriteDataToUsart((uint8_t*)"Coordinator\r\n", sizeof("Coordinator\r\n")-1);
 		}
 		BSP_OnLed(LED_YELLOW);
 		
@@ -918,23 +929,25 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 void fill_transmit_data(void){
 	//uint8_t msg[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXX;XXXX;CCS;XXXX;XXXX";
 	//					  5	    11       20    26   31       40   45
-	uint32_to_str(msg, sizeof(msg),SHT_tmp_vorkomma, 6, 2);
-	uint32_to_str(msg, sizeof(msg),SHT_tmp_nachkomma, 8, 2);
-	uint32_to_str(msg, sizeof(msg),SHT_rh_vorkomma, 11, 2);
-	uint32_to_str(msg, sizeof(msg),SHT_rh_nachkomma, 13, 2);
+	//uint8_t msg[] = ";1;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX";
+	//					  3     9   14     20   25   30   35
+	uint32_to_str(msg, sizeof(msg),SHT_tmp_vorkomma, 3, 2);
+	uint32_to_str(msg, sizeof(msg),SHT_tmp_nachkomma, 5, 2);
+	uint32_to_str(msg, sizeof(msg),SHT_rh_vorkomma, 8, 2);
+		uint32_to_str(msg, sizeof(msg),SHT_rh_nachkomma, 10, 2);
 	if (tempNegativ)
 	{
-		msg[5] = 0x2d;
+		msg[2] = 0x2d;
 		}else{
-		msg[5] = 0x2b;
+		msg[2] = 0x2b;
 	}
 	
-	int32_to_str(msg, sizeof(msg),scd_temp, 20, 5);
-	uint32_to_str(msg, sizeof(msg),scd_rh, 26, 4);
-	uint32_to_str(msg, sizeof(msg),scd_rd_co2, 31, 4);
+	int32_to_str(msg, sizeof(msg),scd_temp, 13, 5);
+	uint32_to_str(msg, sizeof(msg),scd_rh, 19, 4);
+	uint32_to_str(msg, sizeof(msg),scd_rd_co2, 24, 4);
 	
-	uint32_to_str(msg, sizeof(msg),CCS_co2, 40, 4);
-	uint32_to_str(msg, sizeof(msg),CCS_tvoc, 45, 4);
+	uint32_to_str(msg, sizeof(msg),CCS_co2, 29, 4);
+	uint32_to_str(msg, sizeof(msg),CCS_tvoc, 34, 4);
 	
 	
 	int16_t size = sizeof(msg)-1;

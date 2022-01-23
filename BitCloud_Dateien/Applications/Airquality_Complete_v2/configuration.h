@@ -144,7 +144,7 @@
 //Device is an end device.
 //#define CS_DEVICE_TYPE DEV_TYPE_ENDDEVICE
 //Device is a coordinator.
-#define CS_DEVICE_TYPE DEV_TYPE_COORDINATOR
+#define CS_DEVICE_TYPE DEV_TYPE_ENDDEVICE
 
 // While scanning channels during network join the node keeps listening to each
 // channel specified by the ::CS_CHANNEL_MASK for a period of time calculated
@@ -168,9 +168,8 @@
 // available on all platforms. If the latter case then UID value must be provided
 // by user via this parameter. This parameter must be unique for each device in a
 // network. This should not be 0 for Coordinator.
-#define CS_UID 0x0A01LL
-
-#define CS_EXT_PANID 0x1AAAAAAAAAAACAFELL
+#define CS_UID 0x0700000A04LL    // Endgerät
+#define CS_EXT_PANID 0x1AAAAAAAAAAACA07LL
 
 // Determines whether the static or automatic addressing mode will be used for the
 // short address.
