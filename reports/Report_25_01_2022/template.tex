@@ -44,7 +44,7 @@
 		\hline
 		{\textbf{Name}}				&		{\textbf{Matrikel Nr.}} & {\textbf{Arbeitsaufwand (h)}} \\
 		\hline
-		Friedrich Just				&		1326699 				&		18,00\\
+		Friedrich Just				&		1326699 				&		16,00\\
 		\hline
 		Stipe Knez					&		1269206 				&	19,00	\\
 		\hline
@@ -67,10 +67,21 @@
 
 
 \subsection{Friedrich Just}
+Diese Woche wurde die Syntax der Messdaten erneut überarbeitet. Die Sensornamen werden jetzt nicht mehr übertragen. Siehe Abbildung \ref{img:Payload}. Die Übertragung der Daten funktioniert so weit. Sobald der Mikrocontroller an eine Batterie angeschlossen, welche nicht ganz voll ist, kann der Mikrocontroller nicht alle Sensoren normal initialisieren und es werden keine korrekten Werte ausgelesen. Für das korrekte Auslesen der Sensoren muss der Mikrocontroller über die UART-Bridge oder zwei neue Batterien angeschlossen werden. Dies sieht man in der  Abbildung \ref{img:Payload}. Bei dem ersten Datensätze ist die Stromversorgung ausreichend und bei den zweiten reicht diese nicht für alle Sensoren aus.  
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.40]{images/payload}
+	\caption{Messdaten}
+	\label{img:Payload}
+\end{figure}
 
-
-
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.80]{images/UART_fehler}
+	\caption{Ausgaben mit Batterie und UART als Stromversorgung}
+	\label{img:UART_fehler}
+\end{figure}
 
 
 
