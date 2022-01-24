@@ -67,7 +67,7 @@
 
 
 \subsection{Friedrich Just}
-Diese Woche wurde die Syntax der Messdaten erneut überarbeitet. Die Sensornamen werden jetzt nicht mehr übertragen. Siehe Abbildung \ref{img:Payload}. Die Übertragung der Daten funktioniert so weit. Sobald der Mikrocontroller an eine Batterie angeschlossen, welche nicht ganz voll ist, kann der Mikrocontroller nicht alle Sensoren normal initialisieren und es werden keine korrekten Werte ausgelesen. Für das korrekte Auslesen der Sensoren muss der Mikrocontroller über die UART-Bridge oder zwei neue Batterien angeschlossen werden. Dies sieht man in der  Abbildung \ref{img:Payload}. Bei dem ersten Datensätze ist die Stromversorgung ausreichend und bei den zweiten reicht diese nicht für alle Sensoren aus.  
+Diese Woche wurde die Syntax der Messdaten erneut überarbeitet. Die Sensornamen werden jetzt nicht mehr übertragen. Siehe Abbildung \ref{img:Payload}. Die Übertragung der Daten funktioniert so weit. Sobald der Mikrocontroller an eine Batterie angeschlossen, welche nicht ganz voll ist, kann der Mikrocontroller nicht alle Sensoren normal initialisieren und es werden keine korrekten Werte ausgelesen. Für das korrekte Auslesen der Sensoren muss der Mikrocontroller über die UART-Bridge oder zwei neue Batterien angeschlossen werden. Dies sieht man in der  Abbildung \ref{img:UART_fehler}. Bei dem ersten Datensätze ist die Stromversorgung ausreichend und bei den zweiten reicht diese nicht für alle Sensoren aus.  
 
 \begin{figure}[!h]
 	\centering
@@ -93,7 +93,7 @@ In dieser Woche ist das Senden der Sensordaten mit mehreren Funkmodulen, welche 
 
 
 \subsection{Achim Glaesmann}
-Diese Woche wurde daran gearbeitet die Verschiedenen Teile der Applikation, bestehend aus Mikrokontroller, deren Firmware, dem Backend so wie dem Frontend zusammenzuführen. Als Schnittstelle zur Applikation wurde der Communication Port des ausführenden Rechners gewählt. Die Sensordaten konnten Erfolgreich als String an das Backend gesendet werden. Hierbei wurde der String wie folgt Designed: IDCONTROLLER;SENSORDATASHT;SENSORDATASCD;SENSORDATACCS;;
+Diese Woche wurde daran gearbeitet die Verschiedenen Teile der Applikation, bestehend aus Mikrokontroller, deren Firmware, dem Backend so wie dem Frontend zusammenzuführen. Als Schnittstelle zur Applikation wurde der Communication Port des ausführenden Rechners gewählt. Die Sensordaten konnten Erfolgreich als String an das Backend gesendet werden. Hierbei wurde der String wie folgt Designed:\ref{img:Payload}
 Die Kommunikation aller Applikationsbereiche funktionierte erstaunlicherweise direkt mit nur minimalen Fehlern. So erkannte das Backend zum Beispiel das Abschlusszeichen am Ende des Strings der UART-Ausgabe nicht als Whitespace, was Probleme mit der Funktion gab, die Whitespaces entfernte.
  Als einziges nennenswertes Problem ist die Kalibrierung der Sensoren zu nennen, da die Werte hier teilweise noch stark von den Werten abweichen die zu erwarten sind. Dieses Problem kann aber vorraussichtlich in der verbleibenden Zeit behoben werden.Im allgemeinen, gab es also keine unvorhergesehenen Probleme und die verbleibende Zeit kann dazu genzutzt werden die Applikation weiter zu verbessern.
 
@@ -106,7 +106,7 @@ Diesen Sonntag gab es ein Treffen mit allen Gruppenmitgliedern bei mir Zuhause. 
 Die Sensoren, die man in die Räume hinzugefügt hat, sind in einer separaten Tabelle in der Datenbank gespeichert, um Positionen der jeweiligen Sensoren nicht zu verlieren.
 Der letzte Schritt ist nun das Dashboard zu erstellen.
 
-\printbibliography
+%\printbibliography
 %----------------------------------------------------------------------------
 % Bibliography
 %----------------------------------------------------------------------------	
