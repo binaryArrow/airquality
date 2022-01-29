@@ -58,7 +58,7 @@ httpServer.listen(3000, () => {
 
     SerialPort.list().then(async(ports?: any) =>{
         for (const port of ports) {
-            if(port.manufacturer.includes('FTDI') && port.pnpId.includes('FTDIBUS\\VID_0403+PID_6001+A10255AVA\\0000')){
+            if(port.manufacturer.includes('FTDI') && port.vendorId.includes('0403')){
                 portName = port.path
                 console.log("Port found:", portName)
                 const serial = new SeriP(connection, portName)

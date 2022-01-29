@@ -10,6 +10,7 @@ export class SeriP {
     dataset?: SensorData
     connection: Connection
 
+
     constructor(connection: Connection, portName: any) {
         this.port = new SerialPort(portName, {
             baudRate: 38400,
