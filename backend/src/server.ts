@@ -8,9 +8,10 @@ import Room from "./models/Room";
 import {SensorData} from "./models/SensorData";
 import {SeriP} from "./service/SeriP";
 import Sensor from "./models/Sensor";
+import SerialPort from "serialport";
 
 const connection = new Connection()
-const serial = new SeriP(connection)
+let portName = ""
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -54,8 +55,21 @@ app.put('/sensors', async (req: any, res: any) => {
 })
 
 httpServer.listen(3000, () => {
-    serial.listen(io)
+
+    SerialPort.list().then(async(ports?: any) =>{
+        for (const port of ports) {
+            if(port.manufacturer.includes('FTDI') && port.pnpId.includes('FTDIBUS\\VID_0403+PID_6001+A10255AVA\\0000')){
+                portName = port.path
+                console.log("Port found:", portName)
+                const serial = new SeriP(connection, portName)
+                serial.listen(io)
+            }
+        }
+
+    })
+
     console.log('Server running')
+
 })
 
 
