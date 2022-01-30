@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <h1></h1>
     <DashBoard />
   </div>
 </template>
