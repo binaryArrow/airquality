@@ -39,23 +39,8 @@ export class SeriP {
             await this.connection.insertSensorData(this.dataset)// save object in database
             io.emit("data", this.dataset)
         })
-
-        /*
-        function decode_utf8(s: any) {              // Funktion zum decodieren von UTF-8, falls benötigt sein sollte
-            return decodeURIComponent(escape(s));
-        }
-        */
-
-    function showPortOpen(){
-            console.log("Port opened")
-    }
-
     }
 
 }
 
 
-//const config = require(__dirname + "/SensorData.ts")
-//import SensorData from './SensorData'
-//import {SensorData} from "../models/SensorData";
-//connection.insertSensorData(sensId)

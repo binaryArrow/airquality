@@ -11,7 +11,9 @@ import Sensor from "./models/Sensor";
 import SerialPort from "serialport";
 
 const connection = new Connection()
+let checkInterval = 1000
 let portName = ""
+let waitForZigBee: NodeJS.Timer
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -55,21 +57,23 @@ app.put('/sensors', async (req: any, res: any) => {
 })
 
 httpServer.listen(3000, () => {
-
-    SerialPort.list().then(async(ports?: any) =>{
-        for (const port of ports) {
-            if(port.manufacturer.includes('FTDI') && port.vendorId.includes('0403')){
-                portName = port.path
-                console.log("Port found:", portName)
-                const serial = new SeriP(connection, portName)
-                serial.listen(io)
-            }
-        }
-
-    })
-
+    waitForZigBee = setInterval(getPortName, checkInterval)
     console.log('Server running')
-
 })
 
-
+function getPortName(){
+    if(portName == ""){
+        SerialPort.list().then(async(ports?: any, err?: any) =>{
+            for (const port of ports) {
+                if(port.manufacturer.includes('FTDI') && port.vendorId.includes('0403')){
+                    portName = port.path
+                    console.log("Port found:", portName)
+                }
+            }
+        })
+    }else{
+        clearInterval(waitForZigBee)
+        const serial = new SeriP(connection, portName)
+        serial.listen(io)
+    }
+}
