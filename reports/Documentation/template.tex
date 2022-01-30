@@ -1,0 +1,69 @@
+\documentclass[]{article}
+\usepackage[german]{babel}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage[backend=bibtex, natbib=true]{biblatex}
+\usepackage{listings}
+\usepackage{tikz}
+
+\lstset{%
+	basicstyle=\ttfamily\scriptsize,        % Code font, Examples: \footnotesize, \ttfamily
+	keywordstyle=\color{blue!80!black},     % Keywords font ('*' = uppercase)
+	commentstyle=\color{gray},              % Comments font
+	numbers=left,                           % Line nums position
+	numberstyle=\tiny,                      % Line-numbers fonts
+	stepnumber=1,                           % Step between two line-numbers
+	numbersep=5pt,                          % How far are line-numbers from code
+	backgroundcolor=\color{gray!10!white},  % Choose background color
+	frame=none,                             % A frame around the code
+	tabsize=2,                              % Default tab size
+	captionpos=b,                           % Caption-position = bottom
+	breaklines=true,                        % Automatic line breaking?
+	breakatwhitespace=false,                % Automatic breaks only at whitespace?
+	showspaces=false,                       % Dont make spaces visible
+	showstringspaces=false                  %
+	showtabs=false,                         % Dont make tabls visible
+	columns=flexible,                       % Column format
+	morekeywords={},                        % Specific keywords
+	stringstyle=\color{green!50!black},%
+}%
+
+\bibliography{bibliography}
+%opening
+%Here you can enter your names and titleof your report
+\title{\LaTeX\  Template for the Weekly Reports}
+\author{David Merkl}
+
+\begin{document}
+
+\maketitle
+\tikzstyle{block} = [rectangle, draw, fill=white!20, text width=15em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, Latex,length=3mm, width=2mm]
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=5cm, minimum height=5em]
+
+\begin{tikzpicture}[node distance = 2cm, auto]
+	% Place nodes
+	\node [block, align= center] (start) {APP\_STARTUP\_STATE \\ appInitUsartManager \\initTimer};
+	\node [block, below of=start] (startnetwork) {APP\_STARTJOIN\_NETWORK \\ ZDO\_StartNetworkReq};
+	\node [block, below of=startnetwork] (initendpoint) {APP\_INIT\_ENDPOINT \\ initEndpoint};
+	\node [block, below of=initendpoint] (inittransmit) {APP\_INIT\_TRANSMITDATA \\ initTransmitData};
+	\node [block, below of=inittransmit] (CCSinit) {CSS\_INIT};
+	
+	
+	\node [block, below of=CCSinit] (resetCCS) {APP\_CCS\_WRITE\_RESULT\_REG\_STATE};
+	\node [block, below of=resetCCS] (resetCCS) {APP\_CCS\_READ\_RESULT\_REG\_STATE};
+	
+	\node [block, right of=inittransmit, node distance=8cm] (transmit) {APP\_TRANSMIT};
+	
+	
+	%\node [block, right of=initendpoint, node distance=8cm] (resetCCS) {APP_RESET_CCS_SW_STATE};
+	
+	% Draw edges
+	\draw [-latex, line width=2pt] (start) -- (startnetwork);
+	
+\end{tikzpicture}
+%----------------------------------------------------------------------------
+% Bibliography
+%----------------------------------------------------------------------------	
+\printbibliography
+\end{document}
