@@ -29,6 +29,10 @@ app.get('/rooms', async (req: any, res: any) => {
     const rooms = await connection.getAllRooms()
     res.status(200).json(rooms)
 })
+app.get('/sensordata/:sensorId', async (req: any, res: any )=>{
+    const sensordata = await connection.getSensorData(req.params.sensorId)
+    res.status(200).json(sensordata)
+})
 app.post('/rooms', async (req: any, res: any) => {
     const response = await connection.insertRoom(req.body)
     const idResponse = await connection.getLastRoom()

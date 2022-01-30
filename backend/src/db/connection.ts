@@ -189,4 +189,16 @@ export class Connection {
             console.log(`${e}`)
         }
     }
+
+    getSensorData(sensorId: number) {
+        try {
+            return this.dbConnection('sensor-data').select('*')
+                .where('sensorId', sensorId)
+                .orderBy('id', "desc")
+                .limit(100)
+
+        } catch (e) {
+            console.log(`${e}`)
+        }
+    }
 }

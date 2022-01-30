@@ -1,5 +1,6 @@
 import Room from "@/../../backend/src/models/Room";
 import Sensor from "@/../../backend/src/models/Sensor";
+import {SensorData} from "@/../../backend/src/models/SensorData";
 
 export class Communicator {
     async getRooms(): Promise<Room[]> {
@@ -49,6 +50,14 @@ export class Communicator {
             body: JSON.stringify(sensor)
         })
             .then((res) => res.json())
+            .catch(e => console.log(e.message))
+    }
+    async getSensorData(sensorId: number): Promise<SensorData[]>{
+        return fetch(`http://localhost:3000/sensordata/${sensorId}`, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(res => res.json())
             .catch(e => console.log(e.message))
     }
 

@@ -101,7 +101,6 @@ export default defineComponent({
     this.canvasFromView = this.$refs['drawingCanvas'] as HTMLCanvasElement
     this.canvas = new fabric.Canvas(this.canvasFromView)
     this.canvas.selection = false
-
     this.communicator.getRooms().then(data => {
       console.log(data)
       data.forEach(room => {
