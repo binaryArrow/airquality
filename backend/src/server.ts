@@ -75,5 +75,13 @@ function getPortName(){
         clearInterval(waitForZigBee)
         const serial = new SeriP(connection, portName)
         serial.listen(io)
+        serial.port.on('close', async (err?: any) => {
+            console.log("Port closed.");
+            if (err.disconnected === true) {
+                console.log("Disconnected!");
+                portName = ""
+                waitForZigBee = setInterval(getPortName, checkInterval)
+            }
+        });
     }
 }

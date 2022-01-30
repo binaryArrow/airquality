@@ -10,14 +10,15 @@ export class SeriP {
     dataset?: SensorData
     connection: Connection
 
-
     constructor(connection: Connection, portName: any) {
+
         this.port = new SerialPort(portName, {
             baudRate: 38400,
             dataBits: 8,
             parity: "none",
             stopBits: 1
         })
+        console.log("Port created!")
         this.parser = new Readline()
         this.connection = connection
     }
@@ -40,7 +41,6 @@ export class SeriP {
             io.emit("data", this.dataset)
         })
     }
-
 }
 
 
