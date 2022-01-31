@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  30 JAN 2022 15:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  31 JAN 2022 14:34
 entering extended mode
 **./template.tex
 (template.tex
@@ -868,10 +868,20 @@ Overfull \hbox (32.93062pt too wide) in paragraph at lines 66--66
  []
 
 
-LaTeX Warning: Empty bibliography on input line 80.
+Package pgf Warning: Returning node center instead of a point on node border. D
+id you specify a point identical to the center of node ``appausgabestate''? on 
+input line 94.
 
 
-Overfull \hbox (54.6882pt too wide) in paragraph at lines 76--81
+Package pgf Warning: Returning node center instead of a point on node border. D
+id you specify a point identical to the center of node ``appausgabestate''? on 
+input line 94.
+
+
+LaTeX Warning: Empty bibliography on input line 103.
+
+
+Overfull \hbox (54.6882pt too wide) in paragraph at lines 99--104
 [][] 
  []
 
@@ -898,7 +908,7 @@ Here is how much of TeX's memory you used:
 cmr10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
 onts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/pub
 lic/amsfonts/cm/cmr17.pfb>
-Output written on template.pdf (2 pages, 55202 bytes).
+Output written on template.pdf (2 pages, 55821 bytes).
 PDF statistics:
  27 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

@@ -72,7 +72,30 @@
 	
 	% Draw edges
 	\draw [-latex, line width=2pt] (start) -- (startnetwork);
-	
+	\draw [-latex, line width=2pt] (startnetwork) -- (initendpoint);
+	\draw [-latex, line width=2pt] (initendpoint) -- (inittransmit);
+	\draw [-latex, line width=2pt] (inittransmit) -- (appresetccsswstate);
+	\draw [-latex, line width=2pt] (appresetccsswstate) -- (appccshwidwriteregstate);
+	\draw [-latex, line width=2pt] (appccshwidwriteregstate) -- (appccshwidreadstate);
+	\draw [-latex, line width=2pt] (appccshwidreadstate) -- (appccschangetoappstatestate);
+	\draw [-latex, line width=2pt] (appccschangetoappstatestate) -- (appccswritemeasregstate);
+	\draw [-latex, line width=2pt] (appccswritemeasregstate) -- (appccswritestatusregstate);
+	\draw [-latex, line width=2pt] (appccswritestatusregstate) -- (appccsreadstatusregstate);
+	\draw [-latex, line width=2pt] (appccsreadstatusregstate) -- (appresetscdstate);
+	\draw [-latex, line width=2pt] (appresetscdstate) -- (appinitsensorstate);
+	\draw [-latex, line width=2pt] (appinitsensorstate) -- (appcallforreadscdstate);
+	\draw [-latex, line width=2pt] (appcallforreadscdstate) -- (appreadscdstate);
+	\draw [-latex, line width=2pt] (appreadscdstate) -- (appcallforreadtempshtstate);
+	\draw [-latex, line width=2pt] (appcallforreadtempshtstate) -- (appreadtempshtstate);
+	\draw [-latex, line width=2pt] (appreadtempshtstate) -- (appcallforreadrhshtstate);
+	\draw [-latex, line width=2pt] (appcallforreadrhshtstate) -- (appccswriteresultregstate);
+	\draw [-latex, line width=2pt] (appccswriteresultregstate) -- (appccsreadresultregstate);
+	\draw [-latex, line width=2pt] (appccsreadresultregstate) -- (appausgabestate);
+	\draw [-latex, line width=2pt] (appausgabestate) -- (appausgabestate);
+	\draw [-latex, line width=2pt] (appausgabestate) -- (transmit);
+	\draw [-latex, line width=2pt] (transmit) -- (appinitsensorstate);
+
+
 \end{tikzpicture}
 %----------------------------------------------------------------------------
 % Bibliography
