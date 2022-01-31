@@ -1,17 +1,21 @@
 <template>
   <div id="dash-board">
-    <div id="line-chartTEMP">
+      <div class="row">
+        <div class="content, column"  id="line-chartTEMP">
 
-    </div>
-    <div id="line-chartRH">
+        </div>
+        <div class="content, column" id="line-chartRH">
 
-    </div>
-    <div id="line-chartCO2">
+        </div>
+      </div>
+      <div class="row">
+        <div class="content, column" id="line-chartCO2">
 
-    </div>
-    <div id="line-chartTVOC">
+        </div>
+        <div class="content, column" id="line-chartTVOC">
 
-    </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -238,13 +242,13 @@ export default defineComponent({
       let yAxis = d3.axisLeft(yScale)
 
       svg.append("g")
-          .attr("transform", "translate(50,10)")
+          .attr("transform", "translate(0,0)")
           .call(yAxis)
 
 
-      let xAxisTranslate = this.axisHeight/2 + 10
+      let xAxisTranslate = this.axisHeight/2
       svg.append("g")
-          .attr("transform", "translate(50, " + xAxisTranslate + ")")
+          .attr("transform", "translate(0, " + xAxisTranslate + ")")
           .call(xAxis)
     },
 
@@ -272,13 +276,13 @@ export default defineComponent({
       let yAxis = d3.axisLeft(yScale)
 
       svg.append("g")
-          .attr("transform", "translate(50,10)")
+          .attr("transform", "translate(0,0)")
           .call(yAxis)
 
 
-      let xAxisTranslate = this.axisHeight/2 + 10
+      let xAxisTranslate = this.axisHeight/2
       svg.append("g")
-          .attr("transform", "translate(50, " + xAxisTranslate + ")")
+          .attr("transform", "translate(0, " + xAxisTranslate + ")")
           .call(xAxis)
     },
     }
@@ -289,28 +293,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-#dash-board{
 
+.column{
+  margin: 5px;
+  display: inline-block;
+  border: 3px solid black;
+  height: 400px;
+  box-shadow: 3px 3px 2px grey;
 }
 
-#line-chartTEMP{
-  width: 500px;
-  height: 500px;
-}
-
-#line-chartRH{
-  width: 500px;
-  height: 500px;
-}
-
-#line-chartCO2{
-  width: 500px;
-  height: 500px;
-}
-
-#line-chartTVOC{
-  width: 500px;
-  height: 500px;
+.row{
+  clear: both;
+  text-align: left;
+  height: 410px;
 }
 
 </style>
