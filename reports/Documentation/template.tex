@@ -47,13 +47,25 @@
 	\node [block, below of=start] (startnetwork) {APP\_STARTJOIN\_NETWORK \\ ZDO\_StartNetworkReq};
 	\node [block, below of=startnetwork] (initendpoint) {APP\_INIT\_ENDPOINT \\ initEndpoint};
 	\node [block, below of=initendpoint] (inittransmit) {APP\_INIT\_TRANSMITDATA \\ initTransmitData};
-	\node [block, below of=inittransmit] (CCSinit) {CSS\_INIT};
-	
-	
-	\node [block, below of=CCSinit] (resetCCS) {APP\_CCS\_WRITE\_RESULT\_REG\_STATE};
-	\node [block, below of=resetCCS] (resetCCS) {APP\_CCS\_READ\_RESULT\_REG\_STATE};
-	
-	\node [block, right of=inittransmit, node distance=8cm] (transmit) {APP\_TRANSMIT};
+	\node [block, below of=inittransmit] (appresetccsswstate) {APP\_RESET\_CCS\_SW\_STATE \\ I2C-Write: 0xFF 0x11 0xE5 0x72 0x8A \\ SW\_RESET\_REG \\ SW\_RESET\_SEQUENCE};
+	\node [block, below of=appresetccsswstate] (appccshwidwriteregstate) {APP\_CCS\_HW\_ID\_WRITE\_REG\_STATE \\ I2C-Write: 0x20 \\ HW\_ID\_REG};
+	\node [block, below of=appccshwidwriteregstate] (appccshwidreadstate) {APP\_CCS\_HW\_ID\_READ\_STATE \\ I2C-Read: 1 byte \\ Hardware ID has to be 0x81};
+	\node [block, below of=appccshwidreadstate] (appccschangetoappstatestate) {APP\_CCS\_CHANGE\_TO\_APPSTATE\_STATE \\ I2C-Write: 0xF4 \\ BOOTLOADER\_APP\_START};
+	\node [block, below of=appccschangetoappstatestate] (appccswritemeasregstate) {APP\_CCS\_WRITE\_MEAS\_REG\_STATE \\ I2C-Write: 0x01 0xTODO \\ MEAS\_MODE\_REG \\ (Measure every TODO)};
+	\node [block, below of=appccswritemeasregstate] (appccswritestatusregstate) {APP\_CCS\_WRITE\_STATUS\_REG\_STATE \\ I2C-Write: 0x00\\STATUS\_REG};
+	\node [block, below of=appccswritestatusregstate] (appccsreadstatusregstate) {APP\_CCS\_READ\_STATUS\_REG\_STATE \\ I2C-Read: 1 byte\\ Bit 0: error \\ Bit 3: data ready};
+	\node [block, below of=appccsreadstatusregstate] (appresetscdstate) {APP\_RESET\_SCD\_STATE \\ I2C-Write: 0x3F 0x86\\ TODO ask Achim};
+	\node [block, right of=appresetscdstate, node distance=8cm] (appinitsensorstate) {APP\_INIT\_SENSOR\_STATE \\ I2C-Write: 0x21 0xB1\\ TODO ask Achim \\ HAL\_StartAppTimer(30 s)};
+	\node [block, above of=appinitsensorstate] (appcallforreadscdstate) {APP\_CALL\_FOR\_READ\_SCD\_STATE \\ I2C-Write:TODO\\ TODO ask Achim};
+	\node [block, above of=appcallforreadscdstate] (appreadscdstate) {APP\_READ\_SCD\_STATE \\ I2C-Read: 9 bytes\\ TODO ask Achim};
+	\node [block, above of=appreadscdstate] (appcallforreadtempshtstate) {APP\_CALL\_FOR\_READ\_TEMP\_SHT\_STATE\\ I2C-Write: TODO\\ TODO ask Achim};
+	\node [block, above of=appcallforreadtempshtstate] (appreadtempshtstate) {APP\_READ\_TEMP\_SHT\_STATE\\ I2C-Read: 2 bytes\\ TODO ask Achim};
+	\node [block, above of=appreadtempshtstate] (appcallforreadrhshtstate) {APP\_CALL\_FOR\_READ\_RH\_SHT\_STATE\\ I2C-Write: TODO\\ TODO ask Achim};
+	\node [block, above of=appcallforreadrhshtstate] (appreadrhshtstate) {APP\_READ\_RH\_SHT\_STATE\\ I2C-Read: 2 bytes\\ TODO ask Achim};
+	\node [block, above of=appreadrhshtstate] (appccswriteresultregstate) {APP\_CCS\_WRITE\_RESULT\_REG\_STATE\\ I2C-Write: 0x02\\ ALG\_RESULT\_DATA\_REG};
+	\node [block, above of=appccswriteresultregstate] (appccsreadresultregstate) {APP\_CCS\_READ\_RESULT\_REG\_STATE\\ I2C-Read: 4 bytes (eCO2 | TVOC)};
+	\node [block, above of=appccsreadresultregstate] (appausgabestate) {APP\_AUSGABE\_STATE\\ calculating outpout of SCD,SHT,CCS};
+	\node [block, above of=appausgabestate] (transmit) {APP\_TRANSMIT \\ encode Message \\ send Message};
 	
 	
 	%\node [block, right of=initendpoint, node distance=8cm] (resetCCS) {APP_RESET_CCS_SW_STATE};

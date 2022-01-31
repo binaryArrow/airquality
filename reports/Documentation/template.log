@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  30 JAN 2022 13:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  30 JAN 2022 15:59
 entering extended mode
 **./template.tex
 (template.tex
@@ -818,51 +818,89 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 39.
 
-Overfull \hbox (38.90285pt too wide) in paragraph at lines 53--53
+Overfull \hbox (31.66951pt too wide) in paragraph at lines 51--51
+ [][]\OT1/cmr/m/n/10 APP[]CCS[]HW[]ID[]WRITE[]REG[]STATE 
+ []
+
+
+Overfull \hbox (54.87512pt too wide) in paragraph at lines 53--53
+ [][]\OT1/cmr/m/n/10 APP[]CCS[]CHANGE[]TO[]APPSTATE[]STATE 
+ []
+
+
+Overfull \hbox (28.06952pt too wide) in paragraph at lines 54--54
+ [][]\OT1/cmr/m/n/10 APP[]CCS[]WRITE[]MEAS[]REG[]STATE 
+ []
+
+
+Overfull \hbox (37.93062pt too wide) in paragraph at lines 55--55
+ [][]\OT1/cmr/m/n/10 APP[]CCS[]WRITE[]STATUS[]REG[]STATE 
+ []
+
+
+Overfull \hbox (31.95839pt too wide) in paragraph at lines 56--56
+ [][]\OT1/cmr/m/n/10 APP[]CCS[]READ[]STATUS[]REG[]STATE 
+ []
+
+
+Overfull \hbox (20.0834pt too wide) in paragraph at lines 59--59
+ [][]\OT1/cmr/m/n/10 APP[]CALL[]FOR[]READ[]SCD[]STATE 
+ []
+
+
+Overfull \hbox (53.54459pt too wide) in paragraph at lines 61--61
+ [][]\OT1/cmr/m/n/10 APP[]CALL[]FOR[]READ[]TEMP[]SHT[]STATE 
+ []
+
+
+Overfull \hbox (38.40565pt too wide) in paragraph at lines 63--63
+ [][]\OT1/cmr/m/n/10 APP[]CALL[]FOR[]READ[]RH[]SHT[]STATE 
+ []
+
+
+Overfull \hbox (38.90285pt too wide) in paragraph at lines 65--65
  [][]\OT1/cmr/m/n/10 APP[]CCS[]WRITE[]RESULT[]REG[]STATE 
  []
 
 
-Overfull \hbox (32.93062pt too wide) in paragraph at lines 54--54
+Overfull \hbox (32.93062pt too wide) in paragraph at lines 66--66
  [][]\OT1/cmr/m/n/10 APP[]CCS[]READ[]RESULT[]REG[]STATE 
  []
 
 
-Overfull \hbox (54.6882pt too wide) in paragraph at lines 64--69
+LaTeX Warning: Empty bibliography on input line 80.
+
+
+Overfull \hbox (54.6882pt too wide) in paragraph at lines 76--81
 [][] 
  []
 
 [1
 
 {C:/Users/lucas/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 68.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 68.
- [2]
-(template.aux)
+Overfull \vbox (122.36018pt too high) has occurred while \output is active []
+
+
+[2] (template.aux)
 Package logreq Info: Writing requests to 'template.run.xml'.
 \openout1 = `template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 22024 strings out of 478927
- 437154 string characters out of 2852534
- 932676 words of memory out of 3000000
- 39571 multiletter control sequences out of 15000+600000
- 408199 words of font info for 43 fonts, out of 8000000 for 9000
+ 21927 strings out of 478927
+ 436697 string characters out of 2852534
+ 949589 words of memory out of 3000000
+ 39477 multiletter control sequences out of 15000+600000
+ 407080 words of font info for 39 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  84i,6n,89p,1845b,1636s stack positions out of 5000i,500n,10000p,200000b,80000s
 <C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmbx12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmr10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmr17.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/lucas/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on template.pdf (2 pages, 89410 bytes).
+cmr10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmr17.pfb>
+Output written on template.pdf (2 pages, 55202 bytes).
 PDF statistics:
- 42 PDF objects out of 1000 (max. 8388607)
+ 27 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
