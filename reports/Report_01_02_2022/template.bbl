@@ -16,5 +16,16 @@
   {}
 \endgroup
 
-\datalist[entry]{nty/global//global/global}\enddatalist
+\datalist[entry]{nty/global//global/global}
+  \entry{ATmegaDatasheet}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Datasheet ATmega}
+    \verb{url}
+    \verb http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8393-MCU_Wirele
+    \verb ss-ATmega256RFR2-ATmega128RFR2-ATmega64RFR2_Datasheet.pdf
+    \endverb
+  \endentry
+\enddatalist
 \endinput
