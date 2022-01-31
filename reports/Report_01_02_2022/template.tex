@@ -46,7 +46,7 @@
 		\hline
 		Friedrich Just				&		1326699 				&		\\
 		\hline
-		Stipe Knez					&		1269206 				&		\\
+		Stipe Knez					&		1269206 				&	20,00	\\
 		\hline
 		Lucas Merkert				&		1326709					&	15,00	\\
 		\hline
@@ -72,6 +72,12 @@
 
 
 \subsection{Stipe Knez}
+Vergangene Woche Stand das Optimieren dreier Punkte bezüglich des Backends im Vordergrund. Das erste Problem, das behoben werden sollte war, dass wir in unserem Quellcode den COM-Port, über den das ZigBee Modul die Daten sendet, „gehardcoded“ war. Dies führte natürlich zu Problemen (bzw. einem Server crash), wenn man versucht hat, die Anwendung auf anderen Computern zu starten, da der COM-Port, über den das ZigBee Modul seine Daten schickt, ein anderer war. Dieses Problem haben wir durch das Programmieren einer „Port suchen“-Funktion gelöst, die anhand von spezifischen Daten wie „manufacturer“ und „vendor Id“ rausfiltert, an welchem COM-Port das Zigbee Modul angeschlossen ist und dann dementsprechend diesen zum Datenempfang verwendet.
+
+Nachdem dieses Problem gelöst war, ging es an die Lösung eines Weiteren. Der Server stürzte immer dann ab, wenn vor dem Start des Backends kein Zigbee Modul angeschlossen war. Um dieses Problem zu lösen, integrierten wir des Weiteren eine Funktion, die die „Port suchen“-Funktion in einem bestimmten Intervall so lange ausführt, bis ein Modul angeschlossen und somit ein Port gefunden wird.
+
+Die letzte Komplikation, die noch übrig blieb, war, dass der Empfang der Daten des ZigBee Moduls nicht mehr funktioniert hat, sobald man das Modul ausgesteckt und wieder angesteckt hat, während das Backend und somit der Server liefen. Stattdessen sollte es so sein, dass beim erneuten Anstecken das Modul wieder erkannt wird und der Datenempfang normal weiterläuft. Diese Funktionalität wurde dann auch umgesetzt durch das integrierten eines zusätzlichen „event listeners“, der im Fall eines „close“ Events (abstecken des Moduls mit daraus resultierendem disconnect) die im vorherigen Absatz erwähnte „Port suchen“-Funktion wieder im vorher erwähnten Intervall ausführt, bis ein erneutes anstecken des Moduls stattfindet.
+
 
 \subsection{Lucas Merkert}
 In dieser Woche habe ich ein wenig weniger gemacht, da ich mit der Fertigstellung eines anderen Projekts beschäftigt war. Es wurde vor allem das weitere Vorgehen besprochen und eine Anpassung des Dashboards Konzepts vorgenommen. Zudem wurde die Dokumentation angefangen und ein besser lesbares Zustandsdiagramm (nicht fertig) erstellt.
