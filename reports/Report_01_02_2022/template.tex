@@ -44,7 +44,7 @@
 		\hline
 		{\textbf{Name}}				&		{\textbf{Matrikel Nr.}} & {\textbf{Arbeitsaufwand (h)}} \\
 		\hline
-		Friedrich Just				&		1326699 				&		\\
+		Friedrich Just				&		1326699 				&		22,00\\
 		\hline
 		Stipe Knez					&		1269206 				&	20,00	\\
 		\hline
@@ -68,6 +68,21 @@
 
 \subsection{Friedrich Just}
 
+Diese Woche wurde sich mit der TiKZ Bibliothek auseinandergesetzt, um für die Dokumentation ein State-Diagramm zu zeichnen. Danach wurde recherchiert, wie man die Eingangs Spannung messen kann. Hier wurde in dem ATMEL256RFR2 Datenblatt\cite{ATmegaDatasheet} zwei Möglichkeiten gefunden. Der sogenannten Battery Monitor(BATMON) und die Spannung regelmäßig Messen. Vorteile von BATMON ist das hier ein Interrupt ausgelöst wird, wenn die Spannung unter einen bestimmten Wert fällt. Dieser Wert kann zwischen 1.7V - 3.675V liegen. Allerdings ist der Nachteil, dass die genaue Spannung unbekannt ist und so die Lebensdauer der Batterie nicht abgeschätzt werden kann. Wenn man die Spannung Messen will muss man den A/D converter benutzen. Dazu muss er mit den Einstellungen wie in der Abbildung \ref{img:Konfiguration} zusehen ist konfiguriert werden. Der ADC wird angeschaltet wenn im Register ADCSRA das ADEN bit auf eins gesetzt wird. Danach kann die Messung gestartet werden in dem man im selben Register den ADSC Wert auf eins setzt. Nun wir ein 16bit Wert im Register ADCW gespeichert. Dieser muss nun mit der Formel umgerechnet werden aus Abbildung  \ref{img:Formel}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.60]{images/Einstellungen}
+	\caption{Konfiguration zur Messung der Spannung}
+	\label{img:Konfiguration}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.60]{images/Formel}
+	\caption{Umrechnung}
+	\label{img:Formel}
+\end{figure}
 
 
 
