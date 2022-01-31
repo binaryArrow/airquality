@@ -16,30 +16,5 @@
   {}
 \endgroup
 
-\datalist[entry]{nty/global//global/global}
-  \entry{D3JS}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{D}
-    \field{sortinithash}{D}
-    \field{title}{D3 Data-Driven Documents}
-    \verb{url}
-    \verb https://d3js.org/
-    \endverb
-    \warn{\item Invalid format of field 'date' \item Invalid format of field
-  'date'}
-  \endentry
-
-  \entry{datasheetcss811}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{D}
-    \field{sortinithash}{D}
-    \field{title}{Datasheet CCS811}
-    \verb{url}
-    \verb https://learn.adafruit.com/adafruit-ccs811-air-quality-sensor?view=al
-    \verb l#documents
-    \endverb
-    \warn{\item Invalid format of field 'date' \item Invalid format of field
-  'date'}
-  \endentry
-\enddatalist
+\datalist[entry]{nty/global//global/global}\enddatalist
 \endinput

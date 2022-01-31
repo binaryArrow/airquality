@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  24 JAN 2022 21:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.18)  31 JAN 2022 13:10
 entering extended mode
 **./template.tex
 (template.tex
@@ -805,20 +805,7 @@ Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'template.bbl' found.
- (template.bbl
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'D3JS':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'datasheetcss811':
-(biblatex)                - Invalid format of field 'date' 
-(biblatex)                - Invalid format of field 'date'.
-
-)
+ (template.bbl)
 Package biblatex Info: Reference section=0 on input line 37.
 Package biblatex Info: Reference segment=0 on input line 37.
 \c@lstlisting=\count423
@@ -832,33 +819,18 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 43.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 43.
-<images/payload.png, id=4, 676.02562pt x 124.96687pt>
-File: images/payload.png Graphic file (type png)
-<use images/payload.png>
-Package pdftex.def Info: images/payload.png  used on input line 74.
-(pdftex.def)             Requested size: 270.40544pt x 49.98586pt.
-<images/UART_fehler.png, id=6, 304.13625pt x 22.58438pt>
-File: images/UART_fehler.png Graphic file (type png)
-<use images/UART_fehler.png>
-Package pdftex.def Info: images/UART_fehler.png  used on input line 81.
-(pdftex.def)             Requested size: 243.30933pt x 18.0675pt.
+ [1
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[1
-
-{C:/Users/lucas/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./images/payloa
-d.png>] [2 <./images/UART_fehler.png>] [3] (template.aux)
+{C:/Users/lucas/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] (template.aux)
 Package logreq Info: Writing requests to 'template.run.xml'.
 \openout1 = `template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21734 strings out of 478927
- 431189 string characters out of 2852534
- 934681 words of memory out of 3000000
- 39278 multiletter control sequences out of 15000+600000
+ 21693 strings out of 478927
+ 430163 string characters out of 2852534
+ 930607 words of memory out of 3000000
+ 39241 multiletter control sequences out of 15000+600000
  407685 words of font info for 41 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  84i,8n,89p,1845b,1640s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -868,9 +840,9 @@ fonts/cm/cmbx12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/amsfonts/cm/cmr10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts
 /type1/public/amsfonts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on template.pdf (3 pages, 155693 bytes).
+Output written on template.pdf (1 page, 78909 bytes).
 PDF statistics:
- 45 PDF objects out of 1000 (max. 8388607)
+ 34 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
