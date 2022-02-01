@@ -190,12 +190,12 @@ export class Connection {
         }
     }
 
-    getSensorData(sensorId: number) {
+    getSensorData(sensorId: number, amount: number) {
         try {
             return this.dbConnection('sensor-data').select('*')
                 .where('sensorId', sensorId)
                 .orderBy('id', "desc")
-                .limit(100)
+                .limit(amount)
 
         } catch (e) {
             console.log(`${e}`)
