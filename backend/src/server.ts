@@ -81,7 +81,7 @@ function getPortName(){
         serial.listen(io)
         serial.port.on('close', async (err?: any) => {
             console.log("Port closed.");
-            if (err.disconnected === true) {
+            if (err.disconnected) {
                 console.log("Disconnected!");
                 portName = ""
                 waitForZigBee = setInterval(getPortName, checkInterval)
