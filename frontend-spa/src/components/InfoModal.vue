@@ -9,13 +9,13 @@
               <th>Sensor</th>
               <th>Data</th>
             </tr>
-            <tr>Temp-SHT11:<td>{{sensorData.tempSHT21}}</td> </tr>
-            <tr>Hum-SHT11: <td>{{sensorData.humSHT21}}</td></tr>
-            <tr>Temp-SCD41: <td>{{sensorData.tempSCD41}}</td> </tr>
-            <tr>Hum-SCD41: <td>{{sensorData.humSCD41}}</td> </tr>
-            <tr>CO2-SCD41: <td>{{sensorData.co2SCD41}}</td></tr>
-            <tr>ECO2-CCS811: <td>{{sensorData.eco2CCS811}}</td></tr>
-            <tr>TVOC-CCS811: <td>{{sensorData.tvocCCS811}}</td></tr>
+            <tr>Temp-SHT21:<td>{{sensorData.tempSHT21/100 + " °C"}} </td> </tr>
+            <tr>Hum-SHT21: <td>{{sensorData.humSHT21/100 + " %RH"}}</td></tr>
+            <tr>Temp-SCD41: <td>{{sensorData.tempSCD41/100 + " °C"}}</td> </tr>
+            <tr>Hum-SCD41: <td>{{sensorData.humSCD41/100 + " %RH"}}</td> </tr>
+            <tr>CO2-SCD41: <td>{{sensorData.co2SCD41 + " ppm"}}</td></tr>
+            <tr>ECO2-CCS811: <td>{{sensorData.eco2CCS811 + " ppm"}}</td></tr>
+            <tr>TVOC-CCS811: <td>{{sensorData.tvocCCS811 + " ppb"}}</td></tr>
           </table>
           <slot />
           <!--          <button class="button" @click="closeModal" type="button">Close</button>-->
@@ -24,7 +24,7 @@
     </div>
   </transition>
 </template>
-
+y
 <script>
 import {SensorData} from "@/../../backend/src/models/SensorData"
 export default {
