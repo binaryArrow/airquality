@@ -15,11 +15,6 @@
         <div class="column" id="line-chartTVOC">
 
         </div>
-        <div id="Ampel">
-          <div id="redCircle"></div>
-          <div id="yellowCircle"></div>
-          <div id="greenCircle"></div>
-        </div>
       </div>
   </div>
 </template>
@@ -28,6 +23,10 @@
 import * as d3 from 'd3'
 import {defineComponent} from 'vue';
 import {SensorData} from "@/../../backend/src/models/SensorData";
+import {io} from "socket.io-client";
+import {Communicator} from "@/service/communicator";
+
+const socket = io("http://localhost:3000")
 
 export default defineComponent({
   name: "DashBoard",
@@ -38,6 +37,7 @@ export default defineComponent({
       sensorData1: [] as SensorData[],
       sensorData2: [] as SensorData[],
       sensorData3: [] as SensorData[],
+      communicator: new Communicator(),
       margin: {
         left: 40,
         right: 20,
@@ -50,7 +50,34 @@ export default defineComponent({
       }
     }
   },
+
+
   mounted() {
+
+    // Funktion von Can für Empfang von Sensordaten (reicht das schon?)
+    this.communicator.getSensorData(1, 50)
+    this.communicator.getSensorData(2, 50)
+    this.communicator.getSensorData(3, 50)
+
+    // Socket für Datenübertragung (einfach von Sketchingboard übernehmen?)
+    socket.on("data", (data: SensorData) => {
+        const allSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim())
+      switch (allSensorData.sensorId){
+        case 1:{
+          this.sensorData1.push(allSensorData)
+          break;
+        }
+        case 2:{
+          this.sensorData2.push(allSensorData)
+          break;
+        }
+        case 3:{
+          this.sensorData3.push(allSensorData)
+          break;
+        }
+      }
+    })
+
     this.createTEMPAxis()
     this.createRHAxis()
     this.createCO2Axis()
@@ -58,72 +85,46 @@ export default defineComponent({
   },
   methods:
       {
-    // Erstellen von Random Daten (muss geändert werden..)
-    create_X_Value(): number {
-      let x = 0
-      let returnX = 0
-      for (let i=0; i<100; i++){
-        returnX = x
-        x++
-      }
-      return returnX
-    },
-    create_Y_Value(): number {
-      let y = 0
-      let returnY = 0
-      for(let j=0; j<100; j++){
-        returnY = y
-        y++
-      }
-      return y
-    },
-
-    // Erstellung von Koordinatensystem
     createTEMPAxis(){
 
-      // Erstellung und Initialisierung der Linie (funktioniert nicht bzw. Graph wird warum auch immer gar nicht angezeigt) iwo ein Denkfehler drinne
-      interface graphData{
-        xData: number,
-        yData: number
+      interface graphTempData{
+        xDate: number, // muss evtl. zu Date geändert werden, x-Achse ist für Zeit (ist xData überhaupt nötig?)
+        yTempSHT?: SensorData["tempSHT21"] // SensorData["tempSHT21"] ist nichts weiter als ein String, aber dadurch macht line()-Funktion ein Problem
+        yTempSCD?: SensorData["tempSCD41"]
       }
 
-      /*
-              let randomData: graphData[] = [{
-              "x_Value": this.create_X_Value(),
-              "y_Value": this.create_Y_Value()
-            }]
-      */
-
-      let randomData: graphData[] = [{
-        "yData": 0,
-        "xData": 0
-      }, {
-        "yData": 0.2,
-        "xData": 0.1
-      }, {
-        "yData": 0.5,
-        "xData": 0.2
+      let randomData: graphTempData[] = [{
+        xDate: Date.now(),
+        yTempSHT: "20" // wie übernimmt man SensorData von den beiden Sensoren??? (zwei verschiedene Möglichekeiten einbauen(switch_case?)
       }];
-
 
       let svg = d3.select("#line-chartTEMP")
           .append("svg")
           .attr("width", this.axisWidth)
-          .attr("height", this.axisHeight)
+          .attr("height", this.axisHeight - 100)
           .append("g")
           .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
 
-      // Erstellung der Scales, fehlt noch ein D.domain für bessere Anpassung von Daten
-      let xScale = d3.scaleLinear()
+
+      let xScale = d3.scaleTime()
           .range([0, this.axisWidth - 100])
 
+      do{
+        xScale.domain([Date.now() - (50 * 1000) / 2, Date.now() + (50 * 1000) / 2])
+      }while(!stop);
+
+
       let yScale = d3.scaleLinear()
-          .range([this.axisHeight/2, 0]);
+          .range([this.axisHeight/2, 0])
+          .domain([0, 60])
 
 
       let xAxis = d3.axisBottom(xScale)
+          .ticks(d3.timeSecond.every(10)) // sorgt für die 10 Sekunden Abstände
+
       let yAxis = d3.axisLeft(yScale)
 
+      // y-Achse wird aufgerufen
       svg.append("g")
           .attr("transform", "translate(0,0)")
           .call(yAxis)
@@ -134,30 +135,33 @@ export default defineComponent({
           .attr("x",60 - (this.axisHeight / 2))
           .attr("dy", "1em")
           .style("font-weight", "bold")
-          .text("Temperatur in °C")
+          .text("Temperatur (°C)")
 
-      // entweder Koordinatensystem oder Linie selber bewegen und sie ans Koordinatensystem anpassen
-
+      // x-Achse wird aufgerufen
       let xAxisTranslate = this.axisHeight/2
       svg.append("g")
           .attr("transform", "translate(0, " + xAxisTranslate + ")")
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
           .call(xAxis)
+
 
       svg.append("text")
           .attr("transform", "translate(200,290)")
           .style("font-weight", "bold")
           .text("Zeit")
 
-      let line = d3.line<graphData>()
-          .x(function (d){return xScale(d["xData"])})
-          .y(function (d){return yScale(d["yData"])})
+      let line = d3.line<graphTempData>()
+          .x(function (d){return xScale(d["xDate"])})
+          .y(function (d){return yScale(d["yTempSHT"])}) // wieder hier der Fehler, line nimmt nichts anderes als ein number-tuple...
 
 
       svg.append("path")
           .attr("d", line(randomData))
-          .attr('stroke', 'blue')
-          .attr('stroke-width', 2)
-          .attr('fill', 'none');
+          .attr("stroke", "orange")
+          .attr("stroke-width", 2)
+          .attr("fill", "none");
 
       },
 
@@ -166,7 +170,7 @@ export default defineComponent({
       let svg = d3.select("#line-chartRH")
           .append("svg")
           .attr("width", this.axisWidth)
-          .attr("height", this.axisHeight)
+          .attr("height", this.axisHeight - 100)
           .append("g")
           .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
 
@@ -175,7 +179,8 @@ export default defineComponent({
           .range([0, this.axisWidth - 100])
 
       let yScale = d3.scaleLinear()
-          .range([this.axisHeight/2, 0]);
+          .range([this.axisHeight/2, 0])
+          .domain([0, 100])
 
 
       let xAxis = d3.axisBottom(xScale)
@@ -191,7 +196,7 @@ export default defineComponent({
           .attr("x",60 - (this.axisHeight / 2))
           .attr("dy", "1em")
           .style("font-weight", "bold")
-          .text("Relative Feuchtigkeit (RH)")
+          .text("Relative Feuchtigkeit (%)")
 
 
       let xAxisTranslate = this.axisHeight/2
@@ -209,21 +214,14 @@ export default defineComponent({
         yData: number
       }
 
-      /*
-              let randomData: graphData[] = [{
-              "x_Value": this.create_X_Value(),
-              "y_Value": this.create_Y_Value()
-            }]
-      */
-
       let randomData: graphData[] = [{
-        "yData": 0.1,
+        "yData": 50,
         "xData": 0.0
       }, {
-        "yData": 0.2,
+        "yData": 20,
         "xData": 0.1
       }, {
-        "yData": 0.5,
+        "yData": 30,
         "xData": 0.2
       }];
 
@@ -242,7 +240,7 @@ export default defineComponent({
       let svg = d3.select("#line-chartCO2")
           .append("svg")
           .attr("width", this.axisWidth)
-          .attr("height", this.axisHeight)
+          .attr("height", this.axisHeight - 100)
           .append("g")
           .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
 
@@ -251,7 +249,8 @@ export default defineComponent({
           .range([0, this.axisWidth - 100])
 
       let yScale = d3.scaleLinear()
-          .range([this.axisHeight/2, 0]);
+          .range([this.axisHeight/2, 0])
+          .domain([400, 5000])
 
 
       let xAxis = d3.axisBottom(xScale)
@@ -262,12 +261,10 @@ export default defineComponent({
           .call(yAxis)
 
       svg.append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 0 - this.margin.left - 5)
-          .attr("x",60 - (this.axisHeight / 2))
+          .attr("y", 0 - this.margin.left + 10)
           .attr("dy", "1em")
           .style("font-weight", "bold")
-          .text("CO2-Gehalt")
+          .text("CO2-Gehalt (ppm)")
 
       let xAxisTranslate = this.axisHeight/2
       svg.append("g")
@@ -285,11 +282,7 @@ export default defineComponent({
       let svg = d3.select("#line-chartTVOC")
           .append("svg")
           .attr("width", this.axisWidth)
-          .attr("height", this.axisHeight)
-          .attr("margin-top", this.margin.top)
-          .attr("margin-bottom", this.margin.bottom)
-          .attr("margin-left", this.margin.left)
-          .attr("margin-right", this.margin.right)
+          .attr("height", this.axisHeight - 100)
           .append("g")
           .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
 
@@ -298,7 +291,8 @@ export default defineComponent({
           .range([0, this.axisWidth - 100])
 
       let yScale = d3.scaleLinear()
-          .range([this.axisHeight/2, 0]);
+          .range([this.axisHeight/2, 0])
+          .domain([0, 1200])
 
 
       let xAxis = d3.axisBottom(xScale)
@@ -309,12 +303,10 @@ export default defineComponent({
           .call(yAxis)
 
       svg.append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 0 - this.margin.left - 5)
-          .attr("x",60 - (this.axisHeight / 2))
+          .attr("y", 0 - this.margin.left + 10)
           .attr("dy", "1em")
           .style("font-weight", "bold")
-          .text("TVOC-Gehalt")
+          .text("TVOC-Gehalt (ppb)")
 
 
       let xAxisTranslate = this.axisHeight/2
@@ -337,45 +329,17 @@ export default defineComponent({
 
 <style lang="scss">
 
-#Ampel{
-  position: absolute;
-  bottom: 50px;
-  right: 320px;
-  width: 175px;
-  height: 350px;
-  background-color: black;
-  border-radius: 25px;
+
+#line-chartTEMP{
+  position: relative;
+  float: left;
 }
 
-#redCircle{
-  position: absolute;
-  right: 38px;
-  top: 15px;
-  height: 100px;
-  width: 100px;
-  background-color: darkred;
-  border-radius: 50%;
+#line-chartCO2{
+  position: relative;
+  float: left;
 }
 
-#yellowCircle{
-  position: absolute;
-  right: 38px;
-  top: 125px;
-  height: 100px;
-  width: 100px;
-  background-color: darkgoldenrod;
-  border-radius: 50%;
-}
-
-#greenCircle{
-  position: absolute;
-  right: 38px;
-  top: 235px;
-  height: 100px;
-  width: 100px;
-  background-color: darkgreen;
-  border-radius: 50%;
-}
 
 .column{
   margin: 5px;
@@ -383,6 +347,7 @@ export default defineComponent({
   border: 3px solid black;
   height: 400px;
   box-shadow: 3px 3px 2px grey;
+  border-radius: 20px;
 }
 
 .row{
@@ -390,5 +355,6 @@ export default defineComponent({
   text-align: left;
   height: 410px;
 }
+
 
 </style>
