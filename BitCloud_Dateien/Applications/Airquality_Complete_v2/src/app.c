@@ -155,9 +155,14 @@ uint8_t sht21data[2];
 uint16_t sht21_rd_tmp;
 uint16_t sht21_rd_rh;
 
+
+uint16_t voltage;
+#define NUM_MESS_ADC 20
+static uint16_t vcc_read(void);
+
 //OUTPUT
 //uint8_t msg[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXX;XXXX;CCS;XXXX;XXXX";
-uint8_t msg[] = "1;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX;";
+uint8_t msg[] = "1;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX;XXXX;";
 
 uint8_t t_output_SHT21[] = "+xxx.xx degree Celsius SHT \r\n";
 uint8_t t_output_SHT21_sensorbytes[] = "0xXXXX sensor SHT Temp \r\n";
@@ -272,7 +277,7 @@ void APL_TaskHandler(void){
 		case APP_CCS_READ_RESULT_REG_STATE:
 			appstate=APP_NOTHING_STATE;
 			readccsResultReg();
-			delaytimer(CCS_MIN_DELAY, APP_AUSGABE_STATE);
+			delaytimer(CCS_MIN_DELAY, APP_READ_VCC);
 		break;
 		  /*)))))))))))))))))))))))))))))))))))))))))))))*/
 		  /*)))))))))))))))))))))))))))))))))))))))))))))*/
@@ -325,11 +330,20 @@ void APL_TaskHandler(void){
 		delaytimer(SCD_READ_DELAY_TIME, APP_CCS_WRITE_RESULT_REG_STATE);
 		break;
 		
+		
+		case APP_READ_VCC:
+			voltage = vcc_read();
+			delaytimer(CCS_MIN_DELAY, APP_AUSGABE_STATE);
+		break;
+		
+		
 		case APP_AUSGABE_STATE:
 		appstate=APP_NOTHING_STATE;
 		calculateOutputSCD();
 		calculateOutputSHT();
 		calculateCCS();
+		appWriteDataToUsart((uint8_t*)msg, sizeof(msg));
+		appWriteDataToUsart((uint8_t*)"\n\r", sizeof("\n\r"));
 		/*
 		appWriteDataToUsart((uint8_t*)co2_output_CCS, sizeof(co2_output_CCS));
 		appWriteDataToUsart((uint8_t*)tvoc_output_CCS, sizeof(tvoc_output_CCS));
@@ -872,6 +886,26 @@ static void calculateOutputSHT(){
 }
 
 /***********************************************
+Voltage
+***********************************************/
+static uint16_t vcc_read(void){
+	uint32_t adcval = 0;
+	
+	ADMUX  = (0<<REFS0)|(1<<REFS1)|(0<<MUX4)|(0<<MUX3)|(0<<MUX2)|(0<<MUX1)|(0<<MUX0);
+	ADCSRB = (0<<MUX5);
+	ADCSRA = (1<<ADEN)|(1<<ADPS1)|(1<<ADPS0);
+	for(uint16_t i=0; i<NUM_MESS_ADC; i++){
+		ADCSRA |= (1<<ADSC);
+		while (ADCSRA&(1<<ADSC)){
+		}
+		adcval += ADCW;
+	}	
+	ADCSRA &= ~(1<<ADEN); // ADC disable
+	return (((adcval)/NUM_MESS_ADC) * 6);
+	
+}
+
+/***********************************************
 Transmit
 ***********************************************/
 static void initTransmitData(void){
@@ -927,9 +961,7 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 }
 
 void fill_transmit_data(void){
-	//uint8_t msg[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXX;XXXX;CCS;XXXX;XXXX";
-	//					  5	    11       20    26   31       40   45
-	//uint8_t msg[] = ";1;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX";
+	//uint8_t msg[] = ";1;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX;XXXX";
 	//					  3     9   14     20   25   30   35
 	uint32_to_str(msg, sizeof(msg),SHT_tmp_vorkomma, 3, 2);
 	uint32_to_str(msg, sizeof(msg),SHT_tmp_nachkomma, 5, 2);
@@ -949,6 +981,8 @@ void fill_transmit_data(void){
 	uint32_to_str(msg, sizeof(msg),CCS_co2, 29, 4);
 	uint32_to_str(msg, sizeof(msg),CCS_tvoc, 34, 4);
 	
+	//voltage
+	uint32_to_str(msg, sizeof(msg),voltage, 39, 4);
 	
 	int16_t size = sizeof(msg)-1;
 	for(int16_t i = 0; i <= size; i++ ){

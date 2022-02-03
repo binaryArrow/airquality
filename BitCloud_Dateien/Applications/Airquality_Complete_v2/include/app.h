@@ -74,5 +74,7 @@
 #define APP_CCS_WRITE_RESULT_REG_STATE		22
 #define APP_CCS_READ_RESULT_REG_STATE		23
 
+#define APP_READ_VCC						24
+
 #endif
 // eof app.h
