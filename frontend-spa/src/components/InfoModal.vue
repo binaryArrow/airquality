@@ -24,7 +24,6 @@
     </div>
   </transition>
 </template>
-y
 <script>
 import {SensorData} from "@/../../backend/src/models/SensorData"
 export default {
