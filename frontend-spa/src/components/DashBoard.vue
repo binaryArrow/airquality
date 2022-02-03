@@ -59,7 +59,7 @@ export default defineComponent({
     this.communicator.getSensorData(2, 50)
     this.communicator.getSensorData(3, 50)
 
-    // Socket für Datenübertragung (einfach von Sketchingboard übernehmen?)
+    // Socket für Datenübertragung (das von SketchingBoard, fehlt noch setInterval Funktion, für 10-Sekunden Abstand)
     socket.on("data", (data: SensorData) => {
         const allSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim())
       switch (allSensorData.sensorId){
@@ -89,13 +89,13 @@ export default defineComponent({
 
       interface graphTempData{
         xDate: number, // muss evtl. zu Date geändert werden, x-Achse ist für Zeit (ist xData überhaupt nötig?)
-        yTempSHT?: SensorData["tempSHT21"] // SensorData["tempSHT21"] ist nichts weiter als ein String, aber dadurch macht line()-Funktion ein Problem
+        yTempSHT?: string // SensorData["tempSHT21"] ist nichts weiter als ein String, aber dadurch macht line()-Funktion ein Problem (valueOf?)
         yTempSCD?: SensorData["tempSCD41"]
       }
 
       let randomData: graphTempData[] = [{
         xDate: Date.now(),
-        yTempSHT: "20" // wie übernimmt man SensorData von den beiden Sensoren??? (zwei verschiedene Möglichekeiten einbauen(switch_case?)
+        yTempSHT: "20"// hier müssten halt einer von beiden Werten stehen.. (zwei verschiedene Möglichkeiten einbauen(switch_case?)
       }];
 
       let svg = d3.select("#line-chartTEMP")
@@ -113,11 +113,9 @@ export default defineComponent({
         xScale.domain([Date.now() - (50 * 1000) / 2, Date.now() + (50 * 1000) / 2])
       }while(!stop);
 
-
       let yScale = d3.scaleLinear()
           .range([this.axisHeight/2, 0])
           .domain([0, 60])
-
 
       let xAxis = d3.axisBottom(xScale)
           .ticks(d3.timeSecond.every(10)) // sorgt für die 10 Sekunden Abstände
