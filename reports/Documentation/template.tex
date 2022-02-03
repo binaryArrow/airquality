@@ -31,72 +31,89 @@
 \bibliography{bibliography}
 %opening
 %Here you can enter your names and titleof your report
-\title{\LaTeX\  Template for the Weekly Reports}
-\author{David Merkl}
+\title{Dokumentation - Luftqualität in Innenräumen - Gruppe 1}
+\author{Friedrich Just 1326699 \\ Stipe Knez 1269206 \\ Lucas Merkert 1326709 \\ Achim Glaesmann 1309221 \\ Max-Rene Konieczka 1211092 \\ Can Cihan Nazlier 1179244}
 
 \begin{document}
 
-\maketitle
-\tikzstyle{block} = [rectangle, draw, fill=white!20, text width=15em, text centered, rounded corners, minimum height=4em]
-\tikzstyle{line} = [draw, Latex,length=3mm, width=2mm]
-\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=5cm, minimum height=5em]
-
-\begin{tikzpicture}[node distance = 2cm, auto]
-	% Place nodes
-	\node [block, align= center] (start) {APP\_STARTUP\_STATE \\ appInitUsartManager \\initTimer};
-	\node [block, below of=start] (startnetwork) {APP\_STARTJOIN\_NETWORK \\ ZDO\_StartNetworkReq};
-	\node [block, below of=startnetwork] (initendpoint) {APP\_INIT\_ENDPOINT \\ initEndpoint};
-	\node [block, below of=initendpoint] (inittransmit) {APP\_INIT\_TRANSMITDATA \\ initTransmitData};
-	\node [block, below of=inittransmit] (appresetccsswstate) {APP\_RESET\_CCS\_SW\_STATE \\ I2C-Write: 0xFF 0x11 0xE5 0x72 0x8A \\ SW\_RESET\_REG \\ SW\_RESET\_SEQUENCE};
-	\node [block, below of=appresetccsswstate] (appccshwidwriteregstate) {APP\_CCS\_HW\_ID\_WRITE\_REG\_STATE \\ I2C-Write: 0x20 \\ HW\_ID\_REG};
-	\node [block, below of=appccshwidwriteregstate] (appccshwidreadstate) {APP\_CCS\_HW\_ID\_READ\_STATE \\ I2C-Read: 1 byte \\ Hardware ID has to be 0x81};
-	\node [block, below of=appccshwidreadstate] (appccschangetoappstatestate) {APP\_CCS\_CHANGE\_TO\_APPSTATE\_STATE \\ I2C-Write: 0xF4 \\ BOOTLOADER\_APP\_START};
-	\node [block, below of=appccschangetoappstatestate] (appccswritemeasregstate) {APP\_CCS\_WRITE\_MEAS\_REG\_STATE \\ I2C-Write: 0x01 0xTODO \\ MEAS\_MODE\_REG \\ (Measure every TODO)};
-	\node [block, below of=appccswritemeasregstate] (appccswritestatusregstate) {APP\_CCS\_WRITE\_STATUS\_REG\_STATE \\ I2C-Write: 0x00\\STATUS\_REG};
-	\node [block, below of=appccswritestatusregstate] (appccsreadstatusregstate) {APP\_CCS\_READ\_STATUS\_REG\_STATE \\ I2C-Read: 1 byte\\ Bit 0: error \\ Bit 3: data ready};
-	\node [block, below of=appccsreadstatusregstate] (appresetscdstate) {APP\_RESET\_SCD\_STATE \\ I2C-Write: 0x3F 0x86\\ TODO ask Achim};
-	\node [block, right of=appresetscdstate, node distance=8cm] (appinitsensorstate) {APP\_INIT\_SENSOR\_STATE \\ I2C-Write: 0x21 0xB1\\ TODO ask Achim \\ HAL\_StartAppTimer(30 s)};
-	\node [block, above of=appinitsensorstate] (appcallforreadscdstate) {APP\_CALL\_FOR\_READ\_SCD\_STATE \\ I2C-Write:TODO\\ TODO ask Achim};
-	\node [block, above of=appcallforreadscdstate] (appreadscdstate) {APP\_READ\_SCD\_STATE \\ I2C-Read: 9 bytes\\ TODO ask Achim};
-	\node [block, above of=appreadscdstate] (appcallforreadtempshtstate) {APP\_CALL\_FOR\_READ\_TEMP\_SHT\_STATE\\ I2C-Write: TODO\\ TODO ask Achim};
-	\node [block, above of=appcallforreadtempshtstate] (appreadtempshtstate) {APP\_READ\_TEMP\_SHT\_STATE\\ I2C-Read: 2 bytes\\ TODO ask Achim};
-	\node [block, above of=appreadtempshtstate] (appcallforreadrhshtstate) {APP\_CALL\_FOR\_READ\_RH\_SHT\_STATE\\ I2C-Write: TODO\\ TODO ask Achim};
-	\node [block, above of=appcallforreadrhshtstate] (appreadrhshtstate) {APP\_READ\_RH\_SHT\_STATE\\ I2C-Read: 2 bytes\\ TODO ask Achim};
-	\node [block, above of=appreadrhshtstate] (appccswriteresultregstate) {APP\_CCS\_WRITE\_RESULT\_REG\_STATE\\ I2C-Write: 0x02\\ ALG\_RESULT\_DATA\_REG};
-	\node [block, above of=appccswriteresultregstate] (appccsreadresultregstate) {APP\_CCS\_READ\_RESULT\_REG\_STATE\\ I2C-Read: 4 bytes (eCO2 | TVOC)};
-	\node [block, above of=appccsreadresultregstate] (appausgabestate) {APP\_AUSGABE\_STATE\\ calculating outpout of SCD,SHT,CCS};
-	\node [block, above of=appausgabestate] (transmit) {APP\_TRANSMIT \\ encode Message \\ send Message};
+	\begin{titlepage}
+		\maketitle
+		\thispagestyle{empty}
+	\end{titlepage}
+	\tableofcontents
+	\setcounter{page}{1}
+	\newpage
 	
 	
-	%\node [block, right of=initendpoint, node distance=8cm] (resetCCS) {APP_RESET_CCS_SW_STATE};
+	\section{Projektthema}
+	\section{Aufgabenaufteilung}
+	\section{Ergebnisse der Recherche}
+	\section{Lösungsansatz}
+		%TODO different subsections wer was wie gelöst hat und welche Probleme aufgetreten sind, dabei angeben welche Standards/werkzeuge/equipment genutzt worden sind
+		
+	\section{Ausblick und Erweiterungsmöglichkeiten}
+		
+		
+	\section{Zustandsdiagramm}
+	\tikzstyle{block} = [rectangle, draw, fill=white!20, text width=20em, text centered, rounded corners, minimum height=4em]
+	\tikzstyle{line} = [draw, Latex,length=3mm, width=2mm]
+	\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=5cm, minimum height=5em]
 	
-	% Draw edges
-	\draw [-latex, line width=2pt] (start) -- (startnetwork);
-	\draw [-latex, line width=2pt] (startnetwork) -- (initendpoint);
-	\draw [-latex, line width=2pt] (initendpoint) -- (inittransmit);
-	\draw [-latex, line width=2pt] (inittransmit) -- (appresetccsswstate);
-	\draw [-latex, line width=2pt] (appresetccsswstate) -- (appccshwidwriteregstate);
-	\draw [-latex, line width=2pt] (appccshwidwriteregstate) -- (appccshwidreadstate);
-	\draw [-latex, line width=2pt] (appccshwidreadstate) -- (appccschangetoappstatestate);
-	\draw [-latex, line width=2pt] (appccschangetoappstatestate) -- (appccswritemeasregstate);
-	\draw [-latex, line width=2pt] (appccswritemeasregstate) -- (appccswritestatusregstate);
-	\draw [-latex, line width=2pt] (appccswritestatusregstate) -- (appccsreadstatusregstate);
-	\draw [-latex, line width=2pt] (appccsreadstatusregstate) -- (appresetscdstate);
-	\draw [-latex, line width=2pt] (appresetscdstate) -- (appinitsensorstate);
-	\draw [-latex, line width=2pt] (appinitsensorstate) -- (appcallforreadscdstate);
-	\draw [-latex, line width=2pt] (appcallforreadscdstate) -- (appreadscdstate);
-	\draw [-latex, line width=2pt] (appreadscdstate) -- (appcallforreadtempshtstate);
-	\draw [-latex, line width=2pt] (appcallforreadtempshtstate) -- (appreadtempshtstate);
-	\draw [-latex, line width=2pt] (appreadtempshtstate) -- (appcallforreadrhshtstate);
-	\draw [-latex, line width=2pt] (appcallforreadrhshtstate) -- (appccswriteresultregstate);
-	\draw [-latex, line width=2pt] (appccswriteresultregstate) -- (appccsreadresultregstate);
-	\draw [-latex, line width=2pt] (appccsreadresultregstate) -- (appausgabestate);
-	\draw [-latex, line width=2pt] (appausgabestate) -- (appausgabestate);
-	\draw [-latex, line width=2pt] (appausgabestate) -- (transmit);
-	\draw [-latex, line width=2pt] (transmit) -- (appinitsensorstate);
-
-
-\end{tikzpicture}
+	\begin{tikzpicture}[node distance = 2cm, auto]
+		% Place nodes
+		\node [block, align= center] (start) {APP\_STARTUP\_STATE \\ appInitUsartManager \\initTimer};
+		\node [block, below of=start] (startnetwork) {APP\_STARTJOIN\_NETWORK \\ ZDO\_StartNetworkReq};
+		\node [block, below of=startnetwork] (initendpoint) {APP\_INIT\_ENDPOINT \\ initEndpoint};
+		\node [block, below of=initendpoint] (inittransmit) {APP\_INIT\_TRANSMITDATA \\ initTransmitData};
+		\node [block, below of=inittransmit] (appresetccsswstate) {APP\_RESET\_CCS\_SW\_STATE \\ I2C-Write: 0xFF 0x11 0xE5 0x72 0x8A \\ SW\_RESET\_REG \\ SW\_RESET\_SEQUENCE};
+		\node [block, below of=appresetccsswstate] (appccshwidwriteregstate) {APP\_CCS\_HW\_ID\_WRITE\_REG\_STATE \\ I2C-Write: 0x20 \\ HW\_ID\_REG};
+		\node [block, below of=appccshwidwriteregstate] (appccshwidreadstate) {APP\_CCS\_HW\_ID\_READ\_STATE \\ I2C-Read: 1 byte \\ Hardware ID has to be 0x81};
+		\node [block, below of=appccshwidreadstate] (appccschangetoappstatestate) {APP\_CCS\_CHANGE\_TO\_APPSTATE\_STATE \\ I2C-Write: 0xF4 \\ BOOTLOADER\_APP\_START};
+		\node [block, below of=appccschangetoappstatestate] (appccswritemeasregstate) {APP\_CCS\_WRITE\_MEAS\_REG\_STATE \\ I2C-Write: 0x01 0xTODO \\ MEAS\_MODE\_REG \\ (Measure every TODO)};
+		\node [block, below of=appccswritemeasregstate] (appccswritestatusregstate) {APP\_CCS\_WRITE\_STATUS\_REG\_STATE \\ I2C-Write: 0x00\\STATUS\_REG};
+		\node [block, below of=appccswritestatusregstate] (appccsreadstatusregstate) {APP\_CCS\_READ\_STATUS\_REG\_STATE \\ I2C-Read: 1 byte\\ Bit 0: error \\ Bit 3: data ready};
+		\node [block, below of=appccsreadstatusregstate] (appresetscdstate) {APP\_RESET\_SCD\_STATE \\ I2C-Write: 0x3F 0x86\\ TODO ask Achim};
+		\node [block, right of=appresetscdstate, node distance=8cm] (appinitsensorstate) {APP\_INIT\_SENSOR\_STATE \\ I2C-Write: 0x21 0xB1\\ TODO ask Achim \\ HAL\_StartAppTimer(30 s)};
+		\node [block, above of=appinitsensorstate] (appcallforreadscdstate) {APP\_CALL\_FOR\_READ\_SCD\_STATE \\ I2C-Write:TODO\\ TODO ask Achim};
+		\node [block, above of=appcallforreadscdstate] (appreadscdstate) {APP\_READ\_SCD\_STATE \\ I2C-Read: 9 bytes\\ TODO ask Achim};
+		\node [block, above of=appreadscdstate] (appcallforreadtempshtstate) {APP\_CALL\_FOR\_READ\_TEMP\_SHT\_STATE\\ I2C-Write: TODO\\ TODO ask Achim};
+		\node [block, above of=appcallforreadtempshtstate] (appreadtempshtstate) {APP\_READ\_TEMP\_SHT\_STATE\\ I2C-Read: 2 bytes\\ TODO ask Achim};
+		\node [block, above of=appreadtempshtstate] (appcallforreadrhshtstate) {APP\_CALL\_FOR\_READ\_RH\_SHT\_STATE\\ I2C-Write: TODO\\ TODO ask Achim};
+		\node [block, above of=appcallforreadrhshtstate] (appreadrhshtstate) {APP\_READ\_RH\_SHT\_STATE\\ I2C-Read: 2 bytes\\ TODO ask Achim};
+		\node [block, above of=appreadrhshtstate] (appccswriteresultregstate) {APP\_CCS\_WRITE\_RESULT\_REG\_STATE\\ I2C-Write: 0x02\\ ALG\_RESULT\_DATA\_REG};
+		\node [block, above of=appccswriteresultregstate] (appccsreadresultregstate) {APP\_CCS\_READ\_RESULT\_REG\_STATE\\ I2C-Read: 4 bytes (eCO2 | TVOC)};
+		\node [block, above of=appccsreadresultregstate] (appausgabestate) {APP\_AUSGABE\_STATE\\ calculating outpout of SCD,SHT,CCS};
+		\node [block, above of=appausgabestate] (transmit) {APP\_TRANSMIT \\ encode Message \\ send Message};
+		
+		
+		%\node [block, right of=initendpoint, node distance=8cm] (resetCCS) {APP_RESET_CCS_SW_STATE};
+		
+		% Draw edges
+		\draw [-latex, line width=2pt] (start) -- (startnetwork);
+		\draw [-latex, line width=2pt] (startnetwork) -- (initendpoint);
+		\draw [-latex, line width=2pt] (initendpoint) -- (inittransmit);
+		\draw [-latex, line width=2pt] (inittransmit) -- (appresetccsswstate);
+		\draw [-latex, line width=2pt] (appresetccsswstate) -- (appccshwidwriteregstate);
+		\draw [-latex, line width=2pt] (appccshwidwriteregstate) -- (appccshwidreadstate);
+		\draw [-latex, line width=2pt] (appccshwidreadstate) -- (appccschangetoappstatestate);
+		\draw [-latex, line width=2pt] (appccschangetoappstatestate) -- (appccswritemeasregstate);
+		\draw [-latex, line width=2pt] (appccswritemeasregstate) -- (appccswritestatusregstate);
+		\draw [-latex, line width=2pt] (appccswritestatusregstate) -- (appccsreadstatusregstate);
+		\draw [-latex, line width=2pt] (appccsreadstatusregstate) -- (appresetscdstate);
+		\draw [-latex, line width=2pt] (appresetscdstate) -- (appinitsensorstate);
+		\draw [-latex, line width=2pt] (appinitsensorstate) -- (appcallforreadscdstate);
+		\draw [-latex, line width=2pt] (appcallforreadscdstate) -- (appreadscdstate);
+		\draw [-latex, line width=2pt] (appreadscdstate) -- (appcallforreadtempshtstate);
+		\draw [-latex, line width=2pt] (appcallforreadtempshtstate) -- (appreadtempshtstate);
+		\draw [-latex, line width=2pt] (appreadtempshtstate) -- (appcallforreadrhshtstate);
+		\draw [-latex, line width=2pt] (appcallforreadrhshtstate) -- (appccswriteresultregstate);
+		\draw [-latex, line width=2pt] (appccswriteresultregstate) -- (appccsreadresultregstate);
+		\draw [-latex, line width=2pt] (appccsreadresultregstate) -- (appausgabestate);
+		\draw [-latex, line width=2pt] (appausgabestate) -- (transmit);
+		\draw [-latex, line width=2pt] (transmit) -- (appinitsensorstate);
+	
+	
+	\end{tikzpicture}
 %----------------------------------------------------------------------------
 % Bibliography
 %----------------------------------------------------------------------------	
