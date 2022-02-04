@@ -60,6 +60,4 @@ export class Communicator {
             .then(res => res.json())
             .catch(e => console.log(e.message))
     }
-
-
 }

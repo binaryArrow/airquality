@@ -50,8 +50,6 @@ export default defineComponent({
       }
     }
   },
-
-
   mounted() {
 
     // Funktion von Can für Empfang von Sensordaten (reicht das schon?)
@@ -61,6 +59,7 @@ export default defineComponent({
 
     // Socket für Datenübertragung (das von SketchingBoard, fehlt noch setInterval Funktion, für 10-Sekunden Abstand)
     socket.on("data", (data: SensorData) => {
+      console.log(`Daten sind angekommen von ${data.sensorId}`)
         const allSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim())
       switch (allSensorData.sensorId){
         case 1:{
@@ -85,17 +84,47 @@ export default defineComponent({
   },
   methods:
       {
+
+    decideTEMP(){
+      let tempSHT: number
+      let tempSCD: number
+      const dummyObject1 = this.sensorData1[this.sensorData1.length - 1]
+      const dummyObject2 = this.sensorData3[this.sensorData3.length - 1]
+      tempSHT =+ dummyObject1.tempSHT21
+      tempSCD =+ dummyObject2.tempSCD41
+      return [tempSHT, tempSCD]
+    },
+
+    decideHUM(){
+      let humSHT: number
+      let humSCD: number
+      const dummyObject1 = this.sensorData1[this.sensorData1.length - 1]
+      const dummyObject2 = this.sensorData3[this.sensorData3.length - 1]
+      humSHT =+ dummyObject1.humSHT21
+      humSCD =+ dummyObject2.humSCD41
+      return [humSHT, humSCD]
+    },
+
+    decideCO2(){
+      let co2SCD: number
+      let eco2CCS: number
+      const dummyObject1 = this.sensorData1[this.sensorData1.length - 1]
+      const dummyObject2 = this.sensorData3[this.sensorData3.length - 1]
+      co2SCD =+ dummyObject1.co2SCD41
+      eco2CCS =+ dummyObject2.eco2CCS811
+      return [co2SCD, eco2CCS]
+    },
+
     createTEMPAxis(){
 
       interface graphTempData{
-        xDate: number, // muss evtl. zu Date geändert werden, x-Achse ist für Zeit (ist xData überhaupt nötig?)
-        yTempSHT?: string // SensorData["tempSHT21"] ist nichts weiter als ein String, aber dadurch macht line()-Funktion ein Problem (valueOf?)
-        yTempSCD?: SensorData["tempSCD41"]
+        xDate: number // muss evtl. zu Date geändert werden, x-Achse ist für Zeit (ist xData überhaupt nötig?)
+        yTempSHT: number
       }
 
-      let randomData: graphTempData[] = [{
+      let tempSensorData: graphTempData[] = [{
         xDate: Date.now(),
-        yTempSHT: "20"// hier müssten halt einer von beiden Werten stehen.. (zwei verschiedene Möglichkeiten einbauen(switch_case?)
+        yTempSHT: this.decideTEMP()[0] // hier müssten halt einer von beiden Werten stehen.. (zwei verschiedene Möglichkeiten einbauen(switch_case?)
       }];
 
       let svg = d3.select("#line-chartTEMP")
@@ -144,7 +173,6 @@ export default defineComponent({
           .ease(d3.easeLinear)
           .call(xAxis)
 
-
       svg.append("text")
           .attr("transform", "translate(200,290)")
           .style("font-weight", "bold")
@@ -152,19 +180,39 @@ export default defineComponent({
 
       let line = d3.line<graphTempData>()
           .x(function (d){return xScale(d["xDate"])})
-          .y(function (d){return yScale(d["yTempSHT"])}) // wieder hier der Fehler, line nimmt nichts anderes als ein number-tuple...
+          .y(function (d){return yScale(d["yTempSHT"])})
 
 
       svg.append("path")
-          .attr("d", line(randomData))
+          .attr("d", line(tempSensorData))
           .attr("stroke", "orange")
           .attr("stroke-width", 2)
           .attr("fill", "none");
 
+      // Der Path muss geclipped(abgeschnitten) werden und Werte müssen immer wieder ans Ende gepackt werden
+      // attr clip-path beispiel: https://gist.github.com/mbostock/1642874
+      // Möglichkeit Räume auszuwählen muss auch noch gemacht werden...
+
       },
 
     createRHAxis(){
-      //
+
+      interface graphData{
+        xData: number,
+        yData: number
+      }
+
+      let randomData: graphData[] = [{
+        "yData": 50,
+        "xData": 0.0
+      }, {
+        "yData": 20,
+        "xData": 0.1
+      }, {
+        "yData": 30,
+        "xData": 0.2
+      }];
+
       let svg = d3.select("#line-chartRH")
           .append("svg")
           .attr("width", this.axisWidth)
@@ -207,21 +255,6 @@ export default defineComponent({
           .style("font-weight", "bold")
           .text("Zeit")
 
-      interface graphData{
-        xData: number,
-        yData: number
-      }
-
-      let randomData: graphData[] = [{
-        "yData": 50,
-        "xData": 0.0
-      }, {
-        "yData": 20,
-        "xData": 0.1
-      }, {
-        "yData": 30,
-        "xData": 0.2
-      }];
 
       let line = d3.line<graphData>()
           .x(function (d){return xScale(d["xData"])})
@@ -318,8 +351,8 @@ export default defineComponent({
           .text("Zeit")
 
     },
-    }
 
+    }
   }
 );
 
@@ -353,6 +386,5 @@ export default defineComponent({
   text-align: left;
   height: 410px;
 }
-
 
 </style>
