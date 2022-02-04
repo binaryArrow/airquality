@@ -124,7 +124,7 @@ export default defineComponent({
 
       let tempSensorData: graphTempData[] = [{
         xDate: Date.now(),
-        yTempSHT: this.decideTEMP()[0] // hier müssten halt einer von beiden Werten stehen.. (zwei verschiedene Möglichkeiten einbauen(switch_case?)
+        yTempSHT: 20 // this.decideTEMP()[0] wenn der Wert genommen wird, verschwinden alles Graphen :D
       }];
 
       let svg = d3.select("#line-chartTEMP")
@@ -133,7 +133,6 @@ export default defineComponent({
           .attr("height", this.axisHeight - 100)
           .append("g")
           .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
-
 
       let xScale = d3.scaleTime()
           .range([0, this.axisWidth - 100])
@@ -181,6 +180,13 @@ export default defineComponent({
       let line = d3.line<graphTempData>()
           .x(function (d){return xScale(d["xDate"])})
           .y(function (d){return yScale(d["yTempSHT"])})
+
+      svg.append("defs")
+          .append("clipPath")
+          .attr("id", "clip")
+          .append("rect")
+          .attr("width", this.axisWidth - 100)
+          .attr("height", this.axisHeight - 200)
 
 
       svg.append("path")
