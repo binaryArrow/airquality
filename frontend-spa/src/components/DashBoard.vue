@@ -84,7 +84,6 @@ export default defineComponent({
   },
   methods:
       {
-
     decideTEMP(){
       let tempSHT: number
       let tempSCD: number
@@ -115,7 +114,15 @@ export default defineComponent({
       return [co2SCD, eco2CCS]
     },
 
+    // das wird die Funktion zur Bewegung des Graphen
+    updateGraph(){
+      //
+
+    },
+
     createTEMPAxis(){
+
+     // var tempSHT = d3.map(this.decideTEMP()[0], function(d){return d.tempSHT21}) --> map() Method funktioniert so nicht...
 
       interface graphTempData{
         xDate: number // muss evtl. zu Date geändert werden, x-Achse ist für Zeit (ist xData überhaupt nötig?)
@@ -123,9 +130,12 @@ export default defineComponent({
       }
 
       let tempSensorData: graphTempData[] = [{
-        xDate: Date.now(),
-        yTempSHT: 20 // this.decideTEMP()[0] wenn der Wert genommen wird, verschwinden alles Graphen :D
-      }];
+        xDate: Date.now() + (50 * 1000) / 2,
+        yTempSHT: 20}, // this.decideTEMP()[0] wenn der Wert genommen wird, verschwinden alles Graphen :D
+        {
+          yTempSHT: 40,
+          xDate: Date.now() + (50 * 1000) / 2,
+        }];
 
       let svg = d3.select("#line-chartTEMP")
           .append("svg")
@@ -135,25 +145,21 @@ export default defineComponent({
           .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
 
       let xScale = d3.scaleTime()
-          .range([0, this.axisWidth - 100])
+          .range([0, this.axisWidth - 100]) // das hier stimmt soweit
 
+      // hier durch erneuert sich die x-Achse
       do{
         xScale.domain([Date.now() - (50 * 1000) / 2, Date.now() + (50 * 1000) / 2])
       }while(!stop);
 
       let yScale = d3.scaleLinear()
           .range([this.axisHeight/2, 0])
-          .domain([0, 60])
+          .domain([0, 60]) // hier kann eine feste Domain bleiben
 
       let xAxis = d3.axisBottom(xScale)
-          .ticks(d3.timeSecond.every(10)) // sorgt für die 10 Sekunden Abstände
+          .ticks(d3.timeSecond.every(10)) // sorgt für die 10 Sekunden Abstände auf Achse
 
       let yAxis = d3.axisLeft(yScale)
-
-      // y-Achse wird aufgerufen
-      svg.append("g")
-          .attr("transform", "translate(0,0)")
-          .call(yAxis)
 
       svg.append("text")
           .attr("transform", "rotate(-90)")
@@ -163,41 +169,40 @@ export default defineComponent({
           .style("font-weight", "bold")
           .text("Temperatur (°C)")
 
-      // x-Achse wird aufgerufen
-      let xAxisTranslate = this.axisHeight/2
-      svg.append("g")
-          .attr("transform", "translate(0, " + xAxisTranslate + ")")
-          .transition()
-          .duration(500)
-          .ease(d3.easeLinear)
-          .call(xAxis)
-
       svg.append("text")
           .attr("transform", "translate(200,290)")
           .style("font-weight", "bold")
           .text("Zeit")
-
-      let line = d3.line<graphTempData>()
-          .x(function (d){return xScale(d["xDate"])})
-          .y(function (d){return yScale(d["yTempSHT"])})
 
       svg.append("defs")
           .append("clipPath")
           .attr("id", "clip")
           .append("rect")
           .attr("width", this.axisWidth - 100)
-          .attr("height", this.axisHeight - 200)
+          .attr("height", this.axisHeight - 250)
 
+      // x-Achse wird aufgerufen
+      let xAxisTranslate = this.axisHeight/2
+      svg.append("g")
+          .attr("transform", "translate(0, " + xAxisTranslate + ")")
+          .call(xAxis)
 
-      svg.append("path")
-          .attr("d", line(tempSensorData))
-          .attr("stroke", "orange")
-          .attr("stroke-width", 2)
-          .attr("fill", "none");
+      // y-Achse wird aufgerufen
+      svg.append("g")
+          .call(yAxis)
 
-      // Der Path muss geclipped(abgeschnitten) werden und Werte müssen immer wieder ans Ende gepackt werden
+      let line = d3.line<graphTempData>()
+          .x(function (d){return xScale(d["xDate"])})
+          .y(function (d){return yScale(d["yTempSHT"])})
+
+      // Der "path" muss vorne geclipped(abgeschnitten) werden und Werte müssen immer wieder ans Ende gepackt werden
       // attr clip-path beispiel: https://gist.github.com/mbostock/1642874
       // Möglichkeit Räume auszuwählen muss auch noch gemacht werden...
+
+      svg.append("path")
+          .data(tempSensorData)
+          .attr("class", "line")
+          .attr("d", line(tempSensorData))
 
       },
 
@@ -376,7 +381,6 @@ export default defineComponent({
   position: relative;
   float: left;
 }
-
 
 .column{
   margin: 5px;
