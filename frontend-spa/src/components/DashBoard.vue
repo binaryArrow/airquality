@@ -28,15 +28,28 @@ import {Communicator} from "@/service/communicator";
 
 const socket = io("http://localhost:3000")
 
+interface GraphData{
+  xDate: number // muss evtl. zu Date geändert werden, x-Achse ist für Zeit (ist xData überhaupt nötig?)
+  yValue: number
+}
+
 export default defineComponent({
   name: "DashBoard",
   data() {
     return {
       axisWidth: 500,
       axisHeight: 500,
+      dataAmount: 50,
       sensorData1: [] as SensorData[],
       sensorData2: [] as SensorData[],
       sensorData3: [] as SensorData[],
+      graphTempSHTData: [] as GraphData[],
+      graphTempSCDData: [] as GraphData[],
+      graphHumSHTData: [] as GraphData[],
+      graphHumSCDData: [] as GraphData[],
+      graphCo2SCDData: [] as GraphData[],
+      graphEco2CCSData: [] as GraphData[],
+      graphTvocCCSData: [] as GraphData[],
       communicator: new Communicator(),
       margin: {
         left: 40,
@@ -52,10 +65,45 @@ export default defineComponent({
   },
   mounted() {
 
-    // Funktion von Can für Empfang von Sensordaten (reicht das schon?)
-    this.communicator.getSensorData(1, 50)
-    this.communicator.getSensorData(2, 50)
-    this.communicator.getSensorData(3, 50)
+    // Funktion von Can für Empfang von Sensordaten
+    this.communicator.getSensorData(1, this.dataAmount).then(data => {
+      data.forEach(value => {
+        // hier wird der einzelne Wert geparsed und ausgegeben (den Log später weg machen, der ist nicht nötig)
+        console.log(parseInt(value.tempSHT21))
+
+        // hier werden der Zeitwert und der SHT Wert als JSON Object im graphTempSHTData Array gepusht
+        // vorerst wird für jeden Sensorwert ein Array erstellt, für bessere Unterscheidung
+        this.graphTempSHTData.push({xDate: Date.now(), yValue: parseInt(value.tempSHT21)}) // Date/Zeit umformatieren
+        console.log(this.graphTempSHTData)
+        this.graphHumSHTData.push({xDate: Date.now(), yValue: parseInt(value.humSHT21)})
+
+        // SCD Sensor
+        this.graphTempSCDData.push({xDate: Date.now(), yValue: parseInt(value.tempSCD41)})
+        this.graphHumSCDData.push({xDate: Date.now(), yValue:parseInt(value.humSCD41)})
+        this.graphCo2SCDData.push({xDate: Date.now(), yValue:parseInt(value.co2SCD41)})
+
+        // CCS Sensor
+        this.graphEco2CCSData.push({xDate: Date.now(), yValue: parseInt(value.eco2CCS811)})
+        this.graphTvocCCSData.push(({xDate: Date.now(),yValue: parseInt(value.tvocCCS811)}))
+
+        // Erstmal alles in eine Funktion gepackt, weil Mockdaten nur SensorID: 1 haben
+
+        // TODO: User muss sich Zeitraum auswählen können, max. 24 Stunden (1h, 6h, 24h) (Drop-Down Menü auf dataAmount mounten)
+        // TODO: Wenn man z.B. Werte von den letzten 6 Stunden auswählt, muss man den dataAmount oben dementsprechend anpassen/ausrechnen
+        // hier rüber kann man direkt versuchen den Graphen zu zeichnen und gleichzeitig zu erneuern
+
+      })
+    })
+    this.communicator.getSensorData(2, this.dataAmount).then(data => {
+      data.forEach(value => {
+        //
+      })
+    })
+    this.communicator.getSensorData(3, this.dataAmount).then(data => {
+      data.forEach(value => {
+        //
+      })
+    })
 
     // Socket für Datenübertragung (das von SketchingBoard, fehlt noch setInterval Funktion, für 10-Sekunden Abstand)
     socket.on("data", (data: SensorData) => {
@@ -64,6 +112,8 @@ export default defineComponent({
       switch (allSensorData.sensorId){
         case 1:{
           this.sensorData1.push(allSensorData)
+          this.graphTempSHTData.push() // hier irgendwie noch was machen
+
           break;
         }
         case 2:{
@@ -75,45 +125,16 @@ export default defineComponent({
           break;
         }
       }
+
     })
 
-    this.createTEMPAxis()
+    this.createTEMPAxis() // evtl. in getSensorData reinpacken
     this.createRHAxis()
     this.createCO2Axis()
     this.createTVOCAxis()
   },
   methods:
       {
-    decideTEMP(){
-      let tempSHT: number
-      let tempSCD: number
-      const dummyObject1 = this.sensorData1[this.sensorData1.length - 1]
-      const dummyObject2 = this.sensorData3[this.sensorData3.length - 1]
-      tempSHT =+ dummyObject1.tempSHT21
-      tempSCD =+ dummyObject2.tempSCD41
-      return [tempSHT, tempSCD]
-    },
-
-    decideHUM(){
-      let humSHT: number
-      let humSCD: number
-      const dummyObject1 = this.sensorData1[this.sensorData1.length - 1]
-      const dummyObject2 = this.sensorData3[this.sensorData3.length - 1]
-      humSHT =+ dummyObject1.humSHT21
-      humSCD =+ dummyObject2.humSCD41
-      return [humSHT, humSCD]
-    },
-
-    decideCO2(){
-      let co2SCD: number
-      let eco2CCS: number
-      const dummyObject1 = this.sensorData1[this.sensorData1.length - 1]
-      const dummyObject2 = this.sensorData3[this.sensorData3.length - 1]
-      co2SCD =+ dummyObject1.co2SCD41
-      eco2CCS =+ dummyObject2.eco2CCS811
-      return [co2SCD, eco2CCS]
-    },
-
     // das wird die Funktion zur Bewegung des Graphen
     updateGraph(){
       //
@@ -124,16 +145,12 @@ export default defineComponent({
 
      // var tempSHT = d3.map(this.decideTEMP()[0], function(d){return d.tempSHT21}) --> map() Method funktioniert so nicht...
 
-      interface graphTempData{
-        xDate: number // muss evtl. zu Date geändert werden, x-Achse ist für Zeit (ist xData überhaupt nötig?)
-        yTempSHT: number
-      }
-
-      let tempSensorData: graphTempData[] = [{
+      let tempSensorData: GraphData[] = [{
         xDate: Date.now() + (50 * 1000) / 2,
-        yTempSHT: 20}, // this.decideTEMP()[0] wenn der Wert genommen wird, verschwinden alles Graphen :D
+        yValue: 20
+      }, // this.decideTEMP()[0] wenn der Wert genommen wird, verschwinden alles Graphen :D
         {
-          yTempSHT: 40,
+          yValue: 40,
           xDate: Date.now() + (50 * 1000) / 2,
         }];
 
@@ -147,7 +164,7 @@ export default defineComponent({
       let xScale = d3.scaleTime()
           .range([0, this.axisWidth - 100]) // das hier stimmt soweit
 
-      // hier durch erneuert sich die x-Achse
+      // hier durch aktualisiert sich die x-Achse auf die aktuelle Zeit
       do{
         xScale.domain([Date.now() - (50 * 1000) / 2, Date.now() + (50 * 1000) / 2])
       }while(!stop);
@@ -157,7 +174,7 @@ export default defineComponent({
           .domain([0, 60]) // hier kann eine feste Domain bleiben
 
       let xAxis = d3.axisBottom(xScale)
-          .ticks(d3.timeSecond.every(10)) // sorgt für die 10 Sekunden Abstände auf Achse
+          .ticks(d3.timeSecond.every(5)) // sorgt für die 10 Sekunden Abstände auf Achse
 
       let yAxis = d3.axisLeft(yScale)
 
@@ -191,9 +208,9 @@ export default defineComponent({
       svg.append("g")
           .call(yAxis)
 
-      let line = d3.line<graphTempData>()
+      let line = d3.line<GraphData>()
           .x(function (d){return xScale(d["xDate"])})
-          .y(function (d){return yScale(d["yTempSHT"])})
+          .y(function (d){return yScale(d["yValue"])})
 
       // Der "path" muss vorne geclipped(abgeschnitten) werden und Werte müssen immer wieder ans Ende gepackt werden
       // attr clip-path beispiel: https://gist.github.com/mbostock/1642874
