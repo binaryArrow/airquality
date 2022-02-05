@@ -16,6 +16,7 @@
             <tr>CO2-SCD41: <td>{{sensorData.co2SCD41 + " ppm"}}</td></tr>
             <tr>ECO2-CCS811: <td>{{sensorData.eco2CCS811 + " ppm"}}</td></tr>
             <tr>TVOC-CCS811: <td>{{sensorData.tvocCCS811 + " ppb"}}</td></tr>
+            <tr>Battery: <td>{{(sensorData.battery-2400)/6 === -400? 0: (sensorData.battery-2400)/6}} %</td></tr>
           </table>
           <slot />
           <!--          <button class="button" @click="closeModal" type="button">Close</button>-->

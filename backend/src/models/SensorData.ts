@@ -8,9 +8,10 @@ export class SensorData {
     humSCD41: string
     tempSCD41: string
     co2SCD41: string
+    battery: string
 
 
-    constructor(sensorId: number, tempSHT21: string, humSHT21: string, tempSCD41: string, humSCD41: string, co2SCD41: string, eco2CCS811: string, tvocCCS811: string ) {
+    constructor(sensorId: number, tempSHT21: string, humSHT21: string, tempSCD41: string, humSCD41: string, co2SCD41: string, eco2CCS811: string, tvocCCS811: string, battery: string ) {
         this.sensorId = sensorId
         this.tempSHT21 = tempSHT21
         this.humSHT21 = humSHT21
@@ -19,5 +20,6 @@ export class SensorData {
         this.co2SCD41 = co2SCD41
         this.eco2CCS811 = eco2CCS811
         this.tvocCCS811 = tvocCCS811
+        this.battery = battery
     }
 }

@@ -95,7 +95,7 @@ export default defineComponent({
     }
   },
   beforeMount(){
-    this.sensorData1.push(new SensorData(0, "","","","","","", ""))
+    this.sensorData1.push(new SensorData(0, "","","","","","", "", ""))
   },
   mounted() {
     this.canvasFromView = this.$refs['drawingCanvas'] as HTMLCanvasElement
@@ -133,7 +133,7 @@ export default defineComponent({
 
     socket.on("data", (data: SensorData) => {
         console.log(`got some data from socket for sensor ${data.sensorId}`)
-        const tempSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim())
+        const tempSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim(), data.battery)
       switch (tempSensorData.sensorId){
           case 1:{
             this.sensorData1.push(tempSensorData)
@@ -320,24 +320,24 @@ export default defineComponent({
     toggleInfoModal(sensorId: number){
       switch (sensorId){
         case 0: {
-          this.infoModalData = new SensorData(0, "", "","","","","","")
+          this.infoModalData = new SensorData(0, "", "","","","","","", "")
           break;
         }
         case 1: {
           if(this.sensorData1.length == 0)
-            this.sensorData1.push(new SensorData(0, "", "","","","","",""))
+            this.sensorData1.push(new SensorData(0, "", "","","","","","", ""))
           this.infoModalData = this.sensorData1[this.sensorData1.length - 1]
           break;
         }
         case 2: {
           if(this.sensorData2.length == 0)
-            this.sensorData2.push(new SensorData(0, "", "","","","","",""))
+            this.sensorData2.push(new SensorData(0, "", "","","","","","", ""))
           this.infoModalData = this.sensorData2[this.sensorData2.length - 1]
           break;
         }
         case 3: {
           if(this.sensorData3.length == 0)
-            this.sensorData3.push(new SensorData(0, "", "","","","","",""))
+            this.sensorData3.push(new SensorData(0, "", "","","","","","", ""))
           this.infoModalData = this.sensorData3[this.sensorData3.length - 1]
           break;
         }

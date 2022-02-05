@@ -60,7 +60,7 @@ export default defineComponent({
     // Socket für Datenübertragung (das von SketchingBoard, fehlt noch setInterval Funktion, für 10-Sekunden Abstand)
     socket.on("data", (data: SensorData) => {
       console.log(`Daten sind angekommen von ${data.sensorId}`)
-        const allSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim())
+        const allSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim(), data.battery)
       switch (allSensorData.sensorId){
         case 1:{
           this.sensorData1.push(allSensorData)
