@@ -2,6 +2,7 @@ import knex from 'knex'
 import Room from "../models/Room";
 import {SensorData} from "../models/SensorData";
 import Sensor from "../models/Sensor";
+import path from "path";
 
 export class Connection {
     private dbConnection: any
@@ -10,7 +11,7 @@ export class Connection {
         this.dbConnection = knex({
             client: 'sqlite3',
             connection: {
-                filename: `${__dirname}/testDB.db`
+                filename: `${path.resolve(__dirname, 'testDB.db')}`
             },
             useNullAsDefault: true
         })
