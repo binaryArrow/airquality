@@ -3,12 +3,24 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1}Projektthema}{2}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2}Aufgabenaufteilung}{2}{}%
+\contentsline {section}{\numberline {2}Aufgabenaufteilung}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Ergebnisse der Recherche}{2}{}%
+\contentsline {subsection}{\numberline {2.1}Friedrich Just}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Lösungsansatz}{2}{}%
+\contentsline {subsection}{\numberline {2.2}Stipe Knez}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Ausblick und Erweiterungsmöglichkeiten}{2}{}%
+\contentsline {subsection}{\numberline {2.3}Lucas Merkert}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Zustandsdiagramm}{2}{}%
+\contentsline {subsection}{\numberline {2.4}Achim Glaesmann}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5}Max-Rene Konieczka}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.6}Can Cihan Nazlier}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3}Ergebnisse der Recherche}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4}Lösungsansatz}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5}Ausblick und Erweiterungsmöglichkeiten}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6}Zustandsdiagramm}{4}{}%
