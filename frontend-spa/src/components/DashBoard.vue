@@ -73,9 +73,12 @@ export default defineComponent({
 
         // hier werden der Zeitwert und der SHT Wert als JSON Object im graphTempSHTData Array gepusht
         // vorerst wird für jeden Sensorwert ein Array erstellt, für bessere Unterscheidung
+
+        // SHT Sensor
         this.graphTempSHTData.push({xDate: Date.now(), yValue: parseInt(value.tempSHT21)}) // Date/Zeit umformatieren
         console.log(this.graphTempSHTData)
         this.graphHumSHTData.push({xDate: Date.now(), yValue: parseInt(value.humSHT21)})
+        console.log(this.graphHumSHTData)
 
         // SCD Sensor
         this.graphTempSCDData.push({xDate: Date.now(), yValue: parseInt(value.tempSCD41)})
@@ -91,7 +94,6 @@ export default defineComponent({
         // TODO: User muss sich Zeitraum auswählen können, max. 24 Stunden (1h, 6h, 24h) (Drop-Down Menü auf dataAmount mounten)
         // TODO: Wenn man z.B. Werte von den letzten 6 Stunden auswählt, muss man den dataAmount oben dementsprechend anpassen/ausrechnen
         // hier rüber kann man direkt versuchen den Graphen zu zeichnen und gleichzeitig zu erneuern
-
       })
     })
     this.communicator.getSensorData(2, this.dataAmount).then(data => {
@@ -106,14 +108,14 @@ export default defineComponent({
     })
 
     // Socket für Datenübertragung (das von SketchingBoard, fehlt noch setInterval Funktion, für 10-Sekunden Abstand)
+    // Socket ist grob ausgedrückt eine while-Schleife, solange Server an ist, werden Daten verarbeitet
     socket.on("data", (data: SensorData) => {
       console.log(`Daten sind angekommen von ${data.sensorId}`)
         const allSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim(), data.battery)
       switch (allSensorData.sensorId){
         case 1:{
           this.sensorData1.push(allSensorData)
-          this.graphTempSHTData.push() // hier irgendwie noch was machen
-
+          //this.graphTempSHTData.push()
           break;
         }
         case 2:{
@@ -125,6 +127,7 @@ export default defineComponent({
           break;
         }
       }
+
 
     })
 
@@ -143,12 +146,10 @@ export default defineComponent({
 
     createTEMPAxis(){
 
-     // var tempSHT = d3.map(this.decideTEMP()[0], function(d){return d.tempSHT21}) --> map() Method funktioniert so nicht...
-
       let tempSensorData: GraphData[] = [{
         xDate: Date.now() + (50 * 1000) / 2,
         yValue: 20
-      }, // this.decideTEMP()[0] wenn der Wert genommen wird, verschwinden alles Graphen :D
+      },
         {
           yValue: 40,
           xDate: Date.now() + (50 * 1000) / 2,
