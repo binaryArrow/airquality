@@ -53,10 +53,11 @@
 	Die so ermittelten Daten sollen anschließend in eine graphische Darstellung in Form einer Ampelindikation überführt werden, um dem Anwender eine direkte Bewertung der Gefahrenlage zu ermöglichen. Die Kommunikation zwischen Mikrocontroller und Sensoren soll dabei via I²C-Schnittstelle erfolgen, die Kommunikation zwischen den einzelnen Mikrokontrollern auf Basis des ZigBee-Protokolls. Um dies zu ermöglichen wurde entschieden, einen Microcontroller auf Basis des Atmega256rfr2-Chips zu verwenden, welcher die Verwendung beider Übertragungsprotokolle ermöglicht, so wie eine serielle Kommunikation über eine UART-Bridge. Die ermittelten Daten werden wie erwähnt seriell an eine von uns entwickelte Applikation auf einem leistungsfähigeren Endgerät übermittelt, welches die Daten auswertet und in ein graphisches Modell des zu beschreibenden Zimmers einbettet. Das Frontend der Applikation soll dabei mittels JavaScript realisiert werden, während das Backend in Java zu verwirklichen ist. Die Applikation soll es dem Anwender grundsätzlich ermöglichen eigene Grundrisse zu zeichnen, Räume zu definieren und Sensoren in diesen zu platzieren. Die ermittelten Werte der Sensoren sollen dabei einmal innerhalb von Graphen zeitlich dargestellt werden sowie die über einen eigens zu entwickelnden Algorithmus errechnete Gefahrenlage mittels eines Ampelsystems einmal innerhalb der Anwendung als auch über eine am jeweiligen Funkmodul angebrachte LED dargestellt werden. 
 	
 	\section{Aufgabenaufteilung} %kurze aufgabenteilung
-	Zu Beginn des Projektes wurde entschieden die Aufgaben in zwei Teile zu spalten, einerseits in einen Sensorteil und andererseits in einen Applikationsteil. Es wurde festgelegt, dass Herr Merkert, Herr Just und Herr Glaesmann sich um die Einrichtung und Programmierung der Sensoren kümmern, während Herr Knez, Herr Nazlier und Herr Konieczka sich um die Einrichtung eines Servers und die Entwicklung der Applikation kümmern. 
+	Zu Beginn des Projektes wurde entschieden die Aufgaben in zwei Teile aufzuteilen, einerseits in einen Sensorteil und andererseits in einen Applikationsteil. Es wurde festgelegt, dass Herr Merkert, Herr Just und Herr Glaesmann für die Einrichtung und Programmierung der Sensoren zuständig sind, während Herr Knez, Herr Nazlier und Herr Konieczka für die Einrichtung eines Servers und die Entwicklung der Applikation zuständig sind. 
 		\subsection{Friedrich Just}
 		\subsection{Stipe Knez}
 		\subsection{Lucas Merkert}
+			Programmierung des CCS811 Sensors.
 		\subsection{Achim Glaesmann}
 		\subsection{Max-Rene Konieczka}
 		\subsection{Can Cihan Nazlier}
@@ -64,6 +65,8 @@
 	\section{Ergebnisse der Recherche}%Lucas/Achim Friedrich
 	\section{Lösungsansatz} %detaillierte beschreibung der einzelnen Aufgaben, probleme und Lösungen
 		%TODO different subsections wer was wie gelöst hat und welche Probleme aufgetreten sind, dabei angeben welche Standards/werkzeuge/equipment genutzt worden sind
+		\subsection{CCS811}
+			Der CCS811 ist ein Sensor von ams, der den CO2 Gehalt und den Gehalt der flüchtige organische Verbindungen (TVOC) in der Luft messen kann.
 		
 	\section{Ausblick und Erweiterungsmöglichkeiten}
 		
