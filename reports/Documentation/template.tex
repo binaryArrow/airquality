@@ -57,7 +57,7 @@
 		\subsection{Friedrich Just}
 		\subsection{Stipe Knez}
 		\subsection{Lucas Merkert}
-			Programmierung des CCS811 Sensors.
+			Aufgabe von Herr Merkert war die Programmierung des CCS811 Sensors sowie verschiedene administrative Aufgaben.
 		\subsection{Achim Glaesmann}
 		\subsection{Max-Rene Konieczka}
 		\subsection{Can Cihan Nazlier}
@@ -68,71 +68,34 @@
 		\subsection{SHT21}
 		\subsection{SCD41}
 		\subsection{CCS811}
-			Der CCS811 ist ein Sensor von ams, der den CO2 Gehalt und den Gehalt der flüchtige organische Verbindungen (TVOC) in der Luft messen kann.
-		
+			Der CCS811 \cite{ccs_datasheet}ist ein Sensor von ams, der den äquivalenten CO2 (eCO2) Gehalt und den Gehalt der totalen flüchtigen organischen Verbindungen (TVOC) in der Luft messen kann. Dabei kann eCO2 von 400ppm bis 8192ppm, TVOC von 0ppb bis 1187ppb gemessen werden und ein Messintervall von 250ms, 1s, 10s, 60s festgelegt werden. Die Pin-Beschreibungen kann man in Abbildung \ref{img:ccs_pintable} sehen. Wichtig sind hiervon die Pins:
+			\begin{itemize}
+				\item VDD: Anschluss an 3,3V als Versorgungsspannung (min 1,8V)
+				\item nWAKE: Anschluss an GND (active low), damit der Sensor durchgehend aktiv ist
+				\item SDA: Data Anschluss für I2C, wird mit einem SDA Pin des Zigbee-Boards verbunden
+				\item SCL: Clock Anschluss für I2C, wird mit einem SCL Pin des Zigbee-Boards verbunden
+				\item GND: Ist nicht in der Tabelle angegeben, muss aber mit GND auf dem Zigbee-Board verbunden werden
+			\end{itemize}
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.50]{images/ccs_pintable}
+				\caption{Tabelle mit den Beschreibungen der Pins des CCS811}
+				\label{img:ccs_pintable}
+			\end{figure}
+			In Abbildung \ref{label} ist das Zustandsdiagramm des CCS811 Sensors dargestellt. Zustände die nicht mit dem Sensor interagieren sind hier nicht dargestellt. Zu Beginn wird 2000 ms gewartet da der SCD41 Sensor entsprechende Zeit zum starten braucht. Die eigentliche Startzeit des CCS811 beträgt maximal nur 20ms. Der Zugriff auf den Sensor über den I2C-Bus spricht die Adresse 0x5A an, da der ADDR Pin nicht gesetzt ist. Im APP\_RESET\_CSS\_SW\_STATE wird mit 0xFF das SOFTWARE\_RESET\_REG angesprochen und der Befehl 0x11 0xE5 0x72 0x8A geschrieben. Dieser Befehl dient dazu einen versehentlichen Software Reset zu verhindern. Ist diese Sequenz geschrieben worden, befindet sich der Sensor im Boot mode. Zwischen den einzelnen I2C-Befehlen wird immer 1ms gewartet um sicherzugehen, das der Befehl richtig ausgeführt werden kann. Dies führt zwar zu einem erhöhten Zeitaufwand, ist jedoch unbedenklich, da der Messintervall 60 s beträgt und somit genügend Zeit zur Verfügung steht. Im nächsten Schritt wird das HW\_ID\_REG angesprochen und im darauf im folgenden Zustand auch ausgelesen. Hierbei ist wichtig, dass die HW\_ID 0x81 ist. Im APP\_CCS\_CHANGE\_TO\_APPSTATE\_STATE wird mit dem Befehl 0xF4 zurück in den Appstate gewechselt. Nun wird das MEAS\_MODE\_REG 0x01 angesprochen und der Befehl 0x30 geschrieben. Dieser Befehl setzt den Messintervall auf 60s, welcher den geringsten Stromverbrauch hat. Zum Testen der Applikation wurde hier ein kürzerer Intervall gewählt. Zudem werden keine Interrupts gesetzt die feuern würden wenn Daten vorhanden wären. Um zu überprüfen ob die Messung funktioniert, wird nun 60s gewartet und dann das STATUS\_REG 0x00 überprüft, ob Daten vorhanden sind. Ist dies der Fall, ist das 3. Bit gesetzt. Falls ein Fehler auf dem I2C-Bus oder dem Sensor aufgetreten ist, könnte man dies über das 0. Bit feststellen und im Register 0xE0 auslesen. Sind Daten zum abrufen bereit, werden die Sensoren SHT21 und SCD41 initialisiert. Dabei wird auch der Messtimer von 60s gestartet. Sind diese 60s abgelaufen, so wird das ALG\_RESULT\_DATA\_REG 0x02 angesprochen in dem die bereits berechneten Daten der Messung bereit liegen. Diese werden als 4 Byte ausgelesen, wobei die Bytes 0 und 1 den eCO2 Wert beinhalten und Byte 3 und 4 den TVOC Wert.
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.30]{images/ccs_zustandsdiagramm}
+				\caption{Zustandsdiagramm des CCS811 Sensors, rechts: Initialisierung, links: Auslesen der Werte}
+				\label{img:ccs_zustandsdiagramm}
+			\end{figure}
+			\subsection{Probleme bei der Programmierung des CCS811}
+				Da sich der CCS811 in seiner Funktionsweise von den anderen beiden Sensoren unterscheidet, war es zu Anfang schwierig einen richtigen Ansatz zu bekommen. Vor allem das Wechseln in den Bootmodus war erst nach der Erläuterung in der Vorlesung klar und damit auch nachvollziehbarer. Zudem haben teilweise die Funkmodule nicht richtig Funktioniert, da entweder überhaupt nichts über die UART ausgegeben werden konnte oder die bei einem I2C-Befehl der Callback mit Error zurück gekommen ist. Nachdem wir den Code mehrmals auf Richtigkeit der Befehle und Ablauf überprüft haben, haben wir das ZigBee-Board ausgewechselt und das Messen hat ohne Probleme funktioniert. Was dabei der genaue Fehler war ist uns nicht bekannt. Zudem war die Funktion der Pins nWAKE und ADDR zu Anfang nicht klar. Der nWAKE Pin ist dafür da damit der Sensor aktiv ist und muss dafür auf low gezogen werden. Also haben wir diesen and GND angeschlossen und somit ist der Sensor durchgehend aktiv. Der ADDR Pin gibt an ob die I2C-Adresse des Sensors 0x5A oder 0x5B ist. Da der ADDR Pin nicht angeschlossen ist, ist die I2C-Adresse 0x5A.
+				%TODO funktionsweise eines Metall  oxid Sensors, entweder hier oder in REcherche
 	\section{Ausblick und Erweiterungsmöglichkeiten}
 		
 		
-	\section{Zustandsdiagramm}
-	\tikzstyle{block} = [rectangle, draw, fill=white!20, text width=20em, text centered, rounded corners, minimum height=4em]
-	\tikzstyle{line} = [draw, Latex,length=3mm, width=2mm]
-	\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=5cm, minimum height=5em]
-	
-	\begin{tikzpicture}[node distance = 2cm, auto]
-		% Place nodes
-		\node [block, align= center] (start) {APP\_STARTUP\_STATE \\ appInitUsartManager \\initTimer};
-		\node [block, below of=start] (startnetwork) {APP\_STARTJOIN\_NETWORK \\ ZDO\_StartNetworkReq};
-		\node [block, below of=startnetwork] (initendpoint) {APP\_INIT\_ENDPOINT \\ initEndpoint};
-		\node [block, below of=initendpoint] (inittransmit) {APP\_INIT\_TRANSMITDATA \\ initTransmitData};
-		\node [block, below of=inittransmit] (appresetccsswstate) {APP\_RESET\_CCS\_SW\_STATE \\ I2C-Write: 0xFF 0x11 0xE5 0x72 0x8A \\ SW\_RESET\_REG \\ SW\_RESET\_SEQUENCE};
-		\node [block, below of=appresetccsswstate] (appccshwidwriteregstate) {APP\_CCS\_HW\_ID\_WRITE\_REG\_STATE \\ I2C-Write: 0x20 \\ HW\_ID\_REG};
-		\node [block, below of=appccshwidwriteregstate] (appccshwidreadstate) {APP\_CCS\_HW\_ID\_READ\_STATE \\ I2C-Read: 1 byte \\ Hardware ID has to be 0x81};
-		\node [block, below of=appccshwidreadstate] (appccschangetoappstatestate) {APP\_CCS\_CHANGE\_TO\_APPSTATE\_STATE \\ I2C-Write: 0xF4 \\ BOOTLOADER\_APP\_START};
-		\node [block, below of=appccschangetoappstatestate] (appccswritemeasregstate) {APP\_CCS\_WRITE\_MEAS\_REG\_STATE \\ I2C-Write: 0x01 0xTODO \\ MEAS\_MODE\_REG \\ (Measure every TODO)};
-		\node [block, below of=appccswritemeasregstate] (appccswritestatusregstate) {APP\_CCS\_WRITE\_STATUS\_REG\_STATE \\ I2C-Write: 0x00\\STATUS\_REG};
-		\node [block, below of=appccswritestatusregstate] (appccsreadstatusregstate) {APP\_CCS\_READ\_STATUS\_REG\_STATE \\ I2C-Read: 1 byte\\ Bit 0: error \\ Bit 3: data ready};
-		\node [block, below of=appccsreadstatusregstate] (appresetscdstate) {APP\_RESET\_SCD\_STATE \\ I2C-Write: 0x3F 0x86\\ TODO ask Achim};
-		\node [block, right of=appresetscdstate, node distance=8cm] (appinitsensorstate) {APP\_INIT\_SENSOR\_STATE \\ I2C-Write: 0x21 0xB1\\ TODO ask Achim \\ HAL\_StartAppTimer(30 s)};
-		\node [block, above of=appinitsensorstate] (appcallforreadscdstate) {APP\_CALL\_FOR\_READ\_SCD\_STATE \\ I2C-Write:TODO\\ TODO ask Achim};
-		\node [block, above of=appcallforreadscdstate] (appreadscdstate) {APP\_READ\_SCD\_STATE \\ I2C-Read: 9 bytes\\ TODO ask Achim};
-		\node [block, above of=appreadscdstate] (appcallforreadtempshtstate) {APP\_CALL\_FOR\_READ\_TEMP\_SHT\_STATE\\ I2C-Write: TODO\\ TODO ask Achim};
-		\node [block, above of=appcallforreadtempshtstate] (appreadtempshtstate) {APP\_READ\_TEMP\_SHT\_STATE\\ I2C-Read: 2 bytes\\ TODO ask Achim};
-		\node [block, above of=appreadtempshtstate] (appcallforreadrhshtstate) {APP\_CALL\_FOR\_READ\_RH\_SHT\_STATE\\ I2C-Write: TODO\\ TODO ask Achim};
-		\node [block, above of=appcallforreadrhshtstate] (appreadrhshtstate) {APP\_READ\_RH\_SHT\_STATE\\ I2C-Read: 2 bytes\\ TODO ask Achim};
-		\node [block, above of=appreadrhshtstate] (appccswriteresultregstate) {APP\_CCS\_WRITE\_RESULT\_REG\_STATE\\ I2C-Write: 0x02\\ ALG\_RESULT\_DATA\_REG};
-		\node [block, above of=appccswriteresultregstate] (appccsreadresultregstate) {APP\_CCS\_READ\_RESULT\_REG\_STATE\\ I2C-Read: 4 bytes (eCO2 | TVOC)};
-		\node [block, above of=appccsreadresultregstate] (appausgabestate) {APP\_AUSGABE\_STATE\\ calculating outpout of SCD,SHT,CCS};
-		\node [block, above of=appausgabestate] (transmit) {APP\_TRANSMIT \\ encode Message \\ send Message};
-		
-		
-		%\node [block, right of=initendpoint, node distance=8cm] (resetCCS) {APP_RESET_CCS_SW_STATE};
-		
-		% Draw edges
-		\draw [-latex, line width=2pt] (start) -- (startnetwork);
-		\draw [-latex, line width=2pt] (startnetwork) -- (initendpoint);
-		\draw [-latex, line width=2pt] (initendpoint) -- (inittransmit);
-		\draw [-latex, line width=2pt] (inittransmit) -- (appresetccsswstate);
-		\draw [-latex, line width=2pt] (appresetccsswstate) -- (appccshwidwriteregstate);
-		\draw [-latex, line width=2pt] (appccshwidwriteregstate) -- (appccshwidreadstate);
-		\draw [-latex, line width=2pt] (appccshwidreadstate) -- (appccschangetoappstatestate);
-		\draw [-latex, line width=2pt] (appccschangetoappstatestate) -- (appccswritemeasregstate);
-		\draw [-latex, line width=2pt] (appccswritemeasregstate) -- (appccswritestatusregstate);
-		\draw [-latex, line width=2pt] (appccswritestatusregstate) -- (appccsreadstatusregstate);
-		\draw [-latex, line width=2pt] (appccsreadstatusregstate) -- (appresetscdstate);
-		\draw [-latex, line width=2pt] (appresetscdstate) -- (appinitsensorstate);
-		\draw [-latex, line width=2pt] (appinitsensorstate) -- (appcallforreadscdstate);
-		\draw [-latex, line width=2pt] (appcallforreadscdstate) -- (appreadscdstate);
-		\draw [-latex, line width=2pt] (appreadscdstate) -- (appcallforreadtempshtstate);
-		\draw [-latex, line width=2pt] (appcallforreadtempshtstate) -- (appreadtempshtstate);
-		\draw [-latex, line width=2pt] (appreadtempshtstate) -- (appcallforreadrhshtstate);
-		\draw [-latex, line width=2pt] (appcallforreadrhshtstate) -- (appccswriteresultregstate);
-		\draw [-latex, line width=2pt] (appccswriteresultregstate) -- (appccsreadresultregstate);
-		\draw [-latex, line width=2pt] (appccsreadresultregstate) -- (appausgabestate);
-		\draw [-latex, line width=2pt] (appausgabestate) -- (transmit);
-		\draw [-latex, line width=2pt] (transmit) -- (appinitsensorstate);
-	
-	
-	\end{tikzpicture}
+
 %----------------------------------------------------------------------------
 % Bibliography
 %----------------------------------------------------------------------------	

@@ -5,11 +5,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2}Aufgabenaufteilung}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1}Friedrich Just}{4}{}%
+\contentsline {subsection}{\numberline {2.1}Friedrich Just}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2}Stipe Knez}{4}{}%
+\contentsline {subsection}{\numberline {2.2}Stipe Knez}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3}Lucas Merkert}{4}{}%
+\contentsline {subsection}{\numberline {2.3}Lucas Merkert}{3}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.4}Achim Glaesmann}{4}{}%
 \defcounter {refsection}{0}\relax 
@@ -21,6 +21,12 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4}Lösungsansatz}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Ausblick und Erweiterungsmöglichkeiten}{4}{}%
+\contentsline {subsection}{\numberline {4.1}SHT21}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Zustandsdiagramm}{4}{}%
+\contentsline {subsection}{\numberline {4.2}SCD41}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3}CCS811}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.4}Probleme bei der Programmierung des CCS811}{7}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5}Ausblick und Erweiterungsmöglichkeiten}{7}{}%
