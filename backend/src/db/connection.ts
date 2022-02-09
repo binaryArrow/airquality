@@ -191,6 +191,7 @@ export class Connection {
         }
     }
 
+    //knexjs wird hier benutzt, wenn ihr queries schreibt dann mit knex
     getSensorData(sensorId: number, amount: number) {
         try {
             return this.dbConnection('sensor-data').select('*')
