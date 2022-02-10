@@ -108,12 +108,12 @@ export default defineComponent({
             this.tempData1 = []
             this.tempData2 = []
             this.tempData3 = []
-            this.medianCalculation(3, "temperature" )
+            this.medianCalculation(3, options )
           }else if(options === "humidity"){
             this.humData1 = []
             this.humData2 = []
             this.humData3 = []
-            this.medianCalculation(3, "humidity")
+            this.medianCalculation(3, options)
           }
         },
         calculate24Hours(options) {
@@ -122,12 +122,12 @@ export default defineComponent({
             this.tempData1 = []
             this.tempData2 = []
             this.tempData3 = []
-            this.medianCalculation(12, "temperature")
+            this.medianCalculation(12, options)
           }else if(options === "humidity"){
             this.humData1 = []
             this.humData2 = []
             this.humData3 = []
-            this.medianCalculation(12, "humidity")
+            this.medianCalculation(12, options)
           }
           this.loaded = true
         },
@@ -137,12 +137,12 @@ export default defineComponent({
             this.tempData1 = []
             this.tempData2 = []
             this.tempData3 = []
-            this.medianCalculation(84, "temperature")
+            this.medianCalculation(84, options)
           } else if (options === "humidity") {
             this.humData1 = []
             this.humData2 = []
             this.humData3 = []
-            this.medianCalculation(84, "humidity")
+            this.medianCalculation(84, options)
             this.loaded = true
           }
         },
@@ -176,25 +176,36 @@ export default defineComponent({
                 median = 0
               }
             }
-          }
-          median = 0
-          for (let i = 0; i < this.sensorData2.length; i++) {
-            if (i % medianCalculationSize !== 0 && i !== 0) {
-              median += parseFloat(this.sensorData2[i - 1].tempSHT21) / 100
-            } else if (i !== 0) {
-              this.tempData2.push(median / medianCalculationSize)
-              median = 0
+          }else if (options === "humidity"){
+            for (let i = 0; i < this.sensorData1.length; i++) {
+              if (i % medianCalculationSize !== 0 && i !== 0) {
+                median += parseFloat(this.sensorData1[i - 1].humSHT21) / 100
+              } else if (i !== 0) {
+                this.humData1.push(median / medianCalculationSize)
+                median = 0
+              }
             }
-          }
-          median = 0
-          for (let i = 0; i < this.sensorData3.length; i++) {
-            if (i % medianCalculationSize !== 0 && i !== 0) {
-              median += parseFloat(this.sensorData3[i - 1].tempSHT21) / 100
-            } else if (i !== 0) {
-              this.tempData3.push(median / medianCalculationSize)
-              median = 0
+            median = 0
+            for (let i = 0; i < this.sensorData2.length; i++) {
+              if (i % medianCalculationSize !== 0 && i !== 0) {
+                median += parseFloat(this.sensorData2[i - 1].humSHT21) / 100
+              } else if (i !== 0) {
+                this.humData2.push(median / medianCalculationSize)
+                median = 0
+              }
             }
+            median = 0
+            for (let i = 0; i < this.sensorData3.length; i++) {
+              if (i % medianCalculationSize !== 0 && i !== 0) {
+                median += parseFloat(this.sensorData3[i - 1].humSHT21) / 100
+              } else if (i !== 0) {
+                this.humData3.push(median / medianCalculationSize)
+                median = 0
+              }
+            }
+
           }
+
         },
         async parseData(dataSet, options, optionsDecide) {
           this.loaded = false
