@@ -23,12 +23,25 @@
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneDay('humidity')">1 Tag</button>
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneWeek('humidity')">1 Woche</button>
   </div>
+  <div id="co2-div">
+    <co2-chart
+        v-if="loaded"
+        v-bind:chart-data1="co2Data1"
+        v-bind:chart-data2="co2Data2"
+        v-bind:chart-data3="co2Data3"
+        v-bind:x-axis="labels"
+    />
+    <button class="button is-success" v-bind:disabled="waitButton" @click="sixHours('co2')">6 stunden</button>
+    <button class="button is-success" v-bind:disabled="waitButton" @click="oneDay('co2')">1 Tag</button>
+    <button class="button is-success" v-bind:disabled="waitButton" @click="oneWeek('co2')">1 Woche</button>
+  </div>
 </template>
 
 <script>
 import {defineComponent} from 'vue';
 import {Bar} from "vue3-chart-v2"
 import TemperatureChart from "@/components/TemperatureChart.vue";
+import Co2Chart from "@/components/Co2Chart.vue";
 import HumidityChart from "@/components/HumidityChart";
 import {Communicator} from "@/service/communicator";
 import moment from "moment";
@@ -39,7 +52,8 @@ export default defineComponent({
       extends: Bar,
       components: {
         TemperatureChart,
-        HumidityChart
+        HumidityChart,
+        Co2Chart
       },
       data() {
         return {
@@ -48,12 +62,15 @@ export default defineComponent({
           sensorData1: [],
           tempData1: [],
           humData1: [],
+          co2Data1:[],
           sensorData2: [],
           tempData2: [],
           humData2: [],
+          co2Data2: [],
           sensorData3: [],
           tempData3: [],
           humData3: [],
+          co2Data3:[],
           waitButton: false,
           communicator: new Communicator(),
           labels: []
@@ -72,6 +89,9 @@ export default defineComponent({
           } else if(options === "humidity"){
             this.parseData(6 * 60, 6, options)
             this.setXaxisHours(6)
+          }else if (options === "co2"){
+            this.parseData(6 * 60, 6, options)
+            this.setXaxisHours(6)
           }
           setTimeout(() => {
             this.waitButton = false
@@ -85,6 +105,9 @@ export default defineComponent({
           }else if(options === "humidity"){
             this.parseData(24 * 60, 24, options)
             this.setXaxisHours(24)
+          }else if (options === "co2"){
+            this.parseData(6 * 60, 6, options)
+            this.setXaxisHours(6)
           }
           setTimeout(() => {
             this.waitButton = false
@@ -98,6 +121,9 @@ export default defineComponent({
           }else if(options === "humidity"){
             this.parseData(168 * 60, 168, options)
             this.setXaxisHours(168)
+          }else if (options === "co2"){
+            this.parseData(6 * 60, 6, options)
+            this.setXaxisHours(6)
           }
           setTimeout(() => {
             this.waitButton = false
@@ -108,13 +134,17 @@ export default defineComponent({
             this.tempData1 = []
             this.tempData2 = []
             this.tempData3 = []
-            this.medianCalculation(3, options )
+            this.medianCalculation(3, options)
           }else if(options === "humidity"){
             this.humData1 = []
             this.humData2 = []
             this.humData3 = []
             this.medianCalculation(3, options)
-          }
+          }else if(options === "co2"){
+            this.co2Data1 = []
+            this.co2Data2 = []
+            this.co2Data3 = []
+            this.medianCalculationCO2(3, options)}
         },
         calculate24Hours(options) {
           this.loaded = false
@@ -128,7 +158,11 @@ export default defineComponent({
             this.humData2 = []
             this.humData3 = []
             this.medianCalculation(12, options)
-          }
+          }else if(options === "co2"){
+            this.co2Data1 = []
+            this.co2Data2 = []
+            this.co2Data3 = []
+            this.medianCalculationCO2(12)}
           this.loaded = true
         },
         calculate1Week(options) {
@@ -144,7 +178,11 @@ export default defineComponent({
             this.humData3 = []
             this.medianCalculation(84, options)
             this.loaded = true
-          }
+          }else if(options === "co2"){
+            this.co2Data1 = []
+            this.co2Data2 = []
+            this.co2Data3 = []
+            this.medianCalculationCO2(84)}
         },
         medianCalculation(medianSize, options) {
           const medianCalculationSize = medianSize
@@ -176,36 +214,37 @@ export default defineComponent({
                 median = 0
               }
             }
-          }else if (options === "humidity"){
-            for (let i = 0; i < this.sensorData1.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData1[i - 1].humSHT21) / 100
-              } else if (i !== 0) {
-                this.humData1.push(median / medianCalculationSize)
-                median = 0
-              }
-            }
-            median = 0
-            for (let i = 0; i < this.sensorData2.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData2[i - 1].humSHT21) / 100
-              } else if (i !== 0) {
-                this.humData2.push(median / medianCalculationSize)
-                median = 0
-              }
-            }
-            median = 0
-            for (let i = 0; i < this.sensorData3.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData3[i - 1].humSHT21) / 100
-              } else if (i !== 0) {
-                this.humData3.push(median / medianCalculationSize)
-                median = 0
-              }
-            }
-
           }
-
+        },
+        medianCalculationCO2(medianSize) {
+          const medianCalculationSize = medianSize
+          let median = 0
+          for (let i = 0; i < this.sensorData1.length; i++) {
+            if (i % medianCalculationSize !== 0 && i !== 0) {
+              median += parseFloat(this.sensorData1[i - 1].co2SCD41) / 100
+            } else if (i !== 0) {
+              this.co2Data1.push(median / medianCalculationSize)
+              median = 0
+            }
+          }
+          median = 0
+          for (let i = 0; i < this.sensorData2.length; i++) {
+            if (i % medianCalculationSize !== 0 && i !== 0) {
+              median += parseFloat(this.sensorData2[i - 1].co2SCD41) / 100
+            } else if (i !== 0) {
+              this.co2Data2.push(median / medianCalculationSize)
+              median = 0
+            }
+          }
+          median = 0
+          for (let i = 0; i < this.sensorData3.length; i++) {
+            if (i % medianCalculationSize !== 0 && i !== 0) {
+              median += parseFloat(this.sensorData3[i - 1].co2SCD41) / 100
+            } else if (i !== 0) {
+              this.co2Data3.push(median / medianCalculationSize)
+              median = 0
+            }
+          }
         },
         async parseData(dataSet, options, optionsDecide) {
           this.loaded = false
@@ -294,4 +333,11 @@ export default defineComponent({
   left: 850px;
   bottom: 250px;
 }
+#co2-div {
+  height: 250px;
+  width: 800px;
+  position: relative;
+  top: 225px;
+}
+
 </style>
