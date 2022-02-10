@@ -3,8 +3,7 @@ import Room from "../models/Room";
 import {SensorData} from "../models/SensorData";
 import Sensor from "../models/Sensor";
 import path from "path";
-// const { raw } = require('objection'); weiß nicht ob das richtig ist (evtl. benötigt für die Time query bei Knex)
-
+import moment from "moment";
 
 export class Connection {
     private dbConnection: any
@@ -194,27 +193,49 @@ export class Connection {
     }
 
     //knexjs wird hier benutzt, wenn ihr queries schreibt dann mit knex
-    getSensorData(sensorId: number, amount: number /*, timeInHours: number*/) {
+    getSensorData(sensorId: number, amount: number , timeInHours: number) {
         try {
-            /*if(timeInHours === 6){
+            console.log(timeInHours)
+            if(timeInHours == 6){
+                const startDate = moment(moment.now());
+                const dateStart = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.hour()}:${startDate.minutes()}:${startDate.seconds()}`
+                startDate.subtract(timeInHours, "hours")
+                const dateEnd = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.hour()}:${startDate.minutes()}:${startDate.seconds()}`
+                console.log(dateStart)
+                console.log(dateEnd)
                 return this.dbConnection('sensor-data').select('*')
                     .where('sensorId', sensorId)
-                    .where('created_at', '>=', raw(`now() - (?*'1 HOUR'::INTERVAL)`, [6]))
+                    .where('created_at', '>=', dateEnd)
+                    .where('created_at', '<', dateStart)
                     .orderBy('id', "desc")
                     .limit(amount)
-            } else if(timeInHours === 24){
+            } else if(timeInHours == 24){
+                const startDate = moment(moment.now());
+                const dateStart = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.hour()}:${startDate.minutes()}:${startDate.seconds()}`
+                startDate.subtract(timeInHours, "hours")
+                const dateEnd = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.hour()}:${startDate.minutes()}:${startDate.seconds()}`
+                console.log(dateStart)
+                console.log(dateEnd)
                 return this.dbConnection('sensor-data').select('*')
                     .where('sensorId', sensorId)
-                    .where('created_at', '>=', raw(`now() - (?*'1 HOUR'::INTERVAL)`, [12]))
+                    .where('created_at', '>=', dateEnd)
+                    .where('created_at', '<', dateStart)
                     .orderBy('id', "desc")
                     .limit(amount)
-            }else if(timeInHours === 168){
+            }else if(timeInHours == 168){
+                const startDate = moment(moment.now());
+                const dateStart = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.hour()}:${startDate.minutes()}:${startDate.seconds()}`
+                startDate.subtract(timeInHours, "hours")
+                const dateEnd = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.hour()}:${startDate.minutes()}:${startDate.seconds()}`
+                console.log(dateStart)
+                console.log(dateEnd)
                 return this.dbConnection('sensor-data').select('*')
                     .where('sensorId', sensorId)
-                    .where('created_at', '>=', raw(`now() - (?*'1 HOUR'::INTERVAL)`, [168]))
+                    .where('created_at', '>=', dateEnd)
+                    .where('created_at', '<', dateStart)
                     .orderBy('id', "desc")
                     .limit(amount)
-            } */
+            }
             return this.dbConnection('sensor-data').select('*')
                 .where('sensorId', sensorId)
                 .orderBy('id', "desc")

@@ -52,8 +52,8 @@ export class Communicator {
             .then((res) => res.json())
             .catch(e => console.log(e.message))
     }
-    async getSensorData(sensorId: number, amount: number): Promise<SensorData[]>{
-        return fetch(`http://localhost:3000/sensordata/${sensorId}/${amount}`, {
+    async getSensorData(sensorId: number, amount: number, timeinhours: number): Promise<SensorData[]>{
+        return fetch(`http://localhost:3000/sensordata/${sensorId}/${amount}/${timeinhours}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })

@@ -29,8 +29,9 @@ app.get('/rooms', async (req: any, res: any) => {
     const rooms = await connection.getAllRooms()
     res.status(200).json(rooms)
 })
-app.get('/sensordata/:sensorId/:amount', async (req: any, res: any )=>{
-    const sensordata = await connection.getSensorData(req.params.sensorId, req.params.amount)
+app.get('/sensordata/:sensorId/:amount/:timeinhours', async (req: any, res: any )=>{
+    const sensordata = await connection.getSensorData(req.params.sensorId, req.params.amount, req.params.timeinhours)
+    console.log("hello")
     res.status(200).json(sensordata)
 })
 app.post('/rooms', async (req: any, res: any) => {

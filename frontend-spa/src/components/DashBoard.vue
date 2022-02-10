@@ -281,19 +281,19 @@ export default defineComponent({
         async parseData(dataSet, options, optionsDecide) {
           this.loaded = false
           this.sensorData1 = []
-          await this.communicator.getSensorData(1, dataSet/*, options*/).then(data => {
+          await this.communicator.getSensorData(1, dataSet, options).then(data => {
             data.forEach(value => {
               this.sensorData1.push(value)
             })
           })
           this.sensorData2 = []
-          await this.communicator.getSensorData(2, dataSet/*, options*/).then(data => {
+          await this.communicator.getSensorData(2, dataSet, options).then(data => {
             data.forEach(value => {
               this.sensorData2.push(value)
             })
           })
           this.sensorData3 = []
-          await this.communicator.getSensorData(3, dataSet/*, options*/).then(data => {
+          await this.communicator.getSensorData(3, dataSet, options).then(data => {
             data.forEach(value => {
               this.sensorData3.push(value)
             })
