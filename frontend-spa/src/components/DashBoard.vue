@@ -11,12 +11,25 @@
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneDay('temperature')">1 Tag</button>
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneWeek('temperature')">1 Woche</button>
   </div>
+  <div id="hum-div">
+    <humidity-chart
+        v-if="loaded"
+        v-bind:chart-data1="humData1"
+        v-bind:chart-data2="humData2"
+        v-bind:chart-data3="humData3"
+        v-bind:x-axis="labels"
+    />
+    <button class="button is-success" v-bind:disabled="waitButton" @click="sixHours('humidity')">6 stunden</button>
+    <button class="button is-success" v-bind:disabled="waitButton" @click="oneDay('humidity')">1 Tag</button>
+    <button class="button is-success" v-bind:disabled="waitButton" @click="oneWeek('humidity')">1 Woche</button>
+  </div>
 </template>
 
 <script>
 import {defineComponent} from 'vue';
 import {Bar} from "vue3-chart-v2"
 import TemperatureChart from "@/components/TemperatureChart.vue";
+import HumidityChart from "@/components/HumidityChart";
 import {Communicator} from "@/service/communicator";
 import moment from "moment";
 
@@ -25,7 +38,8 @@ export default defineComponent({
       name: "DashBoard",
       extends: Bar,
       components: {
-        TemperatureChart
+        TemperatureChart,
+        HumidityChart
       },
       data() {
         return {
@@ -33,10 +47,13 @@ export default defineComponent({
           loaded: false,
           sensorData1: [],
           tempData1: [],
+          humData1: [],
           sensorData2: [],
           tempData2: [],
+          humData2: [],
           sensorData3: [],
           tempData3: [],
+          humData3: [],
           waitButton: false,
           communicator: new Communicator(),
           labels: []
@@ -50,7 +67,10 @@ export default defineComponent({
         sixHours(options) {
           this.waitButton = true
           if (options === "temperature") {
-            this.parseData(6 * 60, 6)
+            this.parseData(6 * 60, 6, options)
+            this.setXaxisHours(6)
+          } else if(options === "humidity"){
+            this.parseData(6 * 60, 6, options)
             this.setXaxisHours(6)
           }
           setTimeout(() => {
@@ -60,7 +80,10 @@ export default defineComponent({
         oneDay(options) {
           this.waitButton = true
           if (options === "temperature") {
-            this.parseData(24 * 60, 24)
+            this.parseData(24 * 60, 24, options)
+            this.setXaxisHours(24)
+          }else if(options === "humidity"){
+            this.parseData(24 * 60, 24, options)
             this.setXaxisHours(24)
           }
           setTimeout(() => {
@@ -70,44 +93,88 @@ export default defineComponent({
         oneWeek(options) {
           this.waitButton = true
           if (options === "temperature") {
-            this.parseData(168 * 60, 168)
+            this.parseData(168 * 60, 168, options)
+            this.setXaxisHours(168)
+          }else if(options === "humidity"){
+            this.parseData(168 * 60, 168, options)
             this.setXaxisHours(168)
           }
           setTimeout(() => {
             this.waitButton = false
           }, 2000)
         },
-        calculate6Hours() {
-          this.tempData1 = []
-          this.tempData2 = []
-          this.tempData3 = []
-          this.medianCalculationTemp(3)
+        calculate6Hours(options) {
+          if(options === "temperature"){
+            this.tempData1 = []
+            this.tempData2 = []
+            this.tempData3 = []
+            this.medianCalculation(3, "temperature" )
+          }else if(options === "humidity"){
+            this.humData1 = []
+            this.humData2 = []
+            this.humData3 = []
+            this.medianCalculation(3, "humidity")
+          }
         },
-        calculate24Hours() {
+        calculate24Hours(options) {
           this.loaded = false
-          this.tempData1 = []
-          this.tempData2 = []
-          this.tempData3 = []
-          this.medianCalculationTemp(12)
+          if(options === "temperature"){
+            this.tempData1 = []
+            this.tempData2 = []
+            this.tempData3 = []
+            this.medianCalculation(12, "temperature")
+          }else if(options === "humidity"){
+            this.humData1 = []
+            this.humData2 = []
+            this.humData3 = []
+            this.medianCalculation(12, "humidity")
+          }
           this.loaded = true
         },
-        calculate1Week() {
+        calculate1Week(options) {
           this.loaded = false
-          this.tempData1 = []
-          this.tempData2 = []
-          this.tempData3 = []
-          this.medianCalculationTemp(84)
-          this.loaded = true
+          if (options === "temperature") {
+            this.tempData1 = []
+            this.tempData2 = []
+            this.tempData3 = []
+            this.medianCalculation(84, "temperature")
+          } else if (options === "humidity") {
+            this.humData1 = []
+            this.humData2 = []
+            this.humData3 = []
+            this.medianCalculation(84, "humidity")
+            this.loaded = true
+          }
         },
-        medianCalculationTemp(medianSize) {
+        medianCalculation(medianSize, options) {
           const medianCalculationSize = medianSize
           let median = 0
-          for (let i = 0; i < this.sensorData1.length; i++) {
-            if (i % medianCalculationSize !== 0 && i !== 0) {
-              median += parseFloat(this.sensorData1[i - 1].tempSHT21) / 100
-            } else if (i !== 0) {
-              this.tempData1.push(median / medianCalculationSize)
-              median = 0
+          if(options === "temperature"){
+            for (let i = 0; i < this.sensorData1.length; i++) {
+              if (i % medianCalculationSize !== 0 && i !== 0) {
+                median += parseFloat(this.sensorData1[i - 1].tempSHT21) / 100
+              } else if (i !== 0) {
+                this.tempData1.push(median / medianCalculationSize)
+                median = 0
+              }
+            }
+            median = 0
+            for (let i = 0; i < this.sensorData2.length; i++) {
+              if (i % medianCalculationSize !== 0 && i !== 0) {
+                median += parseFloat(this.sensorData2[i - 1].tempSHT21) / 100
+              } else if (i !== 0) {
+                this.tempData2.push(median / medianCalculationSize)
+                median = 0
+              }
+            }
+            median = 0
+            for (let i = 0; i < this.sensorData3.length; i++) {
+              if (i % medianCalculationSize !== 0 && i !== 0) {
+                median += parseFloat(this.sensorData3[i - 1].tempSHT21) / 100
+              } else if (i !== 0) {
+                this.tempData3.push(median / medianCalculationSize)
+                median = 0
+              }
             }
           }
           median = 0
@@ -129,22 +196,22 @@ export default defineComponent({
             }
           }
         },
-        async parseData(dataSet, options) {
+        async parseData(dataSet, options, optionsDecide) {
           this.loaded = false
           this.sensorData1 = []
-          await this.communicator.getSensorData(1, dataSet).then(data => {
+          await this.communicator.getSensorData(1, dataSet/*, options*/).then(data => {
             data.forEach(value => {
               this.sensorData1.push(value)
             })
           })
           this.sensorData2 = []
-          await this.communicator.getSensorData(2, dataSet).then(data => {
+          await this.communicator.getSensorData(2, dataSet/*, options*/).then(data => {
             data.forEach(value => {
               this.sensorData2.push(value)
             })
           })
           this.sensorData3 = []
-          await this.communicator.getSensorData(3, dataSet).then(data => {
+          await this.communicator.getSensorData(3, dataSet/*, options*/).then(data => {
             data.forEach(value => {
               this.sensorData3.push(value)
             })
@@ -152,13 +219,13 @@ export default defineComponent({
           switch (options) {
             case 0:
             case 6:
-              this.calculate6Hours()
+              this.calculate6Hours(optionsDecide)
               break;
             case 24:
-              this.calculate24Hours()
+              this.calculate24Hours(optionsDecide)
               break;
             case 168:
-              this.calculate1Week()
+              this.calculate1Week(optionsDecide)
               break;
           }
           this.loaded = true
@@ -209,5 +276,11 @@ export default defineComponent({
   height: 250px;
   width: 800px;
 }
-
+#hum-div {
+  height: 250px;
+  width: 800px;
+  position: relative;
+  left: 850px;
+  bottom: 250px;
+}
 </style>

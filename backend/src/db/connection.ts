@@ -3,6 +3,8 @@ import Room from "../models/Room";
 import {SensorData} from "../models/SensorData";
 import Sensor from "../models/Sensor";
 import path from "path";
+// const { raw } = require('objection'); weiß nicht ob das richtig ist (evtl. benötigt für die Time query bei Knex)
+
 
 export class Connection {
     private dbConnection: any
@@ -192,8 +194,27 @@ export class Connection {
     }
 
     //knexjs wird hier benutzt, wenn ihr queries schreibt dann mit knex
-    getSensorData(sensorId: number, amount: number) {
+    getSensorData(sensorId: number, amount: number /*, timeInHours: number*/) {
         try {
+            /*if(timeInHours === 6){
+                return this.dbConnection('sensor-data').select('*')
+                    .where('sensorId', sensorId)
+                    .where('created_at', '>=', raw(`now() - (?*'1 HOUR'::INTERVAL)`, [6]))
+                    .orderBy('id', "desc")
+                    .limit(amount)
+            } else if(timeInHours === 24){
+                return this.dbConnection('sensor-data').select('*')
+                    .where('sensorId', sensorId)
+                    .where('created_at', '>=', raw(`now() - (?*'1 HOUR'::INTERVAL)`, [12]))
+                    .orderBy('id', "desc")
+                    .limit(amount)
+            }else if(timeInHours === 168){
+                return this.dbConnection('sensor-data').select('*')
+                    .where('sensorId', sensorId)
+                    .where('created_at', '>=', raw(`now() - (?*'1 HOUR'::INTERVAL)`, [168]))
+                    .orderBy('id', "desc")
+                    .limit(amount)
+            } */
             return this.dbConnection('sensor-data').select('*')
                 .where('sensorId', sensorId)
                 .orderBy('id', "desc")

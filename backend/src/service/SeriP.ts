@@ -36,6 +36,7 @@ export class SeriP {
             const eco2CCS811 = recieveArr[6]
             const tvocCCS811 = recieveArr[7]
             const battery = recieveArr[8]
+
             this.dataset = new SensorData(id, tempSHT21, humSHT21, tempSCD41, humSCD41, co2SCD41, eco2CCS811, tvocCCS811, battery)    // object to save in db
             console.log('Data:', id, tempSHT21, humSHT21, tempSCD41, humSCD41, co2SCD41, eco2CCS811, tvocCCS811, battery);
             await this.connection.insertSensorData(this.dataset)// save object in database
@@ -43,5 +44,4 @@ export class SeriP {
         })
     }
 }
-
 
