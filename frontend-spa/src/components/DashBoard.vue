@@ -221,8 +221,7 @@ export default defineComponent({
                 median = 0
               }
             }
-          }
-          if (options === "co2") {
+          } else if (options === "co2") {
             median = 0
             for (let i = 0; i < this.sensorData1.length; i++) {
               if (i % medianCalculationSize !== 0 && i !== 0) {
@@ -247,6 +246,33 @@ export default defineComponent({
                 median += parseFloat(this.sensorData3[i - 1].co2SCD41) / 100
               } else if (i !== 0) {
                 this.co2Data3.push(median / medianCalculationSize)
+                median = 0
+              }
+            }
+          } else if (options === "humidity") {
+            for (let i = 0; i < this.sensorData1.length; i++) {
+              if (i % medianCalculationSize !== 0 && i !== 0) {
+                median += parseFloat(this.sensorData1[i - 1].humSHT21) / 100
+              } else if (i !== 0) {
+                this.humData1.push(median / medianCalculationSize)
+                median = 0
+              }
+            }
+            median = 0
+            for (let i = 0; i < this.sensorData2.length; i++) {
+              if (i % medianCalculationSize !== 0 && i !== 0) {
+                median += parseFloat(this.sensorData2[i - 1].humSHT21) / 100
+              } else if (i !== 0) {
+                this.humData2.push(median / medianCalculationSize)
+                median = 0
+              }
+            }
+            median = 0
+            for (let i = 0; i < this.sensorData3.length; i++) {
+              if (i % medianCalculationSize !== 0 && i !== 0) {
+                median += parseFloat(this.sensorData3[i - 1].humSHT21) / 100
+              } else if (i !== 0) {
+                this.humData3.push(median / medianCalculationSize)
                 median = 0
               }
             }
@@ -326,8 +352,7 @@ export default defineComponent({
                 break;
               }
             }
-          }
-          else if (options === "co2") {
+          } else if (options === "co2") {
             this.labelsCo2 = []
             switch (hours) {
               case 6: {
@@ -361,8 +386,7 @@ export default defineComponent({
                 break;
               }
             }
-          }
-          else if (options === "humidity") {
+          } else if (options === "humidity") {
             this.labelsHum = []
             switch (hours) {
               case 6: {
