@@ -30,5 +30,40 @@
     \field{month}{12}
     \field{year}{2016}
   \endentry
+
+  \entry{wiki_gassensor}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{title}{Gassensor}
+    \verb{url}
+    \verb https://de.wikipedia.org/wiki/Gassensor
+    \endverb
+    \field{day}{10}
+    \field{month}{02}
+    \field{year}{2022}
+  \endentry
+
+  \entry{metalloxidsensor}{article}{}
+    \name{author}{1}{}{%
+      {{hash=WPDJ}{%
+         family={Wöllenstein},
+         familyi={W\bibinitperiod},
+         given={Prof. Dr.\bibnamedelima Jürgen},
+         giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim
+  J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WPDJ1}
+    \strng{fullhash}{WPDJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Halbleiter-Gassensoren in Dünn- und Dickschichttechnik}
+    \field{day}{10}
+    \field{month}{02}
+    \field{year}{2022}
+  \endentry
 \enddatalist
 \endinput
