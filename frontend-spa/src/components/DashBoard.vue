@@ -193,25 +193,30 @@ export default defineComponent({
         },
         medianCalculation(medianSize, options) {
           const medianCalculationSize = medianSize
+          const nowDate = moment(moment.now())
+          let diff = 0
+          let diffTicks = 0
           if (options === "temperature") {
             let finalSensorData1 = []
-            let variableForData = 0
             for (let i = 0; i < 120; i++) {
-              this.tempData1.push(0)
+              this.tempData1.push(null)
             }
             for (let i = 0; i < this.sensorData1.length; i++) {
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData1[i])
-                  finalSensorData1.push(parseFloat(this.sensorData1[i].tempSHT21) / 100)
-                console.log(finalSensorData1)
+                  finalSensorData1.push({
+                    data: parseFloat(this.sensorData1[i].tempSHT21) / 100,
+                    timestamp: this.sensorData1[i].created_at
+                  })
               }
             }
-            for (let i = 119; i >= 0; i--) {
-              if (variableForData < finalSensorData1.length) {
-                this.tempData1[i] = finalSensorData1[variableForData]
+            finalSensorData1.forEach(data=>{
+              if(nowDate.isAfter(data.timestamp)){
+                diff = moment(data.timestamp,'YYYY-MM-DD HH:mm:ss').diff(nowDate, 'minutes')
+                diffTicks = Math.floor(Math.abs(diff/medianSize))
+                this.tempData1[this.tempData1.length-diffTicks] = data.data
               }
-              variableForData++
-            }
+            })
             for (let i = 0; i < this.sensorData2.length; i++) {
               if (i % medianCalculationSize !== 0 && i !== 0) {
                 this.tempData2.push(parseFloat(this.sensorData2[i - 1].tempSHT21) / 100)
