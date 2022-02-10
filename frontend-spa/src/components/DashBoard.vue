@@ -193,90 +193,92 @@ export default defineComponent({
         },
         medianCalculation(medianSize, options) {
           const medianCalculationSize = medianSize
-          let median = 0
           if (options === "temperature") {
+            let finalSensorData1 = []
+            let variableForData = 0
+            for (let i = 0; i < 120; i++) {
+              this.tempData1.push(0)
+            }
             for (let i = 0; i < this.sensorData1.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData1[i - 1].tempSHT21) / 100
-              } else if (i !== 0) {
-                this.tempData1.push(median / medianCalculationSize)
-                median = 0
+              if (i % medianCalculationSize === 0 && i !== 0) {
+                if (this.sensorData1[i])
+                  finalSensorData1.push(parseFloat(this.sensorData1[i].tempSHT21) / 100)
+                console.log(finalSensorData1)
               }
             }
-            median = 0
+            for (let i = 119; i >= 0; i--) {
+              if (variableForData < finalSensorData1.length) {
+                this.tempData1[i] = finalSensorData1[variableForData]
+              }
+              variableForData++
+            }
             for (let i = 0; i < this.sensorData2.length; i++) {
               if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData2[i - 1].tempSHT21) / 100
-              } else if (i !== 0) {
-                this.tempData2.push(median / medianCalculationSize)
-                median = 0
+                this.tempData2.push(parseFloat(this.sensorData2[i - 1].tempSHT21) / 100)
               }
             }
-            median = 0
             for (let i = 0; i < this.sensorData3.length; i++) {
               if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData3[i - 1].tempSHT21) / 100
-              } else if (i !== 0) {
-                this.tempData3.push(median / medianCalculationSize)
-                median = 0
-              }
-            }
-          } else if (options === "co2") {
-            median = 0
-            for (let i = 0; i < this.sensorData1.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData1[i - 1].co2SCD41) / 100
-              } else if (i !== 0) {
-                this.co2Data1.push(median / medianCalculationSize)
-                median = 0
-              }
-            }
-            median = 0
-            for (let i = 0; i < this.sensorData2.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData2[i - 1].co2SCD41) / 100
-              } else if (i !== 0) {
-                this.co2Data2.push(median / medianCalculationSize)
-                median = 0
-              }
-            }
-            median = 0
-            for (let i = 0; i < this.sensorData3.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData3[i - 1].co2SCD41) / 100
-              } else if (i !== 0) {
-                this.co2Data3.push(median / medianCalculationSize)
-                median = 0
-              }
-            }
-          } else if (options === "humidity") {
-            for (let i = 0; i < this.sensorData1.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData1[i - 1].humSHT21) / 100
-              } else if (i !== 0) {
-                this.humData1.push(median / medianCalculationSize)
-                median = 0
-              }
-            }
-            median = 0
-            for (let i = 0; i < this.sensorData2.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData2[i - 1].humSHT21) / 100
-              } else if (i !== 0) {
-                this.humData2.push(median / medianCalculationSize)
-                median = 0
-              }
-            }
-            median = 0
-            for (let i = 0; i < this.sensorData3.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                median += parseFloat(this.sensorData3[i - 1].humSHT21) / 100
-              } else if (i !== 0) {
-                this.humData3.push(median / medianCalculationSize)
-                median = 0
+                this.tempData3.push(parseFloat(this.sensorData3[i - 1].tempSHT21) / 100)
               }
             }
           }
+          // else if (options === "co2") {
+          //   median = 0
+          //   for (let i = 0; i < this.sensorData1.length; i++) {
+          //     if (i % medianCalculationSize !== 0 && i !== 0) {
+          //       median += parseFloat(this.sensorData1[i - 1].co2SCD41) / 100
+          //     } else if (i !== 0) {
+          //       this.co2Data1.push(median / medianCalculationSize)
+          //       median = 0
+          //     }
+          //   }
+          //   median = 0
+          //   for (let i = 0; i < this.sensorData2.length; i++) {
+          //     if (i % medianCalculationSize !== 0 && i !== 0) {
+          //       median += parseFloat(this.sensorData2[i - 1].co2SCD41) / 100
+          //     } else if (i !== 0) {
+          //       this.co2Data2.push(median / medianCalculationSize)
+          //       median = 0
+          //     }
+          //   }
+          //   median = 0
+          //   for (let i = 0; i < this.sensorData3.length; i++) {
+          //     if (i % medianCalculationSize !== 0 && i !== 0) {
+          //       median += parseFloat(this.sensorData3[i - 1].co2SCD41) / 100
+          //     } else if (i !== 0) {
+          //       this.co2Data3.push(median / medianCalculationSize)
+          //       median = 0
+          //     }
+          //   }
+          // } else if (options === "humidity") {
+          //   for (let i = 0; i < this.sensorData1.length; i++) {
+          //     if (i % medianCalculationSize !== 0 && i !== 0) {
+          //       median += parseFloat(this.sensorData1[i - 1].humSHT21) / 100
+          //     } else if (i !== 0) {
+          //       this.humData1.push(median / medianCalculationSize)
+          //       median = 0
+          //     }
+          //   }
+          //   median = 0
+          //   for (let i = 0; i < this.sensorData2.length; i++) {
+          //     if (i % medianCalculationSize !== 0 && i !== 0) {
+          //       median += parseFloat(this.sensorData2[i - 1].humSHT21) / 100
+          //     } else if (i !== 0) {
+          //       this.humData2.push(median / medianCalculationSize)
+          //       median = 0
+          //     }
+          //   }
+          //   median = 0
+          //   for (let i = 0; i < this.sensorData3.length; i++) {
+          //     if (i % medianCalculationSize !== 0 && i !== 0) {
+          //       median += parseFloat(this.sensorData3[i - 1].humSHT21) / 100
+          //     } else if (i !== 0) {
+          //       this.humData3.push(median / medianCalculationSize)
+          //       median = 0
+          //     }
+          //   }
+          // }
         },
         async parseData(dataSet, options, optionsDecide) {
           this.loaded = false
