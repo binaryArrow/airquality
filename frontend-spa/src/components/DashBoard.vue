@@ -7,7 +7,7 @@
         v-bind:chart-data3="tempData3"
         v-bind:x-axis="labelsTemp"
     />
-    <button class="button is-success" v-bind:disabled="waitButton" @click="sixHours('temperature')">6 stunden</button>
+    <button class="button is-success" v-bind:disabled="waitButton" @click="sixHours('temperature')">6 Stunden</button>
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneDay('temperature')">1 Tag</button>
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneWeek('temperature')">1 Woche</button>
   </div>
@@ -19,7 +19,7 @@
         v-bind:chart-data3="humData3"
         v-bind:x-axis="labelsHum"
     />
-    <button class="button is-success" v-bind:disabled="waitButton" @click="sixHours('humidity')">6 stunden</button>
+    <button class="button is-success" v-bind:disabled="waitButton" @click="sixHours('humidity')">6 Stunden</button>
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneDay('humidity')">1 Tag</button>
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneWeek('humidity')">1 Woche</button>
   </div>
@@ -31,7 +31,7 @@
         v-bind:chart-data3="co2Data3"
         v-bind:x-axis="labelsCo2"
     />
-    <button class="button is-success" v-bind:disabled="waitButton" @click="sixHours('co2')">6 stunden</button>
+    <button class="button is-success" v-bind:disabled="waitButton" @click="sixHours('co2')">6 Stunden</button>
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneDay('co2')">1 Tag</button>
     <button class="button is-success" v-bind:disabled="waitButton" @click="oneWeek('co2')">1 Woche</button>
   </div>
@@ -39,7 +39,7 @@
 
 <script>
 import {defineComponent} from 'vue';
-import {Bar} from "vue3-chart-v2"
+import {Bar} from "vue3-chart-v2";
 import TemperatureChart from "@/components/TemperatureChart.vue";
 import Co2Chart from "@/components/Co2Chart.vue";
 import HumidityChart from "@/components/HumidityChart";
@@ -448,7 +448,6 @@ export default defineComponent({
   height: 250px;
   width: 800px;
   position: relative;
-  top: 225px;
 }
 
 </style>
