@@ -243,10 +243,14 @@ export default defineComponent({
                 switch (medianSize){
                   case 12:
                   case 3: {
+                    if(diffTicks === 0)
+                      diffTicks = 1
                     this.labelsTemp[this.tempData1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
                     break;
                   }
                   case 84: {
+                    if(diffTicks === 0)
+                      diffTicks = 1
                     this.labelsTemp[this.tempData1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
                     break;
                   }
