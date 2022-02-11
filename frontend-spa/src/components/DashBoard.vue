@@ -294,62 +294,106 @@ export default defineComponent({
               }
             })
           }
-          // else if (options === "co2") {
-          //   median = 0
-          //   for (let i = 0; i < this.sensorData1.length; i++) {
-          //     if (i % medianCalculationSize !== 0 && i !== 0) {
-          //       median += parseFloat(this.sensorData1[i - 1].co2SCD41) / 100
-          //     } else if (i !== 0) {
-          //       this.co2Data1.push(median / medianCalculationSize)
-          //       median = 0
-          //     }
-          //   }
-          //   median = 0
-          //   for (let i = 0; i < this.sensorData2.length; i++) {
-          //     if (i % medianCalculationSize !== 0 && i !== 0) {
-          //       median += parseFloat(this.sensorData2[i - 1].co2SCD41) / 100
-          //     } else if (i !== 0) {
-          //       this.co2Data2.push(median / medianCalculationSize)
-          //       median = 0
-          //     }
-          //   }
-          //   median = 0
-          //   for (let i = 0; i < this.sensorData3.length; i++) {
-          //     if (i % medianCalculationSize !== 0 && i !== 0) {
-          //       median += parseFloat(this.sensorData3[i - 1].co2SCD41) / 100
-          //     } else if (i !== 0) {
-          //       this.co2Data3.push(median / medianCalculationSize)
-          //       median = 0
-          //     }
-          //   }
-          // } else if (options === "humidity") {
-          //   for (let i = 0; i < this.sensorData1.length; i++) {
-          //     if (i % medianCalculationSize !== 0 && i !== 0) {
-          //       median += parseFloat(this.sensorData1[i - 1].humSHT21) / 100
-          //     } else if (i !== 0) {
-          //       this.humData1.push(median / medianCalculationSize)
-          //       median = 0
-          //     }
-          //   }
-          //   median = 0
-          //   for (let i = 0; i < this.sensorData2.length; i++) {
-          //     if (i % medianCalculationSize !== 0 && i !== 0) {
-          //       median += parseFloat(this.sensorData2[i - 1].humSHT21) / 100
-          //     } else if (i !== 0) {
-          //       this.humData2.push(median / medianCalculationSize)
-          //       median = 0
-          //     }
-          //   }
-          //   median = 0
-          //   for (let i = 0; i < this.sensorData3.length; i++) {
-          //     if (i % medianCalculationSize !== 0 && i !== 0) {
-          //       median += parseFloat(this.sensorData3[i - 1].humSHT21) / 100
-          //     } else if (i !== 0) {
-          //       this.humData3.push(median / medianCalculationSize)
-          //       median = 0
-          //     }
-          //   }
-          // }
+          else if (options === "co2") {
+            let finalSensorData1 = []
+            let finalSensorData2 = []
+            let finalSensorData3 = []
+            for (let i = 0; i < 120; i++) {
+              this.co2Data1.push(null)
+            }
+            for (let i = 0; i < 120; i++) {
+              this.co2Data2.push(null)
+            }
+            for (let i = 0; i < 120; i++) {
+              this.co2Data3.push(null)
+            }
+            for (let i = 0; i < this.sensorData1.length; i++) {
+              if (i % medianCalculationSize === 0 && i !== 0) {
+                if (this.sensorData1[i])
+                  finalSensorData1.push({
+                    data: parseFloat(this.sensorData1[i].co2SCD41) / 100,
+                    timestamp: this.sensorData1[i].created_at
+                  })
+              }
+            }
+            for (let i = 0; i < this.sensorData2.length; i++) {
+              if (i % medianCalculationSize === 0 && i !== 0) {
+                if (this.sensorData2[i])
+                  finalSensorData2.push({
+                    data: parseFloat(this.sensorData2[i].co2SCD41) / 100,
+                    timestamp: this.sensorData2[i].created_at
+                  })
+              }
+            }
+            for (let i = 0; i < this.sensorData3.length; i++) {
+              if (i % medianCalculationSize === 0 && i !== 0) {
+                if (this.sensorData3[i])
+                  finalSensorData3.push({
+                    data: parseFloat(this.sensorData3[i].co2SCD41) / 100,
+                    timestamp: this.sensorData3[i].created_at
+                  })
+              }
+            }
+
+            finalSensorData1.forEach(data=>{
+              if(nowDate.isAfter(data.timestamp)){
+                let diff = moment(data.timestamp,'YYYY-MM-DD HH:mm:ss').diff(nowDate, 'minutes')
+                let diffTicks = Math.floor(Math.abs(diff/medianSize))
+                this.co2Data1[this.co2Data1.length-diffTicks] = data.data
+                switch (medianSize){
+                  case 12:
+                  case 3: {
+                    if(diffTicks === 0)
+                      diffTicks = 1
+                    this.labelsTemp[this.co2Data1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                    break;
+                  }
+                  case 84: {
+                    if(diffTicks === 0)
+                      diffTicks = 1
+                    this.labelsTemp[this.co2Data1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
+                    break;
+                  }
+                }
+              }
+            })
+            finalSensorData2.forEach(data=>{
+              if(nowDate.isAfter(data.timestamp)){
+                let diff = moment(data.timestamp,'YYYY-MM-DD HH:mm:ss').diff(nowDate, 'minutes')
+                let diffTicks = Math.floor(Math.abs(diff/medianSize))
+                this.co2Data2[this.co2Data2.length-diffTicks] = data.data
+                switch (medianSize){
+                  case 12:
+                  case 3: {
+                    this.labelsTemp[this.co2Data2.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                    break;
+                  }
+                  case 84: {
+                    this.labelsTemp[this.co2Data2.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
+                    break;
+                  }
+                }
+              }
+            })
+            finalSensorData3.forEach(data=>{
+              if(nowDate.isAfter(data.timestamp)){
+                let diff = moment(data.timestamp,'YYYY-MM-DD HH:mm:ss').diff(nowDate, 'minutes')
+                let diffTicks = Math.floor(Math.abs(diff/medianSize))
+                this.co2Data3[this.co2Data3.length-diffTicks] = data.data
+                switch (medianSize){
+                  case 12:
+                  case 3: {
+                    this.labelsTemp[this.co2Data3.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                    break;
+                  }
+                  case 84: {
+                    this.labelsTemp[this.co2Data3.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
+                    break;
+                  }
+                }
+              }
+            })
+          }
         },
         async parseData(dataSet, options, optionsDecide) {
           this.loaded = false
