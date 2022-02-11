@@ -110,7 +110,7 @@ export default defineComponent({
             this.parseData(24 * 60, 24, options)
             this.setXaxisHours(24, options)
           } else if (options === "co2") {
-            this.parseData(24 * 60, 6, options)
+            this.parseData(24 * 60, 24, options)
             this.setXaxisHours(24, options)
           }
           setTimeout(() => {
@@ -126,7 +126,7 @@ export default defineComponent({
             this.parseData(168 * 60, 168, options)
             this.setXaxisHours(168, options)
           } else if (options === "co2") {
-            this.parseData(168 * 60, 6, options)
+            this.parseData(168 * 60, 168, options)
             this.setXaxisHours(168, options)
           }
           setTimeout(() => {
@@ -340,18 +340,19 @@ export default defineComponent({
                 let diff = moment(data.timestamp,'YYYY-MM-DD HH:mm:ss').diff(nowDate, 'minutes')
                 let diffTicks = Math.floor(Math.abs(diff/medianSize))
                 this.co2Data1[this.co2Data1.length-diffTicks] = data.data
+                console.log(medianSize)
                 switch (medianSize){
                   case 12:
                   case 3: {
                     if(diffTicks === 0)
                       diffTicks = 1
-                    this.labelsTemp[this.co2Data1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                    this.labelsCo2[this.co2Data1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
                     break;
                   }
                   case 84: {
                     if(diffTicks === 0)
                       diffTicks = 1
-                    this.labelsTemp[this.co2Data1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
+                    this.labelsCo2[this.co2Data1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
                     break;
                   }
                 }
@@ -365,11 +366,11 @@ export default defineComponent({
                 switch (medianSize){
                   case 12:
                   case 3: {
-                    this.labelsTemp[this.co2Data2.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                    this.labelsCo2[this.co2Data2.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
                     break;
                   }
                   case 84: {
-                    this.labelsTemp[this.co2Data2.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
+                    this.labelsCo2[this.co2Data2.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
                     break;
                   }
                 }
@@ -383,11 +384,11 @@ export default defineComponent({
                 switch (medianSize){
                   case 12:
                   case 3: {
-                    this.labelsTemp[this.co2Data3.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                    this.labelsCo2[this.co2Data3.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
                     break;
                   }
                   case 84: {
-                    this.labelsTemp[this.co2Data3.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
+                    this.labelsCo2[this.co2Data3.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
                     break;
                   }
                 }
