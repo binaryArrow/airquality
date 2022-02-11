@@ -56,15 +56,14 @@
 	Zu Beginn des Projektes wurde entschieden die Aufgaben in zwei Teile aufzuteilen, einerseits in einen Sensorteil und andererseits in einen Applikationsteil. Es wurde festgelegt, dass Herr Merkert, Herr Just und Herr Glaesmann für die Einrichtung und Programmierung der Sensoren zuständig sind, während Herr Knez, Herr Nazlier und Herr Konieczka für die Einrichtung eines Servers und die Entwicklung der Applikation zuständig sind. 
 		\subsection{Friedrich Just}
 		\subsection{Stipe Knez}
-			Kommunikation zwischen ZigBee Modulen und Backend, durch Integration von Serialport.js sowie Teile des Dashboards: Funktion
+			Herr Knez hat sich in die Programmiersprache Python eingearbeitet um die Mockdaten erstellen zu können. Darüber hinaus hat er bei der Einrichtung des Backends geholfen sowie die Verbindung zwischen ZigBee-Modul und Backend über die COM-Port Schnittstelle hergestellt. Zuletzt hat er ebenfalls am Dashboard mitgearbeitet. 
 		\subsection{Lucas Merkert}
 			Aufgabe von Herr Merkert war die Programmierung des CCS811 Sensors, verschiedene administrative Aufgaben wie das organisieren von Meetings und Abgabe der Dateien und Recherche zum Thema Luftqualität in Innenräumen.
 		\subsection{Achim Glaesmann}
 		\subsection{Max-Rene Konieczka}
-			Zu Anfang des Projekts musste sich Herr Konieczka, wie Herr Knez, das Basiswissen zu Vue aneignen, daher waren die ersten Wochen hauptsächlich mit Recherche bedeckt. % umformulieren
-			Nachdem dies erfolgt ist, hat er sich um die Erstellung von Modalen gekümmert und das Dashboard eingerichtet; Ampel
+			Herr Konieczka war anfangs mit der Einarbeitung in Websockets beschäftigt um diese korrekt für die Übertragung der Daten zu verwenden. Zudem hat er Beihilfe bei der Integrierung von SerialPort.js geleistet, anschließend hat auch er sich wie Herr Knez und Herr Nazlier um die richtige Implementierung des Dashboards gekümmert, darunter auch die Entwicklung der Ampelindikation. 
 		\subsection{Can Cihan Nazlier}
-			Herr Nazlier hat sich zum einen um die Einrichtung der Programmierumgebung gekümmert. Dazu gehören die Erstellung eines GitHub-Repository und die Integrierung von Vue, einem JavaScript-Framework. Darüber hinaus hat er sich um die Integrierung einer Datenbank, die Programmierung des Sketchingboards sowie einige Teile des Dashboards gekümmert; Schnittstelle
+			Herr Nazlier hat sich zum einen um die Konfiguration der Programmierumgebung gekümmert. Dazu gehören die Erstellung eines GitHub-Repository und die Integrierung von Vue, einem JavaScript-Framework. Darüber hinaus hat er sich um die Integrierung einer Datenbank, die Implementierung des Zeichentools, anfangs in Form eines Prototypen, sowie einige Teile des Dashboards und der Ampelindikation gekümmert.
 		
 	\section{Luftqualität}%Lucas/Achim Friedrich
 		Die Qualität der Luft setzt sich aus verschiedenen Faktoren zusammen. Für diese Projekt sind insbesondere die Faktoren Temperatur, Luftfeuchte, CO2 Gehalt und VOC (volatile organische Komponenten) wichtig, da wir mit den gegebenen Sensoren nur diese messen könne.
@@ -113,12 +112,12 @@
 					\end{figure}
 					%TODO wikipedia als quelle?!
 			\subsection{Zeichentool}
+			Für das Zeichentool wurde zunächst ein Prototyp geschrieben, um zu testen inwiefern man Räume einzeichnen können soll.
 			Problem beim Platzieren von Punkten oder Linien, wie wurde das gelöst? 
 			
 			\subsection{Dashboard}
-			Zunächst war festgelegt, dass die JavaScript-Library D3.js verwendet wird um die graphische Darstellung der Sensordaten zu realisieren. Diese enthält Funktionen um verschiedenste Diagramme zu erstellen. Die Funktionen manipulieren HTML-Elemente, es können einerseits deren Größe und BReite eingestellt werden und andererseits können komplett neue HTML-Elemente hinzugefügt werden. Das Erstellen von vier verschiedenen Liniendiagrammen und einer Ampel war schnell abgeschlossen. Die Daten sind auch im Dashboard angekommen, doch das Anzeigen hat Schwierigkeiten bereitet. %umformulieren
-			Die Sensorwerte sollten als Y-Koordinate und die dazugehörige Zeit als X-Koordinate angezeigt werden. Zwar gibt es in D3.js eine scaleTime-Funktion um eine Zeitachse zu erstellen, aber durch die Zeiteinheit konnte kein Graph angezeigt werden.\newline
-			Daher wurde kurzfristig entschieden auf die ChartJS-Library umzusteigen. Diese enthält vorgefertigte Diagramme und müssen daher nicht mit von Hand geschrieben werden. %umformulieren
+			Zunächst war festgelegt, dass die JavaScript-Library D3.js verwendet wird um die graphische Darstellung der Sensordaten zu realisieren. Diese enthält Funktionen um verschiedenste Diagramme zu erstellen. Die Funktionen manipulieren HTML-Elemente, es können einerseits deren Größe und Breite eingestellt werden und andererseits können komplett neue HTML-Elemente hinzugefügt werden. Das Erstellen von vier verschiedenen Liniendiagrammen und einer Ampel war zunächst schnell abgeschlossen. Nach dieser Erstellung wurde ein Socket implementiert um zu überprüfen, ob die Sensordaten im Dashboard ankommen, was im Anschluss auch der Fall war. Allerdings ist hier ein Problem hervorgekommen.\newline
+			Die Sensorwerte sollten als Y-Koordinate und die dazugehörige Zeit als X-Koordinate angezeigt werden. Zwar gibt es in D3.js eine eigens dafür integrierte scaleTime-Funktion um eine Zeitachse zu erstellen, aber durch die Zeiteinheit konnte nun kein Graph angezeigt werden. Dies hatte den Grund, dass zu diesem Zeitpunkt kein Zeitwert von der Datenbank übertragen wurde. Für dieses Problem konnte keine direkte Lösung hinsichtlich der Implementierung gefunden werden, daher wurde kurzfristig entschieden auf die Chart.js-Library umzusteigen. Diese enthält einerseits vorgefertigte Diagramme und müssen daher nicht mit Funktionen, wie in D3, erstellt werden. %umformulieren
 			
 			\subsection{COM-Port}
 			Die Verbindung zwischen den ZigBee-Modulen und dem Backend wurde mit der Serialport.js Library hergestellt. Dadurch lassen sich Daten über eine COM-Port Schnittstelle an den PC schicken. Zu diesem Zeitpunkt standen keine Sensordaten zur Verfügung daher wurden Mockdaten erstellt um die Sendung zu simulieren. Dies hat...

@@ -11,9 +11,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3}Lucas Merkert}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4}Achim Glaesmann}{3}{}%
+\contentsline {subsection}{\numberline {2.4}Achim Glaesmann}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.5}Max-Rene Konieczka}{3}{}%
+\contentsline {subsection}{\numberline {2.5}Max-Rene Konieczka}{4}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.6}Can Cihan Nazlier}{4}{}%
 \defcounter {refsection}{0}\relax 
@@ -21,7 +21,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1}Luftfeuchte und Temperatur}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}CO2}{4}{}%
+\contentsline {subsection}{\numberline {3.2}CO2}{5}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.3}VOC}{5}{}%
 \defcounter {refsection}{0}\relax 
@@ -35,11 +35,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {4.3.1}Probleme bei der Programmierung des CCS811}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.2}Funktionsweise des CCS811}{8}{}%
+\contentsline {subsubsection}{\numberline {4.3.2}Funktionsweise des CCS811}{9}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.4}Zeichentool}{9}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5}Dashboard}{9}{}%
+\contentsline {subsection}{\numberline {4.5}Dashboard}{10}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.6}COM-Port}{10}{}%
 \defcounter {refsection}{0}\relax 
