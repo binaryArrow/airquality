@@ -194,10 +194,10 @@ export default defineComponent({
         medianCalculation(medianSize, options) {
           const medianCalculationSize = medianSize
           const nowDate = moment(moment.now())
-          let diff = 0
-          let diffTicks = 0
           if (options === "temperature") {
             let finalSensorData1 = []
+            let finalSensorData2 = []
+            let finalSensorData3 = []
             for (let i = 0; i < 120; i++) {
               this.tempData1.push(null)
             }
@@ -210,23 +210,79 @@ export default defineComponent({
                   })
               }
             }
-            finalSensorData1.forEach(data=>{
-              if(nowDate.isAfter(data.timestamp)){
-                diff = moment(data.timestamp,'YYYY-MM-DD HH:mm:ss').diff(nowDate, 'minutes')
-                diffTicks = Math.floor(Math.abs(diff/medianSize))
-                this.tempData1[this.tempData1.length-diffTicks] = data.data
-              }
-            })
             for (let i = 0; i < this.sensorData2.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                this.tempData2.push(parseFloat(this.sensorData2[i - 1].tempSHT21) / 100)
+              if (i % medianCalculationSize === 0 && i !== 0) {
+                if (this.sensorData2[i])
+                  finalSensorData2.push({
+                    data: parseFloat(this.sensorData2[i].tempSHT21) / 100,
+                    timestamp: this.sensorData2[i].created_at
+                  })
               }
             }
             for (let i = 0; i < this.sensorData3.length; i++) {
-              if (i % medianCalculationSize !== 0 && i !== 0) {
-                this.tempData3.push(parseFloat(this.sensorData3[i - 1].tempSHT21) / 100)
+              if (i % medianCalculationSize === 0 && i !== 0) {
+                if (this.sensorData3[i])
+                  finalSensorData3.push({
+                    data: parseFloat(this.sensorData3[i].tempSHT21) / 100,
+                    timestamp: this.sensorData3[i].created_at
+                  })
               }
             }
+
+            finalSensorData1.forEach(data=>{
+              if(nowDate.isAfter(data.timestamp)){
+                let diff = moment(data.timestamp,'YYYY-MM-DD HH:mm:ss').diff(nowDate, 'minutes')
+                let diffTicks = Math.floor(Math.abs(diff/medianSize))
+                this.tempData1[this.tempData1.length-diffTicks] = data.data
+                switch (medianSize){
+                  case 12:
+                  case 3: {
+                    this.labelsTemp[this.tempData1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                    break;
+                  }
+                  case 84: {
+                    this.labelsTemp[this.tempData1.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
+                    break;
+                  }
+                }
+              }
+            })
+            finalSensorData2.forEach(data=>{
+              if(nowDate.isAfter(data.timestamp)){
+                let diff = moment(data.timestamp,'YYYY-MM-DD HH:mm:ss').diff(nowDate, 'minutes')
+                let diffTicks = Math.floor(Math.abs(diff/medianSize))
+                this.tempData2[this.tempData2.length-diffTicks] = data.data
+                switch (medianSize){
+                  case 12:
+                  case 3: {
+                    this.labelsTemp[this.tempData2.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                    break;
+                  }
+                  case 84: {
+                    this.labelsTemp[this.tempData2.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
+                    break;
+                  }
+                }
+              }
+            })
+            finalSensorData3.forEach(data=>{
+              if(nowDate.isAfter(data.timestamp)){
+                let diff = moment(data.timestamp,'YYYY-MM-DD HH:mm:ss').diff(nowDate, 'minutes')
+                let diffTicks = Math.floor(Math.abs(diff/medianSize))
+                this.tempData3[this.tempData3.length-diffTicks] = data.data
+                switch (medianSize){
+                  case 12:
+                  case 3: {
+                    this.labelsTemp[this.tempData3.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                    break;
+                  }
+                  case 84: {
+                    this.labelsTemp[this.tempData3.length - diffTicks] = moment(data.timestamp, 'YYYY-MM-DD HH:mm:ss').format('DD dd:HH:mm')
+                    break;
+                  }
+                }
+              }
+            })
           }
           // else if (options === "co2") {
           //   median = 0
@@ -352,7 +408,7 @@ export default defineComponent({
                 let startDate = new Date(moment.now());
                 startDate.setHours(startDate.getHours() - 168)
                 for (let i = 0; i < 120; i++) {
-                  const date = moment(startDate).add(84, 'minutes').format('dd:HH:mm');
+                  const date = moment(startDate).add(84, 'minutes').format('DD dd:HH:mm');
                   startDate.setMinutes(startDate.getMinutes() + 84)
                   this.labelsTemp.push(date.toString());
                 }

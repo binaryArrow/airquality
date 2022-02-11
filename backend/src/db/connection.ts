@@ -200,9 +200,9 @@ export class Connection {
             if(timeInHours == 0)
                 timeInHours = 6
                 const startDate = moment(moment.now());
-                const dateStart = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.hour()}:${startDate.minutes()}:${startDate.seconds()}`
+                const dateStart = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.format('HH')}:${startDate.minutes()}:${startDate.seconds()}`
                 startDate.subtract(timeInHours, "hours")
-                const dateEnd = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.hour()}:${startDate.minutes()}:${startDate.seconds()}`
+                const dateEnd = `${startDate.year()}-${startDate.format("MM")}-${startDate.format("DD")} ${startDate.format('HH')}:${startDate.minutes()}:${startDate.seconds()}`
                 return this.dbConnection('sensor-data').select('*')
                     .where('sensorId', sensorId)
                     .where('created_at', '>=', dateEnd)
