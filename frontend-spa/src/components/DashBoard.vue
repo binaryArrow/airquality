@@ -138,17 +138,17 @@ export default defineComponent({
             this.tempData1 = []
             this.tempData2 = []
             this.tempData3 = []
-            this.medianCalculation(3, options)
+            this.axisCalculation(3, options)
           } else if (options === "humidity") {
             this.humData1 = []
             this.humData2 = []
             this.humData3 = []
-            this.medianCalculation(3, options)
+            this.axisCalculation(3, options)
           } else if (options === "co2") {
             this.co2Data1 = []
             this.co2Data2 = []
             this.co2Data3 = []
-            this.medianCalculation(3, options)
+            this.axisCalculation(3, options)
           }
         },
         calculate24Hours(options) {
@@ -157,17 +157,17 @@ export default defineComponent({
             this.tempData1 = []
             this.tempData2 = []
             this.tempData3 = []
-            this.medianCalculation(12, options)
+            this.axisCalculation(12, options)
           } else if (options === "humidity") {
             this.humData1 = []
             this.humData2 = []
             this.humData3 = []
-            this.medianCalculation(12, options)
+            this.axisCalculation(12, options)
           } else if (options === "co2") {
             this.co2Data1 = []
             this.co2Data2 = []
             this.co2Data3 = []
-            this.medianCalculation(12, options)
+            this.axisCalculation(12, options)
           }
           this.loaded = true
         },
@@ -177,21 +177,21 @@ export default defineComponent({
             this.tempData1 = []
             this.tempData2 = []
             this.tempData3 = []
-            this.medianCalculation(84, options)
+            this.axisCalculation(84, options)
           } else if (options === "humidity") {
             this.humData1 = []
             this.humData2 = []
             this.humData3 = []
-            this.medianCalculation(84, options)
+            this.axisCalculation(84, options)
             this.loaded = true
           } else if (options === "co2") {
             this.co2Data1 = []
             this.co2Data2 = []
             this.co2Data3 = []
-            this.medianCalculation(84, options)
+            this.axisCalculation(84, options)
           }
         },
-        medianCalculation(medianSize, options) {
+        axisCalculation(medianSize, options) {
           const medianCalculationSize = medianSize
           const nowDate = moment(moment.now())
           if (options === "temperature") {
