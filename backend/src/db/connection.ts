@@ -4,6 +4,7 @@ import {SensorData} from "../models/SensorData";
 import Sensor from "../models/Sensor";
 import path from "path";
 import moment from "moment";
+let momentTZ = require('moment-timezone');
 
 export class Connection {
     private dbConnection: any
@@ -25,7 +26,7 @@ export class Connection {
                     table.string('lines')
                     table.string('lineCoords')
                     table.integer('sensorId')
-                    table.timestamp('created_at').defaultTo(this.dbConnection.fn.now())
+                    table.timestamp('created_at').defaultTo(moment(momentTZ().tz("Europe/Berlin")).format('YYYY-MM-DD HH:mm:ss')/*this.dbConnection.fn.now()*/)
                 })
             }
         })
@@ -42,7 +43,7 @@ export class Connection {
                     table.string('co2SCD41')
                     table.string('eco2CCS811')
                     table.string('tvocCCS811')
-                    table.timestamp('created_at').defaultTo(this.dbConnection.fn.now())
+                    table.timestamp('created_at').defaultTo(moment(momentTZ().tz("Europe/Berlin")).format('YYYY-MM-DD HH:mm:ss')/*this.dbConnection.fn.now()*/)
                 })
             }
         })
@@ -115,7 +116,7 @@ export class Connection {
                 lines: JSON.stringify(room.lines),
                 sensorId: JSON.stringify(room.sensorId),
                 lineCoords: JSON.stringify(room.lineCoords),
-                created_at: this.dbConnection.fn.now()
+                created_at: moment(momentTZ().tz("Europe/Berlin")).format('YYYY-MM-DD HH:mm:ss') //this.dbConnection.fn.now()
 
             }).then(() => {
                 console.log("wrote")
@@ -183,7 +184,7 @@ export class Connection {
                 humSCD41: sensorData.humSCD41,
                 tempSCD41: sensorData.tempSCD41,
                 co2SCD41: sensorData.co2SCD41,
-                created_at: this.dbConnection.fn.now()
+                created_at: moment(momentTZ().tz("Europe/Berlin")).format('YYYY-MM-DD HH:mm:ss')    // Save Data in CET (Deutsche Zeit)
             }).then(() => {
                 console.log(`wrote sensordata with roomId: ${roomIdWithSameSensorId.id}`)
             })
