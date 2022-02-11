@@ -25,7 +25,7 @@
                 </select>
               </td>
               <td>
-                <div v-bind:id="ampel"> <!-- wie fügt man die Condition ein? Zahlenwert muss unter- oder überschritten werden.. -->
+                <div v-bind:class="ampel" v-bind:id="room.roomId"> <!--  -->
 
                 </div>
               </td>
@@ -51,7 +51,6 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import Room from "@/../../backend/src/models/Room";
 import {SensorData} from "@/../../backend/src/models/SensorData";
 import {io} from "socket.io-client";
 
@@ -81,19 +80,15 @@ export default defineComponent({
     socket.on("data", (data: SensorData) => {
       console.log(`got some data from socket for sensor ${data.sensorId}`)
       const tempSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim(), data.battery)
-      switch (tempSensorData.sensorId) {
-        case 1: {
-          this.sensorData1.push(tempSensorData)
-          break;
-        }
-        case 2: {
-          this.sensorData2.push(tempSensorData)
-          break;
-        }
-        case 3: {
-          this.sensorData3.push(tempSensorData)
-          break;
-        }
+      if(parseFloat(tempSensorData.co2SCD41) < 1000){
+        const ampel = document.getElementById(data.roomId!.toString())
+        ampel!.className = "ampel-grün"
+      }else if(parseFloat(tempSensorData.co2SCD41) >= 1000 && parseFloat(tempSensorData.co2SCD41) < 2000){
+        const ampel = document.getElementById(data.roomId!.toString())
+        ampel!.className = "ampel-gelb"
+      }else if(parseFloat(tempSensorData.co2SCD41) >= 2000){
+        const ampel = document.getElementById(data.roomId!.toString())
+        ampel!.className = "ampel-rot"
       }
     })
   },
@@ -157,41 +152,6 @@ export default defineComponent({
     closeModal() {
       this.$emit('close', 'list')
     },
-    // Funktion für Colorchange (erstmal nur für co2)
-    colorChange() {
-      // hier ist Ampel grün
-
-      // für jedes sensorData-Array ein for-loop?
-      for (let i = 0; i < this.sensorData1.length; i++) {
-
-        if (parseInt(this.sensorData1[i - 1].co2SCD41) < 800) {
-          this.ampel = "ampel-grün"
-        }else if (parseInt(this.sensorData1[i - 1].co2SCD41) >= 800) { // hier muss noch zweite Condition rein für kleiner 1000
-          this.ampel = "ampel-gelb"
-        } else if (parseInt(this.sensorData1[i - 1].co2SCD41) >= 1000) {
-          this.ampel = "ampel-rot"
-        }
-
-        // hier ist Ampel gelb
-        else if (parseInt(this.sensorData2[i - 1].co2SCD41) < 800) {
-          this.ampel = "ampel-grün"
-        }else if (parseInt(this.sensorData2[i - 1].co2SCD41) >= 800) {
-          this.ampel = "ampel-gelb"
-        }else if (parseInt(this.sensorData2[i - 1].co2SCD41) >= 1000) {
-          this.ampel = "ampel-rot"
-        }
-
-        // hier ist Ampel rot
-        if (parseInt(this.sensorData3[i - 1].co2SCD41) < 800) {
-          this.ampel = "ampel-grün"
-        }else if (parseInt(this.sensorData3[i - 1].co2SCD41) >= 800) {
-          this.ampel = "ampel-gelb"
-        }
-        else if (parseInt(this.sensorData3[i - 1].co2SCD41) >= 1000) {
-          this.ampel = "ampel-rot"
-        }
-      }
-    }
   }
 })
 </script>
@@ -236,28 +196,28 @@ th {
   top: 3px;
 }
 
-#circle{
+.ampel{
   width: 25px;
   height: 25px;
   background-color: lightslategray;
   border-radius: 50%;
 }
 
-#ampel-rot{
+.ampel-rot{
   width: 25px;
   height: 25px;
   background-color: red;
   border-radius: 50%;
 }
 
-#ampel-gelb{
+.ampel-gelb{
   width: 25px;
   height: 25px;
   background-color: yellow;
   border-radius: 50%;
 }
 
-#ampel-grün{
+.ampel-grün{
   width: 25px;
   height: 25px;
   background-color: green;
