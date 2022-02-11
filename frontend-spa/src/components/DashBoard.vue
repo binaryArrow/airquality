@@ -201,6 +201,12 @@ export default defineComponent({
             for (let i = 0; i < 120; i++) {
               this.tempData1.push(null)
             }
+            for (let i = 0; i < 120; i++) {
+              this.tempData2.push(null)
+            }
+            for (let i = 0; i < 120; i++) {
+              this.tempData3.push(null)
+            }
             for (let i = 0; i < this.sensorData1.length; i++) {
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData1[i])
