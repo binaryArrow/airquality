@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "knex": "^0.95.14",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.34",
     "objection": "^3.0.1",
     "serialport": "^9.2.8",
     "socket.io": "^4.4.0",
