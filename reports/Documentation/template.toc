@@ -19,24 +19,30 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3}Luftqualität}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Lösungsansatz}{4}{}%
+\contentsline {subsection}{\numberline {3.1}Luftfeuchte und Temperatur}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}SHT21}{4}{}%
+\contentsline {subsection}{\numberline {3.2}CO2}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2}SCD41}{4}{}%
+\contentsline {subsection}{\numberline {3.3}VOC}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3}CCS811}{4}{}%
+\contentsline {section}{\numberline {4}Lösungsansatz}{5}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1}SHT21}{5}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2}SCD41}{5}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3}CCS811}{5}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {4.3.1}Probleme bei der Programmierung des CCS811}{7}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {4.3.2}Funktionsweise des CCS811}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.4}Zeichentool}{7}{}%
+\contentsline {subsection}{\numberline {4.4}Zeichentool}{9}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5}Dashboard}{7}{}%
+\contentsline {subsection}{\numberline {4.5}Dashboard}{9}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.6}COM-Port}{8}{}%
+\contentsline {subsection}{\numberline {4.6}COM-Port}{10}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Ausblick und Erweiterungsmöglichkeiten}{8}{}%
+\contentsline {section}{\numberline {5}Ausblick und Erweiterungsmöglichkeiten}{10}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1}Genauere Bestimmung der Werte des CCS811}{8}{}%
+\contentsline {subsection}{\numberline {5.1}Genauere Bestimmung der Werte des CCS811}{10}{}%
