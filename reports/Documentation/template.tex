@@ -56,14 +56,15 @@
 	Zu Beginn des Projektes wurde entschieden die Aufgaben in zwei Teile aufzuteilen, einerseits in einen Sensorteil und andererseits in einen Applikationsteil. Es wurde festgelegt, dass Herr Merkert, Herr Just und Herr Glaesmann für die Einrichtung und Programmierung der Sensoren zuständig sind, während Herr Knez, Herr Nazlier und Herr Konieczka für die Einrichtung eines Servers und die Entwicklung der Applikation zuständig sind. 
 		\subsection{Friedrich Just}
 		\subsection{Stipe Knez}
-			Backend, Integration von SerialPort.js für Datenübertragung über COM-Ports. 
+			Kommunikation zwischen ZigBee Modulen und Backend, durch Integration von Serialport.js sowie Teile des Dashboards: Funktion
 		\subsection{Lucas Merkert}
 			Aufgabe von Herr Merkert war die Programmierung des CCS811 Sensors, verschiedene administrative Aufgaben wie das organisieren von Meetings und Abgabe der Dateien und Recherche zum Thema Luftqualität in Innenräumen.
 		\subsection{Achim Glaesmann}
 		\subsection{Max-Rene Konieczka}
-			Dashboard
+			Zu Anfang des Projekts musste sich Herr Konieczka, wie Herr Knez, das Basiswissen zu Vue aneignen, daher waren die ersten Wochen hauptsächlich mit Recherche bedeckt. % umformulieren
+			Nachdem dies erfolgt ist, hat er sich um die Erstellung von Modalen gekümmert und das Dashboard eingerichtet; Ampel
 		\subsection{Can Cihan Nazlier}
-			Applikationstechnisch alles, lel
+			Herr Nazlier hat sich zum einen um die Einrichtung der Programmierumgebung gekümmert. Dazu gehören die Erstellung eines GitHub-Repository und die Integrierung von Vue, einem JavaScript-Framework. Darüber hinaus hat er sich um die Integrierung einer Datenbank, die Programmierung des Sketchingboards sowie einige Teile des Dashboards gekümmert; Schnittstelle
 		
 	\section{Luftqualität}%Lucas/Achim Friedrich
 		Die Qualität der Luft setzt sich aus verschiedenen Faktoren zusammen. Für diese Projekt sind insbesondere die Faktoren Temperatur, Luftfeuchte, CO2 Gehalt und VOC (volatile organische Komponenten) wichtig, da wir mit den gegebenen Sensoren nur diese messen könne.
@@ -120,7 +121,8 @@
 			Daher wurde kurzfristig entschieden auf die ChartJS-Library umzusteigen. Diese enthält vorgefertigte Diagramme und müssen daher nicht mit von Hand geschrieben werden. %umformulieren
 			
 			\subsection{COM-Port}
-	
+			Die Verbindung zwischen den ZigBee-Modulen und dem Backend wurde mit der Serialport.js Library hergestellt. Dadurch lassen sich Daten über eine COM-Port Schnittstelle an den PC schicken. Zu diesem Zeitpunkt standen keine Sensordaten zur Verfügung daher wurden Mockdaten erstellt um die Sendung zu simulieren. Dies hat...
+			
 	\section{Ausblick und Erweiterungsmöglichkeiten}
 		\subsection{Genauere Bestimmung der Werte des CCS811}
 			Wie bereits angesprochen ist der Sensor durch Einflüsse wie die Luftfeuchte beeinflussbar. Dies könnte man einschränken, indem man die gemessene Luftfeucht  der anderen Sensoren an den CCS811 überträgt und damit die Werte berichtigt. Selbiges gilt für die Temperatur. 

@@ -15,7 +15,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.5}Max-Rene Konieczka}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.6}Can Cihan Nazlier}{3}{}%
+\contentsline {subsection}{\numberline {2.6}Can Cihan Nazlier}{4}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3}Luftqualität}{4}{}%
 \defcounter {refsection}{0}\relax 
@@ -23,7 +23,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.2}CO2}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3}VOC}{4}{}%
+\contentsline {subsection}{\numberline {3.3}VOC}{5}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4}Lösungsansatz}{5}{}%
 \defcounter {refsection}{0}\relax 
@@ -35,7 +35,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {4.3.1}Probleme bei der Programmierung des CCS811}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.2}Funktionsweise des CCS811}{7}{}%
+\contentsline {subsubsection}{\numberline {4.3.2}Funktionsweise des CCS811}{8}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.4}Zeichentool}{9}{}%
 \defcounter {refsection}{0}\relax 
