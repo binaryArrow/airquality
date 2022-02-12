@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  12 FEB 2022 00:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  12 FEB 2022 14:55
 entering extended mode
 **./template.tex
 (template.tex
@@ -850,10 +850,10 @@ inen ex-ter-nen Feuchtigkeits-
 <images/ccs_pintable.jpg, id=31, 852.18375pt x 659.46375pt>
 File: images/ccs_pintable.jpg Graphic file (type jpg)
 <use images/ccs_pintable.jpg>
-Package pdftex.def Info: images/ccs_pintable.jpg  used on input line 92.
+Package pdftex.def Info: images/ccs_pintable.jpg  used on input line 101.
 (pdftex.def)             Requested size: 426.09082pt x 329.73106pt.
 
-Overfull \hbox (81.09082pt too wide) in paragraph at lines 92--93
+Overfull \hbox (81.09082pt too wide) in paragraph at lines 101--102
  [][] 
  []
 
@@ -861,38 +861,42 @@ Overfull \hbox (81.09082pt too wide) in paragraph at lines 92--93
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-LaTeX Warning: Reference `label' on page 6 undefined on input line 96.
+LaTeX Warning: Reference `label' on page 6 undefined on input line 105.
 
 <images/ccs_zustandsdiagramm.jpg, id=32, 1035.11719pt x 1428.83812pt>
 File: images/ccs_zustandsdiagramm.jpg Graphic file (type jpg)
 <use images/ccs_zustandsdiagramm.jpg>
-Package pdftex.def Info: images/ccs_zustandsdiagramm.jpg  used on input line 99
-.
+Package pdftex.def Info: images/ccs_zustandsdiagramm.jpg  used on input line 10
+8.
 (pdftex.def)             Requested size: 310.53755pt x 428.65474pt.
-[6]
+[6] [7 <./images/ccs_pintable.jpg>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[7 <./images/ccs_pintable.jpg>] [8 <./images/ccs_zustandsdiagramm.jpg>]
-<images/metalloxid_sensor.jpg, id=43, 611.78563pt x 533.49312pt>
+<images/metalloxid_sensor.jpg, id=40, 611.78563pt x 533.49312pt>
 File: images/metalloxid_sensor.jpg Graphic file (type jpg)
 <use images/metalloxid_sensor.jpg>
-Package pdftex.def Info: images/metalloxid_sensor.jpg  used on input line 109.
+Package pdftex.def Info: images/metalloxid_sensor.jpg  used on input line 118.
 (pdftex.def)             Requested size: 183.5371pt x 160.04916pt.
+[8] [9 <./images/ccs_zustandsdiagramm.jpg>] [10 <./images/metalloxid_sensor.jpg
+>]
+Underfull \hbox (badness 10000) in paragraph at lines 133--135
 
-[9 <./images/metalloxid_sensor.jpg>]
-Overfull \hbox (2.16594pt too wide) in paragraph at lines 136--136
+ []
+
+[11]
+Overfull \hbox (2.16594pt too wide) in paragraph at lines 150--150
 []\OT1/cmr/m/it/10 BMU Be-richt 2005 - Ver-bes-se-rung der Luft-qua-lit[]at in 
 In-nenr[]aumen\OT1/cmr/m/n/10 . 11. Feb.
  []
 
 
-Overfull \hbox (18.80261pt too wide) in paragraph at lines 136--136
+Overfull \hbox (18.80261pt too wide) in paragraph at lines 150--150
 \OT1/cmtt/m/n/10 den -[] menschen / chemische -[] stoffe / fluechtige -[] organ
 ische -[] verbindungen #
  []
 
-[10] [11] (template.aux)
+[12] (template.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -903,7 +907,7 @@ Package logreq Info: Writing requests to 'template.run.xml'.
 Here is how much of TeX's memory you used:
  21984 strings out of 478927
  437482 string characters out of 2851550
- 938295 words of memory out of 3000000
+ 938298 words of memory out of 3000000
  39519 multiletter control sequences out of 15000+600000
  408835 words of font info for 45 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
@@ -921,9 +925,9 @@ Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
 ts/cm/cmsy7.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/pub
 lic/amsfonts/cm/cmti10.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on template.pdf (12 pages, 852877 bytes).
+Output written on template.pdf (13 pages, 857063 bytes).
 PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
+ 109 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  28 words of extra memory for PDF output out of 10000 (max. 10000000)
 

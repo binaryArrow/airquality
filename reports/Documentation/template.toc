@@ -3,46 +3,60 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1}Projektthema}{2}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2}Aufgabenaufteilung}{3}{}%
+\contentsline {section}{\numberline {2}Projektorganization}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1}Friedrich Just}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Kommunikation}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2}Stipe Knez}{3}{}%
+\contentsline {subsection}{\numberline {2.2}Tools und Frameworks}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3}Lucas Merkert}{3}{}%
+\contentsline {section}{\numberline {3}Aufgabenaufteilung}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4}Achim Glaesmann}{4}{}%
+\contentsline {subsection}{\numberline {3.1}Friedrich Just}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.5}Max-Rene Konieczka}{4}{}%
+\contentsline {subsection}{\numberline {3.2}Stipe Knez}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.6}Can Cihan Nazlier}{4}{}%
+\contentsline {subsection}{\numberline {3.3}Lucas Merkert}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Luftqualität}{4}{}%
+\contentsline {subsection}{\numberline {3.4}Achim Glaesmann}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1}Luftfeuchte und Temperatur}{4}{}%
+\contentsline {subsection}{\numberline {3.5}Max-Rene Konieczka}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}CO2}{5}{}%
+\contentsline {subsection}{\numberline {3.6}Can Cihan Nazlier}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3}VOC}{5}{}%
+\contentsline {section}{\numberline {4}Luftqualität}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Lösungsansatz}{5}{}%
+\contentsline {subsection}{\numberline {4.1}Luftfeuchte und Temperatur}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}SHT21}{5}{}%
+\contentsline {subsection}{\numberline {4.2}CO2}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2}SCD41}{5}{}%
+\contentsline {subsection}{\numberline {4.3}VOC}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3}CCS811}{5}{}%
+\contentsline {section}{\numberline {5}Lösungsansatz}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.1}Probleme bei der Programmierung des CCS811}{7}{}%
+\contentsline {subsection}{\numberline {5.1}SHT21}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.2}Funktionsweise des CCS811}{9}{}%
+\contentsline {subsection}{\numberline {5.2}SCD41}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.4}Zeichentool}{9}{}%
+\contentsline {subsection}{\numberline {5.3}CCS811}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5}Dashboard}{10}{}%
+\contentsline {subsubsection}{\numberline {5.3.1}Probleme bei der Programmierung des CCS811}{8}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.6}COM-Port}{10}{}%
+\contentsline {subsubsection}{\numberline {5.3.2}Funktionsweise des CCS811}{8}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Ausblick und Erweiterungsmöglichkeiten}{10}{}%
+\contentsline {subsection}{\numberline {5.4}Zeichentool}{10}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1}Genauere Bestimmung der Werte des CCS811}{10}{}%
+\contentsline {subsubsection}{\numberline {5.4.1}Funktionsweise}{10}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {5.4.2}Probleme beim Zeichentool}{10}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.5}Dashboard}{11}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {5.5.1}Funktionsweise}{11}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {5.5.2}Aufgetretene Probleme}{11}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.6}COM-Port}{11}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{12}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{12}{}%
