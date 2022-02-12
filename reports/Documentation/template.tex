@@ -135,7 +135,21 @@
 			Die Sensorwerte sollten als Y-Koordinate und die dazugehörige Zeit als X-Koordinate angezeigt werden. Zwar gibt es in D3.js eine eigens dafür integrierte scaleTime-Funktion um eine Zeitachse zu erstellen, aber durch die Zeiteinheit konnte nun kein Graph angezeigt werden. Dies hatte den Grund, dass zu diesem Zeitpunkt kein Zeitwert von der Datenbank übertragen wurde. Für dieses Problem konnte keine direkte Lösung hinsichtlich der Implementierung gefunden werden, daher wurde kurzfristig entschieden auf die Chart.js-Library umzusteigen. Diese bietet beispielsweise fertige Diagramme an, in welchen man lediglich personalisierte Werte hinzufügen kann.\newpage 
 			
 			\subsection{COM-Port \& Mockdaten}
-			Die Verbindung zwischen den ZigBee-Modulen und dem Backend wurde mit der Serialport.js Library hergestellt. Dadurch lassen sich Daten über eine COM-Port Schnittstelle an den PC schicken. Zu diesem Zeitpunkt standen keine Sensordaten zur Verfügung daher wurden Mockdaten erstellt um die Sendung zu simulieren. Dies hat...
+			
+			\subsubsection{Mockdaten}
+			Zu beginn des Projekts wurde zur Simulation von Sensordaten ein Python-programm genutzt. Der Sinn dahinter war, auch Gruppenmitgliedern, die Sensorisch nicht voll ausgestattet sein konnten, Daten zur Verfügung zu Stellen, um die Anwendung im Back- und Frontend testen zu können. Auch sollte durch die Verwendung von Mockdaten das Back- und Frontend-Team nicht auf die Vollendung der Programmierung der ZigBee Module durch das ZigBee-Team warten müssen.
+			
+Um die Idee in die Tat umzusetzen, wurde die "pySerial" API genutzt. Das Programm erstellte Datensätze und schickte diese an eine COM-Schnittstelle des Computers. Da zu diesem Zeitpunkt noch die Idee bestand, dass die Daten als JSON-string von den ZigBee Modulen an den Computer geschickt werden sollen, wurden die Datensätze im python-programm als JSON-strings formatiert und abgeschickt.
+
+Im weiteren Verlauf des Projekts wurde sich was das Format der übertragenen Daten angeht, umorientiert. Es wurde klar, dass das Verhältnis zwischen Aufwand und Nutzen bei Nutzung eines JSON Formats nicht gut genug war. Deshalb wurde sich dazu entschieden, die Daten in Form eines einfachen Strings in dem die Daten jeweils durch ein Semikolon getrennt werden, an den Computer zu  übertragen. Des Weiteren wurde, um eine realitätsgemäßere Datenübertragung simulieren zu können, die Verwendung des python-programms verworfen und auf ein ZigBee C-Programm zur Datensimulation gewechselt. Hierzu wurde ein ZigBee Modul darauf programmiert einen String im zuvor erwähnten Format an die COM-Schnittstelle in einem vordefinierten Intervall zu schicken. Die Intervalllänge wurd e dabei aus Zeiteffizienzgründen auf 10 Sekunden gesetzt.
+					\begin{figure}[!h]
+						\centering
+						\includegraphics[scale=0.223]{images/data_format}
+						\caption{Format, in dem die Datensätze übertragen werden}}
+						\label{img:data_format}
+					\end{figure}
+			\subsubsection{Kommunikation über den COM-Port}
+			
 			\subsubsection{Problembehandlung}
 			Kleine Problembehandlung wegen Mockdaten: 
 			Zu Beginn wurden die Mockdaten in einem JSON-Format durch eine Python-Applikation erstellt um die Datenübertragung an die Datenbank testen zu können. Zwar hat dies funktioniert, doch wurde nach kurzer Zeit festgestellt, dass das nicht der beste Lösungsansatz war. Da die Daten von einem Sensor empfangen werden sollten, wurde entschieden ein C-Programm auf ein ZigBee-Modulen zu programmieren, welches lediglich einen String mit einer bestimmten Anzahl an Werten abschickt, um die Übertragung von Sensordaten zu simulieren. 

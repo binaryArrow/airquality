@@ -57,10 +57,14 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.6}COM-Port \& Mockdaten}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.1}Problembehandlung}{12}{}%
+\contentsline {subsubsection}{\numberline {5.6.1}Mockdaten}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.7}Installationsdatei}{12}{}%
+\contentsline {subsubsection}{\numberline {5.6.2}Kommunikation über den COM-Port}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{12}{}%
+\contentsline {subsubsection}{\numberline {5.6.3}Problembehandlung}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{12}{}%
+\contentsline {subsection}{\numberline {5.7}Installationsdatei}{13}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{13}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{13}{}%
