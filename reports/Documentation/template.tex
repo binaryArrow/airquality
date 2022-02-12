@@ -128,14 +128,21 @@
 			
 			\subsection{Dashboard}
 			\subsubsection{Funktionsweise}
-			Das Dashboard ist hauptsächlich dazu da, die ankommenden Sensordaten visuell darzustellen. Es besteht aus 4 Liniendiagrammen, die die Werte von Temperatur, relativer Feuchtigkeit, CO2 und TVOC anhand eines Liniengraphen anzeigen. Der Anwender hat die Möglichkeit verschiedene Zeiten einzustellen, somit kann er die Daten der vergangenen letzten 6, 24 und 168 Stunden aufrufen. 
+			Das Dashboard ist hauptsächlich dazu da, die ankommenden Sensordaten visuell darzustellen. Es besteht aus 4 Liniendiagrammen, die die Werte von Temperatur, relativer Feuchtigkeit, CO2 und TVOC anhand eines Liniengraphen anzeigen. Der Anwender hat die Möglichkeit verschiedene Zeiten einzustellen, somit kann er die Daten der vergangenen letzten 6, 24 und 168 Stunden aufrufen.
+			Wenn einer der Zeit-Buttons benutzt wird, kann man für die nächsten drei Sekunden keine weitere Eingabe tätigen und werden erst nach diesem Zeitraum wieder freigeschaltet. Es braucht nämlich 3 Sekunden, bis die Daten vom Backend im Frontend geladen werden. 
 			\subsubsection{Aufgetretene Probleme}
 			Zunächst war festgelegt, dass die JavaScript-Library D3.js verwendet wird um die graphische Darstellung der Sensordaten zu realisieren. Diese enthält Funktionen um verschiedenste Diagramme zu erstellen. Die Funktionen manipulieren HTML-Elemente, dadurch können z.B. einerseits deren Größe und Breite eingestellt oder andererseits können komplett neue HTML-Elemente hinzugefügt werden. Das Erstellen von vier verschiedenen Liniendiagrammen und einer Ampel war zunächst schnell abgeschlossen. Nach dieser Erstellung wurde ein Socket implementiert um zu überprüfen, ob die Sensordaten im Dashboard ankommen, was im Anschluss auch der Fall war. Allerdings ist hier ein Problem hervorgekommen.\newline
-			Die Sensorwerte sollten als Y-Koordinate und die dazugehörige Zeit als X-Koordinate angezeigt werden. Zwar gibt es in D3.js eine eigens dafür integrierte scaleTime-Funktion um eine Zeitachse zu erstellen, aber durch die Zeiteinheit konnte nun kein Graph angezeigt werden. Dies hatte den Grund, dass zu diesem Zeitpunkt kein Zeitwert von der Datenbank übertragen wurde. Für dieses Problem konnte keine direkte Lösung hinsichtlich der Implementierung gefunden werden, daher wurde kurzfristig entschieden auf die Chart.js-Library umzusteigen.\newline 
+			Die Sensorwerte sollten als Y-Koordinate und die dazugehörige Zeit als X-Koordinate angezeigt werden. Zwar gibt es in D3.js eine eigens dafür integrierte scaleTime-Funktion um eine Zeitachse zu erstellen, aber durch die Zeiteinheit konnte nun kein Graph angezeigt werden. Dies hatte den Grund, dass zu diesem Zeitpunkt kein Zeitwert von der Datenbank übertragen wurde. Für dieses Problem konnte keine direkte Lösung hinsichtlich der Implementierung gefunden werden, daher wurde kurzfristig entschieden auf die Chart.js-Library umzusteigen. Diese bietet beispielsweise fertige Diagramme an, in welchen man lediglich personalisierte Werte hinzufügen kann.\newpage 
 			
-			
-			\subsection{COM-Port}
+			\subsection{COM-Port \& Mockdaten}
 			Die Verbindung zwischen den ZigBee-Modulen und dem Backend wurde mit der Serialport.js Library hergestellt. Dadurch lassen sich Daten über eine COM-Port Schnittstelle an den PC schicken. Zu diesem Zeitpunkt standen keine Sensordaten zur Verfügung daher wurden Mockdaten erstellt um die Sendung zu simulieren. Dies hat...
+			\subsubsection{Problembehandlung}
+			Kleine Problembehandlung wegen Mockdaten: 
+			Zu Beginn wurden die Mockdaten in einem JSON-Format durch eine Python-Applikation erstellt um die Datenübertragung an die Datenbank testen zu können. Zwar hat dies funktioniert, doch wurde nach kurzer Zeit festgestellt, dass das nicht der beste Lösungsansatz war. Da die Daten von einem Sensor empfangen werden sollten, wurde entschieden ein C-Programm auf ein ZigBee-Modulen zu programmieren, welches lediglich einen String mit einer bestimmten Anzahl an Werten abschickt, um die Übertragung von Sensordaten zu simulieren. 
+			
+			\subsection{Installationsdatei}
+			Alles bisherige wurde in Express gebündelt und in zwei PowerShell-Skripte unterteilt. Einmal wird das kompilierte Frontend mit Electron, und das kompilierte Backend in Express.js gestartet.\newline
+			Es konnte keine EXE.-Datei erstellt werden, da die Nodeversion vom Serialport.js, was verwendet wurde um die Kommunikation mit den COM-Port Schnittstellen herzustellen, und die serverseitige Nodeversion verschieden und daher nicht kompatibel waren. (Electron war damit auch nicht kompatibel) 
 			
 	\section{Ausblick und Erweiterungsmöglichkeiten}
 		\subsection{Genauere Bestimmung der Werte des CCS811}

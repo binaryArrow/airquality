@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  12 FEB 2022 14:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  12 FEB 2022 16:06
 entering extended mode
 **./template.tex
 (template.tex
@@ -879,24 +879,19 @@ File: images/metalloxid_sensor.jpg Graphic file (type jpg)
 Package pdftex.def Info: images/metalloxid_sensor.jpg  used on input line 118.
 (pdftex.def)             Requested size: 183.5371pt x 160.04916pt.
 [8] [9 <./images/ccs_zustandsdiagramm.jpg>] [10 <./images/metalloxid_sensor.jpg
->]
-Underfull \hbox (badness 10000) in paragraph at lines 133--135
-
- []
-
-[11]
-Overfull \hbox (2.16594pt too wide) in paragraph at lines 150--150
+>] [11]
+Overfull \hbox (2.16594pt too wide) in paragraph at lines 157--157
 []\OT1/cmr/m/it/10 BMU Be-richt 2005 - Ver-bes-se-rung der Luft-qua-lit[]at in 
 In-nenr[]aumen\OT1/cmr/m/n/10 . 11. Feb.
  []
 
 
-Overfull \hbox (18.80261pt too wide) in paragraph at lines 150--150
+Overfull \hbox (18.80261pt too wide) in paragraph at lines 157--157
 \OT1/cmtt/m/n/10 den -[] menschen / chemische -[] stoffe / fluechtige -[] organ
 ische -[] verbindungen #
  []
 
-[12] (template.aux)
+[12] [13] (template.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -925,9 +920,9 @@ Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
 ts/cm/cmsy7.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/pub
 lic/amsfonts/cm/cmti10.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on template.pdf (13 pages, 857063 bytes).
+Output written on template.pdf (14 pages, 859958 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
+ 112 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  28 words of extra memory for PDF output out of 10000 (max. 10000000)
 
