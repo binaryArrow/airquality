@@ -1,78 +1,82 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \babel@toc {german}{}\relax 
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1}Projektthema}{2}{}%
+\contentsline {section}{\numberline {1}Projektthema}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2}Projektorganisation}{3}{}%
+\contentsline {section}{\numberline {2}Projektorganisation}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1}Kommunikation}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Kommunikation}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2}Tools und Frameworks}{3}{}%
+\contentsline {subsection}{\numberline {2.2}Tools und Frameworks}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3}Prozessverlauf}{4}{}%
+\contentsline {subsection}{\numberline {2.3}Prozessverlauf}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Aufgabenaufteilung}{4}{}%
+\contentsline {section}{\numberline {3}Aufgabenaufteilung}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1}Friedrich Just}{5}{}%
+\contentsline {subsection}{\numberline {3.1}Friedrich Just}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}Stipe Knez}{5}{}%
+\contentsline {subsection}{\numberline {3.2}Stipe Knez}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3}Lucas Merkert}{5}{}%
+\contentsline {subsection}{\numberline {3.3}Lucas Merkert}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4}Achim Glaesmann}{5}{}%
+\contentsline {subsection}{\numberline {3.4}Achim Glaesmann}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5}Max-Rene Konieczka}{5}{}%
+\contentsline {subsection}{\numberline {3.5}Max-Rene Konieczka}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6}Can Cihan Nazlier}{5}{}%
+\contentsline {subsection}{\numberline {3.6}Can Cihan Nazlier}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Luftqualität}{5}{}%
+\contentsline {section}{\numberline {4}Luftqualität}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}Luftfeuchte und Temperatur}{5}{}%
+\contentsline {subsection}{\numberline {4.1}Luftfeuchte und Temperatur}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2}CO2}{6}{}%
+\contentsline {subsection}{\numberline {4.2}CO2}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3}VOC}{6}{}%
+\contentsline {subsection}{\numberline {4.3}VOC}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Lösungsansatz}{7}{}%
+\contentsline {section}{\numberline {5}Lösungsansatz}{8}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1}SHT21}{7}{}%
+\contentsline {subsection}{\numberline {5.1}SHT21}{8}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2}SCD41}{7}{}%
+\contentsline {subsection}{\numberline {5.2}SCD41}{8}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3}CCS811}{7}{}%
+\contentsline {subsection}{\numberline {5.3}CCS811}{8}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.3.1}Probleme bei der Programmierung des CCS811}{10}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.3.2}Funktionsweise des CCS811}{10}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.4}Zeichentool}{10}{}%
+\contentsline {subsection}{\numberline {5.4}Serverimplementierung}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.4.1}Aufbau und Funktionsweise}{10}{}%
+\contentsline {subsection}{\numberline {5.5}Zeichentool}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.4.2}Probleme beim Zeichentool}{11}{}%
+\contentsline {subsubsection}{\numberline {5.5.1}Aufbau und Funktionsweise}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.5}Dashboard}{12}{}%
+\contentsline {subsubsection}{\numberline {5.5.2}Probleme beim Zeichentool}{13}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.5.1}Funktionsweise}{12}{}%
+\contentsline {subsection}{\numberline {5.6}Dashboard}{13}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.5.2}Aufgetretene Probleme}{12}{}%
+\contentsline {subsubsection}{\numberline {5.6.1}Funktionsweise}{13}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.6}COM-Port \& Mockdaten}{13}{}%
+\contentsline {subsubsection}{\numberline {5.6.2}Aufgetretene Probleme}{13}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.1}Mockdaten}{13}{}%
+\contentsline {subsection}{\numberline {5.7}COM-Port \& Mockdaten}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.2}Kommunikation über den COM-Port}{14}{}%
+\contentsline {subsubsection}{\numberline {5.7.1}Mockdaten}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.3}Problembehandlung}{14}{}%
+\contentsline {subsubsection}{\numberline {5.7.2}Kommunikation über den COM-Port}{15}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.7}Installationsdatei}{14}{}%
+\contentsline {subsubsection}{\numberline {5.7.3}Problembehandlung}{15}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{14}{}%
+\contentsline {subsection}{\numberline {5.8}Installationsdatei}{15}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{14}{}%
+\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{15}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.2}Bugfixes in der Applikation}{14}{}%
+\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{15}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.3}Dynamische Gestaltung}{14}{}%
+\contentsline {subsection}{\numberline {6.2}Bugfixes in der Applikation}{16}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.4}Migration auf andere Geräte oder Plattformen}{15}{}%
+\contentsline {subsection}{\numberline {6.3}Dynamische Gestaltung}{16}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.4}Migration auf andere Geräte oder Plattformen}{16}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.5}Dark Mode}{16}{}%

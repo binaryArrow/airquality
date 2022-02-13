@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  13 FEB 2022 11:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  13 FEB 2022 15:33
 entering extended mode
 **./template.tex
 (template.tex
@@ -840,14 +840,14 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \tf@toc=\write5
 \openout5 = `template.toc'.
 
- [1]
+ [1] [2]
 Overfull \hbox (11.6395pt too wide) in paragraph at lines 49--54
 \OT1/cmr/m/n/10 durch Tem-pe-ra-tur und Luft-feuch-tig-keit ist da-bei []uber e
 inen ex-ter-nen Feuchtigkeits-
  []
 
-[2] [3]
-<images/DocArchitectureDiagram.jpg, id=23, 1760.5775pt x 572.1375pt>
+[3] [4]
+<images/DocArchitectureDiagram.jpg, id=26, 1760.5775pt x 572.1375pt>
 File: images/DocArchitectureDiagram.jpg Graphic file (type jpg)
 <use images/DocArchitectureDiagram.jpg>
 Package pdftex.def Info: images/DocArchitectureDiagram.jpg  used on input line 
@@ -858,14 +858,14 @@ Overfull \hbox (47.6205pt too wide) in paragraph at lines 69--70
  [][] 
  []
 
-[4 <./images/DocArchitectureDiagram.jpg>] [5] [6]
-<images/ccs_pintable.jpg, id=36, 852.18375pt x 659.46375pt>
+[5 <./images/DocArchitectureDiagram.jpg>] [6] [7]
+<images/ccs_pintable.jpg, id=39, 852.18375pt x 659.46375pt>
 File: images/ccs_pintable.jpg Graphic file (type jpg)
 <use images/ccs_pintable.jpg>
-Package pdftex.def Info: images/ccs_pintable.jpg  used on input line 111.
+Package pdftex.def Info: images/ccs_pintable.jpg  used on input line 112.
 (pdftex.def)             Requested size: 426.09082pt x 329.73106pt.
 
-Overfull \hbox (81.09082pt too wide) in paragraph at lines 111--112
+Overfull \hbox (81.09082pt too wide) in paragraph at lines 112--113
  [][] 
  []
 
@@ -873,59 +873,59 @@ Overfull \hbox (81.09082pt too wide) in paragraph at lines 111--112
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-LaTeX Warning: Reference `label' on page 7 undefined on input line 115.
+LaTeX Warning: Reference `label' on page 8 undefined on input line 116.
 
-<images/ccs_zustandsdiagramm.jpg, id=37, 1035.11719pt x 1428.83812pt>
+<images/ccs_zustandsdiagramm.jpg, id=40, 1035.11719pt x 1428.83812pt>
 File: images/ccs_zustandsdiagramm.jpg Graphic file (type jpg)
 <use images/ccs_zustandsdiagramm.jpg>
 Package pdftex.def Info: images/ccs_zustandsdiagramm.jpg  used on input line 11
-8.
+9.
 (pdftex.def)             Requested size: 310.53755pt x 428.65474pt.
-[7] [8 <./images/ccs_pintable.jpg>] [9 <./images/ccs_zustandsdiagramm.jpg>]
-<images/metalloxid_sensor.jpg, id=47, 611.78563pt x 533.49312pt>
-File: images/metalloxid_sensor.jpg Graphic file (type jpg)
-<use images/metalloxid_sensor.jpg>
-Package pdftex.def Info: images/metalloxid_sensor.jpg  used on input line 128.
-(pdftex.def)             Requested size: 183.5371pt x 160.04916pt.
-
+[8] [9 <./images/ccs_pintable.jpg>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[10] [11 <./images/metalloxid_sensor.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 143--145
+<images/metalloxid_sensor.jpg, id=47, 611.78563pt x 533.49312pt>
+File: images/metalloxid_sensor.jpg Graphic file (type jpg)
+<use images/metalloxid_sensor.jpg>
+Package pdftex.def Info: images/metalloxid_sensor.jpg  used on input line 129.
+(pdftex.def)             Requested size: 183.5371pt x 160.04916pt.
+[10] [11 <./images/ccs_zustandsdiagramm.jpg>] [12 <./images/metalloxid_sensor.j
+pg>]
+Underfull \hbox (badness 10000) in paragraph at lines 146--148
 
  []
 
-[12]
-<images/data_format.png, id=58, 1557.82pt x 166.6225pt>
+[13]
+<images/data_format.png, id=61, 1557.82pt x 166.6225pt>
 File: images/data_format.png Graphic file (type png)
 <use images/data_format.png>
-Package pdftex.def Info: images/data_format.png  used on input line 157.
+Package pdftex.def Info: images/data_format.png  used on input line 160.
 (pdftex.def)             Requested size: 347.40424pt x 37.15791pt.
 
-Overfull \hbox (2.40424pt too wide) in paragraph at lines 157--158
+Overfull \hbox (2.40424pt too wide) in paragraph at lines 160--161
  [][] 
  []
 
 
-Overfull \hbox (1.23671pt too wide) in paragraph at lines 152--161
+Overfull \hbox (1.23671pt too wide) in paragraph at lines 155--164
 \OT1/cmr/m/n/10 Programm ge-nutzt. Der Sinn da-hin-ter war, auch Grup-pen-mit-g
 lie-dern, die sensor-
  []
 
-[13 <./images/data_format.png>] [14] [15]
-Overfull \hbox (2.16594pt too wide) in paragraph at lines 188--188
+[14] [15 <./images/data_format.png>] [16]
+Overfull \hbox (2.16594pt too wide) in paragraph at lines 195--195
 []\OT1/cmr/m/it/10 BMU Be-richt 2005 - Ver-bes-se-rung der Luft-qua-lit[]at in 
 In-nenr[]aumen\OT1/cmr/m/n/10 . 11. Feb.
  []
 
 
-Overfull \hbox (18.80261pt too wide) in paragraph at lines 188--188
+Overfull \hbox (18.80261pt too wide) in paragraph at lines 195--195
 \OT1/cmtt/m/n/10 den -[] menschen / chemische -[] stoffe / fluechtige -[] organ
 ische -[] verbindungen #
  []
 
-[16] (template.aux)
+[17] (template.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -936,7 +936,7 @@ Package logreq Info: Writing requests to 'template.run.xml'.
 Here is how much of TeX's memory you used:
  22010 strings out of 478927
  438290 string characters out of 2851550
- 939315 words of memory out of 3000000
+ 940316 words of memory out of 3000000
  39543 multiletter control sequences out of 15000+600000
  408835 words of font info for 45 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
@@ -954,9 +954,9 @@ Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
 ts/cm/cmsy7.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/pub
 lic/amsfonts/cm/cmti10.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on template.pdf (17 pages, 961658 bytes).
+Output written on template.pdf (18 pages, 962688 bytes).
 PDF statistics:
- 125 PDF objects out of 1000 (max. 8388607)
+ 128 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
