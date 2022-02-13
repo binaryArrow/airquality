@@ -255,7 +255,7 @@ export default defineComponent({
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData1[i])
                   finalSensorData1.push({
-                    data: parseFloat(this.sensorData1[i].tempSHT21) / 100,
+                    data: parseFloat(this.sensorData1[i].tempSCD41) / 100,
                     timestamp: this.sensorData1[i].created_at
                   })
               }
@@ -264,7 +264,7 @@ export default defineComponent({
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData2[i])
                   finalSensorData2.push({
-                    data: parseFloat(this.sensorData2[i].tempSHT21) / 100,
+                    data: parseFloat(this.sensorData2[i].tempSCD41) / 100,
                     timestamp: this.sensorData2[i].created_at
                   })
               }
@@ -273,7 +273,7 @@ export default defineComponent({
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData3[i])
                   finalSensorData3.push({
-                    data: parseFloat(this.sensorData3[i].tempSHT21) / 100,
+                    data: parseFloat(this.sensorData3[i].tempSCD41) / 100,
                     timestamp: this.sensorData3[i].created_at
                   })
               }
@@ -458,7 +458,7 @@ export default defineComponent({
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData1[i])
                   finalSensorData1.push({
-                    data: parseFloat(this.sensorData1[i].co2SCD41) / 100,
+                    data: parseFloat(this.sensorData1[i].co2SCD41),
                     timestamp: this.sensorData1[i].created_at
                   })
               }
@@ -467,7 +467,7 @@ export default defineComponent({
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData2[i])
                   finalSensorData2.push({
-                    data: parseFloat(this.sensorData2[i].co2SCD41) / 100,
+                    data: parseFloat(this.sensorData2[i].co2SCD41),
                     timestamp: this.sensorData2[i].created_at
                   })
               }
@@ -476,7 +476,7 @@ export default defineComponent({
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData3[i])
                   finalSensorData3.push({
-                    data: parseFloat(this.sensorData3[i].co2SCD41) / 100,
+                    data: parseFloat(this.sensorData3[i].co2SCD41),
                     timestamp: this.sensorData3[i].created_at
                   })
               }
@@ -559,7 +559,7 @@ export default defineComponent({
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData1[i])
                   finalSensorData1.push({
-                    data: parseFloat(this.sensorData1[i].tvocCCS811) / 100,
+                    data: parseFloat(this.sensorData1[i].tvocCCS811),
                     timestamp: this.sensorData1[i].created_at
                   })
               }
@@ -568,7 +568,7 @@ export default defineComponent({
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData2[i])
                   finalSensorData2.push({
-                    data: parseFloat(this.sensorData2[i].tvocCCS811) / 100,
+                    data: parseFloat(this.sensorData2[i].tvocCCS811),
                     timestamp: this.sensorData2[i].created_at
                   })
               }
@@ -577,7 +577,7 @@ export default defineComponent({
               if (i % medianCalculationSize === 0 && i !== 0) {
                 if (this.sensorData3[i])
                   finalSensorData3.push({
-                    data: parseFloat(this.sensorData3[i].tvocCCS811) / 100,
+                    data: parseFloat(this.sensorData3[i].tvocCCS811),
                     timestamp: this.sensorData3[i].created_at
                   })
               }
