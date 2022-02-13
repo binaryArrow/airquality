@@ -78,14 +78,23 @@ function getPortName(){
     }else{
         clearInterval(waitForZigBee)
         const serial = new SeriP(connection, portName)
+        serial.port.on('open', async() =>{                  // port opened successfully
+            console.log("Port opened!");
+        })
+        serial.port.on('error', async(err?: any) =>{        // port not opened successfully
+            console.log("An error has occured --> " + err);
+            console.log("Please reconnect the module to your computer and don't remove it while the connection is being established.")
+            portName = ""
+            waitForZigBee = setInterval(getPortName, checkInterval)
+        })
         serial.listen(io)
-        serial.port.on('close', async (err?: any) => {
+        serial.port.on('close', async (err?: any) => {     // device disconnected
             console.log("Port closed.");
             if (err.disconnected) {
                 console.log("Disconnected!");
                 portName = ""
                 waitForZigBee = setInterval(getPortName, checkInterval)
             }
-        });
+        })
     }
 }

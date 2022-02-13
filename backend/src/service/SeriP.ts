@@ -18,7 +18,7 @@ export class SeriP {
             parity: "none",
             stopBits: 1
         })
-        console.log("Port created!")
+
         this.parser = new Readline()
         this.connection = connection
     }
