@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  13 FEB 2022 23:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  14 FEB 2022 00:15
 entering extended mode
 **./template.tex
 (template.tex
@@ -898,77 +898,69 @@ Overfull \hbox (14.84715pt too wide) in paragraph at lines 174--175
  []
 
 [12 <./images/data_example.png>]
-Overfull \hbox (63.7506pt too wide) in paragraph at lines 203--204
-[]\OT1/cmr/m/n/10 Der Netz-werkauf-bau ist wie auf den Ar-beits-bl[]attern ge-s
-che-hen??????????????????????????? 
- []
-
-
-Overfull \hbox (15.08295pt too wide) in paragraph at lines 211--213
+<images/Netzwerkaufbau.png, id=66, 155.58125pt x 255.95625pt>
+File: images/Netzwerkaufbau.png Graphic file (type png)
+<use images/Netzwerkaufbau.png>
+Package pdftex.def Info: images/Netzwerkaufbau.png  used on input line 208.
+(pdftex.def)             Requested size: 93.34946pt x 153.57492pt.
+ [13 <./images/Netzwerkaufbau.png>]
+Overfull \hbox (15.08295pt too wide) in paragraph at lines 219--221
 \OT1/cmr/m/n/10 MO ver-gli-chen und []ahnliche Wer-te wur-den fest-ge-stellt Bi
 l-der....................................
  []
 
-[13]
-Underfull \hbox (badness 10000) in paragraph at lines 228--230
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 236--238
 
  []
 
-[14] [15]
-<images/data_format.png, id=75, 1557.82pt x 166.6225pt>
+[15]
+<images/data_format.png, id=77, 1557.82pt x 166.6225pt>
 File: images/data_format.png Graphic file (type png)
 <use images/data_format.png>
-Package pdftex.def Info: images/data_format.png  used on input line 242.
+Package pdftex.def Info: images/data_format.png  used on input line 250.
 (pdftex.def)             Requested size: 347.40424pt x 37.15791pt.
 
-Overfull \hbox (2.40424pt too wide) in paragraph at lines 242--243
+Overfull \hbox (2.40424pt too wide) in paragraph at lines 250--251
  [][] 
  []
 
-<images/getPortName.png, id=76, 1636.1125pt x 983.675pt>
-File: images/getPortName.png Graphic file (type png)
-<use images/getPortName.png>
-Package pdftex.def Info: images/getPortName.png  used on input line 256.
-(pdftex.def)             Requested size: 364.86398pt x 219.36607pt.
-
-Overfull \hbox (19.86398pt too wide) in paragraph at lines 256--257
- [][] 
- []
-
-[16 <./images/data_format.png>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[17] [18 <./images/getPortName.png>] [19]
-Overfull \hbox (2.16594pt too wide) in paragraph at lines 293--293
+<images/getPortName.png, id=78, 1636.1125pt x 983.675pt>
+File: images/getPortName.png Graphic file (type png)
+<use images/getPortName.png>
+Package pdftex.def Info: images/getPortName.png  used on input line 264.
+(pdftex.def)             Requested size: 364.86398pt x 219.36607pt.
+
+Overfull \hbox (19.86398pt too wide) in paragraph at lines 264--265
+ [][] 
+ []
+
+[16] [17 <./images/data_format.png>] [18 <./images/getPortName.png>] [19]
+[20]
+Overfull \hbox (2.16594pt too wide) in paragraph at lines 301--301
 []\OT1/cmr/m/it/10 BMU Be-richt 2005 - Ver-bes-se-rung der Luft-qua-lit[]at in 
 In-nenr[]aumen\OT1/cmr/m/n/10 . 11. Feb.
  []
 
 
-Overfull \hbox (18.80261pt too wide) in paragraph at lines 293--293
+Overfull \hbox (18.80261pt too wide) in paragraph at lines 301--301
 \OT1/cmtt/m/n/10 den -[] menschen / chemische -[] stoffe / fluechtige -[] organ
 ische -[] verbindungen #
  []
 
-[20] (template.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
-(biblatex)                template
-(biblatex)                and rerun LaTeX afterwards.
-
+[21] (template.aux)
 Package logreq Info: Writing requests to 'template.run.xml'.
 \openout1 = `template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 22434 strings out of 478927
- 442105 string characters out of 2852534
- 1159603 words of memory out of 3000000
- 39958 multiletter control sequences out of 15000+600000
+ 22446 strings out of 478927
+ 442440 string characters out of 2852534
+ 1159584 words of memory out of 3000000
+ 39969 multiletter control sequences out of 15000+600000
  409003 words of font info for 46 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  84i,8n,89p,2501b,1758s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -987,9 +979,9 @@ fried/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:
 cm/cmti10.pfb><C:/Users/fried/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 amsfonts/cm/cmtt10.pfb><C:/Users/fried/AppData/Local/Programs/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmtt8.pfb>
-Output written on template.pdf (22 pages, 1176697 bytes).
+Output written on template.pdf (23 pages, 1187008 bytes).
 PDF statistics:
- 155 PDF objects out of 1000 (max. 8388607)
+ 160 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 48 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

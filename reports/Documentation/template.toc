@@ -55,15 +55,15 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.6.2}Probleme beim Zusammenfügen der Sensoren und des Netzwerkes}{13}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.7}Messdaten Auswertung}{13}{}%
+\contentsline {subsection}{\numberline {5.7}Messdaten Auswertung}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.8}Serverimplementierung}{13}{}%
+\contentsline {subsection}{\numberline {5.8}Serverimplementierung}{14}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.9}Zeichentool}{14}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.9.1}Aufbau und Funktionsweise}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.9.2}Probleme beim Zeichentool}{14}{}%
+\contentsline {subsubsection}{\numberline {5.9.2}Probleme beim Zeichentool}{15}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.10}Dashboard}{15}{}%
 \defcounter {refsection}{0}\relax 
@@ -75,11 +75,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.11.1}Mockdaten}{16}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.11.2}Kommunikation über den COM-Port}{16}{}%
+\contentsline {subsubsection}{\numberline {5.11.2}Kommunikation über den COM-Port}{17}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.11.3}Aufgetretene Probleme}{18}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.12}Installationsdatei}{18}{}%
+\contentsline {subsection}{\numberline {5.12}Installationsdatei}{19}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {6}Auswertung des Testlaufs}{19}{}%
 \defcounter {refsection}{0}\relax 
@@ -93,8 +93,8 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.4}Dynamische Gestaltung}{19}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.5}Migration auf andere Geräte oder Plattformen}{19}{}%
+\contentsline {subsection}{\numberline {7.5}Migration auf andere Geräte oder Plattformen}{20}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.6}Genauere Berechnung der Corona-Ampel}{19}{}%
+\contentsline {subsection}{\numberline {7.6}Genauere Berechnung der Corona-Ampel}{20}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.7}Dark Mode}{19}{}%
+\contentsline {subsection}{\numberline {7.7}Dark Mode}{20}{}%
