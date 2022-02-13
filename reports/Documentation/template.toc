@@ -7,15 +7,17 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1}Kommunikation}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2}Tools und Frameworks}{4}{}%
+\contentsline {subsection}{\numberline {2.2}Tools und Frameworks}{3}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3}Prozessverlauf}{4}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3}Aufgabenaufteilung}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1}Friedrich Just}{4}{}%
+\contentsline {subsection}{\numberline {3.1}Friedrich Just}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}Stipe Knez}{4}{}%
+\contentsline {subsection}{\numberline {3.2}Stipe Knez}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3}Lucas Merkert}{4}{}%
+\contentsline {subsection}{\numberline {3.3}Lucas Merkert}{5}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.4}Achim Glaesmann}{5}{}%
 \defcounter {refsection}{0}\relax 
@@ -31,44 +33,46 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.3}VOC}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Lösungsansatz}{6}{}%
+\contentsline {section}{\numberline {5}Lösungsansatz}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1}SHT21}{6}{}%
+\contentsline {subsection}{\numberline {5.1}SHT21}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2}SCD41}{6}{}%
+\contentsline {subsection}{\numberline {5.2}SCD41}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3}CCS811}{6}{}%
+\contentsline {subsection}{\numberline {5.3}CCS811}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.3.1}Probleme bei der Programmierung des CCS811}{8}{}%
+\contentsline {subsubsection}{\numberline {5.3.1}Probleme bei der Programmierung des CCS811}{10}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.3.2}Funktionsweise des CCS811}{10}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.4}Zeichentool}{10}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.4.1}Funktionsweise}{10}{}%
+\contentsline {subsubsection}{\numberline {5.4.1}Aufbau und Funktionsweise}{10}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.4.2}Probleme beim Zeichentool}{11}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.5}Dashboard}{11}{}%
+\contentsline {subsection}{\numberline {5.5}Dashboard}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.5.1}Funktionsweise}{11}{}%
+\contentsline {subsubsection}{\numberline {5.5.1}Funktionsweise}{12}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.5.2}Aufgetretene Probleme}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.6}COM-Port \& Mockdaten}{12}{}%
+\contentsline {subsection}{\numberline {5.6}COM-Port \& Mockdaten}{13}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.1}Mockdaten}{12}{}%
+\contentsline {subsubsection}{\numberline {5.6.1}Mockdaten}{13}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.2}Kommunikation über den COM-Port}{13}{}%
+\contentsline {subsubsection}{\numberline {5.6.2}Kommunikation über den COM-Port}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.3}Problembehandlung}{13}{}%
+\contentsline {subsubsection}{\numberline {5.6.3}Problembehandlung}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.7}Installationsdatei}{13}{}%
+\contentsline {subsection}{\numberline {5.7}Installationsdatei}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{13}{}%
+\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{13}{}%
+\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{14}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.2}Bugfixes in der Applikation}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.3}Migration auf andere Geräte oder Plattformen}{14}{}%
+\contentsline {subsection}{\numberline {6.3}Dynamische Gestaltung}{14}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.4}Migration auf andere Geräte oder Plattformen}{15}{}%
