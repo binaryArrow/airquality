@@ -132,6 +132,87 @@
 					\end{figure}
 					%TODO wikipedia als quelle?!
 					
+					
+			\subsection{Messung der Eingangsspannung}
+			Für die Messung der Eingangsspannung wurde der Analog-to-Digital Converter genutzt, auch ADC genannt, welcher sich auf dem ATmega256RFR2 befindet. Dieser wandelt analoge Signale in digitale um. Für die Eingangsspannung muss der ADC0-Pin ausgelesen werden. Hierfür nutzt man die Register, die im Datasheet S.465 beschrieben sind. Die Bits von MUX5:0 werden auf 0 gesetzt (Referenz)Z.4-5. Des Weiteren wird die interne Referenzspannung von 1.5V im ADMUX Register ausgewählt. Dafür setzt man das REFS1 Bit auf eins und REFS0 auf Null (Referenz)(Z.4). Jetzt wird noch der ADC eingeschaltet, indem man im ADCSRA Register das ADEN Bit auf Eins stellt. Danach startet man die Messung, indem man im ADCSRA Register das ADSC Bit auf Eins stellt (Referenz)(Z.8). Wenn die Messung erfolgt ist, wird das ADSC Bit auf Null gestellt und das Ergebnis im ADCW Register gespeichert. Diesen Wert wird mit sechs multipliziert, um den Messwert in Millivolt zu erhalten. In Listing (ATMEGADATASHEETT REFERENCE S. 465)
+			Es werden mehrere Werte gemessen, um so einen genaueren Durchschnitt zu berechnen.
+			
+			\begin{lstlisting}[language=C,frame=single, caption = Delay Timer, label = delay_timer] 
+				static uint16_t vcc_read(void){
+					uint32_t adcval = 0;
+					
+					ADMUX  |= (1<<REFS1)|(0<<REFS0)|(0<<MUX4)|(0<<MUX3)|(0<<MUX2)|(0<<MUX1)|(0<<MUX0);			ADCSRB |= (0<<MUX5);
+					ADCSRA |= (1<<ADEN); // ADC einschalten
+					for(uint16_t i=0; i<NUM_MESS_ADC; i++){
+						ADCSRA |= (1<<ADSC); // start messung
+						while (ADCSRA&(1<<ADSC)){
+						}
+						adcval += ADCW;
+					}
+					ADCSRA &= ~(1<<ADEN); // ADC ausschalten
+					return (((adcval)/NUM_MESS_ADC) * 6);
+				}
+				
+			\end{lstlisting}
+			
+			
+			\subsection{Datenübertragung}
+			Bei der Datenübertragung wurde entschieden, alle Sensordaten in einem uint8\_t Array zu versenden. Dieses Array ist somit immer 44 Byte lang. Die verschiedenen Werte sind durch Semikolons getrennt. Es folgt die Liste mit allen Werten aus dem Array mit passender Umrechnung und Maßeinheit:
+			\begin{enumerate}
+				\item ID es Mikrocontrollers		
+				\item SHT21 Temperatur				(Wert/100 in $^\circ$C)
+				\item SHT21 Relative Luftfeuchte	(Wert/100 in \%)
+				\item SCD41 Temperatur				(Wert/100 in $^\circ$C)
+				\item SCD41 Relative Luftfeuchte	(Wert/100 in \%)
+				\item SCD41 CO2						(Wert in ppm)
+				\item CCS811 eCO2					(Wert in ppm)
+				\item CCS811 TVOC					(Wert in ppb)
+				\item Spannung 						(Wert in Millivolt)
+			\end{enumerate}
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.60]{images/data_example}
+				\caption{Beispiel Messdaten Array}
+				\label{img:data_example}
+			\end{figure}
+			
+			
+			Wenn alle Werte im Array sind, müssen diese in die Payload übertragen werden. Mit diesem Befehl APS\_DataReq(\&datareq); werden die Daten an den Koordinator gesendet.
+			
+			\subsection{Netzwerkaufbau}
+			\subsubsection{Aufbau}
+			In dem Netzwerk gibt es drei verschiedene Rollen. 
+			
+			\begin{enumerate}
+				\item Der Router leitet die ankommenden Daten an den Koordinator oder an andere Router weiter. 
+				\item Der Koordinator ist dafür verantwortlich, dass das ZigBee-Netzwerk startet. Er fungiert auch als Router.
+				\item Das Endgerät kommuniziert nur mit dem Router und Koordinator. 
+			\end{enumerate}
+			
+			In der Header Datei configurations.h müssen verschiedene Voreinstellungen vorgenommen werden. 
+			
+			\begin{enumerate}
+				\item Die Rolle des Gerätes in der Variablen CS\_DEVICE\_TYPE
+				\item Der "Unique identifier" auch genannt CS\_UID. Dieser ist 64-Bit lang. Der Koordinator hat die UID 0x0700000A01LL.
+				Die Endgeräte beginnen bei der UID 0x0700000A03LL und jedes weitere wird die letzte Stelle um eins erhöht.
+				
+				\item Die eindeutige Netzwerk PAN-ID. Diese ist 64-Bit lang und wir in der Variablen CS\_EXT\_PANID mit dem Wert 0x1AAAAAAAAAAACA07LL definiert.
+			\end{enumerate}
+			
+			
+			Der Netzwerkaufbau ist wie auf den Arbeitsblättern geschehen???????????????????????????
+			
+			 
+			\subsubsection{Probleme beim Zusammenfügen der Sensoren und des Netzwerkes}
+			Als der Code für die Sensoren zusammen gefügt wurde, hat der SCD41 und der CSS811 plausible Werte ausgegeben. Der SHT21 hingegen hat zu hohe Werte geliefert. Wenn man eine Batterie an das Endgerät angeschlossen hat, wurden falsche Messdaten empfangenen. Bemerkenswert war, dass nur der SCD41 falsche Werte liefert. Später bei dem Messen der Spannung hat sich herausgestellt, dass die minimale benötigte Spannung von 2,4 Volt unterschritten worden ist. Deshalb konnte der Sensor nicht korrekt ausgelesen werden. Darum wurden die aktuellen Werte nicht mehr aktualisiert und immer die gleichen Wert versendet. Wenn das Gerät neu gestartet worden ist, konnte der Sensor nicht initialisiert werden und es wurde immer -45.00 $^\circ$C und Nullen bei der Luftfeuchte und CO2 gesendet.
+			
+			
+			\subsection{Messdaten Auswertung}
+			Diese Messdaten wurden im Innen- und Außenbereich getestet und mit einem anderen Temperatur, Luftfeuchtigkeits und CO2 Sensor von der Firma NETATMO verglichen und ähnliche Werte wurden festgestellt Bilder....................................
+			Hier wurden sich vier Zeitpunkte ausgesucht und die Messwerte beider Geräte verglichen
+			
+			
+					
 			\subsection{Serverimplementierung}
 				Wie eingangs erwähnt, wird das Express.js Framework benutzt um unsere Webanwendung aufzubauen.... vllt doch nicht nochmal erwähnen
 			

@@ -22,12 +22,13 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: template-blx.bib
 Database file #2: bibliography.bib
+Warning--I didn't find a database entry for "data_example"
 Biblatex version: 3.16
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 You've used 9 entries,
             6393 wiz_defined-function locations,
-            1229 strings with 10014 characters,
+            1230 strings with 10026 characters,
 and the built_in function-call counts, 39888 in all, are:
 = -- 1357
 > -- 3444
@@ -66,3 +67,4 @@ warning$ -- 0
 while$ -- 385
 width$ -- 0
 write$ -- 129
+(There was 1 warning)
