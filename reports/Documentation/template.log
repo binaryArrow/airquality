@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  13 FEB 2022 15:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.27)  13 FEB 2022 17:29
 entering extended mode
 **./template.tex
 (template.tex
@@ -892,7 +892,7 @@ Package pdftex.def Info: images/metalloxid_sensor.jpg  used on input line 129.
 (pdftex.def)             Requested size: 183.5371pt x 160.04916pt.
 [10] [11 <./images/ccs_zustandsdiagramm.jpg>] [12 <./images/metalloxid_sensor.j
 pg>]
-Underfull \hbox (badness 10000) in paragraph at lines 146--148
+Underfull \hbox (badness 10000) in paragraph at lines 147--149
 
  []
 
@@ -900,27 +900,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 146--148
 <images/data_format.png, id=61, 1557.82pt x 166.6225pt>
 File: images/data_format.png Graphic file (type png)
 <use images/data_format.png>
-Package pdftex.def Info: images/data_format.png  used on input line 160.
+Package pdftex.def Info: images/data_format.png  used on input line 161.
 (pdftex.def)             Requested size: 347.40424pt x 37.15791pt.
 
-Overfull \hbox (2.40424pt too wide) in paragraph at lines 160--161
+Overfull \hbox (2.40424pt too wide) in paragraph at lines 161--162
  [][] 
  []
 
 
-Overfull \hbox (1.23671pt too wide) in paragraph at lines 155--164
+Overfull \hbox (1.23671pt too wide) in paragraph at lines 156--165
 \OT1/cmr/m/n/10 Programm ge-nutzt. Der Sinn da-hin-ter war, auch Grup-pen-mit-g
 lie-dern, die sensor-
  []
 
 [14] [15 <./images/data_format.png>] [16]
-Overfull \hbox (2.16594pt too wide) in paragraph at lines 195--195
+Overfull \hbox (2.16594pt too wide) in paragraph at lines 196--196
 []\OT1/cmr/m/it/10 BMU Be-richt 2005 - Ver-bes-se-rung der Luft-qua-lit[]at in 
 In-nenr[]aumen\OT1/cmr/m/n/10 . 11. Feb.
  []
 
 
-Overfull \hbox (18.80261pt too wide) in paragraph at lines 195--195
+Overfull \hbox (18.80261pt too wide) in paragraph at lines 196--196
 \OT1/cmtt/m/n/10 den -[] menschen / chemische -[] stoffe / fluechtige -[] organ
 ische -[] verbindungen #
  []
@@ -954,7 +954,7 @@ Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
 ts/cm/cmsy7.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/fonts/type1/pub
 lic/amsfonts/cm/cmti10.pfb><C:/Users/Max Kon/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on template.pdf (18 pages, 962688 bytes).
+Output written on template.pdf (18 pages, 962786 bytes).
 PDF statistics:
  128 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
