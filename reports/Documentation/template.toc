@@ -69,14 +69,20 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.8}Installationsdatei}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{17}{}%
+\contentsline {section}{\numberline {6}Auswertung des Testlaufs}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{17}{}%
+\contentsline {section}{\numberline {7}Ausblick und Erweiterungsmöglichkeiten}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.2}Bugfixes in der Applikation}{17}{}%
+\contentsline {subsection}{\numberline {7.1}Optimierung für Batterien}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.3}Dynamische Gestaltung}{18}{}%
+\contentsline {subsection}{\numberline {7.2}Genauere Bestimmung der Werte des CCS811}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.4}Migration auf andere Geräte oder Plattformen}{18}{}%
+\contentsline {subsection}{\numberline {7.3}Bugfixes in der Applikation}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.5}Dark Mode}{18}{}%
+\contentsline {subsection}{\numberline {7.4}Dynamische Gestaltung}{18}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.5}Migration auf andere Geräte oder Plattformen}{18}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.6}Genauere Berechnung der Corona-Ampel}{18}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.7}Dark Mode}{18}{}%
