@@ -115,7 +115,7 @@ export default defineComponent({
         this.rooms.push(newRoom)
       })
       console.log(this.rooms)
-      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, 0, 'green')
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     })
 
@@ -127,7 +127,7 @@ export default defineComponent({
         newSensor.active = sensor.active
         this.sensors.push(newSensor)
       })
-      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, 0, 'green')
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     })
 
@@ -147,6 +147,18 @@ export default defineComponent({
             this.sensorData3.push(tempSensorData)
             break;
           }
+      }
+      if(parseFloat(tempSensorData.co2SCD41) < 1000){
+        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, 0, 'green')
+        Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
+      }
+      else if(parseFloat(tempSensorData.co2SCD41) >= 1000 && parseFloat(tempSensorData.co2SCD41) < 2000){
+        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, tempSensorData.sensorId, 'yellow')
+        Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
+      }
+      else if(parseFloat(tempSensorData.co2SCD41) >= 2000){
+        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, tempSensorData.sensorId, 'red')
+        Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
       }
       if(this.infoModalData.sensorId == tempSensorData.sensorId)
         this.infoModalData = tempSensorData
@@ -278,14 +290,14 @@ export default defineComponent({
         this.rooms.push(newRoom)
         this.newRoomName = ''
         this.addModalActive = false
-        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
+        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, 0, 'green')
         Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
       }
     },
     deleteSelectedRoom(index: number) {
       this.communicator.deleteRoom(this.rooms[index].id)
       this.rooms.splice(index, 1)
-      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, 0, 'green')
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     },
     sensorAdded(roomId: number, newSensorId: number, oldSensorId: number) {
@@ -311,10 +323,22 @@ export default defineComponent({
 
         }
       }
-      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors)
+      Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, 0, 'green')
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     },
     updateSensors(){
+      const rects = this.canvas.getObjects('rect')
+      rects.forEach(it => {
+        // findet beide rects
+        const temp = Object.assign({} as RectWithId,it.group?._objects[0])
+        this.sensors.forEach(sensor => {
+          if(sensor.sensorId == temp.sensorId){
+           sensor.top = it.group?._getLeftTopCoords().y as number
+           sensor.left = it.group?._getLeftTopCoords().x as number
+          }
+        })
+      })
+
       this.communicator.updateSensorsInBackend(this.sensors)
     },
     toggleInfoModal(sensorId: number){

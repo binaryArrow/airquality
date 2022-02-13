@@ -9,7 +9,6 @@
             <tr>
               <th>Name</th>
               <th>Sensor</th>
-              <th>Ampel</th>
               <th></th>
             </tr>
             <tr v-for="(room, index) in rooms" :key="index">
@@ -23,11 +22,6 @@
                   <option v-bind:disabled="disabled2" v-bind:value="2">2</option>
                   <option v-bind:disabled="disabled3" v-bind:value="3">3</option>
                 </select>
-              </td>
-              <td>
-                <div v-bind:class="ampel" v-bind:id="room.roomId"> <!--  -->
-
-                </div>
               </td>
               <button class="button is-danger is-small is-rounded" @click="deleteRoom(room.sensorId, index)">
               <span class="icon is-large">
@@ -51,47 +45,22 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {SensorData} from "@/../../backend/src/models/SensorData";
-import {io} from "socket.io-client";
-
-const socket = io("http://localhost:3000")
 
 export default defineComponent({
   name: "ListModal",
   props: {
     rooms: Array,
-    isActive: Boolean,
-    sensorData: SensorData
+    isActive: Boolean
   },
   data() {
     return {
       disabled1: false,
       disabled2: false,
       disabled3: false,
-      sensorData1: [] as SensorData[],
-      sensorData2: [] as SensorData[],
-      sensorData3: [] as SensorData[],
-      ampel: "circle"
+      ampel: "ampel"
     }
   },
   emits: ['deleteRoom', 'showInfo', 'close', 'sensorAdded', 'closeInfoModal'],
-
-  mounted() {
-    socket.on("data", (data: SensorData) => {
-      console.log(`got some data from socket for sensor ${data.sensorId}`)
-      const tempSensorData = new SensorData(data.sensorId, data.tempSHT21, data.humSHT21, data.tempSCD41, data.humSCD41, data.co2SCD41, data.eco2CCS811, data.tvocCCS811.trim(), data.battery)
-      if(parseFloat(tempSensorData.co2SCD41) < 1000){
-        const ampel = document.getElementById(data.roomId!.toString())
-        ampel!.className = "ampel-grün"
-      }else if(parseFloat(tempSensorData.co2SCD41) >= 1000 && parseFloat(tempSensorData.co2SCD41) < 2000){
-        const ampel = document.getElementById(data.roomId!.toString())
-        ampel!.className = "ampel-gelb"
-      }else if(parseFloat(tempSensorData.co2SCD41) >= 2000){
-        const ampel = document.getElementById(data.roomId!.toString())
-        ampel!.className = "ampel-rot"
-      }
-    })
-  },
 
   methods: {
     lookForDoubleEntries(sensorId: number, roomId: number, e: any){
@@ -195,33 +164,4 @@ th {
   right: 20px;
   top: 3px;
 }
-
-.ampel{
-  width: 25px;
-  height: 25px;
-  background-color: lightslategray;
-  border-radius: 50%;
-}
-
-.ampel-rot{
-  width: 25px;
-  height: 25px;
-  background-color: red;
-  border-radius: 50%;
-}
-
-.ampel-gelb{
-  width: 25px;
-  height: 25px;
-  background-color: yellow;
-  border-radius: 50%;
-}
-
-.ampel-grün{
-  width: 25px;
-  height: 25px;
-  background-color: green;
-  border-radius: 50%;
-}
-
 </style>

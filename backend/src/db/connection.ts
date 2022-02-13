@@ -196,7 +196,6 @@ export class Connection {
     //knexjs wird hier benutzt, wenn ihr queries schreibt dann mit knex
     getSensorData(sensorId: number, amount: number , timeInHours: number) {
         try {
-            console.log(timeInHours)
             if(timeInHours == 0)
                 timeInHours = 6
                 const startDate = moment(moment.now());

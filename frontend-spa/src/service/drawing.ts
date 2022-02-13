@@ -1,7 +1,7 @@
 import {fabric} from "fabric";
 import Room from "@/../../backend/src/models/Room";
 import Sensor from "@/../../backend/src/models/Sensor";
-import {Circle, Line} from "fabric/fabric-impl";
+import {Circle, Group, Line} from "fabric/fabric-impl";
 import CircleWithLine from "@/../../../backend/src/models/CircleWithLine"
 import RectWithId from "@/../../../backend/src/models/RectWithId"
 
@@ -13,7 +13,9 @@ export class Drawing {
                       lengthOfCirclesInRooms: number,
                       lengthOfLinesInRooms: number
                   },
-                  sensors: Sensor[]) {
+                  sensors: Sensor[],
+                  alertId: number,
+                  alertColor: string) {
         canvas.clear()
         lengthsOfObjects.lengthOfCirclesInRooms = 0
         lengthsOfObjects.lengthOfLinesInRooms = 0
@@ -29,7 +31,60 @@ export class Drawing {
             lengthsOfObjects.lengthOfLinesInRooms += it.lines.length
         })
         sensors.forEach(sensor => {
-            if (sensor.active) {
+            if (alertId != 0) {
+                if (sensor.active && sensor.sensorId == alertId) {
+                    const rectangleOptions = {
+                        sensorId: sensor.sensorId,
+                        width: sensor.width,
+                        height: sensor.width,
+                        left: sensor.left,
+                        top: sensor.top,
+                        fill: alertColor,
+                        stroke: 'black',
+                        strokeWidth: 3
+                    } as RectWithId
+                    const sensorId = new fabric.Text(sensor.sensorId.toString(), {
+                        fontSize: 20,
+                        left: sensor.left + 5,
+                        top: sensor.top,
+                        fontWeight: 'bold'
+                    }) as fabric.Text
+
+                    const rect = new fabric.Rect(rectangleOptions)
+                    const group = new fabric.Group([rect, sensorId], {
+                        left: sensor.left,
+                        top: sensor.top
+                    })
+                    canvas.add(rect)
+                    canvas.add(group)
+                } else if (sensor.active) {
+                    const rectangleOptions = {
+                        sensorId: sensor.sensorId,
+                        width: sensor.width,
+                        height: sensor.width,
+                        left: sensor.left,
+                        top: sensor.top,
+                        fill: 'green',
+                        stroke: 'black',
+                        strokeWidth: 3
+                    } as RectWithId
+                    const sensorId = new fabric.Text(sensor.sensorId.toString(), {
+                        fontSize: 20,
+                        left: sensor.left + 5,
+                        top: sensor.top,
+                        fontWeight: 'bold'
+                    }) as fabric.Text
+
+                    const rect = new fabric.Rect(rectangleOptions)
+                    const group = new fabric.Group([rect, sensorId], {
+                        left: sensor.left,
+                        top: sensor.top
+                    })
+                    canvas.add(rect)
+                    canvas.add(group)
+                }
+            }
+            else if(sensor.active) {
                 const rectangleOptions = {
                     sensorId: sensor.sensorId,
                     width: sensor.width,
@@ -40,7 +95,20 @@ export class Drawing {
                     stroke: 'black',
                     strokeWidth: 3
                 } as RectWithId
-                canvas.add(new fabric.Rect(rectangleOptions))
+                const sensorId = new fabric.Text(sensor.sensorId.toString(), {
+                    fontSize: 20,
+                    left: sensor.left + 5,
+                    top: sensor.top,
+                    fontWeight: 'bold'
+                }) as fabric.Text
+
+                const rect = new fabric.Rect(rectangleOptions)
+                const group = new fabric.Group([rect, sensorId], {
+                    left: sensor.left,
+                    top: sensor.top
+                })
+                canvas.add(rect)
+                canvas.add(group)
             }
         })
     }
