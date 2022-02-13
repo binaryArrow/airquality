@@ -65,18 +65,18 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.7.2}Kommunikation über den COM-Port}{15}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.7.3}Problembehandlung}{15}{}%
+\contentsline {subsubsection}{\numberline {5.7.3}Aufgetretene Probleme}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.8}Installationsdatei}{15}{}%
+\contentsline {subsection}{\numberline {5.8}Installationsdatei}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{15}{}%
+\contentsline {section}{\numberline {6}Ausblick und Erweiterungsmöglichkeiten}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{15}{}%
+\contentsline {subsection}{\numberline {6.1}Genauere Bestimmung der Werte des CCS811}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.2}Bugfixes in der Applikation}{16}{}%
+\contentsline {subsection}{\numberline {6.2}Bugfixes in der Applikation}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.3}Dynamische Gestaltung}{16}{}%
+\contentsline {subsection}{\numberline {6.3}Dynamische Gestaltung}{18}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.4}Migration auf andere Geräte oder Plattformen}{16}{}%
+\contentsline {subsection}{\numberline {6.4}Migration auf andere Geräte oder Plattformen}{18}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.5}Dark Mode}{16}{}%
+\contentsline {subsection}{\numberline {6.5}Dark Mode}{18}{}%
