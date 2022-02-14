@@ -23,7 +23,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.5}Max-Rene Konieczka}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6}Can Cihan Nazlier}{5}{}%
+\contentsline {subsection}{\numberline {3.6}Can Cihan Nazlier}{6}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4}Luftqualität}{7}{}%
 \defcounter {refsection}{0}\relax 
@@ -101,6 +101,6 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.5}Migration auf andere Geräte oder Plattformen}{36}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.6}Genauere Berechnung der Corona-Ampel}{36}{}%
+\contentsline {subsection}{\numberline {7.6}Genauere Berechnung der Corona-Ampel}{37}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.7}Dark Mode}{37}{}%
