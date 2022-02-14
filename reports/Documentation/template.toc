@@ -25,76 +25,76 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.6}Can Cihan Nazlier}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Luftqualität}{6}{}%
+\contentsline {section}{\numberline {4}Luftqualität}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}Luftfeuchte und Temperatur}{6}{}%
+\contentsline {subsection}{\numberline {4.1}Luftfeuchte und Temperatur}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2}CO2}{6}{}%
+\contentsline {subsection}{\numberline {4.2}CO2}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3}VOC}{7}{}%
+\contentsline {subsection}{\numberline {4.3}VOC}{8}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5}Lösungsansatz}{8}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.1}SHT21}{8}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2}SCD41}{8}{}%
+\contentsline {subsection}{\numberline {5.2}SCD41}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3}CCS811}{8}{}%
+\contentsline {subsection}{\numberline {5.3}CCS811}{16}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.3.1}Probleme bei der Programmierung des CCS811}{10}{}%
+\contentsline {subsubsection}{\numberline {5.3.1}Probleme bei der Programmierung des CCS811}{18}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.3.2}Funktionsweise des CCS811}{11}{}%
+\contentsline {subsubsection}{\numberline {5.3.2}Funktionsweise des CCS811}{18}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.4}Messung der Eingangsspannung}{12}{}%
+\contentsline {subsection}{\numberline {5.4}Messung der Eingangsspannung}{20}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.5}Datenübertragung}{12}{}%
+\contentsline {subsection}{\numberline {5.5}Datenübertragung}{21}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.6}Netzwerkaufbau}{13}{}%
+\contentsline {subsection}{\numberline {5.6}Netzwerkaufbau}{21}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.1}Aufbau}{13}{}%
+\contentsline {subsubsection}{\numberline {5.6.1}Aufbau}{21}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.2}Probleme beim Zusammenfügen der Sensoren und des Netzwerkes}{14}{}%
+\contentsline {subsubsection}{\numberline {5.6.2}Probleme beim Zusammenfügen der Sensoren und des Netzwerkes}{22}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.7}Messdaten Auswertung}{14}{}%
+\contentsline {subsection}{\numberline {5.7}Messdaten Auswertung}{23}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.8}Serverimplementierung}{14}{}%
+\contentsline {subsection}{\numberline {5.8}Serverimplementierung}{23}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.9}Zeichentool}{15}{}%
+\contentsline {subsection}{\numberline {5.9}Zeichentool}{23}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.9.1}Aufbau und Funktionsweise}{15}{}%
+\contentsline {subsubsection}{\numberline {5.9.1}Aufbau und Funktionsweise}{23}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.9.2}Probleme beim Zeichentool}{16}{}%
+\contentsline {subsubsection}{\numberline {5.9.2}Probleme beim Zeichentool}{25}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.10}Dashboard}{17}{}%
+\contentsline {subsection}{\numberline {5.10}Dashboard}{26}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.10.1}Funktionsweise}{17}{}%
+\contentsline {subsubsection}{\numberline {5.10.1}Funktionsweise}{26}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.10.2}Aufgetretene Probleme}{18}{}%
+\contentsline {subsubsection}{\numberline {5.10.2}Aufgetretene Probleme}{26}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.11}COM-Port \& Mockdaten}{18}{}%
+\contentsline {subsection}{\numberline {5.11}COM-Port \& Mockdaten}{27}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.11.1}Mockdaten}{18}{}%
+\contentsline {subsubsection}{\numberline {5.11.1}Mockdaten}{27}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.11.2}Kommunikation über den COM-Port}{19}{}%
+\contentsline {subsubsection}{\numberline {5.11.2}Kommunikation über den COM-Port}{28}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.11.3}Aufgetretene Probleme}{20}{}%
+\contentsline {subsubsection}{\numberline {5.11.3}Aufgetretene Probleme}{29}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.12}Installationsdatei}{22}{}%
+\contentsline {subsection}{\numberline {5.12}Installationsdatei}{30}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Auswertung des Testlaufs}{22}{}%
+\contentsline {section}{\numberline {6}Auswertung des Testlaufs}{31}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7}Ausblick und Erweiterungsmöglichkeiten}{22}{}%
+\contentsline {section}{\numberline {7}Ausblick und Erweiterungsmöglichkeiten}{31}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1}Optimierung für Batterien}{22}{}%
+\contentsline {subsection}{\numberline {7.1}Optimierung für Batterien}{31}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2}Genauere Bestimmung der Werte des CCS811}{22}{}%
+\contentsline {subsection}{\numberline {7.2}Genauere Bestimmung der Werte des CCS811}{31}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.3}Bugfixes in der Applikation}{22}{}%
+\contentsline {subsection}{\numberline {7.3}Bugfixes in der Applikation}{31}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.4}Dynamische Gestaltung}{22}{}%
+\contentsline {subsection}{\numberline {7.4}Dynamische Gestaltung}{31}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.5}Migration auf andere Geräte oder Plattformen}{22}{}%
+\contentsline {subsection}{\numberline {7.5}Migration auf andere Geräte oder Plattformen}{31}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.6}Genauere Berechnung der Corona-Ampel}{23}{}%
+\contentsline {subsection}{\numberline {7.6}Genauere Berechnung der Corona-Ampel}{32}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.7}Dark Mode}{23}{}%
+\contentsline {subsection}{\numberline {7.7}Dark Mode}{32}{}%
