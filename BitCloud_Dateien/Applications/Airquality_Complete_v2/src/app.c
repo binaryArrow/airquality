@@ -60,7 +60,7 @@ static void initTimer();
 static void periodicMeasurementTimerComplete();
 static void delayTimerComplete();
 
-´//CCS811
+//CCS811
 static void calculateCCS();
 static void changeCCSAppstate();
 static void readCCSHWIDReg();
@@ -842,7 +842,7 @@ static void calculateOutputSHT(){
 	SHT_rh_vorkomma = relativeHumidity/10000000000000000;
 	SHT_rh_nachkomma = relativeHumidity%10000000000000000;
 	
-	int32_t temp = (-46.85. + ((17572. / 65536.) * sht21_rd_tmp));
+	int32_t temp = (-46.85 + ((17572. / 65536.) * sht21_rd_tmp));
 	
 	SHT_tmp_vorkomma = temp/100;
 	SHT_tmp_nachkomma = temp%100;
