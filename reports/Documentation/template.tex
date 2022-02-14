@@ -222,20 +222,36 @@
 					
 			\subsection{Serverimplementierung}
 				Für die Serverimplementierung wurde zum einen die SocketIO-Library integriert. Hiermit lässt sich ein HTTP-Server erstellen, welcher verschiedene Anfragen des Clients bearbeiten kann. In der Applikation gibt es sieben verschiedene Endpunkte, welche behandelt werden, darunter das Anzeigen, Updaten oder Löschen der Räume und Sensoren. Allerdings werden über HTTP keine Sensordaten versendet. Der Grund dafür ist, dass selbst wenn der Server Daten von der Datenbank erhält, solange nichts passiert, bis der Client eine Anfrage bezüglich der Daten senden würde. Dies würde die Effizienz und Performance stark einschränken. \newline 
-				Doch für dieses Hindernis werden für die Datenübertragung Websockets verwendet. Diese ermöglichen grundlegend eine Echtzeit-Kommunikation zwischen Client und Server und übermitteln Daten ohne auf die Anfrage eines Clients zu warten. In der Applikation werden die Datensätze in einem SensorData-Objekt erstellt und in einer Variable abgespeichert. Diese Objekte werden dann wiederum in einem Array abgespeichert, welches z.B. verwendet wird um Sensordaten in den Diagrammen anzeigen zu lassen. 
+				Doch für dieses Hindernis werden für die Datenübertragung Websockets verwendet. Die Websockets sind im Zeichentool sowie im Dashboard integriert. Diese ermöglichen grundlegend eine Echtzeit-Kommunikation zwischen Client und Server und übermitteln Daten ohne auf die Anfrage eines Clients zu warten. Die Datensätze werden in einem SensorData-Objekt erstellt und in einer Variable abgespeichert. Diese Objekte werden dann wiederum in einem Array abgespeichert, welches z.B. verwendet wird um Sensordaten in den Diagrammen anzeigen zu lassen. 
 				
 			
 			\subsection{Zeichentool}
 				\subsubsection{Aufbau und Funktionsweise}
 				Die einzelnen Komponenten des Zeichentools wurden mit Vue erstellt. Diese bestehen aus HTML und CSS Elementen sowie einem Skript-Teil, in welchem jegliche Funktionalitäten in Java- oder Typescript programmiert werden können. Die Buttons sind beispielsweise im HTML-Abschnitt eingebettet und Funktionen zur Realisierung des Hinzufügens von Sockets für die Live-Daten Übertragung oder eine Anknüpfung an die Datenbank um gezeichnete Räume abspeichern zu können, sind im Skript-Abschnitt implementiert. 
 				Für das Zeichentool wurde zunächst ein Prototyp geschrieben, um zu testen inwiefern man Räume einzeichnen können soll. Nachdem dieser erstellt worden war, wurde auf diesem Prototyp aufgebaut und das eigentliche Zeichentool implementiert. Mit einem Doppelklick lassen sich Punkte auf die Leinwand platzieren, sobald ein zweiter Endpunkt hinzugefügt wurde, entsteht eine Linie zwischen diesen Punkten. Erst nachdem ein geschlossener Raum gezeichnet und ihm ein Name gegeben wurde, kann man diesen permanent speichern und anzeigen lassen. Wenn man den Button \textbf{Show Rooms} anklickt, wird in einem kleinen Fenster jeder Raum angezeigt, welcher gespeichert wurde. In dieser Übersicht gibt es drei weitere Funktionen, es können Sensoren in den verschiedenen Räumen platziert werden, überflüssige Räume können wieder entfernt und es kann über den Info-Button eine Tabelle angezeigt werden lassen, welche die Zahlenwerte der Sensoren anzeigt.\newline Auch die Ampelindikation ist im Zeichentool verwirklicht worden. Wenn man einen Sensor in einen Raum hinzufügt, kann dieser frei innerhalb des Raumes bewegt werden. In diesem Fall ist der Sensor selbst die Ampelindikation. Abhängig von der CO2-Konzentration, ändert die Indikation die Farbe von grün auf gelb und von gelb auf rot. 
+
+				\begin{figure}[h]
+					\centering
+					\includegraphics[scale=0.50]{images/Zeichentoolbild}
+					\caption{Aufbau des Zeichentools}
+					\label{img:Zeichentoolbild}
+				\end{figure}
+				\newpage
 				\subsubsection{Probleme beim Zeichentool}
 		 		Wenn ein Raum gezeichnet und nicht direkt abgespeichert wird, kann man die Eckpunkte des Raumes auswählen und dadurch weiterhin durch die Leinwand bewegen. Somit können Räume möglicherweise noch nachjustiert werden. Wenn man allerdings unbeabsichtigt die Linie auswählt, wird diese von den Punkten getrennt. Dies hat den Grund, dass die Linie dynamisch implementiert wurde um dem User eine Nachjustierung zu ermöglichen. Wäre die Linie statisch eingebunden worden, könnte man sie nach der Entstehung zwischen zwei Punkten in keinerlei Weise beeinflussen. Der Anwender kann diesen Fehler allerdings ganz einfach wieder beheben, indem einer der Punkte ausgewählt und bewegt wird. \newline Ein weiterer Punkt wäre eine Verzögerung bei der Informationstabelle, wenn der Info-Button betätigt wird. Die Tabelle zeigt zunächst keine Werte an, diese werden erst nach 1 Minute geladen. 
-			
+				\newpage
 			\subsection{Dashboard}
 			\subsubsection{Funktionsweise}
 			Das Dashboard ist hauptsächlich dazu da, die ankommenden Sensordaten visuell darzustellen. Es besteht aus 4 Liniendiagrammen, die die Werte von Temperatur, relativer Feuchtigkeit, CO2 und TVOC anhand eines Liniengraphen anzeigen. Der Anwender hat die Möglichkeit verschiedene Zeiten einzustellen, somit kann er die Daten der vergangenen letzten 6, 24 und 168 Stunden aufrufen.
 			Wenn einer der Zeit-Buttons benutzt wird, kann man für die nächsten drei Sekunden keine weitere Eingabe tätigen und werden erst nach diesem Zeitraum wieder freigeschaltet. Es braucht nämlich 3 Sekunden, bis die Daten vom Backend im Frontend geladen werden.\newline Die Y-Achse passt sich entsprechend den Werten der übertragenen Daten an. Die X-Achse hingegen besteht aus genau 120 Ticks, abhängig davon ob 6, 24 oder 168 Stunden angegeben werden, passen sich die Sensorwerte an die 120 Ticks an. Das bedeutet, wird die 6 Stunden Option ausgewählt, werden Daten in 3 Minuten Takten angezeigt, bei 24 Stunden sind es 12 Minuten Takte und bei 168 Stunden bzw. 1 Woche sind es 84 Minuten Takte. Der Grund für die statische Anzahl an Ticks ist, dass es bei einer höheren Zahl zu Performance-Einbrüchen kommen würde und die Anwendung dadurch langsamer arbeitet.\newline
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[scale=0.50]{images/Dashboardbild}
+				\caption{Aufbau des Dashboards}
+				\label{img:Dashboardbild}
+			\end{figure}
+			
 			\subsubsection{Aufgetretene Probleme}
 			Zunächst war festgelegt, dass die JavaScript-Library D3.js verwendet wird um die graphische Darstellung der Sensordaten zu realisieren. Diese enthält Funktionen um verschiedenste Diagramme zu erstellen. Die Funktionen manipulieren HTML-Elemente, dadurch können z.B. einerseits deren Größe und Breite eingestellt oder andererseits können komplett neue HTML-Elemente hinzugefügt werden. Das Erstellen von vier verschiedenen Liniendiagrammen und einer Ampel war zunächst schnell abgeschlossen. Nach dieser Erstellung wurde ein Socket implementiert um zu überprüfen, ob die Sensordaten im Dashboard ankommen, was im Anschluss auch der Fall war. Allerdings ist hier ein Problem hervorgekommen.\newline
 			Die Sensorwerte sollten als Y-Koordinate und die dazugehörige Zeit als X-Koordinate angezeigt werden. Zwar gibt es in D3.js eine eigens dafür integrierte scaleTime-Funktion um eine Zeitachse zu erstellen, aber durch die Zeiteinheit konnte nun kein Graph angezeigt werden. Dies hatte den Grund, dass zu diesem Zeitpunkt kein Zeitwert von der Datenbank übertragen wurde. Für dieses Problem konnte keine direkte Lösung hinsichtlich der Implementierung gefunden werden, daher wurde kurzfristig entschieden auf die Chart.js-Library umzusteigen. Diese bietet beispielsweise fertige Diagramme an, in welchen man lediglich personalisierte Werte hinzufügen kann.\newline 
