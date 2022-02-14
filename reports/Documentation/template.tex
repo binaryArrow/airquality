@@ -221,7 +221,9 @@
 			
 					
 			\subsection{Serverimplementierung}
-				Wie eingangs erwähnt, wird das Express.js Framework benutzt um unsere Webanwendung aufzubauen.... vllt doch nicht nochmal erwähnen
+				Für die Serverimplementierung wurde zum einen die SocketIO-Library integriert. Hiermit lässt sich ein HTTP-Server erstellen, welcher verschiedene Anfragen des Clients bearbeiten kann. In der Applikation gibt es sieben verschiedene Endpunkte, welche behandelt werden, darunter das Anzeigen, Updaten oder Löschen der Räume und Sensoren. Allerdings werden über HTTP keine Sensordaten versendet. Der Grund dafür ist, dass selbst wenn der Server Daten von der Datenbank erhält, solange nichts passiert, bis der Client eine Anfrage bezüglich der Daten senden würde. Dies würde die Effizienz und Performance stark einschränken. \newline 
+				Doch für dieses Hindernis werden für die Datenübertragung Websockets verwendet. Diese ermöglichen grundlegend eine Echtzeit-Kommunikation zwischen Client und Server und übermitteln Daten ohne auf die Anfrage eines Clients zu warten. In der Applikation werden die Datensätze in einem SensorData-Objekt erstellt und in einer Variable abgespeichert. Diese Objekte werden dann wiederum in einem Array abgespeichert, welches z.B. verwendet wird um Sensordaten in den Diagrammen anzeigen zu lassen. 
+				
 			
 			\subsection{Zeichentool}
 				\subsubsection{Aufbau und Funktionsweise}
