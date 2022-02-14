@@ -16,7 +16,7 @@
 
 #define SHT_MES_DELAY			85
 
-#define SCD_MES_INTERVAL		10000
+#define SCD_MES_INTERVAL		60000
 #define SCD_STARTUP_TIME		2000
 #define SCD_RESET_DELAY_TIME	500
 #define SCD_READ_DELAY_TIME		100
@@ -41,7 +41,7 @@
 #define CCS_HWID					0x81
 #define CCS_BOOTLOADER_APPSTATE		0xF4
 #define CCS_MEAS_MODE_REG			0x01
-#define CCS_MEAS_MODE				0x10
+#define CCS_MEAS_MODE				0x10 //0011 0000
 #define CCS_STATUS_REG				0x00
 #define CCS_DATA_RDY				0x04
 #define CCS_RESULT_REG				0x02
