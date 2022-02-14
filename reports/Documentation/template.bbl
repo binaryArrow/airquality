@@ -96,6 +96,21 @@
     \field{year}{2022}
   \endentry
 
+  \entry{luftquali_bund_co2_corona}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{Richtig lüften in Schulen}
+    \verb{url}
+    \verb https://www.umweltbundesamt.de/richtig-lueften-in-schulen#warum-ist-e
+    \verb in-regelmassiger-luftaustausch-in-klassenzimmern-grundsatzlich-wichti
+    \verb g-und-in-der-pandemie-umso-mehr
+    \endverb
+    \field{day}{22}
+    \field{month}{12}
+    \field{year}{2021}
+  \endentry
+
   \entry{metalloxidsensor}{article}{}
     \name{author}{1}{}{%
       {{hash=WPDJ}{%
