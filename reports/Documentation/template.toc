@@ -89,7 +89,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.2}Genauere Bestimmung der Werte des CCS811}{20}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.3}Bugfixes in der Applikation}{20}{}%
+\contentsline {subsection}{\numberline {7.3}Bugfixes in der Applikation}{21}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.4}Dynamische Gestaltung}{21}{}%
 \defcounter {refsection}{0}\relax 
