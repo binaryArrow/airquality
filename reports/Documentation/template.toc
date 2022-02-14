@@ -37,64 +37,70 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {5.1}SHT21}{8}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2}SCD41}{12}{}%
+\contentsline {subsection}{\numberline {5.2}Probleme bei der Programmierung des SHT21}{11}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3}CCS811}{16}{}%
+\contentsline {subsection}{\numberline {5.3}Funktionsweise des SHT21}{11}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.3.1}Probleme bei der Programmierung des CCS811}{18}{}%
+\contentsline {subsection}{\numberline {5.4}SCD41}{12}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.3.2}Funktionsweise des CCS811}{18}{}%
+\contentsline {subsection}{\numberline {5.5}Probleme bei der Programmierung des SCD41}{15}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.4}Messung der Eingangsspannung}{20}{}%
+\contentsline {subsection}{\numberline {5.6}Funktionsweise des SCD41}{15}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.5}Datenübertragung}{21}{}%
+\contentsline {subsection}{\numberline {5.7}CCS811}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.6}Netzwerkaufbau}{21}{}%
+\contentsline {subsubsection}{\numberline {5.7.1}Probleme bei der Programmierung des CCS811}{18}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.1}Aufbau}{21}{}%
+\contentsline {subsubsection}{\numberline {5.7.2}Funktionsweise des CCS811}{20}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.6.2}Probleme beim Zusammenfügen der Sensoren und des Netzwerkes}{22}{}%
+\contentsline {subsection}{\numberline {5.8}Messung der Eingangsspannung}{21}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.7}Messdaten Auswertung}{23}{}%
+\contentsline {subsection}{\numberline {5.9}Datenübertragung}{21}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.8}Serverimplementierung}{23}{}%
+\contentsline {subsection}{\numberline {5.10}Netzwerkaufbau}{22}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.9}Zeichentool}{23}{}%
+\contentsline {subsubsection}{\numberline {5.10.1}Aufbau}{22}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.9.1}Aufbau und Funktionsweise}{23}{}%
+\contentsline {subsubsection}{\numberline {5.10.2}Probleme beim Zusammenfügen der Sensoren und des Netzwerkes}{23}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.9.2}Probleme beim Zeichentool}{25}{}%
+\contentsline {subsection}{\numberline {5.11}Serverimplementierung}{26}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.10}Dashboard}{26}{}%
+\contentsline {subsection}{\numberline {5.12}Zeichentool}{26}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.10.1}Funktionsweise}{26}{}%
+\contentsline {subsubsection}{\numberline {5.12.1}Aufbau und Funktionsweise}{26}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.10.2}Aufgetretene Probleme}{26}{}%
+\contentsline {subsubsection}{\numberline {5.12.2}Probleme beim Zeichentool}{28}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.11}COM-Port \& Mockdaten}{27}{}%
+\contentsline {subsection}{\numberline {5.13}Dashboard}{29}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.11.1}Mockdaten}{27}{}%
+\contentsline {subsubsection}{\numberline {5.13.1}Funktionsweise}{29}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.11.2}Kommunikation über den COM-Port}{28}{}%
+\contentsline {subsubsection}{\numberline {5.13.2}Aufgetretene Probleme}{29}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.11.3}Aufgetretene Probleme}{29}{}%
+\contentsline {subsection}{\numberline {5.14}COM-Port \& Mockdaten}{30}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.12}Installationsdatei}{30}{}%
+\contentsline {subsubsection}{\numberline {5.14.1}Mockdaten}{30}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Auswertung des Testlaufs}{31}{}%
+\contentsline {subsubsection}{\numberline {5.14.2}Kommunikation über den COM-Port}{31}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7}Ausblick und Erweiterungsmöglichkeiten}{31}{}%
+\contentsline {subsubsection}{\numberline {5.14.3}Aufgetretene Probleme}{32}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1}Optimierung für Batterien}{31}{}%
+\contentsline {subsection}{\numberline {5.15}Installationsdatei}{34}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2}Genauere Bestimmung der Werte des CCS811}{31}{}%
+\contentsline {section}{\numberline {6}Auswertung des Testlaufs}{34}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.3}Bugfixes in der Applikation}{31}{}%
+\contentsline {section}{\numberline {7}Ausblick und Erweiterungsmöglichkeiten}{36}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.4}Dynamische Gestaltung}{31}{}%
+\contentsline {subsection}{\numberline {7.1}Optimierung für Batterien}{36}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.5}Migration auf andere Geräte oder Plattformen}{31}{}%
+\contentsline {subsection}{\numberline {7.2}Genauere Bestimmung der Werte des CCS811}{36}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.6}Genauere Berechnung der Corona-Ampel}{32}{}%
+\contentsline {subsection}{\numberline {7.3}Bugfixes in der Applikation}{36}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.7}Dark Mode}{32}{}%
+\contentsline {subsection}{\numberline {7.4}Dynamische Gestaltung}{36}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.5}Migration auf andere Geräte oder Plattformen}{36}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.6}Genauere Berechnung der Corona-Ampel}{36}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.7}Dark Mode}{37}{}%

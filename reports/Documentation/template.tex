@@ -62,7 +62,7 @@
 	
 	\subsection{Prozessverlauf}
 	Derzeitig läuft der Prozess zwischen Sensoren und Applikationen folgendermaßen ab:\newline
-	Zunächst messen die Sensoren jeweilige Werte in der Umgebung des Raumes und übertragen diese weiter an die ZigBee-Module. Das ZigBee-Modul was als Router, Koordinator oder noch was konfiguriert ist, leitet die Werte über eine UART-Bridge weiter an eine COM-Port Schnittstelle. Ab hier übernimmt die Applikation. Durch die SerialPort.js Library wird dafür gesorgt, dass die seriell übertragenen Daten an das Backend weitergeleitet werden. Das Express-Backend kommuniziert mit der SQLite-Datenbank über Queries, welche mit Knex.js geschrieben sind. Die nötigen Daten werden per Websockets an das Frontend geschickt. %Wie werden die Räume gespeichert?...
+	Zunächst messen die Sensoren jeweilige Werte in der Umgebung des Raumes und übertragen diese weiter an die ZigBee-Module. Das ZigBee-Module schicken diese an ein Koordinator Modul und leitet die Werte über eine UART-Bridge weiter an eine COM-Port Schnittstelle. Ab hier übernimmt die Applikation. Durch die SerialPort.js Library wird dafür gesorgt, dass die seriell übertragenen Daten an das Backend weitergeleitet werden. Das Express-Backend kommuniziert mit der SQLite-Datenbank über Queries, welche mit Knex.js geschrieben sind. Die nötigen Daten werden per Websockets an das Frontend geschickt. %Wie werden die Räume gespeichert?...
 	Zum Einen werden die Daten anhand von Graphen im Dashboard visuell dargestellt, zum Anderen bekommt auch das Zeichentool die Sensorwerte übermittelt, da hier die Ampelindikation implementiert ist. 
 	\begin{figure}[!h]
 		\centering
@@ -114,10 +114,10 @@
 		\end{figure}
 		Entsprechend der Abbildung ist ersichtlich, dass sich der SHT21 logisch hinter den dem SCD zugeordneten Zuständen befindet. Die Kommunikation der Messergebnisse ist hierbei mit 4 Zuständen ermöglicht. Der SHT21 benötigt laut Datenblatt keine manuelle Kalibrierung und keine Initialisierung und bietet im Datenblatt auch keine entsprechende Funktion an. Sobald der SHT21 mit Strom versorgt wird, kann man über den I2C-Write Befehl 0xf3 an diesen die Messung der Temperatur auf Seiten des Sensors veranlassen. Innerhalb des Zustandsdiagramm passiert dies im APP\_CALL\_FOR\_READ\_TEMP\_SHT\_STATE. Wichtig ist hier, dass diese Messung stattfindet ohne die Kommunikationsleitung während der Messung zu blockieren (no hold master), da der Prozesser des Mikrokontrollers keine Berechnung vornehmen sollte, die mehrere ms ohne Unterbrechung dauert. Sonst kann dies die Zigbee Kommunikation des Mikrokontrollers stören. Nach Übertragung des entsprechenden Befehls ist es nötig einige Zeit zu warten, der Sensor misst innerhalb von max 87ms die Temperatur und schreibt das entsprechende Ergebnis in das Register, welches über einen I2C-Read Befehl übertragen wird. Nach einer Wartezeit von 100ms wird ein Zustandsübergang in den APP\_READ\_TEMP\_SHT\_STATE veranlasst. Der dort etablierte entsprechende Read Befehl per I2C führt zur Übertragung von 2 Byte zwischen SHT21 und Mikrokontroller welche die entsprechende Temperatur enthalten. Der Übertragene Wert wird in einer Variablen gesichert und kann später über eine einfache Formel in eine menschenlesbare Temperatur überführt werden. Nach der Übertragung der Temperatur ist es möglich mit 2 beinahe identischen Zuständen auch die Luftfeuchtigkeit auszulesen. Hier wird zunächst in den Zustand APP\_CALL\_FOR\_READ\_RH\_SHT\_STATE gewechselt. In diesem wird über einen I2C-Write Befehl die Bytes 0xf5 an den Sensor übertragen, was eine Messung der Luftfeuchtigkeit veranlasst. Die entsprechende Messung und Übertragung in das auszulesende Register kosten den Sensor dabei bis zu 29ms. Nach 100ms wird der Zustand in den APP\_READ\_RH\_SHT\_STATE gewechselt und über einen I2C-Read Befehl das vorher bereitgestellte Register ausgelesen und in einer Byte-Array Variablen gesichert. Auch dieser Wert kann zu einem späteren Zeitpunkt über eine einfache Gleichung in Menschenlesbare Werte übertragen werden. Nach dem Auslesen der entsprechenden Sensordaten ist die Kommunikation mit dem SHT21 beendet bis das Auslesen der Sensoren über den entsprechenden Timer erneut veranlasst wird.
 		
-		Probleme:
+		\subsection{Probleme bei der Programmierung des SHT21}
 		Der SHT21 war der erste Sensor in diesem Projekt mit welchem die Kommunikation über I2C etabliert wurde. Entsprechend ergaben sich eine Reihe von Problemen die in erster Linie auf die Entwicklung innerhalb des durch den Atmel Mikrokontroller vorgegeben Bitlcoudstack zurückzuführen sind. Die meisten Probleme traten hierbei durch die Verwendung der Funktion HAL\_OpenI2cPacket(\&i2cdescriptor) auf. Dabei war es nur schwer möglich Fehlerursachen zu identifizieren und zu replizieren. Das größte Problem bestand darin, dass beim Ausführen des Programms unvorhersehbare Sprünge zwischen den Anweisungen stattfanden. Diese waren nicht replizierbar und traten vorwiegend beim Verwenden der Uart-Kommunikation auf. Daher wurde auch zunächst nach Fehlern in der Verwendung der Uart-Schnittstelle gesucht. Es wurden entsprechende Anweisungen ausgegliedert und untersucht ob der Code weiterhin Fehler verursacht. Jedoch traten nach einiger Zeit ähnliche Fehler an anderen Stellen der Anweisungen auf. Es wurden nacheinander verschiedene Funktionen aus dem Quellcode isoliert um zu untersuchen ob der Fehler auch ohne diese noch auftritt. So konnte festgestellt werden, dass der Fehler ausschließlich auftrat wenn Anweisungen im Rahmen der bereitgestellten Funktionen des Bitcloudstacks bezüglich der I2C-Kommunikation verwendet wurden. Nach ausgiebiger Recherche des Quellcodes konnte keine Dokumentation gefunden werden, die eine gut verständliche Erklärung zu der Verwendung der entsprechenden Funktionsarchive bereitstellte. Daher wurde angedacht, die I2C-Kommunikation selbst zu programmieren. Nach einiger Recherche war jedoch klar, dass dies ein langwierigeres unterfangen wäre als zunächst angenommen. Bei Tests wurde festgestellt, dass die entsprechenden Register zwar angesprochen werden konnten, aber bei der Programmierung waren einige Bedingungsabfragen nötig, welche den Prozessor für eine nicht expliziert definierbare Zeit blockieren. Dies ist wie erwähnt nicht möglich, da die Hintergrundaktivität der Zigbeefunktionalität keine durchgehende Blockade des Prozessors erlaubt. Vermutlich ist es auch in dieser Umgebung möglich entsprechendes zu verwirklichen, aber es wurde entschieden, dass der Aufwand nicht im Verhältnis zum potenziellen Funktionsgewinn steht. Daher wurde die Entscheidung getroffen weiterhin die Funktionsweise der durch Atmel bereitgestellten Funktionen zu erfassen. Nach weiterem Testen konnte beobachtet werden dass der Fehler auftritt wenn die Funktion HAL\_CloseI2cPacket(\&i2cdescriptor) außerhalb der für die Kommunikation zu entwerfenden Callbackmethode aufgerufen wurde. Dieses Problem steht exemplarisch für einige vergleichbare aber weniger gravierende Probleme mit dem bereitgestellten Funktionsumfang von Atmel. Nachdem dieses Problem behoben wurde konnte die Implementierung des Sensors in den Zustandsautomaten jedoch effizient verwirklicht werden. 
 		
-		Funktionsweise des SHT21:
+		\subsection{Funktionsweise des SHT21}
 		Da der SHT21 zwei verschiedene physikalische Größen messen muss, sind in diesem auch 2 verschiedene Sensorikschaltkreise integriert. Zur Messung der Temperatur verwendet der SHT21 einen Bandlücken Temperatursensor. Dieser baut auf dem Prinzip auf, dass die Spannung, welche durch eine Silikondiode übertragen wird, direkt abhängig von der Temperatur der Diode ist. Vergleicht man die Spannungsdifferenz zweier Silikondioden gleicher Temperatur bei jeweils unterschiedlicher (aber im in einem festen bekannten Verhältnis zueinander) Stromstärke so ist eine Beziehung bekannt, welche den Rückschluss auf die Temperatur der Dioden ermöglicht.
 		\begin{figure}[!h]
 			\centering
@@ -146,10 +146,10 @@
 		\end{figure}
 		Entsprechend der Abbildung ist ersichtlich, dass sich der SCD logisch an erster Stelle des Zustandsautomaten des gesamten Programmcodes befindet. Dabei wird zu Beginn eines jedes Zyklus zunächst die Informationen des SCD41 ermittelt. Beim starten des Mikrokontrollers wird zunächst die Initialisierung des CCS811 vorgenommen. Im Anschluss wird die Initialisierung des SCD41 durchlaufen. Hierbei wechselt die MCU in den APP\_RESET\_SCD\_STATE. In diesem Zustand überträgt die MCU den I2C-Write Befehl "0x3F86" welcher dem Sensor die Anweisung überträgt die periodische Messung zu unterbrechen, sollte eine bestehen. Dieser Befehl wird vom Sensor innerhalb von maximal 500ms Sekunden verarbeitet, in welcher Zeit keine Kommunikation mit dem SCD nicht möglich ist. Dieser Reset ist auch nach einem Neustart nötig, da sonst nicht definierte Zustände auf Seiten des Sensors auftreten können. Nach den besagten 500ms wechselt die MCU in den APP\_INIT\_SENSOR\_STATE in diesem wird wiederum die periodische Messung des Sensors veranlasst. Dies geschieht über den I2C-Write Befehl "0x21b1". Nach diesem Befehl beginnt der Sensor die periodische Messung. Um Fehlern in der Kommunikation vorzubeugen wurde sichergestellt, dass die ersten 5 Sekunden nach Beginn der periodischen Messung keine Kommunikation mit dem Sensor über die I2C-Schnittstelle stattfindet. Am Ende der Anweisungen dieses Zustands wird ein periodischer 60 Sekunden Timer des MCUs gestartet an dessen Ende stets in den Zustand APP\_CALL\_FOR\_READ\_SCD\_STATE gewechselt wird. Hier wird die I2C-Write Kommunikation mit den Bytes "0xec05" durchgeführt um dem Sensor zum bereitstellen der Daten für den nächsten I2C-Read Befehl zu veranlassen. Nach 100ms können dann die Messergebnisse über einen I2C-Read Befehl empfangen werden. Hierzu wird in den Zustand APP\_READ\_SCD\_STATE gewechselt. Die eigentliche Kommunikation der Messergebnisse ist so mit 2 Zuständen ermöglicht. Der SCD41 benötigt laut Datenblatt ebenfalls keine manuelle Kalibrierung und keine Initialisierung, bietet im Datenblatt jedoch entsprechende Funktionen an. Die standardmäßig aktivierte automatische Kalibrierung wurde dabei behalten. Es ist weiterhin möglich verschiedene Werte einzustellen, wie die Höhe über Normalnull, Atmosphärischer Druck so wie den Temperatur Offset. Über die uns zur verügung stehenden Sensoren ist hierbei jedoch ausschließlich der Temperaturoffset zu bestimmen. Laut Datenblatt hat dieser jedoch keinen Einfluss auf die CO2 Messung, weswegen darauf verzichtet wurde. Nach dem Auslesen der entsprechenden Sensordaten und speichern derselben in entsprechenden Variablen ist die Kommunikation mit dem SCD41 beendet bis das Auslesen der Sensoren über den entsprechenden Timer erneut veranlasst wird.
 		
-		Probleme:
+		\subsection{Probleme bei der Programmierung des SCD41}
 		Der SCD41 war der zweite Sensor bei welchem die Kommunikation mit der MCU etabliert wurde. Grundlegende Erkenntnisse aus Problemen der Verbindung des SHT21 konnten so erfolgreich berücksichtigt werden. Zunächst war es jedoch nicht möglich die Kommunikation mit dem Sensor zu etablieren. Selbst bei exaktem Vorgang nach dem Datenblatt lehnte der Sensor teilweise nach Neustart die Kommunikation mit dem MCU ab. Das Problem trat hierbei vereinzelt auf und war schwer replizierbar. Innerhalb des Datenblatts konnten dabei keine Hinweise auf diese Fehlfunktion entdeckt werden. Um dem Problem auf den Grund zu gehen wurde versucht die Funktionsweise des Sensors zunächst auf dem beiliegenden Arduino Nano zu etablieren. Hierbei trat das gleiche Problem auf. Um mögliche Fehlerquellen zu identifizieren wurde die vom Hersteller zur Verfügung gestellte Code-Bibliothek mit Beispielcode verwendet um herauszufinden ob hier ähnliche Probleme zu erkennen sind. Bei Verwendung dieser konnten keine Probleme festgestellt werden. Es wurden daraufhin die entsprechenden Codebausteine analysiert um herauszufinden in welcher Form der Hersteller die Kommunikation mit dem Sensor etabliert. Hierbei wurde herausgefunden, dass der Hersteller zur Initialisierung des Sensors stets den stop\_periodic\_measurement Befehl sendet und danach erneut die start\_periodic\_measurement Anweisung ausführt. Nach einfügen dieses Vorgangs in die Initialisierung des Sensors, konnte das beobachtete Verhalten des Sensors in der I2C-Kommunikation korrigiert werden. 
 		
-		Funktionsweise des SCD41:
+		\subsection{Funktionsweise des SCD41}
 		Wie erwähnt handelt es sich bei dem Sensor um einen photoakustischen Sensor. Bei diesem wird über kurze Lichtblitze dem Gas in einer Gaskammer Energie zugeführt. Diese Energie führt zu einer Steigerung der thermischen Bewegung der Moleküle und damit zu einer Ausdehnung des eingeschlossenen Gases. Zwischen den Lichtblitzen, wird diese zugeführte Energie teilweise wieder an die Umgebung abgegeben, das Gas zieht sich wieder zusammen. Dies verursacht eine Vibration innerhalb der Gaskammer, welche mit einem Mikrofon gemessen werden kann. Nun ist es die Eigenschaft verschiedener Moleküle, dass die verschiedenen Freiheitsgrade der Molekülbewegung wesentlich besser von Lichtenergie einer Wellenlänge angeregt wird die in einem spezifischen Verhältnis zum Atomabstand innerhalb des Moleküls steht. So ist es wie in der Abbildung ersichtlich, möglich mit Licht einer spezifischen Wellenlänge beinahe ausschließlich die CO2-Moleküle anzuregen. Die Stärke der gemessenen Vibrationen (Lautstärke) steht dann in direkter Korrelation mit dem CO2-Gehalt der Luft, was einen Rückschluss auf diesen ermöglicht.
 		
 		\begin{figure}[!h]
@@ -158,7 +158,7 @@
 			\caption{Absorptionsspektren einiger Atmosphärenbestandteile\cite{atmosphaere}}
 			\label{img:absorptionsspektrum}
 		\end{figure}
-		\newpage
+		\clearpage
 		\subsection{CCS811}
 			Der CCS811 \cite{ccs_datasheet}ist ein Sensor von ams, der den äquivalenten CO2 (eCO2) Gehalt und den Gehalt der totalen flüchtigen organischen Verbindungen (TVOC) in der Luft messen kann. Dabei kann eCO2 von 400ppm bis 8192ppm, TVOC von 0ppb bis 1187ppb gemessen werden und ein Messintervall von 250ms, 1s, 10s, 60s festgelegt werden. Die Pin-Beschreibungen kann man in Abbildung \ref{img:ccs_pintable} sehen. Wichtig sind hiervon die Pins:
 			\begin{itemize}
@@ -275,11 +275,20 @@
 			\subsubsection{Probleme beim Zusammenfügen der Sensoren und des Netzwerkes}
 			Als der Code für die Sensoren zusammen gefügt wurde, hat der SCD41 und der CSS811 plausible Werte ausgegeben. Der SHT21 hingegen hat zu hohe Werte geliefert. Wenn man eine Batterie an das Endgerät angeschlossen hat, wurden falsche Messdaten empfangenen. Bemerkenswert war, dass nur der SCD41 falsche Werte liefert. Später bei dem Messen der Spannung hat sich herausgestellt, dass die minimale benötigte Spannung von 2,4 Volt unterschritten worden ist. Deshalb konnte der Sensor nicht korrekt ausgelesen werden. Darum wurden die aktuellen Werte nicht mehr aktualisiert und immer die gleichen Wert versendet. Wenn das Gerät neu gestartet worden ist, konnte der Sensor nicht initialisiert werden und es wurde immer -45.00 $^\circ$C und Nullen bei der Luftfeuchte und CO2 gesendet.
 			
-			
-			\subsection{Messdaten Auswertung}
-			Diese Messdaten wurden im Innen- und Außenbereich getestet und mit einem anderen Temperatur, Luftfeuchtigkeits und CO2 Sensor von der Firma NETATMO verglichen und ähnliche Werte wurden festgestellt Bilder....................................
-			Hier wurden sich vier Zeitpunkte ausgesucht und die Messwerte beider Geräte verglichen
-			
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.80]{images/init_zustände}
+				\caption{Übersicht über die Initialisierungszustände}
+				\label{img:init_zustände}
+			\end{figure}
+			\clearpage
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.80]{images/betriebs_zustände}
+				\caption{Übersicht über die Betriebszustände}
+				\label{img:betriebs_zustände}
+			\end{figure}
+			\clearpage
 			
 					
 			\subsection{Serverimplementierung}
@@ -317,7 +326,7 @@
 			\subsubsection{Aufgetretene Probleme}
 			Zunächst war festgelegt, dass die JavaScript-Library D3.js verwendet wird um die graphische Darstellung der Sensordaten zu realisieren. Diese enthält Funktionen um verschiedenste Diagramme zu erstellen. Die Funktionen manipulieren HTML-Elemente, dadurch können z.B. einerseits deren Größe und Breite eingestellt oder andererseits können komplett neue HTML-Elemente hinzugefügt werden. Das Erstellen von vier verschiedenen Liniendiagrammen und einer Ampel war zunächst schnell abgeschlossen. Nach dieser Erstellung wurde ein Socket implementiert um zu überprüfen, ob die Sensordaten im Dashboard ankommen, was im Anschluss auch der Fall war. Allerdings ist hier ein Problem hervorgekommen.\newline
 			Die Sensorwerte sollten als Y-Koordinate und die dazugehörige Zeit als X-Koordinate angezeigt werden. Zwar gibt es in D3.js eine eigens dafür integrierte scaleTime-Funktion um eine Zeitachse zu erstellen, aber durch die Zeiteinheit konnte nun kein Graph angezeigt werden. Dies hatte den Grund, dass zu diesem Zeitpunkt kein Zeitwert von der Datenbank übertragen wurde. Für dieses Problem konnte keine direkte Lösung hinsichtlich der Implementierung gefunden werden, daher wurde kurzfristig entschieden auf die Chart.js-Library umzusteigen. Diese bietet beispielsweise fertige Diagramme an, in welchen man lediglich personalisierte Werte hinzufügen kann.\newline 
-			Während der Implementierung ist hervergekommen, dass wenn der Anwender zu schnell zwischen dem Zeichentool- und Dashboardfenster hin und her wechselt, kann es passieren das keinerlei Graphen bzw. Daten im Dashboard angezeigt werden, da diese nicht fertig geladen wurden. Dies kann allerdings mit einem erneutem Neuladen der Dashboardseite wieder behoben werden. %Vllt noch ein bisschen zur Implementierung
+			Während der Implementierung ist hervergekommen, dass wenn der Anwender zu schnell zwischen dem Zeichentool- und Dashboardfenster hin und her wechselt, kann es passieren das keinerlei Graphen bzw. Daten im Dashboard angezeigt werden, da diese nicht fertig geladen wurden. Dies kann allerdings mit einem erneutem Neuladen der Dashboardseite wieder behoben werden. Ein ähnliches Problem gibt es bei den Zeit-Buttons unter den Diagrammen. Wenn zu schnell zwischen den Zeiträumen gewechselt wird, kann es passieren, dass die Graphen nicht geladen werden.
 			\subsection{COM-Port \& Mockdaten}
 			
 			\subsubsection{Mockdaten}
@@ -357,7 +366,58 @@ Dieses Problem ließ sich durch den Einbau eines bestimmten Event-listeners (Abb
 			Es konnte keine EXE.-Datei erstellt werden, da die Nodeversion vom Serialport.js, was verwendet wurde um die Kommunikation mit den COM-Port Schnittstellen herzustellen, und die serverseitige Nodeversion verschieden und daher nicht kompatibel waren. Auch Electron war von der Versionsinkompatibilität betroffen. 
 			
 	\section{Auswertung des Testlaufs}
-			
+			Diese Messdaten wurden im Innen- und Außenbereich getestet. Die Temperatur, Luftfeuchtigkeit und CO2 Messwerte wurden mit einem Sensor der Firma NETATMO verglichen. In den folgenden Abbildungen werden drei Zeitpunkte markiert(%TODO).
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.18]{images/temp_proj}
+				\caption{Funktion “getPortName()”}
+				\label{img:temp_proj}
+			\end{figure}
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.18]{images/temp_NETATMO}
+				\caption{Funktion “getPortName()”}
+				\label{img:temp_NETATMO}
+			\end{figure}
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.18]{images/Luftfeu_proj}
+				\caption{Funktion “getPortName()”}
+				\label{img:luftfeu_proj}
+			\end{figure}
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.18]{images/Luftfeu_NETATMO}
+				\caption{Funktion “getPortName()”}
+				\label{img:Luftfeu_NETATMO}
+			\end{figure}
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.18]{images/CO2_proj}
+				\caption{Funktion “getPortName()”}
+				\label{img:CO2_proj}
+			\end{figure}
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[scale=0.18]{images/CO2_NETATMO}
+				\caption{Funktion “getPortName()”}
+				\label{img:CO2_NETATMO}
+			\end{figure}
+			%\begin{figure}[!h]
+			%	\includegraphics[scale=0.18]{images/TVOC_proj}
+			%	\caption{Funktion “getPortName()”}
+			%	\label{img:TVOC_proj}
+			%\end{figure}
+			%\begin{figure}[!h]
+		%		\centering
+		%		\includegraphics[scale=0.18]{images/TVOC_NETATMO}
+		%		\caption{Funktion “getPortName()”}
+		%		\label{img:TVOC_NETATMO}
+		%	\end{figure}
+		
+		
+			Die Verläufe der Graphen sind sehr ähnlich. Da der Netatmo von einem Gehäuse umschlossen ist werden vermutlich Messwertsprünge (z.b. beim Öffnen eines Fensters) verzögert gemessen und fallen deshalb nicht so stark aus wie bei den Sensoren am Endgerät.
+			\clearpage
 	\section{Ausblick und Erweiterungsmöglichkeiten}
 		\subsection{Optimierung für Batterien}
 		\subsection{Genauere Bestimmung der Werte des CCS811}
