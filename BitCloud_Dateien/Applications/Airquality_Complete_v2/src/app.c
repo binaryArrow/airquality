@@ -5,16 +5,10 @@
 
   \author Markus Krau�e, Achim Glaesmann, Lucas Merkert, Friedrich
   ******************************************************************************/
-  /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-  /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
   // Netzwerkcode von Friedrich
-  /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-  /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-  /*(((((((((((((((((((((((((((((((((((((((((((((*/
-  /*(((((((((((((((((((((((((((((((((((((((((((((*/
   // CCS811 Code von Lucas
-  /*)))))))))))))))))))))))))))))))))))))))))))))*/
-  /*)))))))))))))))))))))))))))))))))))))))))))))*/
+  // Sht21 SCD41 von Achim
+
 
 #include <appTimer.h>
 #include <zdo.h>
@@ -28,16 +22,15 @@
 uint8_t appstate = APP_STARTUP_STATE;
 uint8_t next_appstate = APP_NOTHING_STATE;
 
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 BEGIN_PACK
 typedef struct _AppMessage_t{
 	uint8_t header[APS_ASDU_OFFSET]; //APS header
-	uint8_t data[55]; // muss noch angepasst werden
+	uint8_t data[44]; // muss noch angepasst werden
 	uint8_t footer[APS_AFFIX_LENGTH - APS_ASDU_OFFSET]; // Footer
 } PACK AppMessage_t;
 END_PACK
 
+//Netzwerkaufbau
 static uint8_t deviceType;
 static void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo);
 static ZDO_StartNetworkReq_t networkParams;
@@ -57,34 +50,29 @@ static HAL_AppTimer_t transmitTimerLed;
 static void receiveTimerLedFired(void);
 static void transmitTimerLedFired(void);
 static void fill_transmit_data(void);
-/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 
+//Timer
 static HAL_AppTimer_t periodicMeasurementTimer;
 static HAL_AppTimer_t delayTimer;
 static void delaytimer(uint16_t, uint8_t);
-
 static void initTimer();
-
 static void periodicMeasurementTimerComplete();
 static void delayTimerComplete();
-/*(((((((((((((((((((((((((((((((((((((((((((((*/ //Lucas und Friedrich darauf ansprechen, dass sie die Funktionen hier schon deklarieren sollen.
-/*(((((((((((((((((((((((((((((((((((((((((((((*/
-	static void calculateCCS();
-	static void changeCCSAppstate();
-	static void readCCSHWIDReg();
-	static void readccsResultReg();
-	static void readccsStatusReg();
-	static void resetCCS();
-	static void writeCCSHWIDReg();
-	static void writeccsResultReg();
-	static void writeccsStatusReg();
-	static void writeMeasModeCCS();
+
+´//CCS811
+static void calculateCCS();
+static void changeCCSAppstate();
+static void readCCSHWIDReg();
+static void readccsResultReg();
+static void readccsStatusReg();
+static void resetCCS();
+static void writeCCSHWIDReg();
+static void writeccsResultReg();
+static void writeccsStatusReg();
+static void writeMeasModeCCS();
 	
-	
-/*)))))))))))))))))))))))))))))))))))))))))))))*/
-/*)))))))))))))))))))))))))))))))))))))))))))))*/
+
 //Calculate
 static void calculateOutputSCD();
 static void calculateOutputSHT();
@@ -139,31 +127,29 @@ static HAL_I2cDescriptor_t i2cdescriptorrdSHT;
 
 uint8_t scdcmd[2];
 uint8_t scddata[9];
+
+uint8_t sht21cmd;
+uint8_t sht21data[2];
+
+//Messdaten
 uint16_t scd_rd_co2;
-//uint16_t scd_rd_temp;		
-//uint16_t scd_rd_rh;
-//neu
 int32_t scd_rd_temp;		 
 uint32_t scd_rd_rh;			
 int32_t scd_temp;
 uint32_t scd_rh;
 
-
-
-uint8_t sht21cmd;
-uint8_t sht21data[2];
 uint16_t sht21_rd_tmp;
 uint16_t sht21_rd_rh;
 
-
+//Spannung
 uint16_t voltage;
 #define NUM_MESS_ADC 20
 static uint16_t vcc_read(void);
 
-//OUTPUT
-//uint8_t msg[] = "1SHT;XXXXX;XXXX;SCD;XXXXX;XXXX;XXXX;CCS;XXXX;XXXX";
+//Data packet
 uint8_t msg[] = "1;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX;XXXX;";
 
+//Messwerte Ausgabe Strings
 uint8_t t_output_SHT21[] = "+xxx.xx degree Celsius SHT \r\n";
 uint8_t t_output_SHT21_sensorbytes[] = "0xXXXX sensor SHT Temp \r\n";
 uint8_t rh_output_SHT21[] = "+xx.xx percent relative Humidity SHT \r\n";
@@ -184,48 +170,39 @@ Zustandsautomat
 void APL_TaskHandler(void){
 	switch(appstate){
 		case APP_STARTUP_STATE:
-		appstate=APP_NOTHING_STATE;
-		appInitUsartManager();
-		initTimer();
-		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-		BSP_OpenLeds();
-		appstate = APP_STARTJOIN_NETWORK;	
-		SYS_PostTask(APL_TASK_ID);
+			appInitUsartManager();
+			initTimer();
+			BSP_OpenLeds();
+			appstate = APP_STARTJOIN_NETWORK;	
+			SYS_PostTask(APL_TASK_ID);
 		break;
 		
 		case APP_STARTJOIN_NETWORK:
-		BSP_OnLed(LED_GREEN);
-		networkParams.ZDO_StartNetworkConf = ZDO_StartNetworkConf;
-		ZDO_StartNetworkReq(&networkParams);
-		appstate=APP_INIT_ENDPOINT;
-		//appWriteDataToUsart((uint8_t*)"StartJoin Network\r\n", sizeof("StartJoin Network\r\n")-1);
-		SYS_PostTask(APL_TASK_ID);
+			networkParams.ZDO_StartNetworkConf = ZDO_StartNetworkConf;
+			ZDO_StartNetworkReq(&networkParams);
+			appstate=APP_INIT_ENDPOINT;
+			SYS_PostTask(APL_TASK_ID);
 		break;
 		
 		case APP_INIT_ENDPOINT:
-		initEndpoint();
-		appstate=APP_INIT_TRANSMITDATA;
-		//appWriteDataToUsart((uint8_t*)"INIT ENDPOINT\r\n", sizeof("INIT ENDPOINT\r\n")-1);
-		SYS_PostTask(APL_TASK_ID);
+			initEndpoint();
+			appstate=APP_INIT_TRANSMITDATA;
+			SYS_PostTask(APL_TASK_ID);
 		break;
 		
 		case APP_INIT_TRANSMITDATA:
-		initTransmitData();
-		appstate=APP_NOTHING_STATE;
-		delaytimer(SCD_STARTUP_TIME, APP_RESET_CCS_SW_STATE);
+			initTransmitData();
+			appstate=APP_NOTHING_STATE;
+			delaytimer(SCD_STARTUP_TIME, APP_RESET_CCS_SW_STATE);
 		break;
 		
 		case APP_TRANSMIT:
-		
-		fill_transmit_data();
-		appWriteDataToUsart((uint8_t*)msg, sizeof(msg)-1);
-		//appWriteDataToUsart((uint8_t*)"\n\r", sizeof("\n\r"));
+			fill_transmit_data();
+			APS_DataReq(&dataReq);
+			appWriteDataToUsart((uint8_t*)msg, sizeof(msg)-1);
+			appWriteDataToUsart((uint8_t*)"\r\n", sizeof("\r\n")-1);
 		break;
-		/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-		/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-		  /*(((((((((((((((((((((((((((((((((((((((((((((*/
-		  /*(((((((((((((((((((((((((((((((((((((((((((((*/
+		
 		case APP_RESET_CCS_SW_STATE:
 			appstate=APP_NOTHING_STATE;
 			resetCCS();
@@ -279,8 +256,6 @@ void APL_TaskHandler(void){
 			readccsResultReg();
 			delaytimer(CCS_MIN_DELAY, APP_READ_VCC);
 		break;
-		  /*)))))))))))))))))))))))))))))))))))))))))))))*/
-		  /*)))))))))))))))))))))))))))))))))))))))))))))*/
 		  
 		case APP_RESET_SCD_STATE:
 			appstate = APP_NOTHING_STATE;
@@ -295,39 +270,39 @@ void APL_TaskHandler(void){
 		break;
 		
 		case APP_CALL_FOR_READ_SCD_STATE:
-		appstate=APP_NOTHING_STATE;
-		callReadSCD();
-		delaytimer(SCD_READ_DELAY_TIME, APP_READ_SCD_STATE);
+			appstate=APP_NOTHING_STATE;
+			callReadSCD();
+			delaytimer(SCD_READ_DELAY_TIME, APP_READ_SCD_STATE);
 		break;
 		
 		case APP_READ_SCD_STATE:
-		appstate = APP_NOTHING_STATE;
-		readSCD();
-		delaytimer(SCD_READ_DELAY_TIME, APP_CALL_FOR_READ_TEMP_SHT_STATE);
+			appstate = APP_NOTHING_STATE;
+			readSCD();
+			delaytimer(SCD_READ_DELAY_TIME, APP_CALL_FOR_READ_TEMP_SHT_STATE);
 		break;
 		
 		case APP_CALL_FOR_READ_TEMP_SHT_STATE:
-		appstate=APP_NOTHING_STATE;
-		callReadSHT(MES_TEMP);
-		delaytimer(SCD_READ_DELAY_TIME, APP_READ_TEMP_SHT_STATE);
+			appstate=APP_NOTHING_STATE;
+			callReadSHT(MES_TEMP);
+			delaytimer(SCD_READ_DELAY_TIME, APP_READ_TEMP_SHT_STATE);
 		break;
 		
 		case APP_READ_TEMP_SHT_STATE:
-		appstate=APP_NOTHING_STATE;
-		readSHT(MES_TEMP);
-		delaytimer(SCD_READ_DELAY_TIME, APP_CALL_FOR_READ_RH_SHT_STATE);
+			appstate=APP_NOTHING_STATE;
+			readSHT(MES_TEMP);
+			delaytimer(SCD_READ_DELAY_TIME, APP_CALL_FOR_READ_RH_SHT_STATE);
 		break;
 		
 		case APP_CALL_FOR_READ_RH_SHT_STATE:
-		appstate=APP_NOTHING_STATE;
-		callReadSHT(MES_RH);
-		delaytimer(SCD_READ_DELAY_TIME, APP_READ_RH_SHT_STATE);
+			appstate=APP_NOTHING_STATE;
+			callReadSHT(MES_RH);
+			delaytimer(SCD_READ_DELAY_TIME, APP_READ_RH_SHT_STATE);
 		break;
 		
 		case APP_READ_RH_SHT_STATE:
-		appstate=APP_NOTHING_STATE;
-		readSHT(MES_RH);
-		delaytimer(SCD_READ_DELAY_TIME, APP_CCS_WRITE_RESULT_REG_STATE);
+			appstate=APP_NOTHING_STATE;
+			readSHT(MES_RH);
+			delaytimer(SCD_READ_DELAY_TIME, APP_CCS_WRITE_RESULT_REG_STATE);
 		break;
 		
 		
@@ -338,26 +313,28 @@ void APL_TaskHandler(void){
 		
 		
 		case APP_AUSGABE_STATE:
-		appstate=APP_NOTHING_STATE;
-		calculateOutputSCD();
-		calculateOutputSHT();
-		calculateCCS();
-		appWriteDataToUsart((uint8_t*)msg, sizeof(msg));
-		appWriteDataToUsart((uint8_t*)"\n\r", sizeof("\n\r"));
-		/*
-		appWriteDataToUsart((uint8_t*)co2_output_CCS, sizeof(co2_output_CCS));
-		appWriteDataToUsart((uint8_t*)tvoc_output_CCS, sizeof(tvoc_output_CCS));
+			appstate=APP_NOTHING_STATE;
+			calculateOutputSCD();
+			calculateOutputSHT();
+			calculateCCS();
+			appWriteDataToUsart((uint8_t*)msg, sizeof(msg));
+			appWriteDataToUsart((uint8_t*)"\n\r", sizeof("\n\r"));
+			
+			//Ausgabe aller Sensor Werte auf dem Endgerät
+			/*
+			appWriteDataToUsart((uint8_t*)co2_output_CCS, sizeof(co2_output_CCS));
+			appWriteDataToUsart((uint8_t*)tvoc_output_CCS, sizeof(tvoc_output_CCS));
 		
-		appWriteDataToUsart((uint8_t*)co2_output_SCD, sizeof(co2_output_SCD));
-		appWriteDataToUsart((uint8_t*)t_output_SCD, sizeof(t_output_SCD));
-		appWriteDataToUsart((uint8_t*)rh_output_SCD, sizeof(rh_output_SCD));
+			appWriteDataToUsart((uint8_t*)co2_output_SCD, sizeof(co2_output_SCD));
+			appWriteDataToUsart((uint8_t*)t_output_SCD, sizeof(t_output_SCD));
+			appWriteDataToUsart((uint8_t*)rh_output_SCD, sizeof(rh_output_SCD));
 		
-		appWriteDataToUsart((uint8_t*)t_output_SHT21, sizeof(t_output_SHT21));
-		appWriteDataToUsart((uint8_t*)rh_output_SHT21, sizeof(rh_output_SHT21));
-		//appWriteDataToUsart((uint8_t*)t_output_SHT21_sensorbytes, sizeof(t_output_SHT21_sensorbytes));
-		//appWriteDataToUsart((uint8_t*)rh_output_SHT21_sensorbytes, sizeof(rh_output_SHT21_sensorbytes));
-		*/
-		delaytimer(CCS_MIN_DELAY, APP_TRANSMIT);
+			appWriteDataToUsart((uint8_t*)t_output_SHT21, sizeof(t_output_SHT21));
+			appWriteDataToUsart((uint8_t*)rh_output_SHT21, sizeof(rh_output_SHT21));
+			//appWriteDataToUsart((uint8_t*)t_output_SHT21_sensorbytes, sizeof(t_output_SHT21_sensorbytes));
+			//appWriteDataToUsart((uint8_t*)rh_output_SHT21_sensorbytes, sizeof(rh_output_SHT21_sensorbytes));
+			*/
+			delaytimer(CCS_MIN_DELAY, APP_TRANSMIT);
 		break;
 		
 		case APP_NOTHING_STATE:
@@ -378,8 +355,7 @@ static void initTimer(){
 	delayTimer.interval = SCD_READ_DELAY_TIME;
 	delayTimer.mode		= TIMER_ONE_SHOT_MODE;
 	delayTimer.callback = delayTimerComplete;
- /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
- /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
 	transmitTimerLed.interval= 500;
 	transmitTimerLed.mode= TIMER_ONE_SHOT_MODE;
 	transmitTimerLed.callback=transmitTimerLedFired;
@@ -387,8 +363,6 @@ static void initTimer(){
 	receiveTimerLed.interval= 500;
 	receiveTimerLed.mode= TIMER_ONE_SHOT_MODE;
 	receiveTimerLed.callback=receiveTimerLedFired;
-  /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-  /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 }
 
 static void delaytimer(uint16_t time, uint8_t _next_appstate){
@@ -398,7 +372,6 @@ static void delaytimer(uint16_t time, uint8_t _next_appstate){
 }
 
 static void periodicMeasurementTimerComplete(){
-	//appWriteDataToUsart((uint8_t*)"mesTImer fired\r\n", sizeof("mesTimer fired\r\n")-1);
 	appstate = APP_CALL_FOR_READ_SCD_STATE;
 	SYS_PostTask(APL_TASK_ID);
 }
@@ -407,16 +380,14 @@ static void delayTimerComplete(){
 	appstate = next_appstate;
 	SYS_PostTask(APL_TASK_ID);
 }
- /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
- /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
 static void transmitTimerLedFired(void){
 	BSP_OffLed(LED_YELLOW);
 }
 static void receiveTimerLedFired(void){
 	BSP_OffLed(LED_RED);
 }
-  /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-  /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
 
 /***********************************************
 I2C-DESCRIPTOR
@@ -530,15 +501,15 @@ static void callbackCCSOneByte(bool result){
 	}
 	HAL_CloseI2cPacket(&i2cdescriptorCCSOneByte);
 	if(checkHWID && (ccsOneByte != CCS_HWID)){
-		//appWriteDataToUsart((uint8_t*)"HWID not 0x81\r\n", sizeof("HWID not 0x81\r\n")-1);
+		appWriteDataToUsart((uint8_t*)"HWID not 0x81\r\n", sizeof("HWID not 0x81\r\n")-1);
 		checkHWID = false;
 	}
 	
 	if(checkStatus && ((ccsOneByte & 0x04) != CCS_DATA_RDY)){
-		//appWriteDataToUsart((uint8_t*)"Status not rdy\r\n", sizeof("Status not rdy\r\n")-1);
+		appWriteDataToUsart((uint8_t*)"Status not rdy\r\n", sizeof("Status not rdy\r\n")-1);
 		checkStatus = false	;
 		} else {
-		//appWriteDataToUsart((uint8_t*)"Status rdy\r\n", sizeof("Status rdy\r\n")-1);
+		appWriteDataToUsart((uint8_t*)"Status rdy\r\n", sizeof("Status rdy\r\n")-1);
 		checkStatus = false;
 	}
 }
@@ -556,10 +527,10 @@ static void callbackCCS4Byte(bool result){
 	HAL_CloseI2cPacket(&i2cdescriptorCCS4Byte);
 }
 
+
 /************
 SCD-CALLBACK
 ************/
-
 static void callbackcmdSCD(bool result){
 	if(!result){
 		appWriteDataToUsart((uint8_t*)"SCD callbackcmd called with 0\r\n", sizeof("SCD callbackcmd called with 1\r\n")-1);
@@ -573,6 +544,7 @@ static void callbackrdSCD(bool result){
 	}
 	HAL_CloseI2cPacket(&i2cdescriptorrdSCD);
 }
+
 
 /************
 SHT-CALLBACK
@@ -590,6 +562,7 @@ static void callbackrdSHT(bool result){
 	}
 	HAL_CloseI2cPacket(&i2cdescriptorrdSHT);
 }
+
 
 /***********************************************
 I2C-Methods
@@ -724,7 +697,6 @@ void initializeSCD(){ //YELLOW = CLOCK (SCL) GREEN = DATA (SCD)
 	scdcmd[0] = ((cmd & 0xFF00) >> 8);
 	scdcmd[1] = cmd & 0x00FF;
 	
-	
 	if (-1 == HAL_OpenI2cPacket(&i2cdescriptorcmdSCD)){
 		appWriteDataToUsart((uint8_t*)"open fail scd init\r\n", sizeof("open fail scd init\r\n")-1);
 	}
@@ -762,7 +734,7 @@ SHT-I2C
 void callReadSHT(uint8_t mode){
 	if (mode == MES_TEMP){
 		sht21cmd = SHT21_MES_T_CMD;
-		}else if(mode == MES_RH){
+	}else if(mode == MES_RH){
 		sht21cmd = SHT21_MES_RH_CMD;
 	}
 	
@@ -870,7 +842,7 @@ static void calculateOutputSHT(){
 	SHT_rh_vorkomma = relativeHumidity/10000000000000000;
 	SHT_rh_nachkomma = relativeHumidity%10000000000000000;
 	
-	int32_t temp = (-5085. + ((17572. / 65536.) * sht21_rd_tmp));
+	int32_t temp = (-46.85. + ((17572. / 65536.) * sht21_rd_tmp));
 	
 	SHT_tmp_vorkomma = temp/100;
 	SHT_tmp_nachkomma = temp%100;
@@ -949,20 +921,14 @@ void APS_DataInd(APS_DataInd_t *indData){
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	if (ZDO_SUCCESS_STATUS == confirmInfo->status){
 		CS_ReadParameter(CS_DEVICE_TYPE_ID,&deviceType);
-		if(deviceType==DEV_TYPE_COORDINATOR){
-			//appWriteDataToUsart((uint8_t*)"Coordinator\r\n", sizeof("Coordinator\r\n")-1);
-		}
-		BSP_OnLed(LED_YELLOW);
-		
-		}else{
+		BSP_OnLed(LED_GREEN);
+	}else{
 		appWriteDataToUsart((uint8_t*)"Error\r\n",sizeof("Error\r\n")-1);
 	}
 	SYS_PostTask(APL_TASK_ID);
 }
 
 void fill_transmit_data(void){
-	//uint8_t msg[] = ";1;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX;XXXX";
-	//					  3     9   14     20   25   30   35
 	uint32_to_str(msg, sizeof(msg),SHT_tmp_vorkomma, 3, 2);
 	uint32_to_str(msg, sizeof(msg),SHT_tmp_nachkomma, 5, 2);
 	uint32_to_str(msg, sizeof(msg),SHT_rh_vorkomma, 8, 2);
@@ -981,14 +947,12 @@ void fill_transmit_data(void){
 	uint32_to_str(msg, sizeof(msg),CCS_co2, 29, 4);
 	uint32_to_str(msg, sizeof(msg),CCS_tvoc, 34, 4);
 	
-	//voltage
 	uint32_to_str(msg, sizeof(msg),voltage, 39, 4);
 	
 	int16_t size = sizeof(msg)-1;
 	for(int16_t i = 0; i <= size; i++ ){
 		transmitData.data[i] = msg[i];
 	}
-	APS_DataReq(&dataReq);
 }
 
 /*******************************************************************************
