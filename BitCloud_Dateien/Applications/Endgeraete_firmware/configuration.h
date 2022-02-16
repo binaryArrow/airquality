@@ -168,7 +168,7 @@
 // available on all platforms. If the latter case then UID value must be provided
 // by user via this parameter. This parameter must be unique for each device in a
 // network. This should not be 0 for Coordinator.
-#define CS_UID 0x0700000A03LL    // Endger�t
+#define CS_UID 0x0700000A05LL    // Endger�t
 #define CS_EXT_PANID 0x1AAAAAAAAAAACA07LL
 
 // Determines whether the static or automatic addressing mode will be used for the

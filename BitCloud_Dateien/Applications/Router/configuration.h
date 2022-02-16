@@ -169,7 +169,7 @@
 // by user via this parameter. This parameter must be unique for each device in a
 // network. This should not be 0 for Coordinator.
 
-#define CS_UID 0x0700000A02LL	// Router
+#define CS_UID 0x0700000A10LL	// Router
 
 
 #define CS_EXT_PANID 0x1AAAAAAAAAAACA07LL

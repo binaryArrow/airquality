@@ -147,7 +147,7 @@ uint16_t voltage;
 static uint16_t vcc_read(void);
 
 //Data packet
-uint8_t msg[] = "1;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX;XXXX;";
+uint8_t msg[] = "2;XXXXX;XXXX;XXXXX;XXXX;XXXX;XXXX;XXXX;XXXX;";
 
 //Messwerte Ausgabe Strings
 uint8_t t_output_SHT21[] = "+xxx.xx degree Celsius SHT \r\n";

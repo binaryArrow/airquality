@@ -108,11 +108,7 @@ static void receiveTimerLedFired(void){
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	if (ZDO_SUCCESS_STATUS == confirmInfo->status){
 		CS_ReadParameter(CS_DEVICE_TYPE_ID,&deviceType);
-		if(deviceType==DEV_TYPE_COORDINATOR){
-			appWriteDataToUsart((uint8_t*)"Coordinator\r\n", sizeof("Coordinator\r\n")-1);
-		}
 		BSP_OnLed(LED_YELLOW);
-		
 		}else{
 		appWriteDataToUsart((uint8_t*)"Error\r\n",sizeof("Error\r\n")-1);
 	}
