@@ -30,8 +30,6 @@ HAL_AppTimer_t receiveTimerLed;
 HAL_AppTimer_t transmitTimerLed;
 HAL_AppTimer_t transmitTimer;
 static void receiveTimerLedFired(void);
-static void transmitTimerLedFired(void);
-static void transmitTimerFired(void);
 static void initTimer(void);
 
 BEGIN_PACK
@@ -42,10 +40,8 @@ typedef struct _AppMessage_t{
 } PACK AppMessage_t;
 END_PACK
 
-static AppMessage_t transmitData;
+
 APS_DataReq_t dataReq;
-static void APS_DataConf(APS_DataConf_t *confInfo);
-static void initTransmitData(void);
 
 void APL_TaskHandler(void){
 	switch(appstate){
@@ -65,25 +61,8 @@ void APL_TaskHandler(void){
 		
 		case APP_INIT_ENDPOINT:
 			initEndpoint();
-			#if CS_DEVICE_TYPE == DEV_TYPE_COORDINATOR
-				appstate=APP_NOTHING;
-		
-			#else
-			appstate=APP_INIT_TRANSMITDATA;
-			#endif
-			SYS_PostTask(APL_TASK_ID);
-		break;
-		
-		case APP_INIT_TRANSMITDATA:
-			initTransmitData();
 			appstate=APP_NOTHING;
-			HAL_StartAppTimer(&transmitTimer);
 			SYS_PostTask(APL_TASK_ID);
-		break;
-		
-		case APP_TRANSMIT:
-			
-			APS_DataReq(&dataReq);
 		break;
 		
 		case APP_NOTHING:
@@ -91,25 +70,6 @@ void APL_TaskHandler(void){
 	}
 }
 
-static void initTransmitData(void){
-	dataReq.profileId=1;
-	dataReq.dstAddrMode =APS_SHORT_ADDRESS;
-	dataReq.dstAddress.shortAddress= CPU_TO_LE16(0);
-	dataReq.dstEndpoint =1;
-	dataReq.asdu=transmitData.data;
-	dataReq.asduLength=sizeof(transmitData.data);
-	dataReq.srcEndpoint = 1;
-	dataReq.APS_DataConf=APS_DataConf;
-}
-
-static void APS_DataConf(APS_DataConf_t *confInfo){
-	if (confInfo->status == APS_SUCCESS_STATUS){
-		BSP_OnLed(LED_YELLOW);
-		HAL_StartAppTimer(&transmitTimerLed);
-		appstate=APP_NOTHING;
-		SYS_PostTask(APL_TASK_ID);
-	}
-}
 
 void APS_DataInd(APS_DataInd_t *indData){
 	BSP_OnLed(LED_RED);
@@ -129,39 +89,20 @@ static void initEndpoint(void){
 }
 
 static void initTimer(void){
-	transmitTimerLed.interval= 500;
-	transmitTimerLed.mode= TIMER_ONE_SHOT_MODE;
-	transmitTimerLed.callback=transmitTimerLedFired;
-	
 	receiveTimerLed.interval= 500;
 	receiveTimerLed.mode= TIMER_ONE_SHOT_MODE;
 	receiveTimerLed.callback=receiveTimerLedFired;
-	
-	transmitTimer.interval= 3000;
-	transmitTimer.mode= TIMER_REPEAT_MODE;
-	transmitTimer.callback=transmitTimerFired;
 }
 
-static void transmitTimerLedFired(void){
-	BSP_OffLed(LED_YELLOW);
-}
 static void receiveTimerLedFired(void){
 	BSP_OffLed(LED_RED);
-}
-static void transmitTimerFired(void){
-	appstate=APP_TRANSMIT;
-	SYS_PostTask(APL_TASK_ID);
 }
 
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	if (ZDO_SUCCESS_STATUS == confirmInfo->status){
 		CS_ReadParameter(CS_DEVICE_TYPE_ID,&deviceType);
-		if(deviceType==DEV_TYPE_COORDINATOR){
-			appWriteDataToUsart((uint8_t*)"Coordinator\r\n", sizeof("Coordinator\r\n")-1);
-		}
 		BSP_OnLed(LED_YELLOW);
-		
-		}else{
+	}else{
 		appWriteDataToUsart((uint8_t*)"Error\r\n",sizeof("Error\r\n")-1);
 	}
 	SYS_PostTask(APL_TASK_ID);
