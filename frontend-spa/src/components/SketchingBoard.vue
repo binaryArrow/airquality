@@ -291,9 +291,14 @@ export default defineComponent({
         Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
       }
     },
-    deleteSelectedRoom(index: number) {
+    deleteSelectedRoom(index: number, sensorId: number) {
       this.communicator.deleteRoom(this.rooms[index].id)
       this.rooms.splice(index, 1)
+      this.sensors.forEach(sensor=>{
+        if(sensor.sensorId === sensorId){
+          sensor.active = false
+        }
+      })
       Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, 0, 'green')
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     },

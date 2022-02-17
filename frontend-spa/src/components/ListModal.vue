@@ -113,7 +113,7 @@ export default defineComponent({
           break
         }
       }
-      this.$emit('deleteRoom', index)
+      this.$emit('deleteRoom', index, sensorId)
     },
     showInfo(sensorId: number) {
       this.$emit('showInfo', sensorId)

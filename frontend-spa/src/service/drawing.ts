@@ -19,6 +19,10 @@ export class Drawing {
         texts.forEach(text=>{
             canvas.remove(text)
         })
+        const groups = canvas.getObjects('group')
+        groups.forEach(group=>{
+            canvas.remove(group)
+        })
         sensors.forEach(sensor => {
             if (alertId != 0) {
                 if (sensor.active && sensor.sensorId == alertId) {
