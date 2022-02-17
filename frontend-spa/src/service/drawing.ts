@@ -20,7 +20,7 @@ export class Drawing {
             canvas.remove(text)
         })
         const groups = canvas.getObjects('group')
-        groups.forEach(group=>{
+        groups.forEach(group =>{
             canvas.remove(group)
         })
         sensors.forEach(sensor => {

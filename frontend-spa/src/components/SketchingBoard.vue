@@ -299,6 +299,7 @@ export default defineComponent({
           sensor.active = false
         }
       })
+      this.communicator.updateSensorsInBackend(this.sensors)
       Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, 0, 'green')
       Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
     },
