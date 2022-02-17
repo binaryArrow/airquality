@@ -1,34 +1,23 @@
 import {fabric} from "fabric";
 import Room from "@/../../backend/src/models/Room";
 import Sensor from "@/../../backend/src/models/Sensor";
-import {Circle, Group, Line} from "fabric/fabric-impl";
+import {Circle, Group, Line, Rect} from "fabric/fabric-impl";
 import CircleWithLine from "@/../../../backend/src/models/CircleWithLine"
 import RectWithId from "@/../../../backend/src/models/RectWithId"
 
 export class Drawing {
 
-    static redraw(canvas: fabric.Canvas,
-                  rooms: Room[],
-                  lengthsOfObjects: {
-                      lengthOfCirclesInRooms: number,
-                      lengthOfLinesInRooms: number
-                  },
-                  sensors: Sensor[],
-                  alertId: number,
-                  alertColor: string) {
-        canvas.clear()
-        lengthsOfObjects.lengthOfCirclesInRooms = 0
-        lengthsOfObjects.lengthOfLinesInRooms = 0
-        console.log(`in canvas: ${canvas.getObjects().length}`)
-        rooms.forEach(it => {
-            it.points.forEach(point => {
-                canvas.add(point)
-            })
-            it.lines.forEach(line => {
-                canvas.add(line)
-            })
-            lengthsOfObjects.lengthOfCirclesInRooms += it.points.length
-            lengthsOfObjects.lengthOfLinesInRooms += it.lines.length
+    static drawSensors(canvas: fabric.Canvas,
+                       sensors: Sensor[],
+                       alertId: number,
+                       alertColor: string) {
+        const rects = canvas.getObjects('rect')
+        rects.forEach(rect =>{
+            canvas.remove(rect)
+        })
+        const texts = canvas.getObjects('text')
+        texts.forEach(text=>{
+            canvas.remove(text)
         })
         sensors.forEach(sensor => {
             if (alertId != 0) {
@@ -83,8 +72,7 @@ export class Drawing {
                     canvas.add(rect)
                     canvas.add(group)
                 }
-            }
-            else if(sensor.active) {
+            } else if (sensor.active) {
                 const rectangleOptions = {
                     sensorId: sensor.sensorId,
                     width: sensor.width,
@@ -111,6 +99,32 @@ export class Drawing {
                 canvas.add(group)
             }
         })
+    }
+
+    static redraw(canvas: fabric.Canvas,
+                  rooms: Room[],
+                  lengthsOfObjects: {
+                      lengthOfCirclesInRooms: number,
+                      lengthOfLinesInRooms: number
+                  },
+                  sensors: Sensor[],
+                  alertId: number,
+                  alertColor: string) {
+        canvas.clear()
+        lengthsOfObjects.lengthOfCirclesInRooms = 0
+        lengthsOfObjects.lengthOfLinesInRooms = 0
+        console.log(`in canvas: ${canvas.getObjects().length}`)
+        rooms.forEach(it => {
+            it.points.forEach(point => {
+                canvas.add(point)
+            })
+            it.lines.forEach(line => {
+                canvas.add(line)
+            })
+            lengthsOfObjects.lengthOfCirclesInRooms += it.points.length
+            lengthsOfObjects.lengthOfLinesInRooms += it.lines.length
+        })
+        this.drawSensors(canvas, sensors, alertId, alertColor)
     }
 
     static drawGrid(width: number, height: number, grid: number, canvas: fabric.Canvas) {

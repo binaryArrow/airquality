@@ -149,16 +149,13 @@ export default defineComponent({
           }
       }
       if(parseFloat(tempSensorData.co2SCD41) < 1000){
-        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, 0, 'green')
-        Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
+        Drawing.drawSensors(this.canvas, this.sensors, 0, 'green')
       }
       else if(parseFloat(tempSensorData.co2SCD41) >= 1000 && parseFloat(tempSensorData.co2SCD41) < 2000){
-        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, tempSensorData.sensorId, 'yellow')
-        Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
+        Drawing.drawSensors(this.canvas, this.sensors, tempSensorData.sensorId, 'yellow')
       }
       else if(parseFloat(tempSensorData.co2SCD41) >= 2000){
-        Drawing.redraw(this.canvas, this.rooms, this.lengthsOfObjects, this.sensors, tempSensorData.sensorId, 'red')
-        Drawing.drawGrid(this.width, this.height, this.grid, this.canvas)
+        Drawing.drawSensors(this.canvas, this.sensors, tempSensorData.sensorId, 'red')
       }
       if(this.infoModalData.sensorId == tempSensorData.sensorId)
         this.infoModalData = tempSensorData
